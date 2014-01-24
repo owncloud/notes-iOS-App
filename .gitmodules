@@ -1,0 +1,6 @@
+[submodule "MSDynamicsDrawerViewController"]
+	path = MSDynamicsDrawerViewController
+	url = https://github.com/monospacecollective/MSDynamicsDrawerViewController.git
+[submodule "AFNetworking"]
+	path = AFNetworking
+	url = https://github.com/AFNetworking/AFNetworking.git

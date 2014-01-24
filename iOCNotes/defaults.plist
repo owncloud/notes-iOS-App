@@ -1,0 +1,10 @@
+{
+	SyncInBackground = NO;
+	SyncOnStart = NO;
+	NotesToDelete = ();
+	NotesToAdd = ();
+	NotesToUpdate = ();
+	"AllowInvalidSSLCertificate" = NO;
+	LastModified = 1373159596;
+	Server = "";
+}

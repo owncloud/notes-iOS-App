@@ -7,21 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
-		D0CFE5391888A7BD00165839 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5381888A7BD00165839 /* CoreGraphics.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
 		D0CFE5431888A7BD00165839 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5421888A7BD00165839 /* main.m */; };
 		D0CFE5471888A7BD00165839 /* OCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5461888A7BD00165839 /* OCAppDelegate.m */; };
 		D0CFE54A1888A7BD00165839 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */; };
 		D0CFE54D1888A7BD00165839 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */; };
-		D0CFE5501888A7BD00165839 /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE54F1888A7BD00165839 /* OCViewController.m */; };
+		D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */; };
 		D0CFE5521888A7BD00165839 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE5511888A7BD00165839 /* Images.xcassets */; };
 		D0CFE5591888A7BD00165839 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5581888A7BD00165839 /* XCTest.framework */; };
 		D0CFE55A1888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE55B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5631888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE5611888A7BD00165839 /* InfoPlist.strings */; };
 		D0CFE5651888A7BD00165839 /* iOCNotesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5641888A7BD00165839 /* iOCNotesTests.m */; };
+		D0CFE5741888ACDF00165839 /* MSDynamicsDrawerStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5701888ACDF00165839 /* MSDynamicsDrawerStyler.m */; };
+		D0CFE5751888ACDF00165839 /* MSDynamicsDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5731888ACDF00165839 /* MSDynamicsDrawerViewController.m */; };
+		D0CFE58A1888AD0200165839 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5781888AD0100165839 /* AFHTTPRequestOperation.m */; };
+		D0CFE58B1888AD0200165839 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE57A1888AD0100165839 /* AFHTTPRequestOperationManager.m */; };
+		D0CFE58C1888AD0200165839 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE57C1888AD0100165839 /* AFHTTPSessionManager.m */; };
+		D0CFE58D1888AD0200165839 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE57F1888AD0100165839 /* AFNetworkReachabilityManager.m */; };
+		D0CFE58E1888AD0200165839 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5811888AD0100165839 /* AFSecurityPolicy.m */; };
+		D0CFE58F1888AD0200165839 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5831888AD0100165839 /* AFURLConnectionOperation.m */; };
+		D0CFE5901888AD0200165839 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5851888AD0200165839 /* AFURLRequestSerialization.m */; };
+		D0CFE5911888AD0200165839 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5871888AD0200165839 /* AFURLResponseSerialization.m */; };
+		D0CFE5921888AD0200165839 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5891888AD0200165839 /* AFURLSessionManager.m */; };
+		D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */; };
+		D0CFE5981888CC0300165839 /* TransparentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5971888CC0300165839 /* TransparentToolbar.m */; };
+		D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE59A188B5A6900165839 /* OCAPIClient.m */; };
+		D0CFE59E188B5F4E00165839 /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE59C188B5F4E00165839 /* Notes.xcdatamodeld */; };
+		D0CFE5A1188C8BC500165839 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A0188C8BC500165839 /* Note.m */; };
+		D0CFE5A4188C948A00165839 /* OCDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A3188C948A00165839 /* OCDrawerViewController.m */; };
+		D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */; };
+		D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5AC1890659600165839 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D02256C61891FD7C0038232A /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = defaults.plist; sourceTree = "<group>"; };
 		D0CFE5331888A7BD00165839 /* iOCNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOCNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5361888A7BD00165839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0CFE5381888A7BD00165839 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -47,14 +67,52 @@
 		D0CFE5461888A7BD00165839 /* OCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCAppDelegate.m; sourceTree = "<group>"; };
 		D0CFE5491888A7BD00165839 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D0CFE54C1888A7BD00165839 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		D0CFE54E1888A7BD00165839 /* OCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCViewController.h; sourceTree = "<group>"; };
-		D0CFE54F1888A7BD00165839 /* OCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCViewController.m; sourceTree = "<group>"; };
+		D0CFE54E1888A7BD00165839 /* OCEditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCEditorViewController.h; sourceTree = "<group>"; };
+		D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCEditorViewController.m; sourceTree = "<group>"; };
 		D0CFE5511888A7BD00165839 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D0CFE5571888A7BD00165839 /* iOCNotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOCNotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5581888A7BD00165839 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D0CFE5601888A7BD00165839 /* iOCNotesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOCNotesTests-Info.plist"; sourceTree = "<group>"; };
 		D0CFE5621888A7BD00165839 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D0CFE5641888A7BD00165839 /* iOCNotesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOCNotesTests.m; sourceTree = "<group>"; };
+		D0CFE56F1888ACDF00165839 /* MSDynamicsDrawerStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDynamicsDrawerStyler.h; sourceTree = "<group>"; };
+		D0CFE5701888ACDF00165839 /* MSDynamicsDrawerStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSDynamicsDrawerStyler.m; sourceTree = "<group>"; };
+		D0CFE5711888ACDF00165839 /* MSDynamicsDrawerViewController-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MSDynamicsDrawerViewController-Prefix.pch"; sourceTree = "<group>"; };
+		D0CFE5721888ACDF00165839 /* MSDynamicsDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDynamicsDrawerViewController.h; sourceTree = "<group>"; };
+		D0CFE5731888ACDF00165839 /* MSDynamicsDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSDynamicsDrawerViewController.m; sourceTree = "<group>"; };
+		D0CFE5771888AD0100165839 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
+		D0CFE5781888AD0100165839 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		D0CFE5791888AD0100165839 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
+		D0CFE57A1888AD0100165839 /* AFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
+		D0CFE57B1888AD0100165839 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		D0CFE57C1888AD0100165839 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
+		D0CFE57D1888AD0100165839 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
+		D0CFE57E1888AD0100165839 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		D0CFE57F1888AD0100165839 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		D0CFE5801888AD0100165839 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
+		D0CFE5811888AD0100165839 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
+		D0CFE5821888AD0100165839 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
+		D0CFE5831888AD0100165839 /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
+		D0CFE5841888AD0100165839 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
+		D0CFE5851888AD0200165839 /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
+		D0CFE5861888AD0200165839 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
+		D0CFE5871888AD0200165839 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
+		D0CFE5881888AD0200165839 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
+		D0CFE5891888AD0200165839 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		D0CFE5931888AE2D00165839 /* OCNotesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNotesTableViewController.h; sourceTree = "<group>"; };
+		D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNotesTableViewController.m; sourceTree = "<group>"; };
+		D0CFE5961888CC0300165839 /* TransparentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentToolbar.h; sourceTree = "<group>"; };
+		D0CFE5971888CC0300165839 /* TransparentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentToolbar.m; sourceTree = "<group>"; };
+		D0CFE599188B5A6900165839 /* OCAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAPIClient.h; sourceTree = "<group>"; };
+		D0CFE59A188B5A6900165839 /* OCAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAPIClient.m; sourceTree = "<group>"; };
+		D0CFE59D188B5F4E00165839 /* Notes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Notes.xcdatamodel; sourceTree = "<group>"; };
+		D0CFE59F188C8BC500165839 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		D0CFE5A0188C8BC500165839 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		D0CFE5A2188C948A00165839 /* OCDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCDrawerViewController.h; sourceTree = "<group>"; };
+		D0CFE5A3188C948A00165839 /* OCDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCDrawerViewController.m; sourceTree = "<group>"; };
+		D0CFE5A5188E199700165839 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		D0CFE5AC1890659600165839 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0CFE5391888A7BD00165839 /* CoreGraphics.framework in Frameworks */,
+				D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */,
 				D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */,
 				D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */,
 			);
@@ -84,6 +142,8 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
+				D0CFE5761888AD0100165839 /* AFNetworking */,
+				D0CFE56E1888ACDF00165839 /* MSDynamicsDrawerViewController */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
 				D0CFE5351888A7BD00165839 /* Frameworks */,
@@ -103,6 +163,7 @@
 		D0CFE5351888A7BD00165839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D0CFE5AC1890659600165839 /* QuartzCore.framework */,
 				D0CFE5361888A7BD00165839 /* Foundation.framework */,
 				D0CFE5381888A7BD00165839 /* CoreGraphics.framework */,
 				D0CFE53A1888A7BD00165839 /* UIKit.framework */,
@@ -114,13 +175,24 @@
 		D0CFE53C1888A7BD00165839 /* iOCNotes */ = {
 			isa = PBXGroup;
 			children = (
+				D0CFE59C188B5F4E00165839 /* Notes.xcdatamodeld */,
+				D0CFE59F188C8BC500165839 /* Note.h */,
+				D0CFE5A0188C8BC500165839 /* Note.m */,
 				D0CFE5451888A7BD00165839 /* OCAppDelegate.h */,
 				D0CFE5461888A7BD00165839 /* OCAppDelegate.m */,
+				D0CFE599188B5A6900165839 /* OCAPIClient.h */,
+				D0CFE59A188B5A6900165839 /* OCAPIClient.m */,
 				D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */,
 				D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */,
-				D0CFE54E1888A7BD00165839 /* OCViewController.h */,
-				D0CFE54F1888A7BD00165839 /* OCViewController.m */,
+				D0CFE5A2188C948A00165839 /* OCDrawerViewController.h */,
+				D0CFE5A3188C948A00165839 /* OCDrawerViewController.m */,
+				D0CFE5931888AE2D00165839 /* OCNotesTableViewController.h */,
+				D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */,
+				D0CFE54E1888A7BD00165839 /* OCEditorViewController.h */,
+				D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */,
 				D0CFE5511888A7BD00165839 /* Images.xcassets */,
+				D0CFE5961888CC0300165839 /* TransparentToolbar.h */,
+				D0CFE5971888CC0300165839 /* TransparentToolbar.m */,
 				D0CFE53D1888A7BD00165839 /* Supporting Files */,
 			);
 			path = iOCNotes;
@@ -131,6 +203,7 @@
 			children = (
 				D0CFE53E1888A7BD00165839 /* iOCNotes-Info.plist */,
 				D0CFE53F1888A7BD00165839 /* InfoPlist.strings */,
+				D02256C61891FD7C0038232A /* defaults.plist */,
 				D0CFE5421888A7BD00165839 /* main.m */,
 				D0CFE5441888A7BD00165839 /* iOCNotes-Prefix.pch */,
 			);
@@ -153,6 +226,48 @@
 				D0CFE5611888A7BD00165839 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0CFE56E1888ACDF00165839 /* MSDynamicsDrawerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFE56F1888ACDF00165839 /* MSDynamicsDrawerStyler.h */,
+				D0CFE5701888ACDF00165839 /* MSDynamicsDrawerStyler.m */,
+				D0CFE5711888ACDF00165839 /* MSDynamicsDrawerViewController-Prefix.pch */,
+				D0CFE5721888ACDF00165839 /* MSDynamicsDrawerViewController.h */,
+				D0CFE5731888ACDF00165839 /* MSDynamicsDrawerViewController.m */,
+			);
+			name = MSDynamicsDrawerViewController;
+			path = MSDynamicsDrawerViewController/MSDynamicsDrawerViewController;
+			sourceTree = "<group>";
+		};
+		D0CFE5761888AD0100165839 /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFE5A5188E199700165839 /* AFNetworkActivityIndicatorManager.h */,
+				D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */,
+				D0CFE5771888AD0100165839 /* AFHTTPRequestOperation.h */,
+				D0CFE5781888AD0100165839 /* AFHTTPRequestOperation.m */,
+				D0CFE5791888AD0100165839 /* AFHTTPRequestOperationManager.h */,
+				D0CFE57A1888AD0100165839 /* AFHTTPRequestOperationManager.m */,
+				D0CFE57B1888AD0100165839 /* AFHTTPSessionManager.h */,
+				D0CFE57C1888AD0100165839 /* AFHTTPSessionManager.m */,
+				D0CFE57D1888AD0100165839 /* AFNetworking.h */,
+				D0CFE57E1888AD0100165839 /* AFNetworkReachabilityManager.h */,
+				D0CFE57F1888AD0100165839 /* AFNetworkReachabilityManager.m */,
+				D0CFE5801888AD0100165839 /* AFSecurityPolicy.h */,
+				D0CFE5811888AD0100165839 /* AFSecurityPolicy.m */,
+				D0CFE5821888AD0100165839 /* AFURLConnectionOperation.h */,
+				D0CFE5831888AD0100165839 /* AFURLConnectionOperation.m */,
+				D0CFE5841888AD0100165839 /* AFURLRequestSerialization.h */,
+				D0CFE5851888AD0200165839 /* AFURLRequestSerialization.m */,
+				D0CFE5861888AD0200165839 /* AFURLResponseSerialization.h */,
+				D0CFE5871888AD0200165839 /* AFURLResponseSerialization.m */,
+				D0CFE5881888AD0200165839 /* AFURLSessionManager.h */,
+				D0CFE5891888AD0200165839 /* AFURLSessionManager.m */,
+			);
+			name = AFNetworking;
+			path = AFNetworking/AFNetworking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +349,7 @@
 			files = (
 				D0CFE54D1888A7BD00165839 /* Main_iPad.storyboard in Resources */,
 				D0CFE5521888A7BD00165839 /* Images.xcassets in Resources */,
+				D02256C71891FD7C0038232A /* defaults.plist in Resources */,
 				D0CFE54A1888A7BD00165839 /* Main_iPhone.storyboard in Resources */,
 				D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */,
 			);
@@ -254,9 +370,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0CFE58F1888AD0200165839 /* AFURLConnectionOperation.m in Sources */,
+				D0CFE58A1888AD0200165839 /* AFHTTPRequestOperation.m in Sources */,
+				D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */,
+				D0CFE58D1888AD0200165839 /* AFNetworkReachabilityManager.m in Sources */,
+				D0CFE5981888CC0300165839 /* TransparentToolbar.m in Sources */,
+				D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				D0CFE5A1188C8BC500165839 /* Note.m in Sources */,
+				D0CFE5921888AD0200165839 /* AFURLSessionManager.m in Sources */,
+				D0CFE5901888AD0200165839 /* AFURLRequestSerialization.m in Sources */,
 				D0CFE5471888A7BD00165839 /* OCAppDelegate.m in Sources */,
+				D0CFE5911888AD0200165839 /* AFURLResponseSerialization.m in Sources */,
+				D0CFE59E188B5F4E00165839 /* Notes.xcdatamodeld in Sources */,
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,
-				D0CFE5501888A7BD00165839 /* OCViewController.m in Sources */,
+				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
+				D0CFE58B1888AD0200165839 /* AFHTTPRequestOperationManager.m in Sources */,
+				D0CFE58E1888AD0200165839 /* AFSecurityPolicy.m in Sources */,
+				D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */,
+				D0CFE5751888ACDF00165839 /* MSDynamicsDrawerViewController.m in Sources */,
+				D0CFE5A4188C948A00165839 /* OCDrawerViewController.m in Sources */,
+				D0CFE5741888ACDF00165839 /* MSDynamicsDrawerStyler.m in Sources */,
+				D0CFE58C1888AD0200165839 /* AFHTTPSessionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +609,7 @@
 				D0CFE56A1888A7BD00165839 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D0CFE56B1888A7BD00165839 /* Build configuration list for PBXNativeTarget "iOCNotesTests" */ = {
 			isa = XCConfigurationList;
@@ -483,8 +618,22 @@
 				D0CFE56D1888A7BD00165839 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D0CFE59C188B5F4E00165839 /* Notes.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D0CFE59D188B5F4E00165839 /* Notes.xcdatamodel */,
+			);
+			currentVersion = D0CFE59D188B5F4E00165839 /* Notes.xcdatamodel */;
+			path = Notes.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D0CFE52B1888A7BD00165839 /* Project object */;
 }

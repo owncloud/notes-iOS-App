@@ -1,0 +1,23 @@
+//
+//  OCNotesTableViewController.h
+//  iOCNotes
+//
+//  Created by Peter Hedlund on 1/16/14.
+//  Copyright (c) 2014 Peter Hedlund. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#import "OCEditorViewController.h"
+
+@interface OCNotesTableViewController : UITableViewController <NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
+
+@property (nonatomic, strong, readonly) UIRefreshControl *notesRefreshControl;
+@property (nonatomic, retain) NSFetchedResultsController *notesFetchedResultsController;
+@property (nonatomic, strong) OCEditorViewController *editorViewController;
+@property (strong, nonatomic) UIActionSheet *menuActionSheet;
+
+- (IBAction) doRefresh:(id)sender;
+- (IBAction) doMenu:(id)sender;
+
+@end
