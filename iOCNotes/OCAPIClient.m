@@ -457,7 +457,7 @@ static dispatch_once_t oncePredicate = 0;
     dispatch_group_t group = dispatch_group_create();
     [notesToAdd enumerateObjectsUsingBlock:^(NSNumber *noteId, NSUInteger idx, BOOL *stop) {
         dispatch_group_enter(group);
-        Note *note = [self noteWithId:noteId];
+        __block Note *note = [self noteWithId:noteId];
         NSDictionary *params = @{@"content": note.content};
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             //NSLog(@"Feeds: %@", responseObject);
@@ -473,6 +473,7 @@ static dispatch_once_t oncePredicate = 0;
             }
             dispatch_group_leave(group);
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            //TODO: Determine what to do with failures.
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSString *message;
             switch (response.statusCode) {
@@ -483,10 +484,12 @@ static dispatch_once_t oncePredicate = 0;
             
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Feed", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+            [failedAdditions addObject:note.myId];
         }];
-
-        
     }];
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [notesToAdd removeObjectsInArray:successfulAdditions];
+    });
 }
 
 - (void)deleteNotesFromServer:(NSArray*)notesArray {
