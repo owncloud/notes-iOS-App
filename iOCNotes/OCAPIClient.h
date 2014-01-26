@@ -49,5 +49,6 @@
 - (void)addNote;
 - (void)updateNote:(Note*)note;
 - (void)deleteNote:(Note*)note;
+- (Note*)noteWithId:(NSNumber*)noteId;
 
 @end

@@ -85,10 +85,13 @@ static dispatch_once_t oncePredicate = 0;
     [self.requestSerializer setAuthorizationHeaderFieldWithUsername:@"peter" password:@"sb269970"];
     [self.reachabilityManager startMonitoring];
     
+    notesToAdd = [NSMutableArray new];
+    notesToDelete = [NSMutableArray new];
+    notesToUpdate = [NSMutableArray new];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    notesToAdd = [[prefs arrayForKey:@"NotesToAdd"] mutableCopy];
-    notesToDelete = [[prefs arrayForKey:@"NotesToDelete"] mutableCopy];
-    notesToUpdate = [[prefs arrayForKey:@"NotesToUpdate"] mutableCopy];
+    [notesToAdd addObjectsFromArray:[[prefs arrayForKey:@"NotesToAdd"] mutableCopy]];
+    [notesToDelete addObjectsFromArray:[[prefs arrayForKey:@"NotesToDelete"] mutableCopy]];
+    [notesToUpdate addObjectsFromArray:[[prefs arrayForKey:@"NotesToUpdate"] mutableCopy]];
 
     return self;
 }
@@ -155,6 +158,12 @@ static dispatch_once_t oncePredicate = 0;
     }
 }
 
+- (Note*)noteWithId:(NSNumber *)noteId {
+    [self.noteRequest setPredicate:[NSPredicate predicateWithFormat:@"myId == %@", noteId]];
+    NSArray *notes = [self.context executeFetchRequest:self.noteRequest error:nil];
+    return (Note*)[notes firstObject];
+}
+
 /*
  Get all notes
  
@@ -175,19 +184,71 @@ static dispatch_once_t oncePredicate = 0;
 */
 - (void) sync {
     if (self.reachabilityManager.isReachable) {
+        
+        //TODO: Process notes to update
         [self GET:@"notes" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 
-            NSArray *notesArray = (NSArray *) responseObject;
-            NSLog(@"Notes: %@", [notesArray objectAtIndex:0]);
-            [notesArray enumerateObjectsUsingBlock:^(NSDictionary *note, NSUInteger idx, BOOL *stop) {
-                [self addNoteFromDictionary:note];
+            NSArray *serverNotesDictArray = (NSArray *) responseObject;
+            NSLog(@"Notes: %@", [serverNotesDictArray objectAtIndex:0]);
+            NSArray *serverIds = [serverNotesDictArray valueForKey:@"id"];
+        
+            NSError *error = nil;
+            [self.noteRequest setPredicate:nil];
+            NSArray *knownLocalNotes = [self.context executeFetchRequest:self.noteRequest error:&error];
+            NSArray *knownIds = [knownLocalNotes valueForKey:@"myId"];
+            
+            NSLog(@"Count: %lu", (unsigned long)knownLocalNotes.count);
+            
+            error = nil;
+             
+            NSMutableArray *newOnServer = [NSMutableArray arrayWithArray:serverIds];
+            [newOnServer removeObjectsInArray:knownIds];
+            NSLog(@"New on server: %@", newOnServer);
+            [newOnServer enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                NSPredicate * predicate = [NSPredicate predicateWithFormat:@"id == %@", obj];
+                NSArray * matches = [serverNotesDictArray filteredArrayUsingPredicate:predicate];
+                if (matches.count > 0) {
+                    if (![notesToDelete indexOfObject:obj]) {
+                        [self addNoteFromDictionary:[matches lastObject]];
+                    }
+                }
             }];
+            
+            NSMutableArray *deletedOnServer = [NSMutableArray arrayWithArray:knownIds];
+            [deletedOnServer removeObjectsInArray:serverIds];
+            NSLog(@"Deleted on server: %@", deletedOnServer);
+            while (deletedOnServer.count > 0) {
+                Note *noteToRemove = [self noteWithId:[deletedOnServer lastObject]];
+                [self.context deleteObject:noteToRemove];
+                [deletedOnServer removeLastObject];
+            }
+            
+            [serverNotesDictArray enumerateObjectsUsingBlock:^(NSDictionary *noteDict, NSUInteger idx, BOOL *stop) {
+                Note *note = [self noteWithId:[noteDict objectForKey:@"id"]];
+                note.title = [noteDict objectForKey:@"title"];
+                note.content = [noteDict objectForKey:@"content"];
+                note.modified = [noteDict objectForKey:@"modified"];
+                [self.context processPendingChanges]; //Prevents crash if a feed has moved to another folder
+            }];
+            
+            [self deleteNotesFromServer:notesToDelete];
+            
+            for (NSNumber *noteId in notesToAdd) {
+                Note *note = [self noteWithId:noteId];
+                //TODO: [self addNoteToServer:note]; //the feed will have been readded as new on server
+            }
+            [notesToAdd removeAllObjects];
+
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSString *message = [NSString stringWithFormat:@"The server repsonded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Updating Feeds", @"Title", message, @"Message", nil];
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Updating Notes", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
         }];
+    } else {
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Unable to Reach Server", @"Title",
+                                  @"Please check network connection and login.", @"Message", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
     }
 }
 
@@ -235,13 +296,20 @@ static dispatch_once_t oncePredicate = 0;
 */
 
 - (void)addNote {
+    Note *newNote = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:self.context];
+    newNote.myId = [NSNumber numberWithInt:10000 + notesToAdd.count];
+    newNote.title = @"New Note";
+    newNote.content = @"";
+    newNote.modified = [NSNumber numberWithLong:[[NSDate date] timeIntervalSince1970]];
+    [self saveContext];
+    
     if (self.reachabilityManager.isReachable) {
         //online
-        NSDictionary *params = @{@"content": @""};
-        
+        NSDictionary *params = @{@"content": newNote.content};
+        __block Note *blockNote = newNote;
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             //NSLog(@"Feeds: %@", responseObject);
-            [self addNoteFromDictionary:(NSDictionary*)responseObject];
+            [self updateNote:blockNote fromDictionary:(NSDictionary*)responseObject];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSString *message;
@@ -253,21 +321,12 @@ static dispatch_once_t oncePredicate = 0;
             
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Feed", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+            [notesToAdd addObject:blockNote.myId];
         }];
         
     } else {
         //offline
-        /*[feedsToAdd addObject:urlString];
-        Feed *newFeed = [NSEntityDescription insertNewObjectForEntityForName:@"Feed" inManagedObjectContext:self.context];
-        newFeed.myId = [NSNumber numberWithInt:10000 + feedsToAdd.count];
-        newFeed.url = urlString;
-        newFeed.title = urlString;
-        newFeed.faviconLink = @"favicon";
-        newFeed.added = [NSNumber numberWithInt:1];
-        newFeed.folderId = [NSNumber numberWithInt:0];
-        newFeed.unreadCount = [NSNumber numberWithInt:0];
-        newFeed.link = @"";
-        //[feedsToDelete addObject:[NSNumber numberWithInt:10000 + feedsToAdd.count]]; //should be deleted when we get the real feed*/
+        [notesToAdd addObject:newNote.myId];
     }
 }
 
@@ -327,21 +386,14 @@ static dispatch_once_t oncePredicate = 0;
             
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Feed", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+            blockNote.modified = [NSNumber numberWithLong:[[NSDate date] timeIntervalSince1970]];
+            [self saveContext];
         }];
         
     } else {
         //offline
-        /*[feedsToAdd addObject:urlString];
-         Feed *newFeed = [NSEntityDescription insertNewObjectForEntityForName:@"Feed" inManagedObjectContext:self.context];
-         newFeed.myId = [NSNumber numberWithInt:10000 + feedsToAdd.count];
-         newFeed.url = urlString;
-         newFeed.title = urlString;
-         newFeed.faviconLink = @"favicon";
-         newFeed.added = [NSNumber numberWithInt:1];
-         newFeed.folderId = [NSNumber numberWithInt:0];
-         newFeed.unreadCount = [NSNumber numberWithInt:0];
-         newFeed.link = @"";
-         //[feedsToDelete addObject:[NSNumber numberWithInt:10000 + feedsToAdd.count]]; //should be deleted when we get the real feed*/
+        note.modified = [NSNumber numberWithLong:[[NSDate date] timeIntervalSince1970]];
+        [self saveContext];
     }    
 }
 
@@ -362,30 +414,118 @@ static dispatch_once_t oncePredicate = 0;
 - (void) deleteNote:(Note *)note {
     if (self.reachabilityManager.isReachable) {
         //online
+        __block Note *blockNote = note;
         NSString *path = [NSString stringWithFormat:@"notes/%@", [note.myId stringValue]];
         [self DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSLog(@"Success");
+            [self.context deleteObject:blockNote];
+            [self saveContext];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"Failure");
+            [notesToDelete addObject:blockNote.myId];
+            [self.context deleteObject:blockNote];
+            [self saveContext];
             NSString *message = [NSString stringWithFormat:@"The error reported was '%@'", [error localizedDescription]];
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Deleting Note", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
         }];
     } else {
         //offline
-        //[feedsToDelete addObject:feed.myId];
+        [notesToDelete addObject:note.myId];
+        [self.context deleteObject:note];
+        [self saveContext];
     }
-    [self.context deleteObject:note];
-    [self saveContext];
 }
 
 - (void)addNoteFromDictionary:(NSDictionary*)noteDict {
     Note *newNote = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:self.context];
-    newNote.myId = [noteDict objectForKey:@"id"];
-    newNote.modified = [noteDict objectForKey:@"modified"];
-    newNote.title = [noteDict objectForKey:@"title"];
-    newNote.content = [noteDict objectForKey:@"content"];
+    [self updateNote:newNote fromDictionary:noteDict];
+}
+
+- (void)updateNote:(Note *)note fromDictionary:(NSDictionary*)noteDict {
+    note.myId = [noteDict objectForKey:@"id"];
+    note.modified = [noteDict objectForKey:@"modified"];
+    note.title = [noteDict objectForKey:@"title"];
+    note.content = [noteDict objectForKey:@"content"];
     [self saveContext];
+}
+
+- (void)addNotesToServer:(NSArray*)notesArray {
+    __block NSMutableArray *successfulAdditions = [NSMutableArray new];
+    __block NSMutableArray *failedAdditions = [NSMutableArray new];
+
+    dispatch_group_t group = dispatch_group_create();
+    [notesToAdd enumerateObjectsUsingBlock:^(NSNumber *noteId, NSUInteger idx, BOOL *stop) {
+        dispatch_group_enter(group);
+        Note *note = [self noteWithId:noteId];
+        NSDictionary *params = @{@"content": note.content};
+        [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+            //NSLog(@"Feeds: %@", responseObject);
+            @synchronized(successfulAdditions) {
+                NSDictionary *noteDict = (NSDictionary*)responseObject;
+                Note *responseNote = [self noteWithId:[noteDict objectForKey:@"id"]];
+                if (responseNote) {
+                    responseNote.title = [noteDict objectForKey:@"title"];
+                    responseNote.content = [noteDict objectForKey:@"content"];
+                    responseNote.modified = [noteDict objectForKey:@"modified"];
+                }
+                [successfulAdditions addObject:responseNote.myId];
+            }
+            dispatch_group_leave(group);
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+            NSString *message;
+            switch (response.statusCode) {
+                default:
+                    message = [NSString stringWithFormat:@"The server repsonded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
+                    break;
+            }
+            
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Feed", @"Title", message, @"Message", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+        }];
+
+        
+    }];
+}
+
+- (void)deleteNotesFromServer:(NSArray*)notesArray {
+    __block NSMutableArray *successfulDeletions = [NSMutableArray new];
+    __block NSMutableArray *failedDeletions = [NSMutableArray new];
+
+    dispatch_group_t group = dispatch_group_create();
+    [notesToDelete enumerateObjectsUsingBlock:^(NSNumber *noteId, NSUInteger idx, BOOL *stop) {
+        dispatch_group_enter(group);
+        NSString *path = [NSString stringWithFormat:@"notes/%@", [noteId stringValue]];
+        [self DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSLog(@"Success");
+            @synchronized(successfulDeletions) {
+                NSString *successId = [task.originalRequest.URL lastPathComponent];
+                [successfulDeletions addObject:[NSNumber numberWithInteger:[successId integerValue]]];
+            }
+            dispatch_group_leave(group);
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            //TODO: Handle 404 and count as success. Determine what to do with real failures.
+            NSLog(@"Failure");
+            NSString *failedId = [task.originalRequest.URL lastPathComponent];
+            @synchronized(failedDeletions) {
+                [failedDeletions addObject:[NSNumber numberWithInteger:[failedId integerValue]]];
+            }
+            dispatch_group_leave(group);
+        }];
+    }];
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [notesToDelete removeObjectsInArray:successfulDeletions];
+    });
+}
+
+- (NSFetchRequest *)noteRequest {
+    if (!noteRequest) {
+        noteRequest = [[NSFetchRequest alloc] init];
+        [noteRequest setEntity:[NSEntityDescription entityForName:@"Note" inManagedObjectContext:self.context]];
+        noteRequest.predicate = nil;
+    }
+    return noteRequest;
 }
 
 @end
