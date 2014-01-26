@@ -1,5 +1,5 @@
 //
-//  OCAPIClient.h
+//  NSDictionary+HandleNull.m
 //  iOCNews
 //
 
@@ -30,26 +30,16 @@
  
  *************************************************************************/
 
-#import <CoreData/CoreData.h>
-#import "AFHTTPSessionManager.h"
-#import "Note.h"
+#import "NSDictionary+HandleNull.h"
 
-@interface OCAPIClient : AFHTTPSessionManager
+@implementation NSDictionary (HandleNull)
 
-+(OCAPIClient *)sharedClient;
-+(void)setSharedClient:(OCAPIClient *)client;
-
-@property (nonatomic,retain) NSManagedObjectContext *context;
-@property (nonatomic, retain) NSManagedObjectModel *objectModel;
-@property (nonatomic, retain) NSPersistentStoreCoordinator *coordinator;
-
-@property (nonatomic, strong, readonly) NSFetchRequest *noteRequest;
-
-- (void)sync;
-- (void)addNote;
-- (void)getNote:(Note*)note;
-- (void)updateNote:(Note*)note;
-- (void)deleteNote:(Note*)note;
-- (Note*)noteWithId:(NSNumber*)noteId;
-
+- (id)objectForKeyNotNull:(id)key fallback:(id)fallback {
+    id object = [self objectForKey:key];
+    if (object == [NSNull null]) {
+        return fallback;
+    } else {
+        return object;
+    }
+}
 @end

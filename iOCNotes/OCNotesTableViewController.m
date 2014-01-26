@@ -168,6 +168,7 @@
         //[self showRenameForIndex:indexPath.row];
     } else {
         Note *note = [self.notesFetchedResultsController objectAtIndexPath:indexPath];
+        [[OCAPIClient sharedClient] getNote:note];
         self.editorViewController.note = note;
         OCDrawerViewController *drawerViewController = (OCDrawerViewController*)self.parentViewController;
         [drawerViewController.dynamicsDrawerViewController setPaneState:MSDynamicsDrawerPaneStateClosed inDirection:MSDynamicsDrawerDirectionLeft animated:YES allowUserInterruption:YES completion:nil];

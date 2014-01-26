@@ -33,6 +33,7 @@
 #import "OCAPIClient.h"
 //#import "KeychainItemWrapper.h"
 #import "Note.h"
+#import "NSDictionary+HandleNull.h"
 
 //See http://twobitlabs.com/2013/01/objective-c-singleton-pattern-unit-testing/
 //Being able to reinitialize a singleton is a no no, but should happen so rarely
@@ -226,7 +227,7 @@ static dispatch_once_t oncePredicate = 0;
             [serverNotesDictArray enumerateObjectsUsingBlock:^(NSDictionary *noteDict, NSUInteger idx, BOOL *stop) {
                 Note *note = [self noteWithId:[noteDict objectForKey:@"id"]];
                 note.title = [noteDict objectForKey:@"title"];
-                note.content = [noteDict objectForKey:@"content"];
+                note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                 note.modified = [noteDict objectForKey:@"modified"];
                 [self.context processPendingChanges]; //Prevents crash if a feed has moved to another folder
             }];
@@ -270,6 +271,46 @@ static dispatch_once_t oncePredicate = 0;
  content: "New note\n and something more",
  }
  */
+
+- (void)getNote:(Note *)note {
+    if (self.reachabilityManager.isReachable) {
+        //online
+        NSString *path = [NSString stringWithFormat:@"notes/%@", [note.myId stringValue]];
+        __block Note *blockNote = note;
+        
+        [[OCAPIClient sharedClient] GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            //NSLog(@"Note: %@", responseObject);
+            NSDictionary *noteDict = (NSDictionary*)responseObject;
+            NSLog(@"NoteDict: %@", noteDict);
+            if ([blockNote.myId isEqualToNumber:[noteDict objectForKey:@"id"]]) {
+                if ([noteDict objectForKey:@"modified"] > blockNote.modified) {
+                    blockNote.title = [noteDict objectForKey:@"title"];
+                    blockNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                    blockNote.modified = [noteDict objectForKey:@"modified"];
+                }
+                [self saveContext];
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+            NSString *message;
+            switch (response.statusCode) {
+                case 404:
+                    message = @"The note does not exist";
+                    break;
+                default:
+                    message = [NSString stringWithFormat:@"The server repsonded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
+                    break;
+            }
+            
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Getting Note", @"Title", message, @"Message", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+        }];
+        
+    } else {
+        //offline
+    }
+}
+
 
 /*
  Create a note
@@ -368,7 +409,7 @@ static dispatch_once_t oncePredicate = 0;
             NSDictionary *noteDict = (NSDictionary*)responseObject;
             if ([blockNote.myId isEqualToNumber:[noteDict objectForKey:@"id"]]) {
                 blockNote.title = [noteDict objectForKey:@"title"];
-                blockNote.content = [noteDict objectForKey:@"content"];
+                blockNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];;
                 blockNote.modified = [noteDict objectForKey:@"modified"];
                 [self saveContext];
             }
@@ -446,7 +487,7 @@ static dispatch_once_t oncePredicate = 0;
     note.myId = [noteDict objectForKey:@"id"];
     note.modified = [noteDict objectForKey:@"modified"];
     note.title = [noteDict objectForKey:@"title"];
-    note.content = [noteDict objectForKey:@"content"];
+    note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
     [self saveContext];
 }
 
@@ -466,7 +507,7 @@ static dispatch_once_t oncePredicate = 0;
                 Note *responseNote = [self noteWithId:[noteDict objectForKey:@"id"]];
                 if (responseNote) {
                     responseNote.title = [noteDict objectForKey:@"title"];
-                    responseNote.content = [noteDict objectForKey:@"content"];
+                    responseNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                     responseNote.modified = [noteDict objectForKey:@"modified"];
                 }
                 [successfulAdditions addObject:responseNote.myId];
