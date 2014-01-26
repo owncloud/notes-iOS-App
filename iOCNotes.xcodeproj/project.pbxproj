@@ -9,6 +9,36 @@
 /* Begin PBXBuildFile section */
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256C9189599570038232A /* NSDictionary+HandleNull.m */; };
+		D02256CD1895BE220038232A /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5831888AD0100165839 /* AFURLConnectionOperation.m */; };
+		D02256CE1895BE220038232A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5781888AD0100165839 /* AFHTTPRequestOperation.m */; };
+		D02256CF1895BE220038232A /* OCNotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */; };
+		D02256D01895BE220038232A /* NSDictionary+HandleNull.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256C9189599570038232A /* NSDictionary+HandleNull.m */; };
+		D02256D11895BE220038232A /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE57F1888AD0100165839 /* AFNetworkReachabilityManager.m */; };
+		D02256D21895BE220038232A /* TransparentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5971888CC0300165839 /* TransparentToolbar.m */; };
+		D02256D31895BE220038232A /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */; };
+		D02256D41895BE220038232A /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A0188C8BC500165839 /* Note.m */; };
+		D02256D51895BE220038232A /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5891888AD0200165839 /* AFURLSessionManager.m */; };
+		D02256D61895BE220038232A /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5851888AD0200165839 /* AFURLRequestSerialization.m */; };
+		D02256D71895BE220038232A /* OCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5461888A7BD00165839 /* OCAppDelegate.m */; };
+		D02256D81895BE220038232A /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5871888AD0200165839 /* AFURLResponseSerialization.m */; };
+		D02256D91895BE220038232A /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE59C188B5F4E00165839 /* Notes.xcdatamodeld */; };
+		D02256DA1895BE220038232A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5421888A7BD00165839 /* main.m */; };
+		D02256DB1895BE220038232A /* OCEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */; };
+		D02256DC1895BE220038232A /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE57A1888AD0100165839 /* AFHTTPRequestOperationManager.m */; };
+		D02256DD1895BE220038232A /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5811888AD0100165839 /* AFSecurityPolicy.m */; };
+		D02256DE1895BE220038232A /* OCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE59A188B5A6900165839 /* OCAPIClient.m */; };
+		D02256DF1895BE220038232A /* MSDynamicsDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5731888ACDF00165839 /* MSDynamicsDrawerViewController.m */; };
+		D02256E01895BE220038232A /* OCDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A3188C948A00165839 /* OCDrawerViewController.m */; };
+		D02256E11895BE220038232A /* MSDynamicsDrawerStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5701888ACDF00165839 /* MSDynamicsDrawerStyler.m */; };
+		D02256E21895BE220038232A /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE57C1888AD0100165839 /* AFHTTPSessionManager.m */; };
+		D02256E41895BE220038232A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5AC1890659600165839 /* QuartzCore.framework */; };
+		D02256E51895BE220038232A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
+		D02256E61895BE220038232A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
+		D02256E81895BE220038232A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */; };
+		D02256E91895BE220038232A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE5511888A7BD00165839 /* Images.xcassets */; };
+		D02256EA1895BE220038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
+		D02256EB1895BE220038232A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */; };
+		D02256EC1895BE220038232A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
@@ -58,6 +88,8 @@
 		D02256C61891FD7C0038232A /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = defaults.plist; sourceTree = "<group>"; };
 		D02256C8189599570038232A /* NSDictionary+HandleNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+HandleNull.h"; sourceTree = "<group>"; };
 		D02256C9189599570038232A /* NSDictionary+HandleNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+HandleNull.m"; sourceTree = "<group>"; };
+		D02256F01895BE220038232A /* iOCNotes copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOCNotes copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D02256F11895BE230038232A /* iOCNotes copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iOCNotes copy-Info.plist"; path = "/Users/peter/Projects/iOCNotes/iOCNotes copy-Info.plist"; sourceTree = "<absolute>"; };
 		D0CFE5331888A7BD00165839 /* iOCNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOCNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5361888A7BD00165839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0CFE5381888A7BD00165839 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -119,6 +151,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D02256E31895BE220038232A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D02256E41895BE220038232A /* QuartzCore.framework in Frameworks */,
+				D02256E51895BE220038232A /* UIKit.framework in Frameworks */,
+				D02256E61895BE220038232A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0CFE5301888A7BD00165839 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -159,6 +201,7 @@
 			children = (
 				D0CFE5331888A7BD00165839 /* iOCNotes.app */,
 				D0CFE5571888A7BD00165839 /* iOCNotesTests.xctest */,
+				D02256F01895BE220038232A /* iOCNotes copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				D0CFE53E1888A7BD00165839 /* iOCNotes-Info.plist */,
+				D02256F11895BE230038232A /* iOCNotes copy-Info.plist */,
 				D0CFE53F1888A7BD00165839 /* InfoPlist.strings */,
 				D02256C61891FD7C0038232A /* defaults.plist */,
 				D0CFE5421888A7BD00165839 /* main.m */,
@@ -278,6 +322,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D02256CB1895BE220038232A /* iOCNotes (iPhone) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D02256ED1895BE220038232A /* Build configuration list for PBXNativeTarget "iOCNotes (iPhone)" */;
+			buildPhases = (
+				D02256CC1895BE220038232A /* Sources */,
+				D02256E31895BE220038232A /* Frameworks */,
+				D02256E71895BE220038232A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iOCNotes (iPhone)";
+			productName = iOCNotes;
+			productReference = D02256F01895BE220038232A /* iOCNotes copy.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D0CFE5321888A7BD00165839 /* iOCNotes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0CFE5681888A7BD00165839 /* Build configuration list for PBXNativeTarget "iOCNotes" */;
@@ -343,11 +404,24 @@
 			targets = (
 				D0CFE5321888A7BD00165839 /* iOCNotes */,
 				D0CFE5561888A7BD00165839 /* iOCNotesTests */,
+				D02256CB1895BE220038232A /* iOCNotes (iPhone) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D02256E71895BE220038232A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D02256E81895BE220038232A /* Main_iPad.storyboard in Resources */,
+				D02256E91895BE220038232A /* Images.xcassets in Resources */,
+				D02256EA1895BE220038232A /* defaults.plist in Resources */,
+				D02256EB1895BE220038232A /* Main_iPhone.storyboard in Resources */,
+				D02256EC1895BE220038232A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0CFE5311888A7BD00165839 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -371,6 +445,35 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D02256CC1895BE220038232A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D02256CD1895BE220038232A /* AFURLConnectionOperation.m in Sources */,
+				D02256CE1895BE220038232A /* AFHTTPRequestOperation.m in Sources */,
+				D02256CF1895BE220038232A /* OCNotesTableViewController.m in Sources */,
+				D02256D01895BE220038232A /* NSDictionary+HandleNull.m in Sources */,
+				D02256D11895BE220038232A /* AFNetworkReachabilityManager.m in Sources */,
+				D02256D21895BE220038232A /* TransparentToolbar.m in Sources */,
+				D02256D31895BE220038232A /* AFNetworkActivityIndicatorManager.m in Sources */,
+				D02256D41895BE220038232A /* Note.m in Sources */,
+				D02256D51895BE220038232A /* AFURLSessionManager.m in Sources */,
+				D02256D61895BE220038232A /* AFURLRequestSerialization.m in Sources */,
+				D02256D71895BE220038232A /* OCAppDelegate.m in Sources */,
+				D02256D81895BE220038232A /* AFURLResponseSerialization.m in Sources */,
+				D02256D91895BE220038232A /* Notes.xcdatamodeld in Sources */,
+				D02256DA1895BE220038232A /* main.m in Sources */,
+				D02256DB1895BE220038232A /* OCEditorViewController.m in Sources */,
+				D02256DC1895BE220038232A /* AFHTTPRequestOperationManager.m in Sources */,
+				D02256DD1895BE220038232A /* AFSecurityPolicy.m in Sources */,
+				D02256DE1895BE220038232A /* OCAPIClient.m in Sources */,
+				D02256DF1895BE220038232A /* MSDynamicsDrawerViewController.m in Sources */,
+				D02256E01895BE220038232A /* OCDrawerViewController.m in Sources */,
+				D02256E11895BE220038232A /* MSDynamicsDrawerStyler.m in Sources */,
+				D02256E21895BE220038232A /* AFHTTPSessionManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0CFE52F1888A7BD00165839 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -454,6 +557,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D02256EE1895BE220038232A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOCNotes/iOCNotes-Prefix.pch";
+				INFOPLIST_FILE = "iOCNotes copy-Info.plist";
+				PRODUCT_NAME = "iOCNotes copy";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D02256EF1895BE220038232A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOCNotes/iOCNotes-Prefix.pch";
+				INFOPLIST_FILE = "iOCNotes copy-Info.plist";
+				PRODUCT_NAME = "iOCNotes copy";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		D0CFE5661888A7BD00165839 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -599,6 +730,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D02256ED1895BE220038232A /* Build configuration list for PBXNativeTarget "iOCNotes (iPhone)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D02256EE1895BE220038232A /* Debug */,
+				D02256EF1895BE220038232A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D0CFE52E1888A7BD00165839 /* Build configuration list for PBXProject "iOCNotes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

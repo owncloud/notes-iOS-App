@@ -209,7 +209,7 @@ static dispatch_once_t oncePredicate = 0;
                 NSPredicate * predicate = [NSPredicate predicateWithFormat:@"id == %@", obj];
                 NSArray * matches = [serverNotesDictArray filteredArrayUsingPredicate:predicate];
                 if (matches.count > 0) {
-                    if (![notesToDelete indexOfObject:obj]) {
+                    if ([notesToDelete indexOfObject:obj] == NSNotFound) {
                         [self addNoteFromDictionary:[matches lastObject]];
                     }
                 }

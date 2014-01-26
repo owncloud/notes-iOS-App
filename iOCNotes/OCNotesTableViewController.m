@@ -44,7 +44,9 @@
 - (UIRefreshControl *)notesRefreshControl {
     if (!notesRefreshControl) {
         notesRefreshControl = [[UIRefreshControl alloc] init];
-        notesRefreshControl.tintColor = [UIColor whiteColor];
+        if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+            notesRefreshControl.tintColor = [UIColor whiteColor];
+        }
         [notesRefreshControl addTarget:self action:@selector(doRefresh:) forControlEvents:UIControlEventValueChanged];
     }
     return notesRefreshControl;
@@ -71,7 +73,7 @@
     [tempImageView setFrame:self.tableView.frame];
     
     //self.tableView.backgroundView = tempImageView;
-    self.tableView.opaque = NO;
+    self.tableView.opaque = !(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
     
     [self.notesFetchedResultsController performFetch:nil];
 }
@@ -151,7 +153,7 @@
     return UITableViewCellEditingStyleDelete;
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
@@ -159,9 +161,11 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"noteSelected"]) {
+        self.editorViewController = (OCEditorViewController*)[segue destinationViewController];
+    }
 }
 
- */
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.tableView.isEditing) {
@@ -170,8 +174,10 @@
         Note *note = [self.notesFetchedResultsController objectAtIndexPath:indexPath];
         [[OCAPIClient sharedClient] getNote:note];
         self.editorViewController.note = note;
-        OCDrawerViewController *drawerViewController = (OCDrawerViewController*)self.parentViewController;
-        [drawerViewController.dynamicsDrawerViewController setPaneState:MSDynamicsDrawerPaneStateClosed inDirection:MSDynamicsDrawerDirectionLeft animated:YES allowUserInterruption:YES completion:nil];
+        if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+            OCDrawerViewController *drawerViewController = (OCDrawerViewController*)self.parentViewController;
+            [drawerViewController.dynamicsDrawerViewController setPaneState:MSDynamicsDrawerPaneStateClosed inDirection:MSDynamicsDrawerDirectionLeft animated:YES allowUserInterruption:YES completion:nil];
+        }
     }
 }
 

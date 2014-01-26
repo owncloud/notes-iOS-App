@@ -65,6 +65,8 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        self.noteContentView.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
+        /*
         int width;
         int height;
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
@@ -83,13 +85,25 @@
                 //
             }
         }
-    } else {
+         */
+    } else { //iPad
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
             self.noteContentView.textContainerInset = UIEdgeInsetsMake(20, 178, 20, 178);
         } else {
             self.noteContentView.textContainerInset = UIEdgeInsetsMake(20, 50, 20, 50);
         }
         
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.note) {
+        self.noteContentView.text = self.note.content;
+        self.noteContentView.editable = YES;
+        self.noteContentView.selectable = YES;
+        self.titleLabel.text = self.note.title;
+        self.navigationItem.title = self.note.title;
     }
 }
 
@@ -120,6 +134,7 @@
 - (void)noteUpdated:(NSNotification *)notification {
     NSLog(@"Informed about note update");
     self.titleLabel.text = self.note.title;
+    self.navigationItem.title = self.note.title;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
