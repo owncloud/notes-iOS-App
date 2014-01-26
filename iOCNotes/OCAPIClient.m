@@ -231,14 +231,9 @@ static dispatch_once_t oncePredicate = 0;
                 note.modified = [noteDict objectForKey:@"modified"];
                 [self.context processPendingChanges]; //Prevents crash if a feed has moved to another folder
             }];
-            
+            [self saveContext];
             [self deleteNotesFromServer:notesToDelete];
-            
-            for (NSNumber *noteId in notesToAdd) {
-                Note *note = [self noteWithId:noteId];
-                //TODO: [self addNoteToServer:note]; //the feed will have been readded as new on server
-            }
-            [notesToAdd removeAllObjects];
+            [self addNotesToServer:notesToAdd];
 
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -458,11 +453,11 @@ static dispatch_once_t oncePredicate = 0;
         __block Note *blockNote = note;
         NSString *path = [NSString stringWithFormat:@"notes/%@", [note.myId stringValue]];
         [self DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-            NSLog(@"Success");
+            NSLog(@"Success deleting note");
             [self.context deleteObject:blockNote];
             [self saveContext];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSLog(@"Failure");
+            NSLog(@"Failure to delete note");
             [notesToDelete addObject:blockNote.myId];
             [self.context deleteObject:blockNote];
             [self saveContext];
@@ -509,6 +504,7 @@ static dispatch_once_t oncePredicate = 0;
                     responseNote.title = [noteDict objectForKey:@"title"];
                     responseNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                     responseNote.modified = [noteDict objectForKey:@"modified"];
+                    [self.context processPendingChanges];
                 }
                 [successfulAdditions addObject:responseNote.myId];
             }
@@ -530,6 +526,7 @@ static dispatch_once_t oncePredicate = 0;
     }];
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         [notesToAdd removeObjectsInArray:successfulAdditions];
+        [self saveContext];
     });
 }
 
@@ -542,7 +539,7 @@ static dispatch_once_t oncePredicate = 0;
         dispatch_group_enter(group);
         NSString *path = [NSString stringWithFormat:@"notes/%@", [noteId stringValue]];
         [self DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-            NSLog(@"Success");
+            NSLog(@"Success deleting from server");
             @synchronized(successfulDeletions) {
                 NSString *successId = [task.originalRequest.URL lastPathComponent];
                 [successfulDeletions addObject:[NSNumber numberWithInteger:[successId integerValue]]];
@@ -550,7 +547,7 @@ static dispatch_once_t oncePredicate = 0;
             dispatch_group_leave(group);
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             //TODO: Handle 404 and count as success. Determine what to do with real failures.
-            NSLog(@"Failure");
+            NSLog(@"Failure to delete from server");
             NSString *failedId = [task.originalRequest.URL lastPathComponent];
             @synchronized(failedDeletions) {
                 [failedDeletions addObject:[NSNumber numberWithInteger:[failedId integerValue]]];
