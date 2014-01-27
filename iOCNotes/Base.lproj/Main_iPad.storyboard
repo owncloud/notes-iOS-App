@@ -319,8 +319,8 @@
                             <rect key="frame" x="0.0" y="372" width="768" height="291"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" text="Currently not connected to an ownCloud News server." lineBreakMode="tailTruncation" numberOfLines="3" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="Gua-yk-g0d">
-                                    <rect key="frame" x="80" y="10" width="460" height="70"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Currently not connected to an ownCloud News server." lineBreakMode="tailTruncation" numberOfLines="3" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="Gua-yk-g0d">
+                                    <rect key="frame" x="308" y="10" width="460" height="70"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="70" id="TOS-GT-MW1"/>
                                         <constraint firstAttribute="width" constant="460" id="xso-tg-l5V"/>

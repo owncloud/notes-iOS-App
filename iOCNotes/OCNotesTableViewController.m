@@ -74,12 +74,6 @@
     networkHasBeenUnreachable = NO;
     self.refreshControl = self.notesRefreshControl;
     
-    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LaunchImage"]];
-    [tempImageView setFrame:self.tableView.frame];
-    
-    //self.tableView.backgroundView = tempImageView;
-    self.tableView.opaque = !(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
                                                  name:AFNetworkingReachabilityDidChangeNotification
@@ -128,7 +122,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    }
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+        UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        [selectedBackgroundView setBackgroundColor:[UIColor colorWithRed:0.25f green:0.34f blue:0.52f alpha:1.0f]]; // set color here
+        [cell setSelectedBackgroundView:selectedBackgroundView];
     }
     cell.tag = indexPath.row;
     [self configureCell:cell atIndexPath:indexPath];
