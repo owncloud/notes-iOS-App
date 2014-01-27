@@ -9,9 +9,13 @@
 #import "OCDrawerViewController.h"
 #import "OCNotesTableViewController.h"
 #import "OCAPIClient.h"
+#import "OCNotesHelper.h"
+#import "OCLoginController.h"
 #import "Note.h"
 
-@interface OCNotesTableViewController ()
+@interface OCNotesTableViewController () {
+    BOOL networkHasBeenUnreachable;
+}
 
 @end
 
@@ -25,7 +29,7 @@
 - (NSFetchedResultsController *)notesFetchedResultsController {
     if (!notesFetchedResultsController) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:[OCAPIClient sharedClient].context];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:[OCNotesHelper sharedHelper].context];
         [fetchRequest setEntity:entity];
         
         NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"myId" ascending:YES];
@@ -33,7 +37,7 @@
         [fetchRequest setFetchBatchSize:20];
         
         notesFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                            managedObjectContext:[OCAPIClient sharedClient].context
+                                                                            managedObjectContext:[OCNotesHelper sharedHelper].context
                                                                               sectionNameKeyPath:nil
                                                                                        cacheName:@"NoteCache"];
         notesFetchedResultsController.delegate = self;
@@ -67,6 +71,7 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    networkHasBeenUnreachable = NO;
     self.refreshControl = self.notesRefreshControl;
     
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LaunchImage"]];
@@ -75,7 +80,23 @@
     //self.tableView.backgroundView = tempImageView;
     self.tableView.opaque = !(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:AFNetworkingReachabilityDidChangeNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    
+    
     [self.notesFetchedResultsController performFetch:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self didBecomeActive:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,7 +149,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [[OCAPIClient sharedClient] deleteNote:[self.notesFetchedResultsController objectAtIndexPath:indexPath]];
+        [[OCNotesHelper sharedHelper] deleteNote:[self.notesFetchedResultsController objectAtIndexPath:indexPath]];
     }
 }
 
@@ -172,7 +193,7 @@
         //[self showRenameForIndex:indexPath.row];
     } else {
         Note *note = [self.notesFetchedResultsController objectAtIndexPath:indexPath];
-        [[OCAPIClient sharedClient] getNote:note];
+        [[OCNotesHelper sharedHelper] getNote:note];
         self.editorViewController.note = note;
         if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
             OCDrawerViewController *drawerViewController = (OCDrawerViewController*)self.parentViewController;
@@ -182,7 +203,7 @@
 }
 
 - (IBAction)doRefresh:(id)sender {
-    [[OCAPIClient sharedClient] sync];
+    [[OCNotesHelper sharedHelper] sync];
     [self.notesRefreshControl endRefreshing];
 }
 
@@ -198,16 +219,61 @@
     if ([actionSheet isEqual:self.menuActionSheet]) {
         switch (buttonIndex) {
             case 0:
-                //[self doSettings:self.gearActionSheet];
+                [self doSettings:self.menuActionSheet];
                 break;
             case 1:
-                [[OCAPIClient sharedClient] addNote];
+                [[OCNotesHelper sharedHelper] addNote];
                 break;
             default:
                 break;
         }
     }
 }
+
+- (IBAction)doSettings:(id)sender {
+    UIStoryboard *storyboard;
+    UINavigationController *nav;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil];
+    } else {
+        storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+    }
+    if ([sender isEqual:self.menuActionSheet]) {
+        nav = [storyboard instantiateViewControllerWithIdentifier:@"login"];
+    } else {
+        OCLoginController *lc = [storyboard instantiateViewControllerWithIdentifier:@"server"];
+        nav = [[UINavigationController alloc] initWithRootViewController:lc];
+        nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)reachabilityChanged:(NSNotification *)n {
+    NSNumber *s = n.userInfo[AFNetworkingReachabilityNotificationStatusItem];
+    AFNetworkReachabilityStatus status = [s integerValue];
+    
+    if (status == AFNetworkReachabilityStatusNotReachable) {
+        networkHasBeenUnreachable = YES;
+        //[TSMessage showNotificationInViewController:self.navigationController title:@"Unable to Reach Server" subtitle:@"Please check network connection and login." type:TSMessageNotificationTypeWarning];
+    }
+    if (status > AFNetworkReachabilityStatusNotReachable) {
+        if (networkHasBeenUnreachable) {
+            //[TSMessage showNotificationInViewController:self.navigationController title:@"Server Reachable" subtitle:@"The network connection is working properly." type:TSMessageNotificationTypeSuccess];
+            networkHasBeenUnreachable = NO;
+        }
+    }
+}
+
+- (void) didBecomeActive:(NSNotification *)n {
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"Server"].length == 0) {
+        [self doSettings:nil];
+    } else {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SyncOnStart"]) {
+            [[OCNotesHelper sharedHelper] performSelector:@selector(sync) withObject:nil afterDelay:1.0f];
+        }
+    }
+}
+
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.

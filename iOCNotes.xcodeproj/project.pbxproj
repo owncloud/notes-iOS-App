@@ -39,6 +39,16 @@
 		D02256EA1895BE220038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D02256EB1895BE220038232A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */; };
 		D02256EC1895BE220038232A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
+		D02256F61895E2F10038232A /* OCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256F31895E2F10038232A /* OCSettingsController.m */; };
+		D02256F71895E2F10038232A /* OCLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256F51895E2F10038232A /* OCLoginController.m */; };
+		D02256FB1895E5B80038232A /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256FA1895E5B80038232A /* KeychainItemWrapper.m */; };
+		D02256FC1895E5B80038232A /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256FA1895E5B80038232A /* KeychainItemWrapper.m */; };
+		D02256FD1895E61A0038232A /* OCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256F31895E2F10038232A /* OCSettingsController.m */; };
+		D02256FE1895E61F0038232A /* OCLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256F51895E2F10038232A /* OCLoginController.m */; };
+		D02257021895E6D30038232A /* UILabel+VerticalAlignment.m in Sources */ = {isa = PBXBuildFile; fileRef = D02257011895E6D30038232A /* UILabel+VerticalAlignment.m */; };
+		D02257031895E6D30038232A /* UILabel+VerticalAlignment.m in Sources */ = {isa = PBXBuildFile; fileRef = D02257011895E6D30038232A /* UILabel+VerticalAlignment.m */; };
+		D02257061896E6650038232A /* OCNotesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D02257051896E6650038232A /* OCNotesHelper.m */; };
+		D02257071896E6650038232A /* OCNotesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D02257051896E6650038232A /* OCNotesHelper.m */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
@@ -90,6 +100,16 @@
 		D02256C9189599570038232A /* NSDictionary+HandleNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+HandleNull.m"; sourceTree = "<group>"; };
 		D02256F01895BE220038232A /* iOCNotes copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOCNotes copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02256F11895BE230038232A /* iOCNotes copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iOCNotes copy-Info.plist"; path = "/Users/peter/Projects/iOCNotes/iOCNotes copy-Info.plist"; sourceTree = "<absolute>"; };
+		D02256F21895E2F10038232A /* OCSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSettingsController.h; sourceTree = "<group>"; };
+		D02256F31895E2F10038232A /* OCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSettingsController.m; sourceTree = "<group>"; };
+		D02256F41895E2F10038232A /* OCLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCLoginController.h; sourceTree = "<group>"; };
+		D02256F51895E2F10038232A /* OCLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCLoginController.m; sourceTree = "<group>"; };
+		D02256F91895E5B80038232A /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		D02256FA1895E5B80038232A /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		D02257001895E6D30038232A /* UILabel+VerticalAlignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlignment.h"; sourceTree = "<group>"; };
+		D02257011895E6D30038232A /* UILabel+VerticalAlignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlignment.m"; sourceTree = "<group>"; };
+		D02257041896E6650038232A /* OCNotesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNotesHelper.h; sourceTree = "<group>"; };
+		D02257051896E6650038232A /* OCNotesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNotesHelper.m; sourceTree = "<group>"; };
 		D0CFE5331888A7BD00165839 /* iOCNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOCNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5361888A7BD00165839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0CFE5381888A7BD00165839 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -184,9 +204,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D02256F81895E5B80038232A /* KeychainItemWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				D02256F91895E5B80038232A /* KeychainItemWrapper.h */,
+				D02256FA1895E5B80038232A /* KeychainItemWrapper.m */,
+			);
+			path = KeychainItemWrapper;
+			sourceTree = "<group>";
+		};
+		D02256FF1895E6D30038232A /* UILabel-VerticalAlignment */ = {
+			isa = PBXGroup;
+			children = (
+				D02257001895E6D30038232A /* UILabel+VerticalAlignment.h */,
+				D02257011895E6D30038232A /* UILabel+VerticalAlignment.m */,
+			);
+			path = "UILabel-VerticalAlignment";
+			sourceTree = "<group>";
+		};
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
+				D02256FF1895E6D30038232A /* UILabel-VerticalAlignment */,
+				D02256F81895E5B80038232A /* KeychainItemWrapper */,
 				D0CFE5761888AD0100165839 /* AFNetworking */,
 				D0CFE56E1888ACDF00165839 /* MSDynamicsDrawerViewController */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
@@ -228,8 +268,12 @@
 				D0CFE5461888A7BD00165839 /* OCAppDelegate.m */,
 				D0CFE599188B5A6900165839 /* OCAPIClient.h */,
 				D0CFE59A188B5A6900165839 /* OCAPIClient.m */,
-				D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */,
-				D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */,
+				D02257041896E6650038232A /* OCNotesHelper.h */,
+				D02257051896E6650038232A /* OCNotesHelper.m */,
+				D02256F21895E2F10038232A /* OCSettingsController.h */,
+				D02256F31895E2F10038232A /* OCSettingsController.m */,
+				D02256F41895E2F10038232A /* OCLoginController.h */,
+				D02256F51895E2F10038232A /* OCLoginController.m */,
 				D0CFE5A2188C948A00165839 /* OCDrawerViewController.h */,
 				D0CFE5A3188C948A00165839 /* OCDrawerViewController.m */,
 				D0CFE5931888AE2D00165839 /* OCNotesTableViewController.h */,
@@ -241,6 +285,8 @@
 				D0CFE5971888CC0300165839 /* TransparentToolbar.m */,
 				D02256C8189599570038232A /* NSDictionary+HandleNull.h */,
 				D02256C9189599570038232A /* NSDictionary+HandleNull.m */,
+				D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */,
+				D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */,
 				D0CFE53D1888A7BD00165839 /* Supporting Files */,
 			);
 			path = iOCNotes;
@@ -449,6 +495,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D02256FD1895E61A0038232A /* OCSettingsController.m in Sources */,
 				D02256CD1895BE220038232A /* AFURLConnectionOperation.m in Sources */,
 				D02256CE1895BE220038232A /* AFHTTPRequestOperation.m in Sources */,
 				D02256CF1895BE220038232A /* OCNotesTableViewController.m in Sources */,
@@ -465,12 +512,16 @@
 				D02256DA1895BE220038232A /* main.m in Sources */,
 				D02256DB1895BE220038232A /* OCEditorViewController.m in Sources */,
 				D02256DC1895BE220038232A /* AFHTTPRequestOperationManager.m in Sources */,
+				D02256FC1895E5B80038232A /* KeychainItemWrapper.m in Sources */,
 				D02256DD1895BE220038232A /* AFSecurityPolicy.m in Sources */,
 				D02256DE1895BE220038232A /* OCAPIClient.m in Sources */,
+				D02257031895E6D30038232A /* UILabel+VerticalAlignment.m in Sources */,
 				D02256DF1895BE220038232A /* MSDynamicsDrawerViewController.m in Sources */,
 				D02256E01895BE220038232A /* OCDrawerViewController.m in Sources */,
 				D02256E11895BE220038232A /* MSDynamicsDrawerStyler.m in Sources */,
 				D02256E21895BE220038232A /* AFHTTPSessionManager.m in Sources */,
+				D02256FE1895E61F0038232A /* OCLoginController.m in Sources */,
+				D02257071896E6650038232A /* OCNotesHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +532,7 @@
 				D0CFE58F1888AD0200165839 /* AFURLConnectionOperation.m in Sources */,
 				D0CFE58A1888AD0200165839 /* AFHTTPRequestOperation.m in Sources */,
 				D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */,
+				D02256FB1895E5B80038232A /* KeychainItemWrapper.m in Sources */,
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
 				D0CFE58D1888AD0200165839 /* AFNetworkReachabilityManager.m in Sources */,
 				D0CFE5981888CC0300165839 /* TransparentToolbar.m in Sources */,
@@ -491,15 +543,19 @@
 				D0CFE5471888A7BD00165839 /* OCAppDelegate.m in Sources */,
 				D0CFE5911888AD0200165839 /* AFURLResponseSerialization.m in Sources */,
 				D0CFE59E188B5F4E00165839 /* Notes.xcdatamodeld in Sources */,
+				D02256F71895E2F10038232A /* OCLoginController.m in Sources */,
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,
 				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
+				D02256F61895E2F10038232A /* OCSettingsController.m in Sources */,
 				D0CFE58B1888AD0200165839 /* AFHTTPRequestOperationManager.m in Sources */,
 				D0CFE58E1888AD0200165839 /* AFSecurityPolicy.m in Sources */,
+				D02257021895E6D30038232A /* UILabel+VerticalAlignment.m in Sources */,
 				D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */,
 				D0CFE5751888ACDF00165839 /* MSDynamicsDrawerViewController.m in Sources */,
 				D0CFE5A4188C948A00165839 /* OCDrawerViewController.m in Sources */,
 				D0CFE5741888ACDF00165839 /* MSDynamicsDrawerStyler.m in Sources */,
 				D0CFE58C1888AD0200165839 /* AFHTTPSessionManager.m in Sources */,
+				D02257061896E6650038232A /* OCNotesHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

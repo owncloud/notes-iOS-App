@@ -1,5 +1,5 @@
 //
-//  OCAPIClient.h
+//  OCLoginController.h
 //  iOCNews
 //
 
@@ -30,13 +30,22 @@
  
  *************************************************************************/
 
-#import <CoreData/CoreData.h>
-#import "AFHTTPSessionManager.h"
-#import "Note.h"
+#import <UIKit/UIKit.h>
+#import "KeychainItemWrapper.h"
 
-@interface OCAPIClient : AFHTTPSessionManager
+@interface OCLoginController : UITableViewController <UITextFieldDelegate>
 
-+(OCAPIClient *)sharedClient;
-+(void)setSharedClient:(OCAPIClient *)client;
+@property (nonatomic, strong, readonly) KeychainItemWrapper *keychain;
+
+@property (strong, nonatomic) IBOutlet UITextField *serverTextField;
+@property (strong, nonatomic) IBOutlet UITextField *usernameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (strong, nonatomic) IBOutlet UISwitch *certificateSwitch;
+@property (strong, nonatomic) IBOutlet UITableViewCell *certificateCell;
+
+@property (strong, nonatomic) IBOutlet UILabel *statusLabel;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *connectionActivityIndicator;
+
+- (IBAction)doDone:(id)sender;
 
 @end

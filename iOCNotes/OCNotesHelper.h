@@ -1,5 +1,5 @@
 //
-//  OCAPIClient.h
+//  OCNewsHelper.h
 //  iOCNews
 //
 
@@ -30,13 +30,24 @@
  
  *************************************************************************/
 
+#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "AFHTTPSessionManager.h"
 #import "Note.h"
 
-@interface OCAPIClient : AFHTTPSessionManager
+@interface OCNotesHelper : NSObject
 
-+(OCAPIClient *)sharedClient;
-+(void)setSharedClient:(OCAPIClient *)client;
+@property (nonatomic,retain) NSManagedObjectContext *context;
+@property (nonatomic, retain) NSManagedObjectModel *objectModel;
+@property (nonatomic, retain) NSPersistentStoreCoordinator *coordinator;
+
+@property (nonatomic, strong, readonly) NSFetchRequest *noteRequest;
+
++ (OCNotesHelper *)sharedHelper;
+- (void)sync;
+- (void)addNote;
+- (void)getNote:(Note*)note;
+- (void)updateNote:(Note*)note;
+- (void)deleteNote:(Note*)note;
+- (Note*)noteWithId:(NSNumber*)noteId;
 
 @end

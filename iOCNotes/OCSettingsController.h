@@ -1,7 +1,6 @@
 //
-//  OCAPIClient.h
+//  OCSettingsController.h
 //  iOCNews
-//
 
 /************************************************************************
  
@@ -30,13 +29,15 @@
  
  *************************************************************************/
 
-#import <CoreData/CoreData.h>
-#import "AFHTTPSessionManager.h"
-#import "Note.h"
+#import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface OCAPIClient : AFHTTPSessionManager
+@interface OCSettingsController : UITableViewController <MFMailComposeViewControllerDelegate>
 
-+(OCAPIClient *)sharedClient;
-+(void)setSharedClient:(OCAPIClient *)client;
+@property (strong, nonatomic) IBOutlet UISwitch *syncOnStartSwitch;
+@property (strong, nonatomic) IBOutlet UITableViewCell *syncOnStartCell;
+
+- (IBAction)syncOnStartChanged:(id)sender;
+- (IBAction)didTapDone:(id)sender;
 
 @end

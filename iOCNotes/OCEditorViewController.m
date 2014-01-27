@@ -7,7 +7,7 @@
 //
 
 #import "OCEditorViewController.h"
-#import "OCAPIClient.h"
+#import "OCNotesHelper.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface OCEditorViewController () {
@@ -128,7 +128,7 @@
 - (void)updateText:(NSTimer*)timer {
     NSLog(@"Ready to update text");
     self.note.content = self.noteContentView.text;
-    [[OCAPIClient sharedClient] updateNote:self.note];
+    [[OCNotesHelper sharedHelper] updateNote:self.note];
 }
 
 - (void)noteUpdated:(NSNotification *)notification {
