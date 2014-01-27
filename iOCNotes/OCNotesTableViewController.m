@@ -84,6 +84,15 @@
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkSuccess:)
+                                                 name:@"NetworkSuccess"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkError:)
+                                                 name:@"NetworkError"
+                                               object:nil];
     
     [self.notesFetchedResultsController performFetch:nil];
 }
@@ -210,7 +219,6 @@
 
 - (IBAction)doRefresh:(id)sender {
     [[OCNotesHelper sharedHelper] sync];
-    [self.notesRefreshControl endRefreshing];
 }
 
 - (IBAction)doMenu:(id)sender {
@@ -280,6 +288,24 @@
     }
 }
 
+- (void) networkSuccess:(NSNotification *)n {
+    [self.refreshControl endRefreshing];
+}
+
+- (void)networkError:(NSNotification *)n {
+    [self.refreshControl endRefreshing];
+    /*[TSMessage showNotificationInViewController:self.navigationController
+                                          title:[n.userInfo objectForKey:@"Title"]
+                                       subtitle:[n.userInfo objectForKey:@"Message"]
+                                          image:nil
+                                           type:TSMessageNotificationTypeError
+                                       duration:TSMessageNotificationDurationEndless
+                                       callback:nil
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:YES]; */
+}
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.

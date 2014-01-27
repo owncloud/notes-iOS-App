@@ -204,7 +204,7 @@
                 note.title = [noteDict objectForKey:@"title"];
                 note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                 note.modified = [noteDict objectForKey:@"modified"];
-                [self.context processPendingChanges]; //Prevents crash if a feed has moved to another folder
+                [self.context processPendingChanges]; //Prevents crashes
             }];
             [self saveContext];
             [self deleteNotesFromServer:notesToDelete];
@@ -319,7 +319,7 @@
         NSDictionary *params = @{@"content": newNote.content};
         __block Note *blockNote = newNote;
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-            //NSLog(@"Feeds: %@", responseObject);
+            //NSLog(@"Note: %@", responseObject);
             [self updateNote:blockNote fromDictionary:(NSDictionary*)responseObject];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -330,7 +330,7 @@
                     break;
             }
             
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Feed", @"Title", message, @"Message", nil];
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Note", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
             [notesToAdd addObject:blockNote.myId];
         }];
@@ -395,7 +395,7 @@
                     break;
             }
             
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Feed", @"Title", message, @"Message", nil];
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Updating Note", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
             blockNote.modified = [NSNumber numberWithLong:[[NSDate date] timeIntervalSince1970]];
             [self saveContext];
@@ -471,7 +471,7 @@
         __block Note *note = [self noteWithId:noteId];
         NSDictionary *params = @{@"content": note.content};
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-            //NSLog(@"Feeds: %@", responseObject);
+            //NSLog(@"Note: %@", responseObject);
             @synchronized(successfulAdditions) {
                 NSDictionary *noteDict = (NSDictionary*)responseObject;
                 Note *responseNote = [self noteWithId:[noteDict objectForKey:@"id"]];
@@ -494,7 +494,7 @@
                     break;
             }
             
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Feed", @"Title", message, @"Message", nil];
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Note", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
             [failedAdditions addObject:note.myId];
         }];
