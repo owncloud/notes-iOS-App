@@ -12,6 +12,7 @@
 #import "OCNotesHelper.h"
 #import "OCLoginController.h"
 #import "Note.h"
+#import "TSMessage.h"
 
 @interface OCNotesTableViewController () {
     BOOL networkHasBeenUnreachable;
@@ -268,11 +269,11 @@
     
     if (status == AFNetworkReachabilityStatusNotReachable) {
         networkHasBeenUnreachable = YES;
-        //[TSMessage showNotificationInViewController:self.navigationController title:@"Unable to Reach Server" subtitle:@"Please check network connection and login." type:TSMessageNotificationTypeWarning];
+        [TSMessage showNotificationInViewController:self.parentViewController title:@"Unable to Reach Server" subtitle:@"Please check network connection and login." type:TSMessageNotificationTypeWarning];
     }
     if (status > AFNetworkReachabilityStatusNotReachable) {
         if (networkHasBeenUnreachable) {
-            //[TSMessage showNotificationInViewController:self.navigationController title:@"Server Reachable" subtitle:@"The network connection is working properly." type:TSMessageNotificationTypeSuccess];
+            [TSMessage showNotificationInViewController:self.parentViewController title:@"Server Reachable" subtitle:@"The network connection is working properly." type:TSMessageNotificationTypeSuccess];
             networkHasBeenUnreachable = NO;
         }
     }
@@ -294,7 +295,7 @@
 
 - (void)networkError:(NSNotification *)n {
     [self.refreshControl endRefreshing];
-    /*[TSMessage showNotificationInViewController:self.navigationController
+    [TSMessage showNotificationInViewController:self.parentViewController
                                           title:[n.userInfo objectForKey:@"Title"]
                                        subtitle:[n.userInfo objectForKey:@"Message"]
                                           image:nil
@@ -304,7 +305,7 @@
                                     buttonTitle:nil
                                  buttonCallback:nil
                                      atPosition:TSMessageNotificationPositionTop
-                            canBeDismisedByUser:YES]; */
+                            canBeDismisedByUser:YES];
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {

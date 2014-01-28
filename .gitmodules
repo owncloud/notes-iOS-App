@@ -10,3 +10,6 @@
 [submodule "UILabel-VerticalAlignment"]
 	path = UILabel-VerticalAlignment
 	url = https://github.com/ecentinela/UILabel-VerticalAlignment
+[submodule "TSMessages"]
+	path = TSMessages
+	url = https://github.com/toursprung/TSMessages.git
