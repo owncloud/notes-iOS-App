@@ -135,6 +135,7 @@
     NSLog(@"Informed about note update");
     self.titleLabel.text = self.note.title;
     self.navigationItem.title = self.note.title;
+    self.noteContentView.text = self.note.content;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
