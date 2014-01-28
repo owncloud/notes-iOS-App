@@ -10,11 +10,15 @@
 #import "OCDrawerViewController.h"
 #import "OCEditorViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import <KSCrash/KSCrash.h>
+#import <KSCrash/KSCrashInstallationEmail.h>
 
 @implementation OCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    KSCrashInstallation* installation = [self makeEmailInstallation];
+    [installation install];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
 
@@ -38,6 +42,15 @@
         self.window.rootViewController = self.dynamicsDrawerViewController;
         [self.window makeKeyAndVisible];
     }
+    
+    [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
+        if(completed) {
+            NSLog(@"Sent %d reports", (int)[reports count]);
+        } else{
+            NSLog(@"Failed to send reports: %@", error);
+        }
+    }];
+    
     return YES;
 }
 							
@@ -66,6 +79,26 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (KSCrashInstallation*) makeEmailInstallation {
+    NSString* emailAddress = @"support@peterandlinda.com";
+    
+    KSCrashInstallationEmail* email = [KSCrashInstallationEmail sharedInstance];
+    email.recipients = @[emailAddress];
+    email.subject = @"CloudNotes Crash Report";
+    email.message = @"<Please provide as much details as possible about what you were doing when the crash occurred.>";
+    email.filenameFmt = @"crash-report-%d.txt.gz";
+    
+    [email addConditionalAlertWithTitle:@"Crash Detected"
+                                message:@"CloudNotes crashed last time it was launched. Do you want to send a report to the developer?"
+                              yesAnswer:@"Yes, please!"
+                               noAnswer:@"No thanks"];
+    
+    // Uncomment to send Apple style reports instead of JSON.
+    [email setReportStyle:KSCrashEmailReportStyleApple useDefaultFilenameFormat:YES];
+    
+    return email;
 }
 
 @end
