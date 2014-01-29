@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Dynamics Drawer View Controller-->
+        <!--Sliding View Controller-->
         <scene sceneID="e9X-8y-K6V">
             <objects>
-                <viewController id="JVq-Ql-bFd" customClass="MSDynamicsDrawerViewController" sceneMemberID="viewController">
+                <viewController id="JVq-Ql-bFd" customClass="ECSlidingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="v75-KJ-yQP"/>
                         <viewControllerLayoutGuide type="bottom" id="fOp-rI-LKF"/>
@@ -16,15 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="underLeftViewControllerStoryboardId" value="Notes"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="topViewControllerStoryboardId" value="Editor"/>
+                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5t1-le-smj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="71" y="-1223"/>
         </scene>
-        <!--Drawer View Controller-->
+        <!--View Controller-->
         <scene sceneID="EcV-L3-ma8">
             <objects>
-                <viewController storyboardIdentifier="Notes" automaticallyAdjustsScrollViewInsets="NO" id="vQe-cR-RGu" customClass="OCDrawerViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Notes" automaticallyAdjustsScrollViewInsets="NO" id="vQe-cR-RGu" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1eR-h7-30a"/>
                         <viewControllerLayoutGuide type="bottom" id="BI2-Dj-8dZ"/>
@@ -33,62 +37,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LLL-g2-V9e" customClass="TransparentToolbar">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="yKL-fh-i4R"/>
-                                    <barButtonItem style="plain" id="jcE-5a-T6p">
-                                        <view key="customView" contentMode="scaleToFill" id="c9F-Ov-ih9">
-                                            <rect key="frame" x="73" y="6" width="174" height="33"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wF-W6-t6A">
-                                                    <rect key="frame" x="0.0" y="0.0" width="174" height="33"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="aeZ-SH-lm9"/>
-                                    <barButtonItem image="menu" id="uV8-4H-s6M">
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="doMenu:" destination="vQe-cR-RGu" id="VsU-GR-HR9"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VJf-8B-28f">
-                                <rect key="frame" x="0.0" y="64" width="320" height="960"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="ee1-11-mj4" kind="embed" identifier="embed" id="YFV-zB-oJc"/>
+                                    <segue destination="v5n-91-X1l" kind="embed" id="pmK-D5-by0"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.16800000000000001" green="0.23169999999999996" blue="0.35000000000000003" alpha="1" colorSpace="deviceRGB"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <connections>
-                        <outlet property="menuButton" destination="uV8-4H-s6M" id="x8e-p3-fco"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Shf-7A-WNH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="947" y="-1223"/>
         </scene>
-        <!--Notes Table View Controller-->
+        <!--Notes Table View Controller - Notes-->
         <scene sceneID="H6m-zS-WJC">
             <objects>
-                <tableViewController id="ee1-11-mj4" customClass="OCNotesTableViewController" sceneMemberID="viewController">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="ee1-11-mj4" customClass="OCNotesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="az8-Y8-Nn2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="960"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -127,10 +97,18 @@
                             <outlet property="delegate" destination="ee1-11-mj4" id="ydA-Je-HlO"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Notes" id="wbf-6X-5TK">
+                        <barButtonItem key="rightBarButtonItem" image="menu" id="c7c-no-10Y">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="doMenu:" destination="ee1-11-mj4" id="xzD-c6-y2L"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wkw-pT-A1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1873" y="-1191"/>
+            <point key="canvasLocation" x="2399" y="-1191"/>
         </scene>
         <!--Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -498,6 +476,29 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3G0-d4-XdN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="71" y="-2404"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hck-FK-F7V">
+            <objects>
+                <navigationController id="v5n-91-X1l" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="2tn-K7-fPL">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.16800000000000001" green="0.23169999999999999" blue="0.34999999999999998" alpha="1" colorSpace="deviceRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ee1-11-mj4" kind="relationship" relationship="rootViewController" id="v4B-cs-wqQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mjE-6x-IOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1873" y="-1191"/>
         </scene>
     </scenes>
     <resources>

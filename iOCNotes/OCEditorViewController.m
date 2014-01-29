@@ -9,10 +9,13 @@
 #import "OCEditorViewController.h"
 #import "OCNotesHelper.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIViewController+ECSlidingViewController.h"
 
-@interface OCEditorViewController () {
+@interface OCEditorViewController () <UIGestureRecognizerDelegate> {
     NSTimer *editingTimer;
 }
+
+@property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
 
 - (void)updateText:(NSTimer*)timer;
 - (void)noteUpdated:(NSNotification*)notification;
@@ -22,7 +25,6 @@
 @implementation OCEditorViewController
 
 @synthesize note = _note;
-@synthesize dynamicsDrawerViewController;
 
 - (void)setNote:(Note *)note {
     if (![note isEqual:_note]) {
@@ -38,6 +40,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+        self.slidingViewController.anchorRightRevealAmount = 320.0f;
+        self.dynamicTransition.slidingViewController = self.slidingViewController;
+        self.slidingViewController.delegate = self.dynamicTransition;
+        self.slidingViewController.topViewAnchoredGesture = ECSlidingViewControllerAnchoredGestureTapping | ECSlidingViewControllerAnchoredGestureCustom;
+        self.slidingViewController.customAnchoredGestures = @[self.dynamicTransitionPanGesture];
+        [self.view removeGestureRecognizer:self.slidingViewController.panGesture];
+        [self.view addGestureRecognizer:self.dynamicTransitionPanGesture];
+    }
     self.view.backgroundColor = [UIColor colorWithRed:0.96 green:0.94 blue:0.86 alpha:1];
     self.menuButton.tintColor = [UIColor colorWithRed:0.36 green:0.24 blue:0.14 alpha:1];
     self.titleLabel.textColor = [UIColor colorWithRed:0.36 green:0.24 blue:0.14 alpha:1];
@@ -114,7 +125,8 @@
 }
 
 - (IBAction)doShowDrawer:(id)sender {
-    [self.dynamicsDrawerViewController setPaneState:MSDynamicsDrawerPaneStateOpen inDirection:MSDynamicsDrawerDirectionLeft animated:YES allowUserInterruption:YES completion:nil];
+    [self.noteContentView resignFirstResponder];
+    [self.slidingViewController anchorTopViewToRightAnimated:YES];
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
@@ -168,6 +180,30 @@
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
     }];
+}
+
+- (MEDynamicTransition *)dynamicTransition {
+    if (!_dynamicTransition) {
+        _dynamicTransition = [[MEDynamicTransition alloc] init];
+    }
+    return _dynamicTransition;
+}
+
+- (UIPanGestureRecognizer *)dynamicTransitionPanGesture {
+    if (!_dynamicTransitionPanGesture) {
+        _dynamicTransitionPanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self.dynamicTransition action:@selector(handlePanGesture:)];
+        _dynamicTransitionPanGesture.delegate = self;
+    }
+    return _dynamicTransitionPanGesture;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+        if ([gestureRecognizer isEqual:self.dynamicTransitionPanGesture]) {
+            [self.noteContentView resignFirstResponder];
+        }
+    }
+    return YES;
 }
 
 @end

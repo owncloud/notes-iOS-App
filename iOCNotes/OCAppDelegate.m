@@ -20,28 +20,6 @@
     KSCrashInstallation* installation = [self makeEmailInstallation];
     [installation install];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-
-        self.dynamicsDrawerViewController = (MSDynamicsDrawerViewController *)self.window.rootViewController;
-        //self.dynamicsDrawerViewController.delegate = self;
-        self.dynamicsDrawerViewController.shouldAlignStatusBarToPaneView = NO;
-        [self.dynamicsDrawerViewController setRevealWidth:320.0f forDirection:MSDynamicsDrawerDirectionLeft];
-        [self.dynamicsDrawerViewController addStylersFromArray:@[[MSDynamicsDrawerParallaxStyler styler]] forDirection:MSDynamicsDrawerDirectionLeft];
-        
-        OCDrawerViewController *menuViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"Notes"];
-        menuViewController.dynamicsDrawerViewController = self.dynamicsDrawerViewController;
-        [self.dynamicsDrawerViewController setDrawerViewController:menuViewController forDirection:MSDynamicsDrawerDirectionLeft];
-        
-        OCEditorViewController *editorController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"Editor"];
-        editorController.dynamicsDrawerViewController = self.dynamicsDrawerViewController;
-        [self.dynamicsDrawerViewController setPaneViewController:editorController];
-        // Transition to the first view controller
-        //[menuViewController transitionToViewController:MSPaneViewControllerTypeStylers];
-        
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        self.window.rootViewController = self.dynamicsDrawerViewController;
-        [self.window makeKeyAndVisible];
-    }
     
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
         if(completed) {

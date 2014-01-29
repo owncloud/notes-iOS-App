@@ -8,11 +8,13 @@
 
 #import "OCDrawerViewController.h"
 #import "OCNotesTableViewController.h"
+#import "OCEditorViewController.h"
 #import "OCAPIClient.h"
 #import "OCNotesHelper.h"
 #import "OCLoginController.h"
 #import "Note.h"
 #import "TSMessage.h"
+#import "UIViewController+ECSlidingViewController.h"
 
 @interface OCNotesTableViewController () {
     BOOL networkHasBeenUnreachable;
@@ -68,12 +70,14 @@
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     networkHasBeenUnreachable = NO;
     self.refreshControl = self.notesRefreshControl;
+    
+    self.editorViewController = (OCEditorViewController*)self.slidingViewController.topViewController;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
@@ -213,7 +217,8 @@
         self.editorViewController.note = note;
         if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
             OCDrawerViewController *drawerViewController = (OCDrawerViewController*)self.parentViewController;
-            [drawerViewController.dynamicsDrawerViewController setPaneState:MSDynamicsDrawerPaneStateClosed inDirection:MSDynamicsDrawerDirectionLeft animated:YES allowUserInterruption:YES completion:nil];
+            [self.slidingViewController resetTopViewAnimated:YES];
+
         }
     }
 }
