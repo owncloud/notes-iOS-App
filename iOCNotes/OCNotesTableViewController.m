@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Peter Hedlund. All rights reserved.
 //
 
-#import "OCDrawerViewController.h"
 #import "OCNotesTableViewController.h"
 #import "OCEditorViewController.h"
 #import "OCAPIClient.h"
@@ -216,9 +215,7 @@
         [[OCNotesHelper sharedHelper] getNote:note];
         self.editorViewController.note = note;
         if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-            OCDrawerViewController *drawerViewController = (OCDrawerViewController*)self.parentViewController;
             [self.slidingViewController resetTopViewAnimated:YES];
-
         }
     }
 }
