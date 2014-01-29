@@ -521,12 +521,24 @@
             }
             dispatch_group_leave(group);
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            //TODO: Handle 404 and count as success. Determine what to do with real failures.
             NSLog(@"Failure to delete from server");
             NSString *failedId = [task.originalRequest.URL lastPathComponent];
-            @synchronized(failedDeletions) {
-                [failedDeletions addObject:[NSNumber numberWithInteger:[failedId integerValue]]];
+            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+            switch (response.statusCode) {
+                case 404:
+                    NSLog(@"Id %@ no longer exists", failedId);
+                    @synchronized(successfulDeletions) {
+                        [successfulDeletions addObject:[NSNumber numberWithInteger:[failedId integerValue]]];
+                    }
+                    break;
+                default:
+                    NSLog(@"Status code: %ld", (long)response.statusCode);
+                    @synchronized(failedDeletions) {
+                        [failedDeletions addObject:[NSNumber numberWithInteger:[failedId integerValue]]];
+                    }
+                    break;
             }
+
             dispatch_group_leave(group);
         }];
     }];
