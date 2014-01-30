@@ -47,7 +47,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Notes" id="qfr-a2-foZ">
-                        <barButtonItem key="rightBarButtonItem" image="menu" id="MOs-yv-oce">
+                        <barButtonItem key="rightBarButtonItem" image="gear" id="MOs-yv-oce">
                             <connections>
                                 <action selector="doMenu:" destination="DXe-Iw-CcD" id="Gw1-Yq-SJP"/>
                             </connections>
@@ -432,7 +432,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="menu" width="28" height="44"/>
+        <image name="gear" width="24" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

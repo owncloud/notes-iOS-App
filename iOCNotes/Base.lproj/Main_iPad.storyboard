@@ -98,7 +98,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Notes" id="wbf-6X-5TK">
-                        <barButtonItem key="rightBarButtonItem" image="menu" id="c7c-no-10Y">
+                        <barButtonItem key="rightBarButtonItem" image="gear" id="c7c-no-10Y">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="doMenu:" destination="ee1-11-mj4" id="xzD-c6-y2L"/>
@@ -502,7 +502,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="menu" width="28" height="44"/>
+        <image name="gear" width="24" height="44"/>
         <image name="sideMenu" width="32" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
