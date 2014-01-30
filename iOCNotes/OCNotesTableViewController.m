@@ -34,7 +34,7 @@
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:[OCNotesHelper sharedHelper].context];
         [fetchRequest setEntity:entity];
         
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"myId" ascending:YES];
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"myId" ascending:NO];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
         [fetchRequest setFetchBatchSize:20];
         

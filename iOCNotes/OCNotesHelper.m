@@ -308,7 +308,7 @@
 
 - (void)addNote {
     __block Note *newNote = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:self.context];
-    newNote.myId = [NSNumber numberWithInt:10000 + notesToAdd.count];
+    newNote.myId = [NSNumber numberWithInt:1000000 - notesToAdd.count];
     newNote.title = @"New note";
     newNote.content = @"";
     newNote.modified = [NSNumber numberWithLong:[[NSDate date] timeIntervalSince1970]];
