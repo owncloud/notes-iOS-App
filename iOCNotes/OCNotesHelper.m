@@ -307,7 +307,7 @@
  */
 
 - (void)addNote {
-    Note *newNote = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:self.context];
+    __block Note *newNote = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:self.context];
     newNote.myId = [NSNumber numberWithInt:10000 + notesToAdd.count];
     newNote.title = @"New Note";
     newNote.content = @"";
@@ -317,10 +317,9 @@
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
         //online
         NSDictionary *params = @{@"content": newNote.content};
-        __block Note *blockNote = newNote;
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             //NSLog(@"Note: %@", responseObject);
-            [self updateNote:blockNote fromDictionary:(NSDictionary*)responseObject];
+            [self updateNote:newNote fromDictionary:(NSDictionary*)responseObject];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSString *message;
@@ -332,7 +331,7 @@
             
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Note", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-            [notesToAdd addObject:blockNote.myId];
+            [notesToAdd addObject:newNote.myId];
         }];
         
     } else {
@@ -454,11 +453,14 @@
 }
 
 - (void)updateNote:(Note *)note fromDictionary:(NSDictionary*)noteDict {
-    note.myId = [noteDict objectForKey:@"id"];
-    note.modified = [noteDict objectForKey:@"modified"];
-    note.title = [noteDict objectForKey:@"title"];
-    note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-    [self saveContext];
+    Note *noteToUpdate = (Note*)[self.context existingObjectWithID:note.objectID error:nil];
+    if (noteToUpdate) {
+        noteToUpdate.myId = [noteDict objectForKey:@"id"];
+        noteToUpdate.modified = [noteDict objectForKey:@"modified"];
+        noteToUpdate.title = [noteDict objectForKey:@"title"];
+        noteToUpdate.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+        [self saveContext];
+    }
 }
 
 - (void)addNotesToServer:(NSArray*)notesArray {
