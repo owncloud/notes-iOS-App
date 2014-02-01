@@ -424,16 +424,16 @@
 - (void) deleteNote:(Note *)note {
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
         //online
-        __block Note *blockNote = note;
-        NSString *path = [NSString stringWithFormat:@"notes/%@", [note.myId stringValue]];
+        __block Note *noteToDelete = (Note*)[self.context objectWithID:note.objectID];
+        NSString *path = [NSString stringWithFormat:@"notes/%@", [noteToDelete.myId stringValue]];
         [[OCAPIClient sharedClient] DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSLog(@"Success deleting note");
-            [self.context deleteObject:blockNote];
+            [self.context deleteObject:noteToDelete];
             [self saveContext];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"Failure to delete note");
-            [notesToDelete addObject:blockNote.myId];
-            [self.context deleteObject:blockNote];
+            [notesToDelete addObject:noteToDelete.myId];
+            [self.context deleteObject:noteToDelete];
             [self saveContext];
             NSString *message = [NSString stringWithFormat:@"The error reported was '%@'", [error localizedDescription]];
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Deleting Note", @"Title", message, @"Message", nil];
