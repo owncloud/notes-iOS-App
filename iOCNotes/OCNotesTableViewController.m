@@ -75,9 +75,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     networkHasBeenUnreachable = NO;
     self.refreshControl = self.notesRefreshControl;
-    
-    self.editorViewController = (OCEditorViewController*)self.slidingViewController.topViewController;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
                                                  name:AFNetworkingReachabilityDidChangeNotification
@@ -104,6 +102,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self didBecomeActive:nil];
+    [self.editorViewController.noteContentView resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -202,10 +201,14 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"noteSelected"]) {
-        self.editorViewController = (OCEditorViewController*)[segue destinationViewController];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            self.editorViewController = (OCEditorViewController*)segue.destinationViewController;
+        } else {
+            UINavigationController *navController = (UINavigationController*)segue.destinationViewController;
+            self.editorViewController = (OCEditorViewController*)navController.topViewController;
+        }
     }
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.tableView.isEditing) {
@@ -317,7 +320,7 @@
 
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    NSLog(@"Section: %ld; Row: %ld", indexPath.section, indexPath.row);
+    NSLog(@"Section: %ld; Row: %ld", indexPath.section, (long)indexPath.row);
     
     UITableView *tableView = self.tableView;
     

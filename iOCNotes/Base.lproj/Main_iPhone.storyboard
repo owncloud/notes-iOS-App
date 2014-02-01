@@ -92,6 +92,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="dEj-4d-nDe"/>
                     <connections>
+                        <outlet property="bottomLayoutConstraint" destination="6Id-Li-lcH" id="bjH-Bb-htb"/>
                         <outlet property="noteContentView" destination="LzS-Ob-leM" id="LGo-Rd-opW"/>
                     </connections>
                 </viewController>

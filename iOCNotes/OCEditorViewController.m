@@ -29,10 +29,7 @@
 - (void)setNote:(Note *)note {
     if (![note isEqual:_note]) {
         _note = note;
-        self.noteContentView.text = _note.content;
-        self.noteContentView.editable = YES;
-        self.noteContentView.selectable = YES;
-        self.titleLabel.text = _note.title;
+        self.navigationItem.title = _note.title;
     }
 }
 
@@ -54,6 +51,13 @@
     self.titleLabel.textColor = [UIColor colorWithRed:0.36 green:0.24 blue:0.14 alpha:1];
     self.noteContentView.editable = NO;
     self.noteContentView.selectable = NO;
+    self.noteContentView.text = @"Select or create a note.";
+    
+    if (self.note) {
+        self.noteContentView.text = _note.content;
+        self.noteContentView.editable = YES;
+        self.noteContentView.selectable = YES;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteUpdated:)
@@ -69,7 +73,7 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-
+    
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
 }
 
@@ -107,17 +111,6 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (self.note) {
-        self.noteContentView.text = self.note.content;
-        self.noteContentView.editable = YES;
-        self.noteContentView.selectable = YES;
-        self.titleLabel.text = self.note.title;
-        self.navigationItem.title = self.note.title;
-    }
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -125,7 +118,6 @@
 }
 
 - (IBAction)doShowDrawer:(id)sender {
-    [self.noteContentView resignFirstResponder];
     [self.slidingViewController anchorTopViewToRightAnimated:YES];
 }
 
@@ -135,6 +127,25 @@
         editingTimer = nil;
     }
     editingTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(updateText:) userInfo:nil repeats:NO];
+}
+
+- (BOOL)textView:(UITextView *)tView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    CGRect textRect = [tView.layoutManager usedRectForTextContainer:tView.textContainer];
+    CGFloat sizeAdjustment = tView.font.lineHeight * [UIScreen mainScreen].scale;
+    
+    if (textRect.size.height >= tView.frame.size.height - tView.contentInset.bottom - sizeAdjustment) {
+        if ([text isEqualToString:@"\n"]) {
+            [UIView animateWithDuration:0.2 animations:^{
+                [tView setContentOffset:CGPointMake(tView.contentOffset.x, tView.contentOffset.y + sizeAdjustment)];
+            }];
+        }
+    }
+    
+    return YES;
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    [textView scrollRangeToVisible:textView.selectedRange];
 }
 
 - (void)updateText:(NSTimer*)timer {
@@ -151,15 +162,20 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+
+    NSDictionary* d = [notification userInfo];
+    CGRect r = [d[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    r = [self.view convertRect:r fromView:nil];
+    
     NSDictionary *info = [notification userInfo];
-    NSValue *kbFrame = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
+    //NSValue *kbFrame = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
     
     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 2;
-    CGRect keyboardFrame = [kbFrame CGRectValue];
+    //CGRect keyboardFrame = [kbFrame CGRectValue];
     
-    CGRect finalKeyboardFrame = [self.view convertRect:keyboardFrame fromView:self.view.window];
+    //CGRect finalKeyboardFrame = [self.view convertRect:keyboardFrame fromView:self.view.window];
     
-    int kbHeight = finalKeyboardFrame.size.height;
+    int kbHeight = r.size.height;
     
     int height = kbHeight + self.bottomLayoutConstraint.constant;
     
@@ -197,13 +213,14 @@
     return _dynamicTransitionPanGesture;
 }
 
+/*
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
         if ([gestureRecognizer isEqual:self.dynamicTransitionPanGesture]) {
-            [self.noteContentView resignFirstResponder];
+            //[self.noteContentView resignFirstResponder];
         }
     }
     return YES;
 }
-
+*/
 @end
