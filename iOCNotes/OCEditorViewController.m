@@ -74,6 +74,11 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(preferredContentSizeChanged:)
+                                                 name:UIContentSizeCategoryDidChangeNotification
+                                               object:nil];
+    
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
 }
 
@@ -196,6 +201,10 @@
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
     }];
+}
+
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
+    self.noteContentView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 - (MEDynamicTransition *)dynamicTransition {

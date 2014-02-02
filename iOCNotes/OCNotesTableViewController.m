@@ -96,6 +96,11 @@
                                                  name:@"NetworkError"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(preferredContentSizeChanged:)
+                                                 name:UIContentSizeCategoryDidChangeNotification
+                                               object:nil];
+    
     [self.notesFetchedResultsController performFetch:nil];
 }
 
@@ -311,6 +316,10 @@
                                  buttonCallback:nil
                                      atPosition:TSMessageNotificationPositionTop
                             canBeDismisedByUser:YES];
+}
+
+- (void)preferredContentSizeChanged:(NSNotification *)notification {
+    [self.tableView reloadData];
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {

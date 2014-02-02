@@ -611,6 +611,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Peter Hedlund";
 				TargetAttributes = {
+					D0CFE5321888A7BD00165839 = {
+						DevelopmentTeam = 73AQJ77PZ5;
+					};
 					D0CFE5561888A7BD00165839 = {
 						TestTargetID = D0CFE5321888A7BD00165839;
 					};
@@ -992,6 +995,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
@@ -1001,6 +1006,7 @@
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1011,6 +1017,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
@@ -1020,6 +1028,7 @@
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
 				WRAPPER_EXTENSION = app;
 			};
