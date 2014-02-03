@@ -127,19 +127,17 @@
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    //NSIndexPath *indexPathTemp = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
     Note *note = [self.notesFetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = note.title;
     cell.backgroundColor = [UIColor clearColor];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[note.modified doubleValue]];
     if (date) {
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        dateFormat.dateStyle = NSDateFormatterMediumStyle;
-        dateFormat.timeStyle = NSDateFormatterShortStyle;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Modified on %@", [dateFormat stringFromDate:date]];
+        dateFormat.dateStyle = NSDateFormatterShortStyle;
+        dateFormat.timeStyle = NSDateFormatterNoStyle;
+        dateFormat.doesRelativeDateFormatting = YES;
+        cell.detailTextLabel.text = [dateFormat stringFromDate:date];
     }
-
-    //cell.delegate = self;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
