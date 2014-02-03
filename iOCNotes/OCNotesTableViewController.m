@@ -126,8 +126,31 @@
     return [self.notesFetchedResultsController fetchedObjects].count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static UILabel* labelTitle;
+    if (!labelTitle) {
+        labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, FLT_MAX, FLT_MAX)];
+        labelTitle.text = @"test";
+    }
+    labelTitle.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    [labelTitle sizeToFit];
+    CGFloat height1 = labelTitle.frame.size.height;
+    
+    static UILabel* labelSubTitle;
+    if (!labelSubTitle) {
+        labelSubTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, FLT_MAX, FLT_MAX)];
+        labelSubTitle.text = @"test";
+    }
+    labelSubTitle.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+    [labelSubTitle sizeToFit];
+    CGFloat height2 = labelSubTitle.frame.size.height;
+
+    return (height1 + height2) * 1.7;
+}
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Note *note = [self.notesFetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
     cell.textLabel.text = note.title;
     cell.backgroundColor = [UIColor clearColor];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[note.modified doubleValue]];
@@ -137,6 +160,7 @@
         dateFormat.timeStyle = NSDateFormatterNoStyle;
         dateFormat.doesRelativeDateFormatting = YES;
         cell.detailTextLabel.text = [dateFormat stringFromDate:date];
+        cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
     }
 }
 
