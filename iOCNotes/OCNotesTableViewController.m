@@ -194,7 +194,11 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [[OCNotesHelper sharedHelper] deleteNote:[self.notesFetchedResultsController objectAtIndexPath:indexPath]];
+        Note *noteToDelete = (Note*)[self.notesFetchedResultsController objectAtIndexPath:indexPath];
+        if ([noteToDelete isEqual:self.editorViewController.note]) {
+            self.editorViewController.note = nil;
+        }
+        [[OCNotesHelper sharedHelper] deleteNote:noteToDelete];
     }
 }
 
@@ -331,12 +335,12 @@
 
 - (void)networkError:(NSNotification *)n {
     [self.refreshControl endRefreshing];
-    [TSMessage showNotificationInViewController:self.parentViewController
+    [TSMessage showNotificationInViewController:self
                                           title:[n.userInfo objectForKey:@"Title"]
                                        subtitle:[n.userInfo objectForKey:@"Message"]
                                           image:nil
                                            type:TSMessageNotificationTypeError
-                                       duration:TSMessageNotificationDurationEndless
+                                       duration:TSMessageNotificationDurationAutomatic
                                        callback:nil
                                     buttonTitle:nil
                                  buttonCallback:nil

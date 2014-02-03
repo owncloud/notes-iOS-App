@@ -49,14 +49,16 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.96 green:0.94 blue:0.86 alpha:1];
     self.menuButton.tintColor = [UIColor colorWithRed:0.36 green:0.24 blue:0.14 alpha:1];
     self.titleLabel.textColor = [UIColor colorWithRed:0.36 green:0.24 blue:0.14 alpha:1];
-    self.noteContentView.editable = NO;
-    self.noteContentView.selectable = NO;
-    self.noteContentView.text = @"Select or create a note.";
     
     if (self.note) {
         self.noteContentView.text = _note.content;
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
+    } else {
+        self.noteContentView.editable = NO;
+        self.noteContentView.selectable = NO;
+        self.noteContentView.text = @"Select or create a note.";
+        self.navigationItem.title = @"Note";
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -161,9 +163,17 @@
 
 - (void)noteUpdated:(NSNotification *)notification {
     NSLog(@"Informed about note update");
-    self.titleLabel.text = self.note.title;
-    self.navigationItem.title = self.note.title;
-    self.noteContentView.text = self.note.content;
+    if (self.note) {
+        self.noteContentView.editable = YES;
+        self.noteContentView.selectable = YES;
+        self.navigationItem.title = self.note.title;
+        self.noteContentView.text = self.note.content;
+    } else {
+        self.noteContentView.editable = NO;
+        self.noteContentView.selectable = NO;
+        self.noteContentView.text = @"Select or create a note.";
+        self.navigationItem.title = @"Note";
+    }
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
