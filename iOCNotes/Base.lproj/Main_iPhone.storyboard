@@ -47,12 +47,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Notes" id="qfr-a2-foZ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="Ehu-4h-6IO">
+                            <connections>
+                                <action selector="doAdd:" destination="DXe-Iw-CcD" id="TfT-h1-r0J"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="gear" id="MOs-yv-oce">
                             <connections>
-                                <action selector="doMenu:" destination="DXe-Iw-CcD" id="Gw1-Yq-SJP"/>
+                                <action selector="doSettings:" destination="DXe-Iw-CcD" id="6Au-9V-0Yr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="settingsBarButton" destination="MOs-yv-oce" id="PW2-s8-6tv"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2nj-I5-PGU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

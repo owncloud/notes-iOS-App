@@ -240,6 +240,10 @@
     }
 }
 
+- (IBAction)doAdd:(id)sender {
+    [[OCNotesHelper sharedHelper] addNote];
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([actionSheet isEqual:self.menuActionSheet]) {
         switch (buttonIndex) {
@@ -263,7 +267,7 @@
     } else {
         storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     }
-    if ([sender isEqual:self.menuActionSheet]) {
+    if ([sender isEqual:self.menuActionSheet] || [sender isEqual:self.settingsBarButton]) {
         nav = [storyboard instantiateViewControllerWithIdentifier:@"login"];
     } else {
         OCLoginController *lc = [storyboard instantiateViewControllerWithIdentifier:@"server"];
@@ -329,7 +333,7 @@
 
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    NSLog(@"Section: %ld; Row: %ld", indexPath.section, (long)indexPath.row);
+    NSLog(@"Section: %ld; Row: %ld", (long)indexPath.section, (long)indexPath.row);
     
     UITableView *tableView = self.tableView;
     

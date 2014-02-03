@@ -101,13 +101,22 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Notes" id="wbf-6X-5TK">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="3ki-Oj-rla">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="doAdd:" destination="ee1-11-mj4" id="dbV-tz-fY8"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="gear" id="c7c-no-10Y">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="doMenu:" destination="ee1-11-mj4" id="xzD-c6-y2L"/>
+                                <action selector="doSettings:" destination="ee1-11-mj4" id="c3K-AY-K3D"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="settingsBarButton" destination="c7c-no-10Y" id="fPk-zj-83u"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wkw-pT-A1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

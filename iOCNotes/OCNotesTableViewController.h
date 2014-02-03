@@ -16,8 +16,10 @@
 @property (nonatomic, retain) NSFetchedResultsController *notesFetchedResultsController;
 @property (nonatomic, strong) OCEditorViewController *editorViewController;
 @property (strong, nonatomic) UIActionSheet *menuActionSheet;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;
 
 - (IBAction) doRefresh:(id)sender;
 - (IBAction) doMenu:(id)sender;
+- (IBAction)doAdd:(id)sender;
 
 @end
