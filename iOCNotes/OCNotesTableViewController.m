@@ -14,6 +14,7 @@
 #import "Note.h"
 #import "TSMessage.h"
 #import "UIViewController+ECSlidingViewController.h"
+#import <float.h>
 
 @interface OCNotesTableViewController () {
     BOOL networkHasBeenUnreachable;
