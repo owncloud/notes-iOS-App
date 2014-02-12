@@ -1,11 +1,11 @@
 //
-//  OCNewsHelper.m
-//  iOCNews
+//  OCNotesHelper.m
+//  iOCNotes
 //
 
 /************************************************************************
  
- Copyright 2013 Peter Hedlund peter.hedlund@me.com
+ Copyright 2014 Peter Hedlund peter.hedlund@me.com
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -161,51 +161,52 @@
 - (void) sync {
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
         
-        //TODO: Process notes to update
-        [[OCAPIClient sharedClient] GET:@"notes" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *params = @{@"exclude": @""};
+        [[OCAPIClient sharedClient] GET:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             
-            NSArray *serverNotesDictArray = (NSArray *) responseObject;
-            NSLog(@"Notes: %@", [serverNotesDictArray objectAtIndex:0]);
-            NSArray *serverIds = [serverNotesDictArray valueForKey:@"id"];
-            
-            NSError *error = nil;
-            [self.noteRequest setPredicate:nil];
-            NSArray *knownLocalNotes = [self.context executeFetchRequest:self.noteRequest error:&error];
-            NSArray *knownIds = [knownLocalNotes valueForKey:@"myId"];
-            
-            NSLog(@"Count: %lu", (unsigned long)knownLocalNotes.count);
-            
-            error = nil;
-            
-            NSMutableArray *newOnServer = [NSMutableArray arrayWithArray:serverIds];
-            [newOnServer removeObjectsInArray:knownIds];
-            NSLog(@"New on server: %@", newOnServer);
-            [newOnServer enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                NSPredicate * predicate = [NSPredicate predicateWithFormat:@"id == %@", obj];
-                NSArray * matches = [serverNotesDictArray filteredArrayUsingPredicate:predicate];
-                if (matches.count > 0) {
-                    if ([notesToDelete indexOfObject:obj] == NSNotFound) {
-                        [self addNoteFromDictionary:[matches lastObject]];
+            NSArray *serverNotesDictArray = (NSArray *)responseObject;
+            if (serverNotesDictArray) {
+                NSArray *serverIds = [serverNotesDictArray valueForKey:@"id"];
+                
+                NSError *error = nil;
+                [self.noteRequest setPredicate:nil];
+                NSArray *knownLocalNotes = [self.context executeFetchRequest:self.noteRequest error:&error];
+                NSArray *knownIds = [knownLocalNotes valueForKey:@"myId"];
+                
+                NSLog(@"Count: %lu", (unsigned long)knownLocalNotes.count);
+                
+                error = nil;
+                
+                NSMutableArray *newOnServer = [NSMutableArray arrayWithArray:serverIds];
+                [newOnServer removeObjectsInArray:knownIds];
+                NSLog(@"New on server: %@", newOnServer);
+                [newOnServer enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"id == %@", obj];
+                    NSArray * matches = [serverNotesDictArray filteredArrayUsingPredicate:predicate];
+                    if (matches.count > 0) {
+                        if ([notesToDelete indexOfObject:obj] == NSNotFound) {
+                            [self addNoteFromDictionary:[matches lastObject]];
+                        }
                     }
+                }];
+                
+                NSMutableArray *deletedOnServer = [NSMutableArray arrayWithArray:knownIds];
+                [deletedOnServer removeObjectsInArray:serverIds];
+                NSLog(@"Deleted on server: %@", deletedOnServer);
+                while (deletedOnServer.count > 0) {
+                    Note *noteToRemove = [self noteWithId:[deletedOnServer lastObject]];
+                    [self.context deleteObject:noteToRemove];
+                    [deletedOnServer removeLastObject];
                 }
-            }];
-            
-            NSMutableArray *deletedOnServer = [NSMutableArray arrayWithArray:knownIds];
-            [deletedOnServer removeObjectsInArray:serverIds];
-            NSLog(@"Deleted on server: %@", deletedOnServer);
-            while (deletedOnServer.count > 0) {
-                Note *noteToRemove = [self noteWithId:[deletedOnServer lastObject]];
-                [self.context deleteObject:noteToRemove];
-                [deletedOnServer removeLastObject];
+                
+                [serverNotesDictArray enumerateObjectsUsingBlock:^(NSDictionary *noteDict, NSUInteger idx, BOOL *stop) {
+                    Note *note = [self noteWithId:[noteDict objectForKey:@"id"]];
+                    note.title = [noteDict objectForKey:@"title"];
+                    note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                    note.modified = [noteDict objectForKey:@"modified"];
+                    [self.context processPendingChanges]; //Prevents crashes
+                }];
             }
-            
-            [serverNotesDictArray enumerateObjectsUsingBlock:^(NSDictionary *noteDict, NSUInteger idx, BOOL *stop) {
-                Note *note = [self noteWithId:[noteDict objectForKey:@"id"]];
-                note.title = [noteDict objectForKey:@"title"];
-                note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                note.modified = [noteDict objectForKey:@"modified"];
-                [self.context processPendingChanges]; //Prevents crashes
-            }];
             [self saveContext];
             [self deleteNotesFromServer:notesToDelete];
             [self addNotesToServer:notesToAdd];
