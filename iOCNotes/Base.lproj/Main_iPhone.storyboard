@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RQg-o0-i6F">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B3116" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RQg-o0-i6F">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
@@ -98,8 +98,15 @@
                             <constraint firstItem="LzS-Ob-leM" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="wva-MG-h8l"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="dEj-4d-nDe"/>
+                    <navigationItem key="navigationItem" id="dEj-4d-nDe">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="1qk-bQ-vnb">
+                            <connections>
+                                <action selector="doActivities:" destination="vXZ-lx-hvc" id="Swz-ke-e2H"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="activityButton" destination="1qk-bQ-vnb" id="SYS-hW-D6V"/>
                         <outlet property="bottomLayoutConstraint" destination="6Id-Li-lcH" id="bjH-Bb-htb"/>
                         <outlet property="noteContentView" destination="LzS-Ob-leM" id="LGo-Rd-opW"/>
                     </connections>

@@ -11,8 +11,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIViewController+ECSlidingViewController.h"
 
-@interface OCEditorViewController () <UIGestureRecognizerDelegate> {
+@interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate> {
     NSTimer *editingTimer;
+    UIPopoverController *_activityPopover;
 }
 
 @property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
@@ -46,19 +47,18 @@
         [self.view removeGestureRecognizer:self.slidingViewController.panGesture];
         [self.view addGestureRecognizer:self.dynamicTransitionPanGesture];
     }
-    self.view.backgroundColor = [UIColor colorWithRed:0.96 green:0.94 blue:0.86 alpha:1];
-    self.menuButton.tintColor = [UIColor colorWithRed:0.36 green:0.24 blue:0.14 alpha:1];
-    self.titleLabel.textColor = [UIColor colorWithRed:0.36 green:0.24 blue:0.14 alpha:1];
     
     if (self.note) {
         self.noteContentView.text = _note.content;
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
+        self.activityButton.enabled = (self.noteContentView.text.length > 0);
     } else {
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
         self.noteContentView.text = @"Select or create a note.";
         self.navigationItem.title = @"Note";
+        self.activityButton.enabled = NO;
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -128,7 +128,38 @@
     [self.slidingViewController anchorTopViewToRightAnimated:YES];
 }
 
+- (IBAction)doActivities:(id)sender {
+    NSString *textToExport;
+    UITextRange *selectedRange = [self.noteContentView selectedTextRange];
+    NSString *selectedText = [self.noteContentView textInRange:selectedRange];
+    if (selectedText.length > 0) {
+        textToExport = selectedText;
+    } else {
+        textToExport = self.noteContentView.text;
+    }
+    
+    NSArray *activityItems = @[textToExport];
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (![_activityPopover isPopoverVisible]) {
+            _activityPopover = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
+            _activityPopover.delegate = self;
+            [_activityPopover presentPopoverFromBarButtonItem:(UIBarButtonItem*)sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+    } else {
+        [self presentViewController:activityViewController animated:YES completion:nil];
+    }
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+	_activityPopover = nil;
+}
+
 - (void)textViewDidChange:(UITextView *)textView {
+    self.activityButton.enabled = (textView.text.length > 0);
     if (editingTimer) {
         [editingTimer invalidate];
         editingTimer = nil;

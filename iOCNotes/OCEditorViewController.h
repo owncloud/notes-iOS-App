@@ -14,11 +14,12 @@
 
 @property (strong, nonatomic) IBOutlet UITextView *noteContentView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuButton;
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *activityButton;
 @property (strong, nonatomic) Note *note;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomLayoutConstraint;
 @property (strong, nonatomic) MEDynamicTransition *dynamicTransition;
 
 - (IBAction)doShowDrawer:(id)sender;
+- (IBAction)doActivities:(id)sender;
 
 @end
