@@ -49,5 +49,6 @@
 - (void)updateNote:(Note*)note;
 - (void)deleteNote:(Note*)note;
 - (Note*)noteWithId:(NSNumber*)noteId;
+- (NSURL*) documentsDirectoryURL;
 
 @end

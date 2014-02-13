@@ -10,6 +10,7 @@
 #import "OCNotesHelper.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIViewController+ECSlidingViewController.h"
+#import "TTOpenInAppActivity.h"
 
 @interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate> {
     NSTimer *editingTimer;
@@ -17,6 +18,7 @@
 }
 
 @property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
+@property (nonatomic, strong) UIToolbar *editingToolbar;
 
 - (void)updateText:(NSTimer*)timer;
 - (void)noteUpdated:(NSNotification*)notification;
@@ -26,6 +28,7 @@
 @implementation OCEditorViewController
 
 @synthesize note = _note;
+@synthesize editingToolbar;
 
 - (void)setNote:(Note *)note {
     if (![note isEqual:_note]) {
@@ -53,6 +56,9 @@
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
         self.activityButton.enabled = (self.noteContentView.text.length > 0);
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            self.noteContentView.inputAccessoryView = self.editingToolbar;
+        }
     } else {
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
@@ -138,17 +144,31 @@
         textToExport = self.noteContentView.text;
     }
     
-    NSArray *activityItems = @[textToExport];
+    NSURL *fileUrl = [[OCNotesHelper sharedHelper] documentsDirectoryURL];
+    fileUrl = [fileUrl URLByAppendingPathComponent:@"export" isDirectory:YES];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:fileUrl.path]) {
+        [[NSFileManager defaultManager] removeItemAtURL:fileUrl error:nil];
+    }
+    [[NSFileManager defaultManager] createDirectoryAtURL:fileUrl withIntermediateDirectories:YES attributes:nil error:nil];
+    fileUrl = [fileUrl URLByAppendingPathComponent:self.note.title];
+    fileUrl = [fileUrl URLByAppendingPathExtension:@"txt"];
+    [textToExport writeToURL:fileUrl atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andBarButtonItem:(UIBarButtonItem*)sender];
     
+    NSArray *activityItems = @[textToExport, fileUrl];
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[openInAppActivity]];
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         if (![_activityPopover isPopoverVisible]) {
             _activityPopover = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
             _activityPopover.delegate = self;
+            openInAppActivity.superViewController = _activityPopover;
             [_activityPopover presentPopoverFromBarButtonItem:(UIBarButtonItem*)sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
     } else {
+        openInAppActivity.superViewController = activityViewController;
         [self presentViewController:activityViewController animated:YES completion:nil];
     }
 }
@@ -263,14 +283,33 @@
     return _dynamicTransitionPanGesture;
 }
 
-/*
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        if ([gestureRecognizer isEqual:self.dynamicTransitionPanGesture]) {
-            //[self.noteContentView resignFirstResponder];
-        }
+- (UIToolbar*) editingToolbar {
+    if (!editingToolbar) {
+        editingToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 320.0f : 400.0f, 44)];
+        editingToolbar.barStyle = UIBarStyleDefault;
+        editingToolbar.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector            (doUndo:)],
+                                 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRedo target:self action:@selector(doRedo:)],
+                               [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                                 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissKeyboard:)]];
+        [editingToolbar sizeToFit];
     }
-    return YES;
+    return editingToolbar;
 }
-*/
+
+- (void)doUndo:(id)sender {
+    if ([self.noteContentView.undoManager canUndo]) {
+        [self.noteContentView.undoManager undo];
+    }
+}
+
+- (void)doRedo:(id)sender {
+    if ([self.noteContentView.undoManager canRedo]) {
+        [self.noteContentView.undoManager redo];
+    }
+}
+
+- (void)dismissKeyboard:(id)sender {
+    [self.noteContentView resignFirstResponder];
+}
+
 @end
