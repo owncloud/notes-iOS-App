@@ -247,17 +247,16 @@
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
         //online
         NSString *path = [NSString stringWithFormat:@"notes/%@", [note.myId stringValue]];
-        __block Note *blockNote = note;
-        
+        __block Note *noteToGet = (Note*)[self.context objectWithID:note.objectID];
         [[OCAPIClient sharedClient] GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             //NSLog(@"Note: %@", responseObject);
             NSDictionary *noteDict = (NSDictionary*)responseObject;
             NSLog(@"NoteDict: %@", noteDict);
-            if ([blockNote.myId isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-                if ([noteDict objectForKey:@"modified"] > blockNote.modified) {
-                    blockNote.title = [noteDict objectForKey:@"title"];
-                    blockNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                    blockNote.modified = [noteDict objectForKey:@"modified"];
+            if ([noteToGet.myId isEqualToNumber:[noteDict objectForKey:@"id"]]) {
+                if ([noteDict objectForKey:@"modified"] > noteToGet.modified) {
+                    noteToGet.title = [noteDict objectForKey:@"title"];
+                    noteToGet.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                    noteToGet.modified = [noteDict objectForKey:@"modified"];
                 }
                 [self saveContext];
             }
@@ -372,15 +371,15 @@
         //online
         NSDictionary *params = @{@"content": note.content};
         NSString *path = [NSString stringWithFormat:@"notes/%@", [note.myId stringValue]];
-        __block Note *blockNote = note;
-        
+        __block Note *noteToUpdate = (Note*)[self.context objectWithID:note.objectID];
+
         [[OCAPIClient sharedClient] PUT:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             //NSLog(@"Note: %@", responseObject);
             NSDictionary *noteDict = (NSDictionary*)responseObject;
-            if ([blockNote.myId isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-                blockNote.title = [noteDict objectForKey:@"title"];
-                blockNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];;
-                blockNote.modified = [noteDict objectForKey:@"modified"];
+            if ([noteToUpdate.myId isEqualToNumber:[noteDict objectForKey:@"id"]]) {
+                noteToUpdate.title = [noteDict objectForKey:@"title"];
+                noteToUpdate.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];;
+                noteToUpdate.modified = [noteDict objectForKey:@"modified"];
                 [self saveContext];
             }
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -397,7 +396,7 @@
             
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Updating Note", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-            blockNote.modified = [NSNumber numberWithLong:[[NSDate date] timeIntervalSince1970]];
+            noteToUpdate.modified = [NSNumber numberWithLong:[[NSDate date] timeIntervalSince1970]];
             [self saveContext];
         }];
         
