@@ -78,7 +78,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
     
     NSString *status;
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
-        status = [NSString stringWithFormat:@"Connected to an ownCloud Notes server at \"%@\".", [[NSUserDefaults standardUserDefaults] stringForKey:@"Server"]];
+        status = [NSString stringWithFormat:@"Connected to an ownCloud Notes server at\n \"%@\".", [[NSUserDefaults standardUserDefaults] stringForKey:@"Server"]];
     } else {
         status = @"Currently not connected to an ownCloud Notes server";
     }
@@ -119,7 +119,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
             [OCAPIClient setSharedClient:nil];
             int status = [[OCAPIClient sharedClient].reachabilityManager networkReachabilityStatus];
             NSLog(@"Server status: %i", status);
-            self.statusLabel.text = [NSString stringWithFormat:@"Connected to an ownCloud Notes server at \"%@\".", self.serverTextField.text];
+            self.statusLabel.text = [NSString stringWithFormat:@"Connected to an ownCloud Notes server at\n \"%@\".", self.serverTextField.text];
             
             [self.connectionActivityIndicator stopAnimating];
 
