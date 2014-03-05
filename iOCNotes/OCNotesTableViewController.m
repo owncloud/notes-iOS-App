@@ -346,7 +346,7 @@
                                     buttonTitle:nil
                                  buttonCallback:nil
                                      atPosition:TSMessageNotificationPositionTop
-                            canBeDismisedByUser:YES];
+                           canBeDismissedByUser:YES];
 }
 
 - (void)preferredContentSizeChanged:(NSNotification *)notification {
