@@ -44,7 +44,7 @@
 
 + (OCNotesHelper *)sharedHelper;
 - (void)sync;
-- (void)addNote;
+- (void)addNote:(NSString*)content;
 - (void)getNote:(Note*)note;
 - (void)updateNote:(Note*)note;
 - (void)deleteNote:(Note*)note;

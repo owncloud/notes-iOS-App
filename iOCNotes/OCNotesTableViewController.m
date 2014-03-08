@@ -268,7 +268,7 @@
 }
 
 - (IBAction)doAdd:(id)sender {
-    [[OCNotesHelper sharedHelper] addNote];
+    [[OCNotesHelper sharedHelper] addNote:@""];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -278,7 +278,7 @@
                 [self doSettings:self.menuActionSheet];
                 break;
             case 1:
-                [[OCNotesHelper sharedHelper] addNote];
+                [[OCNotesHelper sharedHelper] addNote:@""];
                 break;
             default:
                 break;
