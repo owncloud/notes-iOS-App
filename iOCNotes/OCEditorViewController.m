@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIViewController+ECSlidingViewController.h"
 #import "TTOpenInAppActivity.h"
+#import "TransparentToolbar.h"
 
 @interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate> {
     NSTimer *editingTimer;
@@ -18,7 +19,8 @@
 }
 
 @property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
-@property (nonatomic, strong) UIToolbar *editingToolbar;
+@property (nonatomic, strong, readonly) TransparentToolbar *editingToolbar;
+@property (nonatomic, strong, readonly) UIInputView *inputView;
 
 - (void)updateText:(NSTimer*)timer;
 - (void)noteUpdated:(NSNotification*)notification;
@@ -29,6 +31,7 @@
 
 @synthesize note = _note;
 @synthesize editingToolbar;
+@synthesize inputView;
 
 - (void)setNote:(Note *)note {
     if (![note isEqual:_note]) {
@@ -57,7 +60,7 @@
         self.noteContentView.selectable = YES;
         self.activityButton.enabled = (self.noteContentView.text.length > 0);
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            self.noteContentView.inputAccessoryView = self.editingToolbar;
+            self.noteContentView.inputAccessoryView = self.inputView;
         }
     } else {
         self.noteContentView.editable = NO;
@@ -88,6 +91,12 @@
                                                object:nil];
     
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.noteContentView becomeFirstResponder];
+    [self.noteContentView resignFirstResponder];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -283,10 +292,11 @@
     return _dynamicTransitionPanGesture;
 }
 
-- (UIToolbar*) editingToolbar {
+- (TransparentToolbar*) editingToolbar {
     if (!editingToolbar) {
-        editingToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 320.0f : 400.0f, 44)];
+        editingToolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0, 0, (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 320.0f : 400.0f, 32)];
         editingToolbar.barStyle = UIBarStyleDefault;
+        editingToolbar.tintColor = [UIColor blackColor];
         editingToolbar.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector            (doUndo:)],
                                  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRedo target:self action:@selector(doRedo:)],
                                [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
@@ -294,6 +304,14 @@
         [editingToolbar sizeToFit];
     }
     return editingToolbar;
+}
+
+- (UIInputView*)inputView {
+    if (!inputView) {
+        inputView = [[UIInputView alloc] initWithFrame:self.editingToolbar.frame inputViewStyle:UIInputViewStyleKeyboard];
+        [inputView addSubview:self.editingToolbar];
+    }
+    return inputView;
 }
 
 - (void)doUndo:(id)sender {

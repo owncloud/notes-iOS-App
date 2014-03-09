@@ -51,9 +51,7 @@
 - (UIRefreshControl *)notesRefreshControl {
     if (!notesRefreshControl) {
         notesRefreshControl = [[UIRefreshControl alloc] init];
-        if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-            notesRefreshControl.tintColor = [UIColor whiteColor];
-        }
+        notesRefreshControl.tintColor = [UIColor blackColor];
         [notesRefreshControl addTarget:self action:@selector(doRefresh:) forControlEvents:UIControlEventValueChanged];
     }
     return notesRefreshControl;
@@ -76,6 +74,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     networkHasBeenUnreachable = NO;
     self.refreshControl = self.notesRefreshControl;
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
@@ -171,11 +170,10 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-        [selectedBackgroundView setBackgroundColor:[UIColor colorWithRed:0.25f green:0.34f blue:0.52f alpha:1.0f]]; // set color here
-        [cell setSelectedBackgroundView:selectedBackgroundView];
-    }
+    
+    UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    [selectedBackgroundView setBackgroundColor:[UIColor colorWithRed:0.87f green:0.87f blue:0.87f alpha:1.0f]]; // set color here
+    [cell setSelectedBackgroundView:selectedBackgroundView];
     cell.tag = indexPath.row;
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
