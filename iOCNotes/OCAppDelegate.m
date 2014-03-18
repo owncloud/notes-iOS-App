@@ -8,6 +8,8 @@
 
 #import "OCAppDelegate.h"
 #import "OCEditorViewController.h"
+#import "OCNotesHelper.h"
+#import "OCAPIClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import <KSCrash/KSCrash.h>
 #import <KSCrash/KSCrashInstallationEmail.h>
@@ -19,7 +21,6 @@
     KSCrashInstallation* installation = [self makeEmailInstallation];
     [installation install];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
         if(completed) {
             NSLog(@"Sent %d reports", (int)[reports count]);
@@ -30,7 +31,31 @@
     
     return YES;
 }
-							
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    [[OCAPIClient sharedClient].reachabilityManager startMonitoring];
+    __unused BOOL reachable = [[OCAPIClient sharedClient] reachabilityManager].isReachable;
+    if ([url isFileURL]) {
+        NSURL *docDir = [[OCNotesHelper sharedHelper] documentsDirectoryURL];
+        docDir = [docDir URLByAppendingPathComponent:@"Inbox/" isDirectory:YES];
+        //Move files out of the Inbox and remove the Inbox folder
+        NSDirectoryEnumerator *inboxEnum = [[NSFileManager defaultManager] enumeratorAtURL:docDir
+                                                                includingPropertiesForKeys:@[NSURLNameKey]
+                                                                                   options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                              errorHandler:nil];
+        
+        for (NSURL *fileURL in inboxEnum) {
+            
+            NSString *content = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:nil];
+            if (content) {
+                [[OCNotesHelper sharedHelper] addNote:content];
+            }
+            [[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
+        }
+ 	}
+	return YES;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
