@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Note.h"
 #import "MEDynamicTransition.h"
+#import "OCNote.h"
 
 @interface OCEditorViewController : UIViewController <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextView *noteContentView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *activityButton;
-@property (strong, nonatomic) Note *note;
+@property (strong, nonatomic) OCNote *ocNote;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomLayoutConstraint;
 @property (strong, nonatomic) MEDynamicTransition *dynamicTransition;
 

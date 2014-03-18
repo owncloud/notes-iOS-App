@@ -29,14 +29,14 @@
 
 @implementation OCEditorViewController
 
-@synthesize note = _note;
+@synthesize ocNote = _ocNote;
 @synthesize editingToolbar;
 @synthesize inputView;
 
-- (void)setNote:(Note *)note {
-    if (![note isEqual:_note]) {
-        _note = note;
-        self.navigationItem.title = _note.title;
+- (void)setOcNote:(OCNote *)ocNote {
+    if (![ocNote isEqual:_ocNote]) {
+        _ocNote = ocNote;
+        self.navigationItem.title = _ocNote.title;
     }
 }
 
@@ -54,8 +54,8 @@
         [self.view addGestureRecognizer:self.dynamicTransitionPanGesture];
     }
     
-    if (self.note) {
-        self.noteContentView.text = _note.content;
+    if (self.ocNote) {
+        self.noteContentView.text = self.ocNote.content;
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
         self.activityButton.enabled = (self.noteContentView.text.length > 0);
@@ -89,6 +89,8 @@
                                              selector:@selector(preferredContentSizeChanged:)
                                                  name:UIContentSizeCategoryDidChangeNotification
                                                object:nil];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(noteUpdated:) name:FCModelUpdateNotification object:OCNote.class];
     
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
 }
@@ -133,6 +135,12 @@
     }
 }
 
+- (void)dealloc
+{
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+    //[NSNotificationCenter.defaultCenter removeObserver:self name:FCModelUpdateNotification object:OCNote.class];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -159,7 +167,7 @@
         [[NSFileManager defaultManager] removeItemAtURL:fileUrl error:nil];
     }
     [[NSFileManager defaultManager] createDirectoryAtURL:fileUrl withIntermediateDirectories:YES attributes:nil error:nil];
-    fileUrl = [fileUrl URLByAppendingPathComponent:self.note.title];
+    fileUrl = [fileUrl URLByAppendingPathComponent:self.ocNote.title];
     fileUrl = [fileUrl URLByAppendingPathExtension:@"txt"];
     [textToExport writeToURL:fileUrl atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
@@ -217,17 +225,18 @@
 
 - (void)updateText:(NSTimer*)timer {
     NSLog(@"Ready to update text");
-    self.note.content = self.noteContentView.text;
-    [[OCNotesHelper sharedHelper] updateNote:self.note];
+    self.ocNote.content = self.noteContentView.text;
+    [self.ocNote save];
+    [[OCNotesHelper sharedHelper] updateNote:self.ocNote];
 }
 
 - (void)noteUpdated:(NSNotification *)notification {
     NSLog(@"Informed about note update");
-    if (self.note) {
+    if (self.ocNote) {
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
-        self.navigationItem.title = self.note.title;
-        self.noteContentView.text = self.note.content;
+        self.navigationItem.title = self.ocNote.title;
+        self.noteContentView.text = self.ocNote.content;
     } else {
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;

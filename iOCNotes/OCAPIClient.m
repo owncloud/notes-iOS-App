@@ -32,7 +32,6 @@
 
 #import "OCAPIClient.h"
 #import "KeychainItemWrapper.h"
-#import "Note.h"
 #import "NSDictionary+HandleNull.h"
 
 //See http://twobitlabs.com/2013/01/objective-c-singleton-pattern-unit-testing/

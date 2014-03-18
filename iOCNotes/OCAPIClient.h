@@ -32,7 +32,6 @@
 
 #import <CoreData/CoreData.h>
 #import "AFHTTPSessionManager.h"
-#import "Note.h"
 
 @interface OCAPIClient : AFHTTPSessionManager
 

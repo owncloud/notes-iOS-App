@@ -16,3 +16,9 @@
 [submodule "TTOpenInAppActivity"]
 	path = TTOpenInAppActivity
 	url = https://github.com/honkmaster/TTOpenInAppActivity.git
+[submodule "FMDB"]
+	path = FMDB
+	url = https://github.com/ccgus/fmdb.git
+[submodule "FCModel"]
+	path = FCModel
+	url = https://github.com/marcoarment/FCModel.git

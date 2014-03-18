@@ -13,7 +13,6 @@
 @interface OCNotesTableViewController : UITableViewController <NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, strong, readonly) UIRefreshControl *notesRefreshControl;
-@property (nonatomic, retain) NSFetchedResultsController *notesFetchedResultsController;
 @property (nonatomic, strong) OCEditorViewController *editorViewController;
 @property (strong, nonatomic) UIActionSheet *menuActionSheet;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;

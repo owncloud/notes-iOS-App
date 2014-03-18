@@ -32,23 +32,16 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "Note.h"
+#import "OCNote.h"
 
 @interface OCNotesHelper : NSObject
-
-@property (nonatomic,retain) NSManagedObjectContext *context;
-@property (nonatomic, retain) NSManagedObjectModel *objectModel;
-@property (nonatomic, retain) NSPersistentStoreCoordinator *coordinator;
-
-@property (nonatomic, strong, readonly) NSFetchRequest *noteRequest;
 
 + (OCNotesHelper *)sharedHelper;
 - (void)sync;
 - (void)addNote:(NSString*)content;
-- (void)getNote:(Note*)note;
-- (void)updateNote:(Note*)note;
-- (void)deleteNote:(Note*)note;
-- (Note*)noteWithId:(NSNumber*)noteId;
+- (void)getNote:(OCNote*)note;
+- (void)updateNote:(OCNote*)note;
+- (void)deleteNote:(OCNote*)note;
 - (NSURL*) documentsDirectoryURL;
 
 @end

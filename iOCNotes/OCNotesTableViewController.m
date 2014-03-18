@@ -11,42 +11,24 @@
 #import "OCAPIClient.h"
 #import "OCNotesHelper.h"
 #import "OCLoginController.h"
-#import "Note.h"
 #import "TSMessage.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import <float.h>
+#import "OCNote.h"
 
 @interface OCNotesTableViewController () {
     BOOL networkHasBeenUnreachable;
 }
 
+@property (nonatomic, copy) NSArray *ocNotes;
+
 @end
 
 @implementation OCNotesTableViewController
 
-@synthesize notesFetchedResultsController;
 @synthesize notesRefreshControl;
 @synthesize editorViewController;
 @synthesize menuActionSheet;
-
-- (NSFetchedResultsController *)notesFetchedResultsController {
-    if (!notesFetchedResultsController) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:[OCNotesHelper sharedHelper].context];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"myId" ascending:NO];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-        [fetchRequest setFetchBatchSize:20];
-        
-        notesFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                            managedObjectContext:[OCNotesHelper sharedHelper].context
-                                                                              sectionNameKeyPath:nil
-                                                                                       cacheName:@"NoteCache"];
-        notesFetchedResultsController.delegate = self;
-    }
-    return notesFetchedResultsController;
-}
 
 - (UIRefreshControl *)notesRefreshControl {
     if (!notesRefreshControl) {
@@ -101,7 +83,10 @@
                                                  name:UIContentSizeCategoryDidChangeNotification
                                                object:nil];
     
-    [self.notesFetchedResultsController performFetch:nil];
+    //[self.notesFetchedResultsController performFetch:nil];
+    [OCNotesHelper sharedHelper];
+    [self reloadNotes:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(reloadNotes:) name:FCModelAnyChangeNotification object:OCNote.class];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -116,6 +101,19 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)reloadNotes:(NSNotification *)notification
+{
+    //[OCNote executeUpdateQuery:@"SELECT * FROM $T WHERE 1 ORDER BY id DESC"];
+    self.ocNotes = [OCNote instancesOrderedBy:@"id DESC"];
+    NSLog(@"Reloading with %lu notes", (unsigned long) self.ocNotes.count);
+    [self.tableView reloadData];
+}
+
+- (void)dealloc
+{
+    [NSNotificationCenter.defaultCenter removeObserver:self name:FCModelAnyChangeNotification object:OCNote.class];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -123,7 +121,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.notesFetchedResultsController fetchedObjects].count;
+    //return [self.notesFetchedResultsController fetchedObjects].count;
+    return self.ocNotes.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -148,22 +147,6 @@
     return (height1 + height2) * 1.7;
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Note *note = [self.notesFetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-    cell.textLabel.text = note.title;
-    cell.backgroundColor = [UIColor clearColor];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[note.modified doubleValue]];
-    if (date) {
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        dateFormat.dateStyle = NSDateFormatterShortStyle;
-        dateFormat.timeStyle = NSDateFormatterNoStyle;
-        dateFormat.doesRelativeDateFormatting = YES;
-        cell.detailTextLabel.text = [dateFormat stringFromDate:date];
-        cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-    }
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -175,7 +158,19 @@
     [selectedBackgroundView setBackgroundColor:[UIColor colorWithRed:0.87f green:0.87f blue:0.87f alpha:1.0f]]; // set color here
     [cell setSelectedBackgroundView:selectedBackgroundView];
     cell.tag = indexPath.row;
-    [self configureCell:cell atIndexPath:indexPath];
+    OCNote *note = [self.ocNotes objectAtIndex:indexPath.row];
+    cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    cell.textLabel.text = note.title;
+    cell.backgroundColor = [UIColor clearColor];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:note.modified];
+    if (date) {
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        dateFormat.dateStyle = NSDateFormatterShortStyle;
+        dateFormat.timeStyle = NSDateFormatterNoStyle;
+        dateFormat.doesRelativeDateFormatting = YES;
+        cell.detailTextLabel.text = [dateFormat stringFromDate:date];
+        cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+    }
     return cell;
 }
 
@@ -193,11 +188,11 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Note *noteToDelete = (Note*)[self.notesFetchedResultsController objectAtIndexPath:indexPath];
-        if ([noteToDelete isEqual:self.editorViewController.note]) {
-            self.editorViewController.note = nil;
+        OCNote *note = [self.ocNotes objectAtIndex:indexPath.row];
+        if ([note isEqual:self.editorViewController.ocNote]) {
+            self.editorViewController.ocNote = nil;
         }
-        [[OCNotesHelper sharedHelper] deleteNote:noteToDelete];
+        [[OCNotesHelper sharedHelper] deleteNote:note];
     }
 }
 
@@ -244,9 +239,9 @@
     if (self.tableView.isEditing) {
         //[self showRenameForIndex:indexPath.row];
     } else {
-        Note *note = [self.notesFetchedResultsController objectAtIndexPath:indexPath];
+        OCNote *note = [self.ocNotes objectAtIndex:indexPath.row];
         [[OCNotesHelper sharedHelper] getNote:note];
-        self.editorViewController.note = note;
+        self.editorViewController.ocNote = note;
         if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
             [self.slidingViewController resetTopViewAnimated:YES];
         }
@@ -349,59 +344,6 @@
 
 - (void)preferredContentSizeChanged:(NSNotification *)notification {
     [self.tableView reloadData];
-}
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-    [self.tableView beginUpdates];
-}
-
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    NSLog(@"Section: %ld; Row: %ld", (long)indexPath.section, (long)indexPath.row);
-    
-    UITableView *tableView = self.tableView;
-    
-    switch(type) {
-            
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:(UITableViewCell*)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    
-    switch(type) {
-            
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
-    [self.tableView endUpdates];
 }
 
 @end
