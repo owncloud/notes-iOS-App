@@ -114,6 +114,13 @@
 		D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14518DE435900178958 /* FMDatabaseQueue.m */; };
 		D03DA14D18DE435900178958 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14818DE435900178958 /* FMResultSet.m */; };
 		D03DA15018DE446400178958 /* FCModelDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14F18DE446400178958 /* FCModelDatabaseQueue.m */; };
+		D03DA15118DE576F00178958 /* FCModelDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14F18DE446400178958 /* FCModelDatabaseQueue.m */; };
+		D03DA15218DE577E00178958 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA13F18DE435900178958 /* FMDatabase.m */; };
+		D03DA15318DE578200178958 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14118DE435900178958 /* FMDatabaseAdditions.m */; };
+		D03DA15418DE578600178958 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14318DE435900178958 /* FMDatabasePool.m */; };
+		D03DA15518DE578A00178958 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14518DE435900178958 /* FMDatabaseQueue.m */; };
+		D03DA15618DE578E00178958 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14818DE435900178958 /* FMResultSet.m */; };
+		D03DA15718DE57B600178958 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */; };
 		D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */; };
 		D059745E18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
 		D059745F18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
@@ -304,6 +311,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D03DA15718DE57B600178958 /* libsqlite3.0.dylib in Frameworks */,
 				D0225715189848320038232A /* libc++.dylib in Frameworks */,
 				D0225714189848260038232A /* libz.dylib in Frameworks */,
 				D022570F189847A90038232A /* KSCrash.framework in Frameworks */,
@@ -836,6 +844,7 @@
 				D0225772189877C00038232A /* ECSlidingInteractiveTransition.m in Sources */,
 				D02256CE1895BE220038232A /* AFHTTPRequestOperation.m in Sources */,
 				D022575E18984C7E0038232A /* HexColor.m in Sources */,
+				D03DA15318DE578200178958 /* FMDatabaseAdditions.m in Sources */,
 				D02256CF1895BE220038232A /* OCNotesTableViewController.m in Sources */,
 				D02256D01895BE220038232A /* NSDictionary+HandleNull.m in Sources */,
 				D0CB434F18D274C200C54D7C /* FCModel.m in Sources */,
@@ -850,10 +859,13 @@
 				D0F6FED318CD4C2A00C16FDF /* OCNotesSettings.m in Sources */,
 				D0225778189877C00038232A /* UIViewController+ECSlidingViewController.m in Sources */,
 				D02256D51895BE220038232A /* AFURLSessionManager.m in Sources */,
+				D03DA15218DE577E00178958 /* FMDatabase.m in Sources */,
+				D03DA15418DE578600178958 /* FMDatabasePool.m in Sources */,
 				D02256D61895BE220038232A /* AFURLRequestSerialization.m in Sources */,
 				D02256D71895BE220038232A /* OCAppDelegate.m in Sources */,
 				D02256D81895BE220038232A /* AFURLResponseSerialization.m in Sources */,
 				D02256DA1895BE220038232A /* main.m in Sources */,
+				D03DA15618DE578E00178958 /* FMResultSet.m in Sources */,
 				D02256DB1895BE220038232A /* OCEditorViewController.m in Sources */,
 				D02256DC1895BE220038232A /* AFHTTPRequestOperationManager.m in Sources */,
 				D0225770189877C00038232A /* ECSlidingAnimationController.m in Sources */,
@@ -861,10 +873,12 @@
 				D02256DD1895BE220038232A /* AFSecurityPolicy.m in Sources */,
 				D02256DE1895BE220038232A /* OCAPIClient.m in Sources */,
 				D02257031895E6D30038232A /* UILabel+VerticalAlignment.m in Sources */,
+				D03DA15118DE576F00178958 /* FCModelDatabaseQueue.m in Sources */,
 				D0225776189877C00038232A /* ECSlidingViewController.m in Sources */,
 				D02256E21895BE220038232A /* AFHTTPSessionManager.m in Sources */,
 				D02256FE1895E61F0038232A /* OCLoginController.m in Sources */,
 				D02257071896E6650038232A /* OCNotesHelper.m in Sources */,
+				D03DA15518DE578A00178958 /* FMDatabaseQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

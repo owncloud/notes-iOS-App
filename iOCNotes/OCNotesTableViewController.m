@@ -33,7 +33,7 @@
 - (UIRefreshControl *)notesRefreshControl {
     if (!notesRefreshControl) {
         notesRefreshControl = [[UIRefreshControl alloc] init];
-        notesRefreshControl.tintColor = [UIColor blackColor];
+        notesRefreshControl.tintColor = [UIColor colorWithRed:0.13 green:0.145 blue:0.16 alpha:1.0];
         [notesRefreshControl addTarget:self action:@selector(doRefresh:) forControlEvents:UIControlEventValueChanged];
     }
     return notesRefreshControl;
@@ -56,7 +56,6 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     networkHasBeenUnreachable = NO;
     self.refreshControl = self.notesRefreshControl;
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
