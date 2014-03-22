@@ -236,7 +236,7 @@
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
         self.navigationItem.title = self.ocNote.title;
-        self.noteContentView.text = self.ocNote.content;
+        //self.noteContentView.text = self.ocNote.content;
     } else {
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
