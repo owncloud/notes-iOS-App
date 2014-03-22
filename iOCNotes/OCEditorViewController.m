@@ -246,7 +246,9 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-
+    if (self.slidingViewController.currentTopViewPosition != ECSlidingViewControllerTopViewPositionCentered) {
+        return;
+    }
     NSDictionary* d = [notification userInfo];
     CGRect r = [d[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     r = [self.view convertRect:r fromView:nil];
@@ -272,7 +274,6 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     NSDictionary *info = [notification userInfo];
-    
     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 0.5;
     
     self.bottomLayoutConstraint.constant = 0;
