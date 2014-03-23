@@ -296,9 +296,7 @@
  */
 
 - (void)addNote:(NSString*)content {
-    //__block Note *newNote = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:self.context];
-    __block OCNote *newNote = [OCNote new];
-    newNote.id = 1000000 + notesToAdd.count;
+    __block OCNote *newNote = [OCNote instanceWithPrimaryKey:[NSNumber numberWithLongLong:100000 + notesToAdd.count]];
     newNote.title = @"New note";
     newNote.content = content;
     newNote.modified = [[NSDate date] timeIntervalSince1970];
@@ -308,7 +306,6 @@
         //online
         NSDictionary *params = @{@"content": newNote.content};
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-            //NSLog(@"Note: %@", responseObject);
             NSDictionary *noteDict = (NSDictionary*)responseObject;
             OCNote *returnedNote = [OCNote new];
             returnedNote.id = [[noteDict objectForKey:@"id"] intValue];
