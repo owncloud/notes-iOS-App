@@ -237,17 +237,44 @@
         NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithLongLong:note.id].stringValue];
         __block OCNote *noteToGet = [OCNote instanceWithPrimaryKey:[NSNumber numberWithLongLong:note.id]];
         if (noteToGet) {
-            [[OCAPIClient sharedClient] GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSDictionary *params = @{@"exclude": @"title,content"};
+            [[OCAPIClient sharedClient] GET:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
                 //NSLog(@"Note: %@", responseObject);
                 NSDictionary *noteDict = (NSDictionary*)responseObject;
                 NSLog(@"NoteDict: %@", noteDict);
                 if ([[NSNumber numberWithLongLong:note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
                     if ([[noteDict objectForKey:@"modified"] intValue] > noteToGet.modified) {
-                        noteToGet.title = [noteDict objectForKey:@"title"];
-                        noteToGet.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                        noteToGet.modified = [[noteDict objectForKey:@"modified"] intValue];
+                        //The server has a newer version. We need to get it.
+                        [[OCAPIClient sharedClient] GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+                            //NSLog(@"Note: %@", responseObject);
+                            NSDictionary *noteDict = (NSDictionary*)responseObject;
+                            NSLog(@"NoteDict: %@", noteDict);
+                            if ([[NSNumber numberWithLongLong:note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
+                                if ([[noteDict objectForKey:@"modified"] intValue] > noteToGet.modified) {
+                                    noteToGet.title = [noteDict objectForKey:@"title"];
+                                    noteToGet.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                                    noteToGet.modified = [[noteDict objectForKey:@"modified"] intValue];
+                                }
+                                [noteToGet save];
+                            }
+                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+                            NSString *message;
+                            switch (response.statusCode) {
+                                case 404:
+                                    message = @"The note does not exist";
+                                    break;
+                                default:
+                                    message = [NSString stringWithFormat:@"The server responded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
+                                    break;
+                            }
+                            
+                            NSDictionary *userInfo = @{@"Title": @"Error Getting Note", @"Message": message};
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+                        }];
+                    
                     }
-                    [noteToGet save];
+                    
                 }
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -261,7 +288,7 @@
                         break;
                 }
                 
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Getting Note", @"Title", message, @"Message", nil];
+                NSDictionary *userInfo = @{@"Title": @"Error Getting Note", @"Message": message};
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
             }];
         }
