@@ -246,8 +246,10 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    if (self.slidingViewController.currentTopViewPosition != ECSlidingViewControllerTopViewPositionCentered) {
-        return;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (self.slidingViewController.currentTopViewPosition != ECSlidingViewControllerTopViewPositionCentered) {
+            return;
+        }
     }
     NSDictionary* d = [notification userInfo];
     CGRect r = [d[UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -260,7 +262,7 @@
     //CGRect keyboardFrame = [kbFrame CGRectValue];
     
     //CGRect finalKeyboardFrame = [self.view convertRect:keyboardFrame fromView:self.view.window];
-    
+    //CGRect myFrame = self.inputView.frame;
     int kbHeight = r.size.height;
     
     int height = kbHeight + self.bottomLayoutConstraint.constant;

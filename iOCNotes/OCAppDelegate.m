@@ -22,7 +22,7 @@
     [installation install];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
-    [UINavigationBar appearance].barTintColor = [UIColor colorWithRed:0.87 green:0.87 blue:0.87 alpha:1.0];
+    [UINavigationBar appearance].barTintColor = [UIColor colorWithRed:0.957 green:0.957 blue:0.957 alpha:1.0];
     [UINavigationBar appearance].tintColor = [UIColor colorWithRed:0.13 green:0.145 blue:0.16 alpha:1.0];
     
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
