@@ -334,8 +334,8 @@
         NSDictionary *params = @{@"content": newNote.content};
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *noteDict = (NSDictionary*)responseObject;
-            OCNote *returnedNote = [OCNote new];
-            returnedNote.id = [[noteDict objectForKey:@"id"] intValue];
+            OCNote *returnedNote = [OCNote instanceWithPrimaryKey:[noteDict objectForKey:@"id"]];
+            //returnedNote.id = [[noteDict objectForKey:@"id"] intValue];
             returnedNote.modified = [[noteDict objectForKey:@"modified"] intValue];
             returnedNote.title = [noteDict objectForKey:@"title"];
             returnedNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
