@@ -37,16 +37,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VJf-8B-28f">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VJf-8B-28f">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="UsF-AZ-Meu"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="v5n-91-X1l" kind="embed" id="pmK-D5-by0"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.16800000000000001" green="0.23169999999999996" blue="0.35000000000000003" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstItem="VJf-8B-28f" firstAttribute="leading" secondItem="y71-c7-WxV" secondAttribute="leading" id="ARc-H2-a0V"/>
+                            <constraint firstItem="VJf-8B-28f" firstAttribute="top" secondItem="y71-c7-WxV" secondAttribute="top" id="Nk2-Xa-QVO"/>
+                            <constraint firstAttribute="bottom" secondItem="VJf-8B-28f" secondAttribute="bottom" id="hcb-Xc-6jv"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Shf-7A-WNH" userLabel="First Responder" sceneMemberID="firstResponder"/>
