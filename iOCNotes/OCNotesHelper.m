@@ -38,9 +38,9 @@
 #import "OCNote.h"
 
 @interface OCNotesHelper () {
-    NSMutableArray *notesToAdd;
-    NSMutableArray *notesToDelete;
-    NSMutableArray *notesToUpdate;
+    NSMutableSet *notesToAdd;
+    NSMutableSet *notesToDelete;
+    NSMutableSet *notesToUpdate;
 }
 
 @end
@@ -63,9 +63,9 @@
     }
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    notesToAdd = [NSMutableArray arrayWithArray:[[prefs arrayForKey:@"NotesToAdd"] mutableCopy]];
-    notesToDelete = [NSMutableArray arrayWithArray:[[prefs arrayForKey:@"NotesToDelete"] mutableCopy]];
-    notesToUpdate = [NSMutableArray arrayWithArray:[[prefs arrayForKey:@"NotesToUpdate"] mutableCopy]];
+    notesToAdd = [NSMutableSet setWithArray:[[prefs arrayForKey:@"NotesToAdd"] mutableCopy]];
+    notesToDelete = [NSMutableSet setWithArray:[[prefs arrayForKey:@"NotesToDelete"] mutableCopy]];
+    notesToUpdate = [NSMutableSet setWithArray:[[prefs arrayForKey:@"NotesToUpdate"] mutableCopy]];
     
     NSURL *dbURL = [self documentsDirectoryURL];
     dbURL = [dbURL URLByAppendingPathComponent:@"Notes" isDirectory:NO];
@@ -108,21 +108,47 @@
         }
         
         // If you wanted to change the schema in a later app version, you'd add something like this here:
-        /*
-         if (*schemaVersion < 2) {
-         if (! [db executeUpdate:@"ALTER TABLE Person ADD COLUMN lastModified INTEGER NULL"]) failedAt(3);
-         *schemaVersion = 2;
-         }
-         */
         
+         if (*schemaVersion < 2) {
+             if (! [db executeUpdate:@"ALTER TABLE OCNote RENAME TO OCNote_temp"]) failedAt(3);
+             
+             if (! [db executeUpdate:
+                    @"CREATE TABLE OCNote ("
+                    @"    guid         TEXT PRIMARY KEY,"
+                    @"    id           INTEGER,"
+                    @"    title        TEXT NOT NULL DEFAULT '',"
+                    @"    content      TEXT NOT NULL DEFAULT '',"
+                    @"    modified     INTEGER NOT NULL"
+                    @");"
+                    ]) failedAt(4);
+
+             FMResultSet *rs = [db executeQuery:@"SELECT * FROM OCNote_temp"];
+             while ([rs next]) {
+                 NSString *guid = [OCNote primaryKeyValueForNewInstance];
+                 int myID = [rs intForColumn:@"id"];
+                 NSString *title = [rs stringForColumn:@"title"];
+                 NSString *content = [rs stringForColumn:@"content"];
+                 int modified = [rs intForColumn:@"modified"];
+                 NSString *keys = @"(guid, id, title, content, modified)";
+                 NSArray *args = @[guid,
+                                   [NSNumber numberWithInteger:myID],
+                                   title,
+                                   content,
+                                   [NSNumber numberWithInt:modified]];
+
+                 NSString *sql = [NSString stringWithFormat:@"INSERT INTO OCNote %@ VALUES (?, ?, ?, ?, ?);", keys];
+                 if (! [db executeUpdate:sql withArgumentsInArray:args]) failedAt(5);
+
+             }
+             
+             if (! [db executeUpdate:@"DROP TABLE OCNote_temp"]) failedAt(6);
+
+             *schemaVersion = 2;
+         }
+
         [db commit];
     }];
 
-    
-    
-    
-    
-    
     __unused BOOL reachable = [[OCAPIClient sharedClient] reachabilityManager].isReachable;
     
     return self;
@@ -134,9 +160,9 @@
 
 - (void)savePrefs {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:notesToAdd forKey:@"NotesToAdd"];
-    [prefs setObject:notesToDelete forKey:@"NotesToDelete"];
-    [prefs setObject:notesToUpdate forKey:@"NotesToUpdate"];
+    [prefs setObject:notesToAdd.allObjects forKey:@"NotesToAdd"];
+    [prefs setObject:notesToDelete.allObjects forKey:@"NotesToDelete"];
+    [prefs setObject:notesToUpdate.allObjects forKey:@"NotesToUpdate"];
     [prefs synchronize];
 }
 
@@ -167,30 +193,42 @@
             NSArray *serverNotesDictArray = (NSArray *)responseObject;
             if (serverNotesDictArray) {
                 [serverNotesDictArray enumerateObjectsUsingBlock:^(NSDictionary *noteDict, NSUInteger idx, BOOL *stop) {
-                    OCNote *ocNote = [OCNote instanceWithPrimaryKey:[noteDict objectForKey:@"id"] createIfNonexistent:YES];
-                    if (ocNote.modified > [[noteDict objectForKey:@"modified"] intValue]) {
-                        [notesToUpdate addObject:[noteDict objectForKey:@"id"]];
-                        [self savePrefs];
+                    OCNote *ocNote = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [noteDict objectForKey:@"id"]]];
+                    //OCNote *ocNote = [OCNote instanceWithPrimaryKey:[noteDict objectForKey:@"id"] createIfNonexistent:YES];
+                    if (!ocNote) { //don't re-add a deleted note (it will be deleted from the server below).
+                        if (![notesToDelete containsObject:[noteDict objectForKey:@"id"]]) {
+                            ocNote = [OCNote new];
+                            ocNote.id = [[noteDict objectForKey:@"id"] longLongValue];
+                            ocNote.modified =  [[noteDict objectForKey:@"modified"] longLongValue];
+                            ocNote.title = [noteDict objectForKey:@"title"];
+                            ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                            [ocNote save];
+                        }
                     } else {
-                        ocNote.modified =  [[noteDict objectForKey:@"modified"] intValue];
-                        ocNote.title = [noteDict objectForKey:@"title"];
-                        ocNote.content = [noteDict objectForKey:@"content"];
-                        [ocNote save];
+                        if (ocNote.modified > [[noteDict objectForKey:@"modified"] longLongValue]) {
+                            [notesToUpdate addObject:[noteDict objectForKey:@"id"]];
+                            [self savePrefs];
+                        } else {
+                            ocNote.modified =  [[noteDict objectForKey:@"modified"] longLongValue];
+                            ocNote.title = [noteDict objectForKey:@"title"];
+                            ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                            [ocNote save];
+                        }
                     }
                 }];
 
                 NSArray *serverIds = [serverNotesDictArray valueForKey:@"id"];
                 
-                NSArray *knownIds = [OCNote firstColumnArrayFromQuery:@"SELECT * FROM $T"];
+                NSArray *knownIds = [[OCNote resultDictionariesFromQuery:@"SELECT * FROM $T WHERE id > 0"] valueForKey:@"id"];
                 
                 NSLog(@"Count: %lu", (unsigned long)knownIds.count);
                 
                 NSMutableArray *deletedOnServer = [NSMutableArray arrayWithArray:knownIds];
                 [deletedOnServer removeObjectsInArray:serverIds];
-                [deletedOnServer removeObjectsInArray:notesToAdd];
+                //TODO: Fix [deletedOnServer removeObjectsInArray:notesToAdd];
                 NSLog(@"Deleted on server: %@", deletedOnServer);
                 while (deletedOnServer.count > 0) {
-                    OCNote *ocNote = [OCNote instanceWithPrimaryKey:[deletedOnServer lastObject]];
+                    OCNote *ocNote = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [deletedOnServer lastObject]]];
                     [ocNote delete];
                     [deletedOnServer removeLastObject];
                 }
@@ -235,14 +273,14 @@
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
         //online
         NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithLongLong:note.id].stringValue];
-        __block OCNote *noteToGet = [OCNote instanceWithPrimaryKey:[NSNumber numberWithLongLong:note.id]];
+        __block OCNote *noteToGet = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [NSNumber numberWithLongLong:note.id]]];
         if (noteToGet) {
             NSDictionary *params = @{@"exclude": @"title,content"};
             [[OCAPIClient sharedClient] GET:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
                 //NSLog(@"Note: %@", responseObject);
                 NSDictionary *noteDict = (NSDictionary*)responseObject;
                 NSLog(@"NoteDict: %@", noteDict);
-                if ([[NSNumber numberWithLongLong:note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
+                if ([[NSNumber numberWithLongLong:noteToGet.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
                     if ([[noteDict objectForKey:@"modified"] intValue] > noteToGet.modified) {
                         //The server has a newer version. We need to get it.
                         [[OCAPIClient sharedClient] GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -323,7 +361,7 @@
  */
 
 - (void)addNote:(NSString*)content {
-    __block OCNote *newNote = [OCNote instanceWithPrimaryKey:[NSNumber numberWithLongLong:100000 + notesToAdd.count]];
+    __block OCNote *newNote = [OCNote new];
     newNote.title = @"New note";
     newNote.content = content;
     newNote.modified = [[NSDate date] timeIntervalSince1970];
@@ -334,13 +372,11 @@
         NSDictionary *params = @{@"content": newNote.content};
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *noteDict = (NSDictionary*)responseObject;
-            OCNote *returnedNote = [OCNote instanceWithPrimaryKey:[noteDict objectForKey:@"id"]];
-            //returnedNote.id = [[noteDict objectForKey:@"id"] intValue];
-            returnedNote.modified = [[noteDict objectForKey:@"modified"] intValue];
-            returnedNote.title = [noteDict objectForKey:@"title"];
-            returnedNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-            [returnedNote save];
-            [newNote delete];
+            newNote.id = [[noteDict objectForKey:@"id"] intValue];
+            newNote.modified = [[noteDict objectForKey:@"modified"] intValue];
+            newNote.title = [noteDict objectForKey:@"title"];
+            newNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+            [newNote save];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSString *message;
@@ -352,12 +388,12 @@
             
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Note", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-            [notesToAdd addObject:[NSNumber numberWithLongLong:newNote.id]];
+            [notesToAdd addObject:newNote.guid];
             [self savePrefs];
         }];
         
     } else {
-        [notesToAdd addObject:[NSNumber numberWithLongLong:newNote.id]];
+        [notesToAdd addObject:newNote.guid];
         [self savePrefs];
     }
 }
@@ -392,8 +428,8 @@
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
         //online
         NSDictionary *params = @{@"content": note.content};
-        NSString *path = [NSString stringWithFormat:@"notes/%@",[[NSNumber numberWithLongLong:note.id] stringValue]];
-        __block OCNote *noteToUpdate = [OCNote instanceWithPrimaryKey:[NSNumber numberWithLongLong:note.id]];
+        NSString *path = [NSString stringWithFormat:@"notes/%@",[NSNumber numberWithLongLong:note.id]];
+        __block OCNote *noteToUpdate = [OCNote instanceWithPrimaryKey:note.guid];
 
         [[OCAPIClient sharedClient] PUT:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             //NSLog(@"Note: %@", responseObject);
@@ -426,7 +462,9 @@
         //offline
         note.modified = [[NSDate date] timeIntervalSince1970];
         [note save];
-        [notesToUpdate addObject:[NSNumber numberWithLongLong:note.id]];
+        if (note.id > 0) { // Has been synced at least once and is not included in notesToAdd
+            [notesToUpdate addObject:[NSNumber numberWithLongLong:note.id]];
+        }
         [self savePrefs];
     }
 }
@@ -448,9 +486,8 @@
 - (void) deleteNote:(OCNote *)note {
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
         //online
-        ///__block OCNote *noteToDelete = (Note*)[self.context objectWithID:note.objectID];
-        __block OCNote *noteToDelete = [OCNote instanceWithPrimaryKey:[NSNumber numberWithLongLong:note.id]];
-        NSString *path = [NSString stringWithFormat:@"notes/%@", [[NSNumber numberWithLongLong:note.id] stringValue]];
+        __block OCNote *noteToDelete = [OCNote instanceWithPrimaryKey:note.guid];
+        NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithLongLong:note.id]];
         [[OCAPIClient sharedClient] DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSLog(@"Success deleting note");
             [noteToDelete delete];
@@ -475,13 +512,13 @@
     __block NSMutableArray *successfulUpdates = [NSMutableArray new];
     __block NSMutableArray *failedUpdates = [NSMutableArray new];
     
-    dispatch_group_t group = dispatch_group_create();
-    [notesToUpdate enumerateObjectsUsingBlock:^(NSNumber *noteId, NSUInteger idx, BOOL *stop) {
-        __block OCNote *noteToUpdate = [OCNote instanceWithPrimaryKey:noteId];
+    dispatch_group_t updateGroup = dispatch_group_create();
+    [notesToUpdate enumerateObjectsUsingBlock:^(NSNumber *noteId, BOOL *stop) {
+        __block OCNote *noteToUpdate = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", noteId]];
         if (noteToUpdate) {
-            dispatch_group_enter(group);
+            dispatch_group_enter(updateGroup);
             NSDictionary *params = @{@"content": noteToUpdate.content};
-            NSString *path = [NSString stringWithFormat:@"notes/%@",[noteId stringValue]];
+            NSString *path = [NSString stringWithFormat:@"notes/%@", noteId];
             [[OCAPIClient sharedClient] PUT:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
                 //NSLog(@"Note: %@", responseObject);
                 @synchronized(successfulUpdates) {
@@ -494,7 +531,7 @@
                         [successfulUpdates addObject:[noteDict objectForKey:@"id"]];
                     }
                 }
-                dispatch_group_leave(group);
+                dispatch_group_leave(updateGroup);
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 //TODO: Determine what to do with failures.
                 NSString *failedId = [task.originalRequest.URL lastPathComponent];
@@ -515,14 +552,16 @@
                         break;
                 }
                 
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Note", @"Title", message, @"Message", nil];
+                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Updating Note", @"Title", message, @"Message", nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-                dispatch_group_leave(group);
+                dispatch_group_leave(updateGroup);
             }];
         }
     }];
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [notesToUpdate removeObjectsInArray:successfulUpdates]; //try again next time
+    dispatch_group_notify(updateGroup, dispatch_get_main_queue(), ^{
+        [successfulUpdates enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [notesToUpdate removeObject:obj];
+        }];
     });
 }
 
@@ -530,29 +569,25 @@
     __block NSMutableArray *successfulAdditions = [NSMutableArray new];
     __block NSMutableArray *failedAdditions = [NSMutableArray new];
     
-    dispatch_group_t group = dispatch_group_create();
-    //[notesToAdd enumerateObjectsUsingBlock:^(NSNumber *idNumber, NSUInteger idx, BOOL *stop) {
-    [notesToAdd enumerateObjectsUsingBlock:^(NSNumber *noteId, NSUInteger idx, BOOL *stop) {
+    dispatch_group_t addGroup = dispatch_group_create();
+    [notesToAdd enumerateObjectsUsingBlock:^(NSString *noteGuid, BOOL *stop) {
     
-        __block OCNote *ocNote = [OCNote instanceWithPrimaryKey:noteId];
+        __block OCNote *ocNote = [OCNote instanceWithPrimaryKey:noteGuid];
         if (ocNote) {
-            dispatch_group_enter(group);
+            dispatch_group_enter(addGroup);
             NSDictionary *params = @{@"content": ocNote.content};
             [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
                 //NSLog(@"Note: %@", responseObject);
                 @synchronized(successfulAdditions) {
                     NSDictionary *noteDict = (NSDictionary*)responseObject;
-                    OCNote *responseNote = [OCNote instanceWithPrimaryKey:[noteDict objectForKey:@"id"]];
-                    if (responseNote) {
-                        responseNote.title = [noteDict objectForKey:@"title"];
-                        responseNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                        responseNote.modified = [[noteDict objectForKey:@"modified"] longLongValue];
-                        [responseNote save];
-                    }
-                    [successfulAdditions addObject:[NSNumber numberWithLongLong:ocNote.id]];
-                    [ocNote delete];
+                    ocNote.id = [[noteDict objectForKey:@"id"] integerValue];
+                    ocNote.title = [noteDict objectForKey:@"title"];
+                    ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                    ocNote.modified = [[noteDict objectForKey:@"modified"] longLongValue];
+                    [ocNote save];
+                    [successfulAdditions addObject:ocNote.guid];
                 }
-                dispatch_group_leave(group);
+                dispatch_group_leave(addGroup);
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 //TODO: Determine what to do with failures.
                 NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -565,13 +600,15 @@
                 
                 NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Note", @"Title", message, @"Message", nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-                [failedAdditions addObject:[NSNumber numberWithLongLong:ocNote.id]];
-                dispatch_group_leave(group);
+                [failedAdditions addObject:ocNote.guid];
+                dispatch_group_leave(addGroup);
             }];
         }
     }];
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [notesToAdd removeObjectsInArray:successfulAdditions]; //try again next time
+    dispatch_group_notify(addGroup, dispatch_get_main_queue(), ^{
+        [successfulAdditions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [notesToAdd removeObject:obj];
+        }];
     });
 }
 
@@ -579,17 +616,17 @@
     __block NSMutableArray *successfulDeletions = [NSMutableArray new];
     __block NSMutableArray *failedDeletions = [NSMutableArray new];
     
-    dispatch_group_t group = dispatch_group_create();
-    [notesToDelete enumerateObjectsUsingBlock:^(NSNumber *noteId, NSUInteger idx, BOOL *stop) {
-        dispatch_group_enter(group);
-        NSString *path = [NSString stringWithFormat:@"notes/%@", [noteId stringValue]];
+    dispatch_group_t deleteGroup = dispatch_group_create();
+    [notesToDelete enumerateObjectsUsingBlock:^(NSNumber *noteId, BOOL *stop) {
+        dispatch_group_enter(deleteGroup);
+        NSString *path = [NSString stringWithFormat:@"notes/%@", noteId];
         [[OCAPIClient sharedClient] DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSLog(@"Success deleting from server");
             @synchronized(successfulDeletions) {
                 NSString *successId = [task.originalRequest.URL lastPathComponent];
                 [successfulDeletions addObject:[NSNumber numberWithInteger:[successId integerValue]]];
             }
-            dispatch_group_leave(group);
+            dispatch_group_leave(deleteGroup);
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"Failure to delete from server");
             NSString *failedId = [task.originalRequest.URL lastPathComponent];
@@ -608,11 +645,13 @@
                     }
                     break;
             }
-            dispatch_group_leave(group);
+            dispatch_group_leave(deleteGroup);
         }];
     }];
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [notesToDelete removeObjectsInArray:successfulDeletions];
+    dispatch_group_notify(deleteGroup, dispatch_get_main_queue(), ^{
+        [successfulDeletions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [notesToDelete removeObject:obj];
+        }];
     });
 }
 

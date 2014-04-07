@@ -12,6 +12,7 @@
 @interface OCNote : FCModel
 
 // database columns:
+@property (nonatomic, copy) NSString *guid;
 @property (nonatomic, assign) int64_t id;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *content;

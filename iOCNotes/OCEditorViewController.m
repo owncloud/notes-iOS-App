@@ -71,11 +71,6 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(noteUpdated:)
-                                                 name:NSManagedObjectContextDidSaveNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
@@ -91,6 +86,7 @@
                                                object:nil];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(noteUpdated:) name:FCModelUpdateNotification object:OCNote.class];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(noteUpdated:) name:FCModelDeleteNotification object:OCNote.class];
     
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
 }

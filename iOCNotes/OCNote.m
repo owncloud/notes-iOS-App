@@ -11,13 +11,26 @@
 @implementation OCNote
 
 - (BOOL)shouldInsert {
-    //self.modified = [NSDate date].timeIntervalSince1970;
+    self.modified = [NSDate date].timeIntervalSince1970;
     return YES;
 }
 
 - (BOOL)shouldUpdate {
     //self.modified = [NSDate date].timeIntervalSince1970;
     return YES;
+}
+
++ (id)primaryKeyValueForNewInstance {
+    NSString * result;
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+    CFRelease(theUUID);
+    
+    result =[NSString stringWithFormat:@"%@", string];
+    assert(result != nil);
+    
+    //NSLog(@"%@",result);
+    return result;
 }
 
 @end
