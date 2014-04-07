@@ -103,7 +103,7 @@
 - (void)reloadNotes:(NSNotification *)notification
 {
     //[OCNote executeUpdateQuery:@"SELECT * FROM $T WHERE 1 ORDER BY id DESC"];
-    self.ocNotes = [OCNote instancesOrderedBy:@"id DESC"];
+    self.ocNotes = [OCNote instancesOrderedBy:@"modified DESC"];
     NSLog(@"Reloading with %lu notes", (unsigned long) self.ocNotes.count);
     [self.tableView reloadData];
 }
