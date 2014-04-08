@@ -13,10 +13,10 @@
 
 // database columns:
 @property (nonatomic, copy) NSString *guid;
-@property (nonatomic, assign) int64_t id;
+@property (nonatomic, assign) int32_t id;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *content;
-@property (nonatomic, assign) int64_t modified;
+@property (nonatomic, assign) double modified;
 
 // non-columns:
 @property (nonatomic) NSInteger status;

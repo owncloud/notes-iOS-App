@@ -11,12 +11,10 @@
 @implementation OCNote
 
 - (BOOL)shouldInsert {
-    self.modified = [NSDate date].timeIntervalSince1970;
     return YES;
 }
 
 - (BOOL)shouldUpdate {
-    //self.modified = [NSDate date].timeIntervalSince1970;
     return YES;
 }
 

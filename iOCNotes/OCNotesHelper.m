@@ -128,13 +128,13 @@
                  int myID = [rs intForColumn:@"id"];
                  NSString *title = [rs stringForColumn:@"title"];
                  NSString *content = [rs stringForColumn:@"content"];
-                 int modified = [rs intForColumn:@"modified"];
+                 int modified = [rs doubleForColumn:@"modified"];
                  NSString *keys = @"(guid, id, title, content, modified)";
                  NSArray *args = @[guid,
                                    [NSNumber numberWithInteger:myID],
                                    title,
                                    content,
-                                   [NSNumber numberWithInt:modified]];
+                                   [NSNumber numberWithDouble:modified]];
 
                  NSString *sql = [NSString stringWithFormat:@"INSERT INTO OCNote %@ VALUES (?, ?, ?, ?, ?);", keys];
                  if (! [db executeUpdate:sql withArgumentsInArray:args]) failedAt(5);
@@ -198,18 +198,18 @@
                     if (!ocNote) { //don't re-add a deleted note (it will be deleted from the server below).
                         if (![notesToDelete containsObject:[noteDict objectForKey:@"id"]]) {
                             ocNote = [OCNote new];
-                            ocNote.id = [[noteDict objectForKey:@"id"] longLongValue];
-                            ocNote.modified =  [[noteDict objectForKey:@"modified"] longLongValue];
+                            ocNote.id = [[noteDict objectForKey:@"id"] longValue];
+                            ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
                             ocNote.title = [noteDict objectForKey:@"title"];
                             ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                             [ocNote save];
                         }
                     } else {
-                        if (ocNote.modified > [[noteDict objectForKey:@"modified"] longLongValue]) {
+                        if (ocNote.modified > [[noteDict objectForKey:@"modified"] doubleValue]) {
                             [notesToUpdate addObject:[noteDict objectForKey:@"id"]];
                             [self savePrefs];
                         } else {
-                            ocNote.modified =  [[noteDict objectForKey:@"modified"] longLongValue];
+                            ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
                             ocNote.title = [noteDict objectForKey:@"title"];
                             ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                             [ocNote save];
@@ -281,17 +281,17 @@
                 NSDictionary *noteDict = (NSDictionary*)responseObject;
                 NSLog(@"NoteDict: %@", noteDict);
                 if ([[NSNumber numberWithLongLong:noteToGet.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-                    if ([[noteDict objectForKey:@"modified"] intValue] > noteToGet.modified) {
+                    if ([[noteDict objectForKey:@"modified"] doubleValue] > noteToGet.modified) {
                         //The server has a newer version. We need to get it.
                         [[OCAPIClient sharedClient] GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                             //NSLog(@"Note: %@", responseObject);
                             NSDictionary *noteDict = (NSDictionary*)responseObject;
                             NSLog(@"NoteDict: %@", noteDict);
                             if ([[NSNumber numberWithLongLong:note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-                                if ([[noteDict objectForKey:@"modified"] intValue] > noteToGet.modified) {
+                                if ([[noteDict objectForKey:@"modified"] doubleValue] > noteToGet.modified) {
                                     noteToGet.title = [noteDict objectForKey:@"title"];
                                     noteToGet.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                                    noteToGet.modified = [[noteDict objectForKey:@"modified"] intValue];
+                                    noteToGet.modified = [[noteDict objectForKey:@"modified"] doubleValue];
                                 }
                                 [noteToGet save];
                             }
@@ -373,7 +373,7 @@
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *noteDict = (NSDictionary*)responseObject;
             newNote.id = [[noteDict objectForKey:@"id"] intValue];
-            newNote.modified = [[noteDict objectForKey:@"modified"] intValue];
+            newNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
             newNote.title = [noteDict objectForKey:@"title"];
             newNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
             [newNote save];
@@ -437,7 +437,7 @@
             if ([[NSNumber numberWithLongLong:note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
                 noteToUpdate.title = [noteDict objectForKey:@"title"];
                 noteToUpdate.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];;
-                noteToUpdate.modified = [[noteDict objectForKey:@"modified"] intValue];
+                noteToUpdate.modified = [[noteDict objectForKey:@"modified"] doubleValue];
                 [noteToUpdate save];
             }
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -526,7 +526,7 @@
                     if ([noteId isEqualToNumber:[noteDict objectForKey:@"id"]]) {
                         noteToUpdate.title = [noteDict objectForKey:@"title"];
                         noteToUpdate.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];;
-                        noteToUpdate.modified = [[noteDict objectForKey:@"modified"] intValue];
+                        noteToUpdate.modified = [[noteDict objectForKey:@"modified"] doubleValue];
                         [noteToUpdate save];
                         [successfulUpdates addObject:[noteDict objectForKey:@"id"]];
                     }
@@ -583,7 +583,7 @@
                     ocNote.id = [[noteDict objectForKey:@"id"] integerValue];
                     ocNote.title = [noteDict objectForKey:@"title"];
                     ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                    ocNote.modified = [[noteDict objectForKey:@"modified"] longLongValue];
+                    ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
                     [ocNote save];
                     [successfulAdditions addObject:ocNote.guid];
                 }
