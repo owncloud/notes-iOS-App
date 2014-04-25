@@ -18,6 +18,7 @@
 @property (strong, nonatomic) OCNote *ocNote;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomLayoutConstraint;
 @property (strong, nonatomic) MEDynamicTransition *dynamicTransition;
+@property (strong, nonatomic) IBOutlet UILabel *modifiedLabel;
 
 - (IBAction)doShowDrawer:(id)sender;
 - (IBAction)doActivities:(id)sender;

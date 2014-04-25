@@ -13,6 +13,8 @@
 #import "TTOpenInAppActivity.h"
 #import "TransparentToolbar.h"
 
+static const int kModifiedLabelOffset = -20;
+
 @interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate> {
     NSTimer *editingTimer;
     UIPopoverController *_activityPopover;
@@ -36,7 +38,7 @@
 - (void)setOcNote:(OCNote *)ocNote {
     if (![ocNote isEqual:_ocNote]) {
         _ocNote = ocNote;
-        self.navigationItem.title = _ocNote.title;
+        //self.navigationItem.title = _ocNote.title;
     }
 }
 
@@ -66,9 +68,16 @@
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
         self.noteContentView.text = @"Select or create a note.";
-        self.navigationItem.title = @"Note";
+        self.navigationItem.title = @"";
         self.activityButton.enabled = NO;
     }
+    
+    self.noteContentView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
+    CGRect myFrame = self.modifiedLabel.frame;
+    myFrame.origin.y = kModifiedLabelOffset;
+    [self.modifiedLabel removeFromSuperview];
+    [self.noteContentView addSubview:self.modifiedLabel];
+    self.modifiedLabel.frame = myFrame;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -88,7 +97,24 @@
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(noteUpdated:) name:FCModelUpdateNotification object:OCNote.class];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(noteUpdated:) name:FCModelDeleteNotification object:OCNote.class];
     
+    self.navigationController.navigationBar.translucent = YES;
+    
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.ocNote) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.ocNote.modified];
+        if (date) {
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            dateFormat.dateStyle = NSDateFormatterShortStyle;
+            dateFormat.timeStyle = NSDateFormatterShortStyle;
+            dateFormat.doesRelativeDateFormatting = NO;
+            self.modifiedLabel.text = [dateFormat stringFromDate:date];
+            self.modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -101,11 +127,12 @@
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         self.noteContentView.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
-        /*
+        
         int width;
         int height;
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
             width = CGRectGetHeight([UIScreen mainScreen].applicationFrame);
+            self.modifiedLabel.frame = CGRectMake(0, kModifiedLabelOffset, width, 15);
             if (width > 500) { //4" screen
                 //
             } else {
@@ -114,13 +141,16 @@
             
         } else {
             height = CGRectGetHeight([UIScreen mainScreen].applicationFrame);
+
+            width = CGRectGetWidth([UIScreen mainScreen].applicationFrame);
+            self.modifiedLabel.frame = CGRectMake(0, kModifiedLabelOffset, width, 15);
             if (height > 500) {
                 //
             } else {
                 //
             }
         }
-         */
+         
     } else { //iPad
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
             self.noteContentView.textContainerInset = UIEdgeInsetsMake(20, 178, 20, 178);
@@ -231,13 +261,22 @@
     if (self.ocNote) {
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
-        self.navigationItem.title = self.ocNote.title;
+        //self.navigationItem.title = self.ocNote.title;
         //self.noteContentView.text = self.ocNote.content;
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.ocNote.modified];
+        if (date) {
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            dateFormat.dateStyle = NSDateFormatterShortStyle;
+            dateFormat.timeStyle = NSDateFormatterShortStyle;
+            dateFormat.doesRelativeDateFormatting = NO;
+            self.modifiedLabel.text = [dateFormat stringFromDate:date];
+            self.modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        }
     } else {
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
-        self.noteContentView.text = @"Select or create a note.";
-        self.navigationItem.title = @"Note";
+        self.modifiedLabel.text = @"Select or create a note.";
+        self.navigationItem.title = @"";
     }
 }
 

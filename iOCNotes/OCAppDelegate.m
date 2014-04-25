@@ -13,6 +13,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import <KSCrash/KSCrash.h>
 #import <KSCrash/KSCrashInstallationEmail.h>
+#import "UIImage+ImageWithColor.h"
 
 @implementation OCAppDelegate
 
@@ -22,7 +23,9 @@
     [installation install];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
-    [UINavigationBar appearance].barTintColor = [UIColor colorWithRed:0.957 green:0.957 blue:0.957 alpha:1.0];
+    [UINavigationBar appearance].barTintColor = [UIColor clearColor];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage resizeableImageWithColor:[UIColor colorWithRed:0.957 green:0.957 blue:0.957 alpha:0.95]] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [UINavigationBar appearance].tintColor = [UIColor colorWithRed:0.13 green:0.145 blue:0.16 alpha:1.0];
     
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
@@ -32,6 +35,9 @@
             NSLog(@"Failed to send reports: %@", error);
         }
     }];
+    
+    self.window.backgroundColor = [UIColor colorWithRed:0.956 green:0.956 blue:0.956 alpha:1.0];
+
     
     return YES;
 }

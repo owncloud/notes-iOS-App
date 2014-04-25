@@ -108,6 +108,8 @@
 		D0225778189877C00038232A /* UIViewController+ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D022576C189877C00038232A /* UIViewController+ECSlidingViewController.m */; };
 		D022577B1898894F0038232A /* MEDynamicTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = D022577A1898894F0038232A /* MEDynamicTransition.m */; };
 		D022577C1898894F0038232A /* MEDynamicTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = D022577A1898894F0038232A /* MEDynamicTransition.m */; };
+		D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */; };
+		D0362BB0190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */; };
 		D03DA14918DE435900178958 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA13F18DE435900178958 /* FMDatabase.m */; };
 		D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14118DE435900178958 /* FMDatabaseAdditions.m */; };
 		D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14318DE435900178958 /* FMDatabasePool.m */; };
@@ -232,6 +234,8 @@
 		D022576C189877C00038232A /* UIViewController+ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ECSlidingViewController.m"; sourceTree = "<group>"; };
 		D02257791898894F0038232A /* MEDynamicTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MEDynamicTransition.h; path = ECSlidingViewController/Examples/TransitionFun/TransitionFun/MEDynamicTransition.h; sourceTree = SOURCE_ROOT; };
 		D022577A1898894F0038232A /* MEDynamicTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MEDynamicTransition.m; path = ECSlidingViewController/Examples/TransitionFun/TransitionFun/MEDynamicTransition.m; sourceTree = SOURCE_ROOT; };
+		D0362BAD190AC83800490D95 /* UIImage+ImageWithColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithColor.h"; sourceTree = "<group>"; };
+		D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithColor.m"; sourceTree = "<group>"; };
 		D03DA13E18DE435900178958 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		D03DA13F18DE435900178958 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		D03DA14018DE435900178958 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -567,6 +571,8 @@
 				D0CFE5971888CC0300165839 /* TransparentToolbar.m */,
 				D02256C8189599570038232A /* NSDictionary+HandleNull.h */,
 				D02256C9189599570038232A /* NSDictionary+HandleNull.m */,
+				D0362BAD190AC83800490D95 /* UIImage+ImageWithColor.h */,
+				D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */,
 				D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */,
 				D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */,
 				D0CFE53D1888A7BD00165839 /* Supporting Files */,
@@ -845,6 +851,7 @@
 				D02256CE1895BE220038232A /* AFHTTPRequestOperation.m in Sources */,
 				D022575E18984C7E0038232A /* HexColor.m in Sources */,
 				D03DA15318DE578200178958 /* FMDatabaseAdditions.m in Sources */,
+				D0362BB0190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
 				D02256CF1895BE220038232A /* OCNotesTableViewController.m in Sources */,
 				D02256D01895BE220038232A /* NSDictionary+HandleNull.m in Sources */,
 				D0CB434F18D274C200C54D7C /* FCModel.m in Sources */,
@@ -896,6 +903,7 @@
 				D0225771189877C00038232A /* ECSlidingInteractiveTransition.m in Sources */,
 				D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */,
 				D022575D18984C7E0038232A /* HexColor.m in Sources */,
+				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
 				D02256FB1895E5B80038232A /* KeychainItemWrapper.m in Sources */,
 				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,

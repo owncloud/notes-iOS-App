@@ -86,6 +86,18 @@
     [OCNotesHelper sharedHelper];
     [self reloadNotes:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(reloadNotes:) name:FCModelAnyChangeNotification object:OCNote.class];
+    
+    //remove bottom line/shadow
+    for (UIView *view in self.navigationController.navigationBar.subviews) {
+        for (UIView *view2 in view.subviews) {
+            if ([view2 isKindOfClass:[UIImageView class]]) {
+                if (![view2.superview isKindOfClass:[UIButton class]]) {
+                    [view2 removeFromSuperview];
+                }
+            }
+        }
+    }
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
