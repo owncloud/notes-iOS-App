@@ -98,12 +98,24 @@
         }
     }
     self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.toolbar.translucent = YES;
+    self.navigationController.toolbar.clipsToBounds = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.toolbar.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self didBecomeActive:nil];
     [self.editorViewController.noteContentView resignFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.toolbar.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning

@@ -13,16 +13,12 @@
 #import "TTOpenInAppActivity.h"
 #import "TransparentToolbar.h"
 
-static const int kModifiedLabelOffset = -20;
-
 @interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate> {
     NSTimer *editingTimer;
     UIPopoverController *_activityPopover;
 }
 
 @property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
-@property (nonatomic, strong, readonly) TransparentToolbar *editingToolbar;
-@property (nonatomic, strong, readonly) UIInputView *inputView;
 
 - (void)updateText:(NSTimer*)timer;
 - (void)noteUpdated:(NSNotification*)notification;
@@ -32,8 +28,7 @@ static const int kModifiedLabelOffset = -20;
 @implementation OCEditorViewController
 
 @synthesize ocNote = _ocNote;
-@synthesize editingToolbar;
-@synthesize inputView;
+@synthesize modifiedLabel;
 
 - (void)setOcNote:(OCNote *)ocNote {
     if (![ocNote isEqual:_ocNote]) {
@@ -72,12 +67,9 @@ static const int kModifiedLabelOffset = -20;
         self.activityButton.enabled = NO;
     }
     
+    self.noteContentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.noteContentView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
-    CGRect myFrame = self.modifiedLabel.frame;
-    myFrame.origin.y = kModifiedLabelOffset;
-    [self.modifiedLabel removeFromSuperview];
     [self.noteContentView addSubview:self.modifiedLabel];
-    self.modifiedLabel.frame = myFrame;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -123,6 +115,11 @@ static const int kModifiedLabelOffset = -20;
     [self.noteContentView resignFirstResponder];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    //self.navigationController.toolbar.hidden = YES;
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -132,7 +129,7 @@ static const int kModifiedLabelOffset = -20;
         int height;
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
             width = CGRectGetHeight([UIScreen mainScreen].applicationFrame);
-            self.modifiedLabel.frame = CGRectMake(0, kModifiedLabelOffset, width, 15);
+            //self.modifiedLabel.frame = CGRectMake(0, kModifiedLabelOffset, width, 15);
             if (width > 500) { //4" screen
                 //
             } else {
@@ -143,7 +140,7 @@ static const int kModifiedLabelOffset = -20;
             height = CGRectGetHeight([UIScreen mainScreen].applicationFrame);
 
             width = CGRectGetWidth([UIScreen mainScreen].applicationFrame);
-            self.modifiedLabel.frame = CGRectMake(0, kModifiedLabelOffset, width, 15);
+            //self.modifiedLabel.frame = CGRectMake(0, kModifiedLabelOffset, width, 15);
             if (height > 500) {
                 //
             } else {
@@ -216,6 +213,28 @@ static const int kModifiedLabelOffset = -20;
     }
 }
 
+- (IBAction)onDelete:(id)sender {
+}
+
+- (IBAction)onAdd:(id)sender {
+}
+
+- (IBAction)onUndo:(id)sender {
+    if ([self.noteContentView.undoManager canUndo]) {
+        [self.noteContentView.undoManager undo];
+    }
+}
+
+- (IBAction)onRedo:(id)sender {
+    if ([self.noteContentView.undoManager canRedo]) {
+        [self.noteContentView.undoManager redo];
+    }
+}
+
+- (IBAction)onDone:(id)sender {
+    [self.noteContentView resignFirstResponder];
+}
+
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
 	_activityPopover = nil;
@@ -286,6 +305,9 @@ static const int kModifiedLabelOffset = -20;
             return;
         }
     }
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        self.navigationItem.rightBarButtonItems = @[self.doneButton, self.fixedSpace, self.redoButton, self.fixedSpace, self.undoButton];
+    }
     NSDictionary* d = [notification userInfo];
     CGRect r = [d[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     r = [self.view convertRect:r fromView:nil];
@@ -302,7 +324,7 @@ static const int kModifiedLabelOffset = -20;
     
     int height = kbHeight + self.bottomLayoutConstraint.constant;
     
-    self.bottomLayoutConstraint.constant = height;
+    self.bottomLayoutConstraint.constant = height - 44;
     
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
@@ -310,10 +332,14 @@ static const int kModifiedLabelOffset = -20;
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        self.navigationItem.rightBarButtonItems = @[];
+    }
+
     NSDictionary *info = [notification userInfo];
     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 0.5;
     
-    self.bottomLayoutConstraint.constant = 0;
+    self.bottomLayoutConstraint.constant = -44;
     
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
@@ -339,42 +365,15 @@ static const int kModifiedLabelOffset = -20;
     return _dynamicTransitionPanGesture;
 }
 
-- (TransparentToolbar*) editingToolbar {
-    if (!editingToolbar) {
-        editingToolbar = [[TransparentToolbar alloc] initWithFrame:CGRectMake(0, 0, (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 320.0f : 400.0f, 32)];
-        editingToolbar.barStyle = UIBarStyleDefault;
-        editingToolbar.tintColor = [UIColor blackColor];
-        editingToolbar.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector            (doUndo:)],
-                                 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRedo target:self action:@selector(doRedo:)],
-                               [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                                 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissKeyboard:)]];
-        [editingToolbar sizeToFit];
+- (UILabel*)modifiedLabel {
+    if (!modifiedLabel) {
+        modifiedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -18, 320, 15)];
+        modifiedLabel.textColor = [UIColor lightGrayColor];
+        modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        modifiedLabel.textAlignment = NSTextAlignmentCenter;
+        modifiedLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     }
-    return editingToolbar;
-}
-
-- (UIInputView*)inputView {
-    if (!inputView) {
-        inputView = [[UIInputView alloc] initWithFrame:self.editingToolbar.frame inputViewStyle:UIInputViewStyleKeyboard];
-        [inputView addSubview:self.editingToolbar];
-    }
-    return inputView;
-}
-
-- (void)doUndo:(id)sender {
-    if ([self.noteContentView.undoManager canUndo]) {
-        [self.noteContentView.undoManager undo];
-    }
-}
-
-- (void)doRedo:(id)sender {
-    if ([self.noteContentView.undoManager canRedo]) {
-        [self.noteContentView.undoManager redo];
-    }
-}
-
-- (void)dismissKeyboard:(id)sender {
-    [self.noteContentView resignFirstResponder];
+    return modifiedLabel;
 }
 
 @end

@@ -27,6 +27,12 @@
     [[UINavigationBar appearance] setBackgroundImage:[UIImage resizeableImageWithColor:[UIColor colorWithRed:0.957 green:0.957 blue:0.957 alpha:0.95]] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [UINavigationBar appearance].tintColor = [UIColor colorWithRed:0.13 green:0.145 blue:0.16 alpha:1.0];
+ 
+    [UIToolbar appearance].barTintColor = [UIColor clearColor];
+    [UIToolbar appearance].tintColor = [UIColor colorWithRed:0.13 green:0.145 blue:0.16 alpha:1.0];
+    [[UIToolbar appearance] setBackgroundImage: [UIImage resizeableImageWithColor:[UIColor colorWithRed:0.957 green:0.957 blue:0.957 alpha:0.95]]
+                            forToolbarPosition: UIToolbarPositionAny
+                                    barMetrics: UIBarMetricsDefault];
     
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
         if(completed) {

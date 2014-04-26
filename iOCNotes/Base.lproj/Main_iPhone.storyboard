@@ -49,6 +49,7 @@
                             <outlet property="delegate" destination="DXe-Iw-CcD" id="lTT-Wj-gfA"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Notes" id="qfr-a2-foZ">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="Ehu-4h-6IO">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -93,46 +94,72 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Dfp-ef-c1C"/>
                                 </connections>
                             </textView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fen-UW-qKS">
-                                <rect key="frame" x="0.0" y="22" width="320" height="15"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="2tF-Ws-VkG" firstAttribute="top" secondItem="LzS-Ob-leM" secondAttribute="bottom" id="6Id-Li-lcH"/>
-                            <constraint firstAttribute="trailing" secondItem="LzS-Ob-leM" secondAttribute="trailing" id="Fmi-KM-Qmg"/>
-                            <constraint firstItem="LzS-Ob-leM" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="wgB-rM-rQY"/>
-                            <constraint firstItem="LzS-Ob-leM" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="wva-MG-h8l"/>
+                            <constraint firstItem="LzS-Ob-leM" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="FqF-NC-Ize"/>
+                            <constraint firstItem="LzS-Ob-leM" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="U2I-Vv-Mn1"/>
+                            <constraint firstAttribute="trailing" secondItem="LzS-Ob-leM" secondAttribute="trailing" id="YWw-tO-YrR"/>
+                            <constraint firstItem="2tF-Ws-VkG" firstAttribute="top" secondItem="LzS-Ob-leM" secondAttribute="bottom" constant="-44" id="itl-jx-6nF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="dEj-4d-nDe">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="1qk-bQ-vnb">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <toolbarItems>
+                        <barButtonItem systemItem="action" id="pXa-gb-ki1">
                             <connections>
-                                <action selector="doActivities:" destination="vXZ-lx-hvc" id="Swz-ke-e2H"/>
+                                <action selector="doActivities:" destination="vXZ-lx-hvc" id="Nun-5m-zrt"/>
                             </connections>
                         </barButtonItem>
-                    </navigationItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="31P-cH-4xs"/>
+                        <barButtonItem systemItem="trash" id="aql-su-dTG">
+                            <connections>
+                                <action selector="onDelete:" destination="vXZ-lx-hvc" id="eLh-Ia-NNJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="6H0-NH-vIu"/>
+                        <barButtonItem systemItem="compose" id="nY9-Vh-Cce">
+                            <connections>
+                                <action selector="onAdd:" destination="vXZ-lx-hvc" id="hou-FV-ehq"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="dEj-4d-nDe"/>
                     <connections>
-                        <outlet property="activityButton" destination="1qk-bQ-vnb" id="SYS-hW-D6V"/>
-                        <outlet property="bottomLayoutConstraint" destination="6Id-Li-lcH" id="bjH-Bb-htb"/>
-                        <outlet property="modifiedLabel" destination="Fen-UW-qKS" id="CYS-F7-SG4"/>
+                        <outlet property="activityButton" destination="pXa-gb-ki1" id="uG9-It-RGV"/>
+                        <outlet property="addButton" destination="nY9-Vh-Cce" id="VpW-eb-f3M"/>
+                        <outlet property="bottomLayoutConstraint" destination="itl-jx-6nF" id="OSg-Lv-9f7"/>
+                        <outlet property="deleteButton" destination="aql-su-dTG" id="v7n-sx-BDb"/>
+                        <outlet property="doneButton" destination="1qk-bQ-vnb" id="TsG-jk-zqg"/>
+                        <outlet property="fixedSpace" destination="thB-y7-Xbs" id="x5v-Bb-qap"/>
                         <outlet property="noteContentView" destination="LzS-Ob-leM" id="LGo-Rd-opW"/>
+                        <outlet property="redoButton" destination="T7C-FW-CGQ" id="VHV-0J-Zw4"/>
+                        <outlet property="undoButton" destination="6bO-Ah-TJ8" id="dAI-LZ-8kW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <barButtonItem systemItem="undo" id="6bO-Ah-TJ8">
+                    <connections>
+                        <action selector="onUndo:" destination="vXZ-lx-hvc" id="CKx-bI-TPQ"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="redo" id="T7C-FW-CGQ">
+                    <connections>
+                        <action selector="onRedo:" destination="vXZ-lx-hvc" id="ujA-5q-Hco"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="done" id="1qk-bQ-vnb">
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="onDone:" destination="vXZ-lx-hvc" id="54B-WX-gp9"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="thB-y7-Xbs"/>
             </objects>
             <point key="canvasLocation" x="825" y="102"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fMS-Gw-CfY">
             <objects>
-                <navigationController id="RQg-o0-i6F" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                <navigationController toolbarHidden="NO" id="RQg-o0-i6F" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fRT-Hm-h30">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -140,6 +167,11 @@
                         <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="p4w-cm-yXR">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </toolbar>
                     <connections>
                         <segue destination="DXe-Iw-CcD" kind="relationship" relationship="rootViewController" id="N2U-Wk-XGw"/>
                     </connections>
