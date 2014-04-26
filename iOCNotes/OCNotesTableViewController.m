@@ -82,10 +82,23 @@
                                                  name:UIContentSizeCategoryDidChangeNotification
                                                object:nil];
     
-    //[self.notesFetchedResultsController performFetch:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(reloadNotes:)
+                                               name:FCModelAnyChangeNotification
+                                             object:OCNote.class];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(noteAdded:)
+                                               name:FCModelInsertNotification
+                                             object:OCNote.class];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(noteDeleted:)
+                                               name:FCModelDeleteNotification
+                                             object:OCNote.class];
+  
     [OCNotesHelper sharedHelper];
     [self reloadNotes:nil];
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(reloadNotes:) name:FCModelAnyChangeNotification object:OCNote.class];
     
     //remove bottom line/shadow
     for (UIView *view in self.navigationController.navigationBar.subviews) {
@@ -129,6 +142,48 @@
     self.ocNotes = [OCNote instancesOrderedBy:@"modified DESC"];
     NSLog(@"Reloading with %lu notes", (unsigned long) self.ocNotes.count);
     [self.tableView reloadData];
+}
+
+- (void)noteAdded:(NSNotification *)notification
+{
+    NSLog(@"Note added: %@", [notification userInfo]);
+    NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
+    OCNote *newNote = [noteSet anyObject];
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+        [self.slidingViewController resetTopViewAnimated:YES];
+    } else {
+        if ([self.navigationController.topViewController isEqual:self]) {
+            [self performSegueWithIdentifier:@"noteSelected" sender:self];
+        }
+    }
+    self.editorViewController.ocNote = newNote;
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+}
+
+- (void)noteDeleted:(NSNotification *)notification
+{
+    NSInteger newIndex = 0;
+    NSLog(@"Note added: %@", [notification userInfo]);
+    NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
+    OCNote *newNote = [noteSet anyObject];
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+        //[self.slidingViewController resetTopViewAnimated:YES];
+    } else {
+        if ([self.navigationController.topViewController isEqual:self.editorViewController]) {
+            newIndex = [self.ocNotes indexOfObject:newNote] + 1;
+            if (newIndex >= self.ocNotes.count) {
+                --newIndex;
+                --newIndex;
+            }
+            if (newIndex >= 0) {
+                newNote = [self.ocNotes objectAtIndex:newIndex];
+                self.editorViewController.ocNote = newNote;
+                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
+    }
 }
 
 - (void)dealloc

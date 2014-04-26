@@ -33,7 +33,8 @@
 - (void)setOcNote:(OCNote *)ocNote {
     if (![ocNote isEqual:_ocNote]) {
         _ocNote = ocNote;
-        //self.navigationItem.title = _ocNote.title;
+        self.noteContentView.text = _ocNote.content;
+        [self noteUpdated:nil];
     }
 }
 
@@ -56,9 +57,6 @@
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
         self.activityButton.enabled = (self.noteContentView.text.length > 0);
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            self.noteContentView.inputAccessoryView = self.inputView;
-        }
     } else {
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
@@ -214,9 +212,11 @@
 }
 
 - (IBAction)onDelete:(id)sender {
+    [[OCNotesHelper sharedHelper] deleteNote:self.ocNote];
 }
 
 - (IBAction)onAdd:(id)sender {
+    [[OCNotesHelper sharedHelper] addNote:@""];
 }
 
 - (IBAction)onUndo:(id)sender {
@@ -348,6 +348,7 @@
 
 - (void)preferredContentSizeChanged:(NSNotification *)notification {
     self.noteContentView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 }
 
 - (MEDynamicTransition *)dynamicTransition {
