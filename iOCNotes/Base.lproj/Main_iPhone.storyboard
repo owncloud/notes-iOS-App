@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Notes Table View Controller-->
+        <!--Notes Table View Controller - Notes-->
         <scene sceneID="rtV-CN-b4x">
             <objects>
                 <tableViewController id="DXe-Iw-CcD" customClass="OCNotesTableViewController" sceneMemberID="viewController">
@@ -50,7 +50,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="qfr-a2-foZ">
+                    <navigationItem key="navigationItem" title="Notes" id="qfr-a2-foZ">
                         <barButtonItem key="leftBarButtonItem" image="gear" id="Ehu-4h-6IO">
                             <color key="tintColor" red="0.11764705882352941" green="0.1764705882352941" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
