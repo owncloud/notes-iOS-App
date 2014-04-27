@@ -48,8 +48,14 @@
         self.slidingViewController.delegate = self.dynamicTransition;
         self.slidingViewController.topViewAnchoredGesture = ECSlidingViewControllerAnchoredGestureTapping | ECSlidingViewControllerAnchoredGestureCustom;
         self.slidingViewController.customAnchoredGestures = @[self.dynamicTransitionPanGesture];
+        CALayer *border = [CALayer layer];
+        border.backgroundColor = [UIColor lightGrayColor].CGColor;
+        
+        border.frame = CGRectMake(0, 0, 1, self.slidingViewController.topViewController.view.frame.size.height);
+        [self.slidingViewController.topViewController.view.layer addSublayer:border];
         [self.view removeGestureRecognizer:self.slidingViewController.panGesture];
         [self.view addGestureRecognizer:self.dynamicTransitionPanGesture];
+        self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
     }
     
     if (self.ocNote) {
@@ -57,12 +63,14 @@
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
         self.activityButton.enabled = (self.noteContentView.text.length > 0);
+        self.deleteButton.enabled = (self.noteContentView.text.length > 0);
     } else {
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
         self.noteContentView.text = @"Select or create a note.";
         self.navigationItem.title = @"";
         self.activityButton.enabled = NO;
+        self.deleteButton.enabled = NO;
     }
     
     self.noteContentView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -149,10 +157,11 @@
     } else { //iPad
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
             self.noteContentView.textContainerInset = UIEdgeInsetsMake(20, 178, 20, 178);
+            self.modifiedLabel.frame = CGRectMake(183, -18, 500, 15);
         } else {
             self.noteContentView.textContainerInset = UIEdgeInsetsMake(20, 50, 20, 50);
+            self.modifiedLabel.frame = CGRectMake(55, -18, 500, 15);
         }
-        
     }
 }
 
@@ -242,6 +251,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView {
     self.activityButton.enabled = (textView.text.length > 0);
+    self.deleteButton.enabled = (textView.text.length > 0);
     if (editingTimer) {
         [editingTimer invalidate];
         editingTimer = nil;
@@ -369,9 +379,13 @@
 - (UILabel*)modifiedLabel {
     if (!modifiedLabel) {
         modifiedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -18, 320, 15)];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            modifiedLabel.textAlignment = NSTextAlignmentLeft;
+        }else {
+            modifiedLabel.textAlignment = NSTextAlignmentCenter;
+        }
         modifiedLabel.textColor = [UIColor lightGrayColor];
         modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        modifiedLabel.textAlignment = NSTextAlignmentCenter;
         modifiedLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     }
     return modifiedLabel;

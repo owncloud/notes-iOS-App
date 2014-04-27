@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="JVq-Ql-bFd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="JVq-Ql-bFd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -49,7 +49,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" red="0.16800000000000001" green="0.23169999999999996" blue="0.35000000000000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="VJf-8B-28f" firstAttribute="leading" secondItem="y71-c7-WxV" secondAttribute="leading" id="ARc-H2-a0V"/>
                             <constraint firstItem="VJf-8B-28f" firstAttribute="top" secondItem="y71-c7-WxV" secondAttribute="top" id="Nk2-Xa-QVO"/>
@@ -61,19 +61,19 @@
             </objects>
             <point key="canvasLocation" x="947" y="-1223"/>
         </scene>
-        <!--Notes Table View Controller - Notes-->
+        <!--Notes Table View Controller-->
         <scene sceneID="H6m-zS-WJC">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="ee1-11-mj4" customClass="OCNotesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="az8-Y8-Nn2">
-                        <rect key="frame" x="0.0" y="44" width="320" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="deviceRGB"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="fRx-lq-k35" detailTextLabel="tiL-hB-Wvi" style="IBUITableViewCellStyleSubtitle" id="us0-Lu-nQ4">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="us0-Lu-nQ4" id="zx3-5H-erq">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -96,7 +96,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <segue destination="62w-kj-R0z" kind="custom" identifier="noteSelected" customClass="ECSlidingSegue" id="lE8-Ni-p33"/>
                                 </connections>
@@ -107,14 +107,8 @@
                             <outlet property="delegate" destination="ee1-11-mj4" id="ydA-Je-HlO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Notes" id="wbf-6X-5TK">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="3ki-Oj-rla">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="doAdd:" destination="ee1-11-mj4" id="dbV-tz-fY8"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="gear" id="c7c-no-10Y">
+                    <navigationItem key="navigationItem" id="wbf-6X-5TK">
+                        <barButtonItem key="leftBarButtonItem" image="gear" id="c7c-no-10Y">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="doSettings:" destination="ee1-11-mj4" id="c3K-AY-K3D"/>
@@ -123,13 +117,24 @@
                     </navigationItem>
                     <connections>
                         <outlet property="settingsBarButton" destination="c7c-no-10Y" id="fPk-zj-83u"/>
+                        <outlet property="titleButton" destination="K7d-7B-eP3" id="tIe-Gw-KFX"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wkw-pT-A1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K7d-7B-eP3">
+                    <rect key="frame" x="0.0" y="0.0" width="135" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="ownCloud">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onTitleButton:" destination="ee1-11-mj4" eventType="touchUpInside" id="k6b-PB-4w8"/>
+                    </connections>
+                </button>
             </objects>
             <point key="canvasLocation" x="2399" y="-1191"/>
         </scene>
-        <!--Editor View Controller - Note Title-->
+        <!--Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="OCEditorViewController" sceneMemberID="viewController">
@@ -144,7 +149,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id6-Aw-QLO">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -161,28 +166,44 @@
                             <constraint firstItem="id6-Aw-QLO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qKX-JJ-iDY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Note Title" id="tlC-Qz-XXf">
+                    <navigationItem key="navigationItem" id="tlC-Qz-XXf">
                         <barButtonItem key="leftBarButtonItem" image="sideMenu" id="5ko-lW-5wR">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="doShowDrawer:" destination="BYZ-38-t0r" id="ixp-UY-lc8"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="cpG-hS-bji">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="doActivities:" destination="BYZ-38-t0r" id="2rX-Jf-yjc"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityButton" destination="cpG-hS-bji" id="dz9-tD-6P5"/>
+                        <outlet property="activityButton" destination="ifJ-q6-xgD" id="0jD-xY-UEM"/>
+                        <outlet property="addButton" destination="zRa-zy-Av2" id="PYf-HN-fUf"/>
                         <outlet property="bottomLayoutConstraint" destination="bpS-rT-fHz" id="x9t-VT-j5T"/>
+                        <outlet property="deleteButton" destination="Nfn-1O-U8E" id="VQm-7j-fQf"/>
+                        <outlet property="fixedSpace" destination="YWw-oO-9Hj" id="SQb-Rx-3rd"/>
                         <outlet property="menuButton" destination="5ko-lW-5wR" id="nE6-gR-wkS"/>
                         <outlet property="noteContentView" destination="id6-Aw-QLO" id="ht5-QR-9Ih"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <barButtonItem systemItem="action" id="ifJ-q6-xgD">
+                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="doActivities:" destination="BYZ-38-t0r" id="uhH-bh-lrW"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="compose" id="zRa-zy-Av2">
+                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="onAdd:" destination="BYZ-38-t0r" id="D6e-35-d7s"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="trash" id="Nfn-1O-U8E">
+                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="onDelete:" destination="BYZ-38-t0r" id="gZf-zv-pkg"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem width="22" style="plain" systemItem="fixedSpace" id="YWw-oO-9Hj"/>
             </objects>
             <point key="canvasLocation" x="1921" y="-54"/>
         </scene>
@@ -481,11 +502,10 @@
                 <navigationController id="v5n-91-X1l" sceneMemberID="viewController">
                     <toolbarItems/>
                     <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="2tn-K7-fPL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2tn-K7-fPL">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="barTintColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -521,6 +541,7 @@
     </scenes>
     <resources>
         <image name="gear" width="24" height="44"/>
+        <image name="ownCloud" width="80" height="44"/>
         <image name="sideMenu" width="32" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

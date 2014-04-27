@@ -42,7 +42,7 @@
         }
     }];
     
-    self.window.backgroundColor = [UIColor colorWithRed:0.956 green:0.956 blue:0.956 alpha:1.0];
+    //self.window.backgroundColor = [UIColor colorWithRed:0.956 green:0.956 blue:0.956 alpha:1.0];
 
     
     return YES;

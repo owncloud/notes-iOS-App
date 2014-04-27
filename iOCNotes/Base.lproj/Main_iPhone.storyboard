@@ -211,7 +211,7 @@
             </objects>
             <point key="canvasLocation" x="61" y="799"/>
         </scene>
-        <!--Settings Controller-->
+        <!--Settings Controller - Settings-->
         <scene sceneID="pXH-1w-eJk">
             <objects>
                 <tableViewController id="2t6-l8-Aa3" customClass="OCSettingsController" sceneMemberID="viewController">
@@ -300,7 +300,7 @@
                             <outlet property="delegate" destination="2t6-l8-Aa3" id="qpU-I1-k2S"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="klT-al-UKS">
+                    <navigationItem key="navigationItem" title="Settings" id="klT-al-UKS">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Xh9-la-fku">
                             <connections>
                                 <action selector="didTapDone:" destination="2t6-l8-Aa3" id="eih-rD-jPd"/>
