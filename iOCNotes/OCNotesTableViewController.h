@@ -16,9 +16,11 @@
 @property (nonatomic, strong) OCEditorViewController *editorViewController;
 @property (strong, nonatomic) UIActionSheet *menuActionSheet;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;
+@property (strong, nonatomic) IBOutlet UIButton *titleButton;
 
 - (IBAction) doRefresh:(id)sender;
 - (IBAction) doMenu:(id)sender;
 - (IBAction)doAdd:(id)sender;
+- (IBAction)onTitleButton:(id)sender;
 
 @end

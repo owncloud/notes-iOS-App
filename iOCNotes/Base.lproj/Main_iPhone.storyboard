@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Notes Table View Controller - Notes-->
+        <!--Notes Table View Controller-->
         <scene sceneID="rtV-CN-b4x">
             <objects>
                 <tableViewController id="DXe-Iw-CcD" customClass="OCNotesTableViewController" sceneMemberID="viewController">
@@ -50,25 +50,36 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Notes" id="qfr-a2-foZ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="Ehu-4h-6IO">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <navigationItem key="navigationItem" id="qfr-a2-foZ">
+                        <barButtonItem key="leftBarButtonItem" image="gear" id="Ehu-4h-6IO">
+                            <color key="tintColor" red="0.11764705882352941" green="0.1764705882352941" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="doAdd:" destination="DXe-Iw-CcD" id="TfT-h1-r0J"/>
+                                <action selector="doSettings:" destination="DXe-Iw-CcD" id="Zn5-Pf-b2l"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="gear" id="MOs-yv-oce">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="MOs-yv-oce">
+                            <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="doSettings:" destination="DXe-Iw-CcD" id="6Au-9V-0Yr"/>
+                                <action selector="doAdd:" destination="DXe-Iw-CcD" id="ShC-BM-4YE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="settingsBarButton" destination="MOs-yv-oce" id="PW2-s8-6tv"/>
+                        <outlet property="settingsBarButton" destination="Ehu-4h-6IO" id="qQP-ED-FEw"/>
+                        <outlet property="titleButton" destination="ZgP-hU-wyM" id="n3Y-8w-u7t"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2nj-I5-PGU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZgP-hU-wyM">
+                    <rect key="frame" x="0.0" y="0.0" width="135" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="ownCloud">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onTitleButton:" destination="DXe-Iw-CcD" eventType="touchUpInside" id="1U1-pI-aFl"/>
+                    </connections>
+                </button>
             </objects>
             <point key="canvasLocation" x="449" y="102"/>
         </scene>
@@ -104,18 +115,21 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem systemItem="action" id="pXa-gb-ki1">
+                            <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="doActivities:" destination="vXZ-lx-hvc" id="Nun-5m-zrt"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="31P-cH-4xs"/>
                         <barButtonItem systemItem="trash" id="aql-su-dTG">
+                            <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="onDelete:" destination="vXZ-lx-hvc" id="eLh-Ia-NNJ"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="6H0-NH-vIu"/>
                         <barButtonItem systemItem="compose" id="nY9-Vh-Cce">
+                            <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="onAdd:" destination="vXZ-lx-hvc" id="hou-FV-ehq"/>
                             </connections>
@@ -136,17 +150,19 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <barButtonItem systemItem="undo" id="6bO-Ah-TJ8">
+                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="onUndo:" destination="vXZ-lx-hvc" id="CKx-bI-TPQ"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="redo" id="T7C-FW-CGQ">
+                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="onRedo:" destination="vXZ-lx-hvc" id="ujA-5q-Hco"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="done" id="1qk-bQ-vnb">
-                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="onDone:" destination="vXZ-lx-hvc" id="54B-WX-gp9"/>
                     </connections>
@@ -496,6 +512,7 @@
     </scenes>
     <resources>
         <image name="gear" width="24" height="44"/>
+        <image name="ownCloud" width="80" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

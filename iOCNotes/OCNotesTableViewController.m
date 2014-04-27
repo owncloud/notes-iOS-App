@@ -113,6 +113,7 @@
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.toolbar.translucent = YES;
     self.navigationController.toolbar.clipsToBounds = YES;
+    self.navigationItem.titleView = self.titleButton;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -339,6 +340,10 @@
 
 - (IBAction)doAdd:(id)sender {
     [[OCNotesHelper sharedHelper] addNote:@""];
+}
+
+- (IBAction)onTitleButton:(id)sender {
+    [[UIApplication sharedApplication] openURL:[[OCAPIClient sharedClient] baseURL]];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
