@@ -118,6 +118,7 @@
                     <connections>
                         <outlet property="settingsBarButton" destination="c7c-no-10Y" id="fPk-zj-83u"/>
                         <outlet property="titleButton" destination="K7d-7B-eP3" id="tIe-Gw-KFX"/>
+                        <outlet property="view" destination="az8-Y8-Nn2" id="gn9-4q-pnq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wkw-pT-A1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -182,6 +183,7 @@
                         <outlet property="fixedSpace" destination="YWw-oO-9Hj" id="SQb-Rx-3rd"/>
                         <outlet property="menuButton" destination="5ko-lW-5wR" id="nE6-gR-wkS"/>
                         <outlet property="noteContentView" destination="id6-Aw-QLO" id="ht5-QR-9Ih"/>
+                        <outlet property="view" destination="8bC-Xf-vdC" id="nsZ-WD-hIr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

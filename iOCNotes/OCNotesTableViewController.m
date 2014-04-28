@@ -142,7 +142,19 @@
 {
     self.ocNotes = [OCNote instancesOrderedBy:@"modified DESC"];
     NSLog(@"Reloading with %lu notes", (unsigned long) self.ocNotes.count);
+    NSIndexPath *currentSelection = [self.tableView indexPathForSelectedRow];
     [self.tableView reloadData];
+    if (currentSelection) {
+        [self.tableView selectRowAtIndexPath:currentSelection animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
+    if (self.editorViewController) {
+        if (self.editorViewController.ocNote) {
+            NSInteger currentIndex = [self.ocNotes indexOfObject:self.editorViewController.ocNote];
+            if (currentIndex >= 0) {
+                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+            }
+        }
+    }
 }
 
 - (void)noteAdded:(NSNotification *)notification
@@ -151,6 +163,7 @@
     NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
     OCNote *newNote = [noteSet anyObject];
     if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+        [self performSegueWithIdentifier:@"noteSelected" sender:self];
         [self.slidingViewController resetTopViewAnimated:YES];
     } else {
         if ([self.navigationController.topViewController isEqual:self]) {
@@ -168,7 +181,18 @@
     NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
     OCNote *newNote = [noteSet anyObject];
     if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        //[self.slidingViewController resetTopViewAnimated:YES];
+            newIndex = [self.ocNotes indexOfObject:newNote] + 1;
+            if (newIndex >= self.ocNotes.count) {
+                --newIndex;
+                --newIndex;
+            }
+            if (newIndex >= 0) {
+                newNote = [self.ocNotes objectAtIndex:newIndex];
+                self.editorViewController.ocNote = newNote;
+                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+            } else {
+                self.editorViewController.ocNote = nil;
+            }
     } else {
         if ([self.navigationController.topViewController isEqual:self.editorViewController]) {
             newIndex = [self.ocNotes indexOfObject:newNote] + 1;

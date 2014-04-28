@@ -16,6 +16,7 @@
 @interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate> {
     NSTimer *editingTimer;
     UIPopoverController *_activityPopover;
+    BOOL noteAdded;
 }
 
 @property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
@@ -51,7 +52,7 @@
         CALayer *border = [CALayer layer];
         border.backgroundColor = [UIColor lightGrayColor].CGColor;
         
-        border.frame = CGRectMake(0, 0, 1, self.slidingViewController.topViewController.view.frame.size.height);
+        border.frame = CGRectMake(0, 0, 1, 1024);
         [self.slidingViewController.topViewController.view.layer addSublayer:border];
         [self.view removeGestureRecognizer:self.slidingViewController.panGesture];
         [self.view addGestureRecognizer:self.dynamicTransitionPanGesture];
@@ -63,13 +64,15 @@
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
         self.activityButton.enabled = (self.noteContentView.text.length > 0);
-        self.deleteButton.enabled = (self.noteContentView.text.length > 0);
+        self.addButton.enabled = (self.noteContentView.text.length > 0);
+        self.deleteButton.enabled = YES;
     } else {
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
         self.noteContentView.text = @"Select or create a note.";
         self.navigationItem.title = @"";
         self.activityButton.enabled = NO;
+        self.addButton.enabled = YES;
         self.deleteButton.enabled = NO;
     }
     
@@ -92,10 +95,28 @@
                                                  name:UIContentSizeCategoryDidChangeNotification
                                                object:nil];
     
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(noteUpdated:) name:FCModelUpdateNotification object:OCNote.class];
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(noteUpdated:) name:FCModelDeleteNotification object:OCNote.class];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(noteUpdated:)
+                                               name:FCModelInsertNotification
+                                             object:OCNote.class];
     
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(noteUpdated:)
+                                               name:FCModelUpdateNotification
+                                             object:OCNote.class];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(noteUpdated:)
+                                               name:FCModelDeleteNotification
+                                             object:OCNote.class];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willEnterForeground:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+     
     self.navigationController.navigationBar.translucent = YES;
+    //noteAdded = NO;
     
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
 }
@@ -117,8 +138,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.noteContentView becomeFirstResponder];
-    [self.noteContentView resignFirstResponder];
+    //[self.noteContentView becomeFirstResponder];
+    //[self.noteContentView resignFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -168,13 +189,18 @@
 - (void)dealloc
 {
     [NSNotificationCenter.defaultCenter removeObserver:self];
-    //[NSNotificationCenter.defaultCenter removeObserver:self name:FCModelUpdateNotification object:OCNote.class];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)willEnterForeground:(NSNotification*)notification {
+    if (!self.ocNote) {
+        [self doShowDrawer:self];
+    }
 }
 
 - (IBAction)doShowDrawer:(id)sender {
@@ -251,7 +277,8 @@
 
 - (void)textViewDidChange:(UITextView *)textView {
     self.activityButton.enabled = (textView.text.length > 0);
-    self.deleteButton.enabled = (textView.text.length > 0);
+    self.addButton.enabled = (textView.text.length > 0);
+    self.deleteButton.enabled = YES;
     if (editingTimer) {
         [editingTimer invalidate];
         editingTimer = nil;
@@ -287,11 +314,16 @@
 
 - (void)noteUpdated:(NSNotification *)notification {
     NSLog(@"Informed about note update");
+    if ([notification.name isEqualToString:FCModelUpdateNotification] && noteAdded) {
+        noteAdded = NO;
+        return;
+    }
     if (self.ocNote) {
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
-        //self.navigationItem.title = self.ocNote.title;
-        //self.noteContentView.text = self.ocNote.content;
+        self.activityButton.enabled = (self.noteContentView.text.length > 0);
+        self.addButton.enabled = (self.noteContentView.text.length > 0);
+        self.deleteButton.enabled = YES;
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.ocNote.modified];
         if (date) {
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -306,6 +338,11 @@
         self.noteContentView.selectable = NO;
         self.modifiedLabel.text = @"Select or create a note.";
         self.navigationItem.title = @"";
+    }
+    if ([notification.name isEqualToString:FCModelInsertNotification]) {
+        [self.view bringSubviewToFront:self.noteContentView];
+        [self.noteContentView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.3];
+        noteAdded = YES;
     }
 }
 
@@ -354,6 +391,10 @@
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
     }];
+}
+
+- (void)noteAdded:(NSNotification*)notification {
+    [self noteUpdated:notification];
 }
 
 - (void)preferredContentSizeChanged:(NSNotification *)notification {
