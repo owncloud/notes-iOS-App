@@ -367,8 +367,12 @@
     int kbHeight = r.size.height;
     
     int height = kbHeight + self.bottomLayoutConstraint.constant;
+    int adjustment = 0;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        adjustment = 44;
+    }
     
-    self.bottomLayoutConstraint.constant = height - 44;
+    self.bottomLayoutConstraint.constant = height - adjustment;
     
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
@@ -382,8 +386,12 @@
 
     NSDictionary *info = [notification userInfo];
     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 0.5;
+    int adjustment = 0;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        adjustment = 44;
+    }
     
-    self.bottomLayoutConstraint.constant = -44;
+    self.bottomLayoutConstraint.constant = -adjustment;
     
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
