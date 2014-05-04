@@ -9,14 +9,13 @@
 #import "OCEditorViewController.h"
 #import "OCNotesHelper.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIViewController+ECSlidingViewController.h"
+#import "UIViewController+MMDrawerController.h"
 #import "TTOpenInAppActivity.h"
 #import "TransparentToolbar.h"
 
-@interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate> {
+@interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate, UINavigationControllerDelegate> {
     NSTimer *editingTimer;
     UIPopoverController *_activityPopover;
-    BOOL noteAdded;
 }
 
 @property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
@@ -30,6 +29,7 @@
 
 @synthesize ocNote = _ocNote;
 @synthesize modifiedLabel;
+@synthesize addingNote;
 
 - (void)setOcNote:(OCNote *)ocNote {
     if (![ocNote isEqual:_ocNote]) {
@@ -44,18 +44,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        self.slidingViewController.anchorRightRevealAmount = 320.0f;
-        self.dynamicTransition.slidingViewController = self.slidingViewController;
-        self.slidingViewController.delegate = self.dynamicTransition;
-        self.slidingViewController.topViewAnchoredGesture = ECSlidingViewControllerAnchoredGestureTapping | ECSlidingViewControllerAnchoredGestureCustom;
-        self.slidingViewController.customAnchoredGestures = @[self.dynamicTransitionPanGesture];
         CALayer *border = [CALayer layer];
         border.backgroundColor = [UIColor lightGrayColor].CGColor;
-        
         border.frame = CGRectMake(0, 0, 1, 1024);
-        [self.slidingViewController.topViewController.view.layer addSublayer:border];
-        [self.view removeGestureRecognizer:self.slidingViewController.panGesture];
-        [self.view addGestureRecognizer:self.dynamicTransitionPanGesture];
+        [self.mm_drawerController.centerViewController.view.layer addSublayer:border];
+
         self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
     }
     
@@ -69,7 +62,8 @@
     } else {
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
-        self.noteContentView.text = @"Select or create a note.";
+        self.noteContentView.text = @"";
+        self.modifiedLabel.text = @"Select or create a note.";
         self.navigationItem.title = @"";
         self.activityButton.enabled = NO;
         self.addButton.enabled = YES;
@@ -79,6 +73,11 @@
     self.noteContentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.noteContentView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
     [self.noteContentView addSubview:self.modifiedLabel];
+    
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.delegate = self;
+    
+    self.addingNote = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -114,9 +113,6 @@
                                              selector:@selector(willEnterForeground:)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
-     
-    self.navigationController.navigationBar.translucent = YES;
-    //noteAdded = NO;
     
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
 }
@@ -204,7 +200,9 @@
 }
 
 - (IBAction)doShowDrawer:(id)sender {
-    [self.slidingViewController anchorTopViewToRightAnimated:YES];
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+        //
+    }];
 }
 
 - (IBAction)doActivities:(id)sender {
@@ -251,6 +249,7 @@
 }
 
 - (IBAction)onAdd:(id)sender {
+    self.addingNote = YES;
     [[OCNotesHelper sharedHelper] addNote:@""];
 }
 
@@ -314,10 +313,6 @@
 
 - (void)noteUpdated:(NSNotification *)notification {
     NSLog(@"Informed about note update");
-    if ([notification.name isEqualToString:FCModelUpdateNotification] && noteAdded) {
-        noteAdded = NO;
-        return;
-    }
     if (self.ocNote) {
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
@@ -340,17 +335,19 @@
         self.navigationItem.title = @"";
     }
     if ([notification.name isEqualToString:FCModelInsertNotification]) {
-        [self.view bringSubviewToFront:self.noteContentView];
-        [self.noteContentView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.3];
-        noteAdded = YES;
+        if (self.addingNote) {
+            [self.view bringSubviewToFront:self.noteContentView];
+            [self.noteContentView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.3];
+            self.addingNote = NO;
+        }
     }
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        if (self.slidingViewController.currentTopViewPosition != ECSlidingViewControllerTopViewPositionCentered) {
-            return;
-        }
+        //if (self.mm_drawerController.currentTopViewPosition != ECSlidingViewControllerTopViewPositionCentered) {
+        //    return;
+        //}
     }
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         self.navigationItem.rightBarButtonItems = @[self.doneButton, self.fixedSpace, self.redoButton, self.fixedSpace, self.undoButton];
@@ -402,21 +399,6 @@
     self.modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 }
 
-- (MEDynamicTransition *)dynamicTransition {
-    if (!_dynamicTransition) {
-        _dynamicTransition = [[MEDynamicTransition alloc] init];
-    }
-    return _dynamicTransition;
-}
-
-- (UIPanGestureRecognizer *)dynamicTransitionPanGesture {
-    if (!_dynamicTransitionPanGesture) {
-        _dynamicTransitionPanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self.dynamicTransition action:@selector(handlePanGesture:)];
-        _dynamicTransitionPanGesture.delegate = self;
-    }
-    return _dynamicTransitionPanGesture;
-}
-
 - (UILabel*)modifiedLabel {
     if (!modifiedLabel) {
         modifiedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -18, 320, 15)];
@@ -428,8 +410,24 @@
         modifiedLabel.textColor = [UIColor lightGrayColor];
         modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         modifiedLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        modifiedLabel.text = @"Select or create a note";
     }
     return modifiedLabel;
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if ([viewController isEqual:self]) {
+        BOOL showKeyboard = NO;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            if (self.ocNote && (self.ocNote.id == 0)) {
+                showKeyboard = YES;
+            }
+        }
+        if (showKeyboard) {
+            [self.view bringSubviewToFront:self.noteContentView];
+            [self.noteContentView becomeFirstResponder];
+        }
+    }
 }
 
 @end

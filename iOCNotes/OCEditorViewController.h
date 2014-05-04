@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MEDynamicTransition.h"
 #import "OCNote.h"
 
 @interface OCEditorViewController : UIViewController <UITextViewDelegate>
@@ -23,9 +22,9 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *fixedSpace;
 @property (strong, nonatomic) OCNote *ocNote;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomLayoutConstraint;
-@property (strong, nonatomic) MEDynamicTransition *dynamicTransition;
 
 @property (strong, nonatomic, readonly) UILabel *modifiedLabel;
+@property (assign) BOOL addingNote;
 
 - (IBAction)doShowDrawer:(id)sender;
 - (IBAction)doActivities:(id)sender;

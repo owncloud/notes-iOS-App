@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UIActionSheet *menuActionSheet;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;
 @property (strong, nonatomic) IBOutlet UIButton *titleButton;
+@property (assign) BOOL addingNote;
 
 - (IBAction) doRefresh:(id)sender;
 - (IBAction) doMenu:(id)sender;

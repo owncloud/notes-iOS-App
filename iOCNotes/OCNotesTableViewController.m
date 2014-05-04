@@ -12,7 +12,7 @@
 #import "OCNotesHelper.h"
 #import "OCLoginController.h"
 #import "TSMessage.h"
-#import "UIViewController+ECSlidingViewController.h"
+#import "UIViewController+MMDrawerController.h"
 #import <float.h>
 #import "OCNote.h"
 
@@ -29,6 +29,7 @@
 @synthesize notesRefreshControl;
 @synthesize editorViewController;
 @synthesize menuActionSheet;
+@synthesize addingNote;
 
 - (UIRefreshControl *)notesRefreshControl {
     if (!notesRefreshControl) {
@@ -56,7 +57,8 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     networkHasBeenUnreachable = NO;
     self.refreshControl = self.notesRefreshControl;
-
+    self.addingNote = NO;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
                                                  name:AFNetworkingReachabilityDidChangeNotification
@@ -114,6 +116,10 @@
     self.navigationController.toolbar.translucent = YES;
     self.navigationController.toolbar.clipsToBounds = YES;
     self.navigationItem.titleView = self.titleButton;
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+        UINavigationController *navController = (UINavigationController*)self.mm_drawerController.centerViewController;
+        self.editorViewController = (OCEditorViewController*)navController.topViewController;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -162,14 +168,20 @@
     NSLog(@"Note added: %@", [notification userInfo]);
     NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
     OCNote *newNote = [noteSet anyObject];
-    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        [self performSegueWithIdentifier:@"noteSelected" sender:self];
-        [self.slidingViewController resetTopViewAnimated:YES];
-    } else {
-        if ([self.navigationController.topViewController isEqual:self]) {
-            [self performSegueWithIdentifier:@"noteSelected" sender:self];
+    if (self.addingNote) {
+        if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+            if (!self.refreshControl.refreshing) {
+                [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+                    //
+                }];
+            }
+        } else {
+            if ([self.navigationController.topViewController isEqual:self] && (newNote.content.length == 0)) {
+                [self performSegueWithIdentifier:@"noteSelected" sender:self];
+            }
         }
     }
+    self.addingNote = NO;
     self.editorViewController.ocNote = newNote;
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 }
@@ -345,7 +357,9 @@
         [[OCNotesHelper sharedHelper] getNote:note];
         self.editorViewController.ocNote = note;
         if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-            [self.slidingViewController resetTopViewAnimated:YES];
+            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+                //
+            }];
         }
     }
 }
@@ -363,6 +377,8 @@
 }
 
 - (IBAction)doAdd:(id)sender {
+    self.addingNote = YES;
+    self.editorViewController.addingNote = YES;
     [[OCNotesHelper sharedHelper] addNote:@""];
 }
 

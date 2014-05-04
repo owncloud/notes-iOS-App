@@ -14,6 +14,9 @@
 #import <KSCrash/KSCrash.h>
 #import <KSCrash/KSCrashInstallationEmail.h>
 #import "UIImage+ImageWithColor.h"
+#import "MMDrawerController.h"
+#import "MMDrawerVisualState.h"
+
 
 @implementation OCAppDelegate
 
@@ -34,6 +37,26 @@
                             forToolbarPosition: UIToolbarPositionAny
                                     barMetrics: UIBarMetricsDefault];
     
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil];
+        UINavigationController *leftNav = [storyboard instantiateViewControllerWithIdentifier:@"Notes"];
+        UINavigationController *centerNav = [storyboard instantiateViewControllerWithIdentifier:@"Editor"];
+        
+        MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:centerNav leftDrawerViewController:leftNav];
+        [drawerController setMaximumLeftDrawerWidth:320.0];
+        [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+        [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModePanningNavigationBar | MMCloseDrawerGestureModeTapCenterView | MMCloseDrawerGestureModeTapNavigationBar];
+        drawerController.showsShadow = NO;
+        [drawerController setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
+            MMDrawerControllerDrawerVisualStateBlock block = [MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2.0];
+            if (block){
+                block(drawerController, drawerSide, percentVisible);
+            }
+        }];
+        
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        [self.window setRootViewController:drawerController];
+    }
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
         if(completed) {
             NSLog(@"Sent %d reports", (int)[reports count]);
@@ -41,9 +64,6 @@
             NSLog(@"Failed to send reports: %@", error);
         }
     }];
-    
-    //self.window.backgroundColor = [UIColor colorWithRed:0.956 green:0.956 blue:0.956 alpha:1.0];
-
     
     return YES;
 }
