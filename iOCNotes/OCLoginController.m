@@ -125,8 +125,24 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
 
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+            NSString *message = @"";
+            NSLog(@"Status code: %d", response.statusCode);
+            switch (response.statusCode) {
+                case 200:
+                    message = @"Notes could not be found on your server. Make sure it is installed and enabled";
+                    break;
+                case 401:
+                    message = @"Unauthorized. Check username and password.";
+                    break;
+                case 404:
+                    message = @"A server installation could not be found. Check the server address.";
+                    break;
+                default:
+                    message = @"Failed to connect to a server. Check your settings.";
+                    break;
+            }
             NSLog(@"Error: %@, response: %ld", [error localizedDescription], (long)[response statusCode]);
-            self.statusLabel.text = @"Failed to connect to a server. Check your settings.";
+            self.statusLabel.text = message;
             [self.connectionActivityIndicator stopAnimating];
         }];
     }
