@@ -227,7 +227,7 @@
                         <sections>
                             <tableViewSection headerTitle="SYNCING" footerTitle="     " id="kzL-XI-1Cq">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="7lc-SH-cWC" style="IBUITableViewCellStyleDefault" id="OCW-3o-gc7">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="7lc-SH-cWC" detailTextLabel="KZg-EL-ffF" style="IBUITableViewCellStyleValue1" id="OCW-3o-gc7">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OCW-3o-gc7" id="fUh-Lj-LUH">
@@ -235,10 +235,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="ownCloud Server" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7lc-SH-cWC">
-                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                                                    <rect key="frame" x="15" y="11" width="133" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Not Logged On" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KZg-EL-ffF">
+                                                    <rect key="frame" x="179" y="13" width="106" height="18"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -257,7 +264,7 @@
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sync on Start" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpL-LB-iJc">
                                                     <rect key="frame" x="15" y="0.0" width="225" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -285,7 +292,7 @@
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Contact" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0lJ-iq-Nto">
                                                     <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -308,6 +315,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="statusLabel" destination="KZg-EL-ffF" id="9vy-PS-NES"/>
                         <outlet property="syncOnStartCell" destination="auj-MR-nGu" id="SVL-lQ-mxC"/>
                         <outlet property="syncOnStartSwitch" destination="9NT-Fj-IZn" id="pMx-3f-Uo3"/>
                     </connections>
@@ -327,30 +335,7 @@
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="eFn-A5-4QO">
                             <rect key="frame" x="0.0" y="350" width="320" height="150"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Currently not connected to an ownCloud News server." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="234" translatesAutoresizingMaskIntoConstraints="NO" id="I06-S9-q1p">
-                                    <rect key="frame" x="66" y="0.0" width="234" height="73"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="73" id="6Pr-5z-PwM"/>
-                                        <constraint firstAttribute="width" constant="234" id="gkY-z2-jj8"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="rkC-At-2Rb">
-                                    <rect key="frame" x="20" y="5" width="20" height="20"/>
-                                </activityIndicatorView>
-                            </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="rkC-At-2Rb" firstAttribute="leading" secondItem="eFn-A5-4QO" secondAttribute="leading" constant="20" symbolic="YES" id="SmG-cw-LsQ"/>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="I06-S9-q1p" secondAttribute="trailing" constant="20" id="acV-yy-DRA"/>
-                                <constraint firstItem="I06-S9-q1p" firstAttribute="leading" secondItem="eFn-A5-4QO" secondAttribute="leading" constant="66" id="c23-Bd-DZL"/>
-                                <constraint firstItem="rkC-At-2Rb" firstAttribute="top" secondItem="eFn-A5-4QO" secondAttribute="top" constant="5" id="hkF-b6-87n"/>
-                                <constraint firstItem="I06-S9-q1p" firstAttribute="top" secondItem="eFn-A5-4QO" secondAttribute="top" id="pod-8M-b6m"/>
-                                <constraint firstAttribute="trailing" secondItem="I06-S9-q1p" secondAttribute="trailing" constant="20" symbolic="YES" id="xE8-fR-lK7"/>
-                            </constraints>
                         </view>
                         <sections>
                             <tableViewSection headerTitle=" " footerTitle=" " id="GFD-er-5qc">
@@ -448,6 +433,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="w3G-i7-TTY">
                                                     <rect key="frame" x="251" y="8" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="onCertificateSwitch:" destination="luf-N8-Oc5" eventType="valueChanged" id="ux4-bq-Pej"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -473,7 +461,14 @@
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="rkC-At-2Rb">
+                                                    <rect key="frame" x="280" y="12" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="rkC-At-2Rb" secondAttribute="trailing" constant="20" id="OaZ-4q-VEu"/>
+                                                <constraint firstItem="rkC-At-2Rb" firstAttribute="top" secondItem="1nd-Wd-hwP" secondAttribute="top" id="npZ-pc-rCQ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <constraints>
                                             <constraint firstItem="1nd-Wd-hwP" firstAttribute="top" secondItem="Yl7-O9-Fcp" secondAttribute="top" constant="12" id="19f-ze-YTc"/>
@@ -498,10 +493,10 @@
                     <connections>
                         <outlet property="certificateCell" destination="7Sa-Wy-f46" id="FqI-1j-FUB"/>
                         <outlet property="certificateSwitch" destination="w3G-i7-TTY" id="0oc-Ab-6tl"/>
+                        <outlet property="connectLabel" destination="1nd-Wd-hwP" id="XkR-b9-Wep"/>
                         <outlet property="connectionActivityIndicator" destination="rkC-At-2Rb" id="iGN-wG-CjE"/>
                         <outlet property="passwordTextField" destination="TWC-3X-LgS" id="HEx-k9-WiQ"/>
                         <outlet property="serverTextField" destination="POY-0l-xVn" id="khm-u0-lxc"/>
-                        <outlet property="statusLabel" destination="I06-S9-q1p" id="knA-nn-oR5"/>
                         <outlet property="usernameTextField" destination="PXx-Ke-abd" id="789-45-4FP"/>
                     </connections>
                 </tableViewController>

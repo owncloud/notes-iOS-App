@@ -45,7 +45,9 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *statusLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *connectionActivityIndicator;
+@property (strong, nonatomic) IBOutlet UILabel *connectLabel;
 
 - (IBAction)doDone:(id)sender;
+- (IBAction)onCertificateSwitch:(id)sender;
 
 @end

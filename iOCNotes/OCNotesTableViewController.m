@@ -80,6 +80,11 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(doRefresh:)
+                                                 name:@"SyncNotes"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(preferredContentSizeChanged:)
                                                  name:UIContentSizeCategoryDidChangeNotification
                                                object:nil];
@@ -183,7 +188,9 @@
     }
     self.addingNote = NO;
     self.editorViewController.ocNote = newNote;
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    if (self.ocNotes.count) {
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    }
 }
 
 - (void)noteDeleted:(NSNotification *)notification
@@ -365,6 +372,10 @@
 }
 
 - (IBAction)doRefresh:(id)sender {
+    if (!self.refreshControl.refreshing) {
+        [self.refreshControl beginRefreshing];
+        [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - self.refreshControl.frame.size.height) animated:YES];
+    }
     [[OCNotesHelper sharedHelper] sync];
 }
 

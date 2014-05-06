@@ -36,6 +36,7 @@
 
 @property (strong, nonatomic) IBOutlet UISwitch *syncOnStartSwitch;
 @property (strong, nonatomic) IBOutlet UITableViewCell *syncOnStartCell;
+@property (strong, nonatomic) IBOutlet UILabel *statusLabel;
 
 - (IBAction)syncOnStartChanged:(id)sender;
 - (IBAction)didTapDone:(id)sender;

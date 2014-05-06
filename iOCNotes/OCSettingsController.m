@@ -30,6 +30,7 @@
  *************************************************************************/
 
 #import "OCSettingsController.h"
+#import "OCAPIClient.h"
 
 @interface OCSettingsController ()
 
@@ -65,6 +66,11 @@
     [super viewWillAppear:animated];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     self.syncOnStartSwitch.on = [prefs boolForKey:@"SyncOnStart"];
+    if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
+        self.statusLabel.text = @"Logged In";
+    } else {
+        self.statusLabel.text = @"Not Logged In";
+    }
 }
 
 - (void)didReceiveMemoryWarning

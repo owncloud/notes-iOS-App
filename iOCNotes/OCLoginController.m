@@ -34,6 +34,7 @@
 #import "OCAPIClient.h"
 #import "KeychainItemWrapper.h"
 #import "UILabel+VerticalAlignment.h"
+#import "TSMessage.h"
 
 static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
 
@@ -76,13 +77,11 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
     self.passwordTextField.text = [self.keychain objectForKey:(__bridge id)(kSecValueData)];
     self.certificateSwitch.on = [prefs boolForKey:@"AllowInvalidSSLCertificate"];
     
-    NSString *status;
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
-        status = [NSString stringWithFormat:@"Connected to an ownCloud Notes server at\n \"%@\".", [[NSUserDefaults standardUserDefaults] stringForKey:@"Server"]];
+        self.connectLabel.text = @"Reconnect";
     } else {
-        status = @"Currently not connected to an ownCloud Notes server";
+        self.connectLabel.text = @"Connect";
     }
-    self.statusLabel.text = status;
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,9 +94,22 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)onCertificateSwitch:(id)sender {
+    
+    BOOL textHasChanged = (self.certificateSwitch.on != [[NSUserDefaults standardUserDefaults] boolForKey:@"AllowInvalidSSLCertificate"]);
+    if (textHasChanged) {
+        self.connectLabel.text = @"Connect";
+    } else {
+        self.connectLabel.text = @"Reconnect";
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
+        if (!self.connectLabel.enabled) {
+            return;
+        }
         [tableView deselectRowAtIndexPath:indexPath animated:true];
         [self.connectionActivityIndicator startAnimating];
         OCAPIClient *client = [[OCAPIClient alloc] initWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", self.serverTextField.text, rootPath]]];
@@ -122,28 +134,69 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
             self.statusLabel.text = [NSString stringWithFormat:@"Connected to an ownCloud Notes server at\n \"%@\".", self.serverTextField.text];
             
             [self.connectionActivityIndicator stopAnimating];
+            [TSMessage showNotificationInViewController:self
+                                                  title:@"Success"
+                                               subtitle:@"You are now connected to Notes on your server"
+                                                  image:nil
+                                                   type:TSMessageNotificationTypeSuccess
+                                               duration:TSMessageNotificationDurationAutomatic
+                                               callback:^{
+                                                   self.connectLabel.enabled = YES;
+                                                   [TSMessage dismissActiveNotification];
+                                               }
+                                            buttonTitle:@"Close & Sync"
+                                         buttonCallback:^{
+                                             self.connectLabel.enabled = YES;
+                                             [TSMessage dismissActiveNotification];
+                                             [self dismissViewControllerAnimated:YES completion:nil];
+                                             [[NSNotificationCenter defaultCenter] postNotificationName:@"SyncNotes" object:self];
+                                         }
+                                             atPosition:TSMessageNotificationPositionTop
+                                   canBeDismissedByUser:YES];
 
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            self.connectLabel.enabled = NO;
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSString *message = @"";
-            NSLog(@"Status code: %d", response.statusCode);
+            NSString *title = @"";
+            NSLog(@"Status code: %ld", (long)response.statusCode);
             switch (response.statusCode) {
                 case 200:
+                    title = @"Notes not found";
                     message = @"Notes could not be found on your server. Make sure it is installed and enabled";
                     break;
                 case 401:
-                    message = @"Unauthorized. Check username and password.";
+                    title = @"Unauthorized";
+                    message = @"Check username and password.";
                     break;
                 case 404:
+                    title = @"Server not found";
                     message = @"A server installation could not be found. Check the server address.";
                     break;
                 default:
+                    title = @"Connection failure";
                     message = @"Failed to connect to a server. Check your settings.";
                     break;
             }
             NSLog(@"Error: %@, response: %ld", [error localizedDescription], (long)[response statusCode]);
-            self.statusLabel.text = message;
+            //self.statusLabel.text = message;
             [self.connectionActivityIndicator stopAnimating];
+            [TSMessage showNotificationInViewController:self
+                                                  title:title
+                                               subtitle:message
+                                                  image:nil
+                                                   type:TSMessageNotificationTypeError
+                                               duration:TSMessageNotificationDurationEndless
+                                               callback:^{
+                                                   self.connectLabel.enabled = YES;
+                                                   [TSMessage dismissActiveNotification];
+                                               }
+                                            buttonTitle:nil
+                                         buttonCallback:^{
+                                                   //
+                                               }
+                                             atPosition:TSMessageNotificationPositionTop
+                                   canBeDismissedByUser:YES];
         }];
     }
 }
@@ -166,6 +219,33 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
     if ([textField isEqual:self.passwordTextField]) {
         [textField resignFirstResponder];
     }
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *labelText = @"Reconnect";
+    BOOL textHasChanged = NO;
+    
+    NSMutableString *proposedNewString = [NSMutableString stringWithString:textField.text];
+    [proposedNewString replaceCharactersInRange:range withString:string];
+
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if ([textField isEqual:self.serverTextField]) {
+        textHasChanged = (![proposedNewString isEqualToString:[prefs stringForKey:@"Server"]]);
+    }
+    if ([textField isEqual:self.usernameTextField]) {
+        textHasChanged = (![proposedNewString isEqualToString:[self.keychain objectForKey:(__bridge id)(kSecAttrAccount)]]);
+    }
+    if ([textField isEqual:self.passwordTextField]) {
+        textHasChanged = (![proposedNewString isEqualToString:[self.keychain objectForKey:(__bridge id)(kSecValueData)]]);
+    }
+    if (!textHasChanged) {
+        textHasChanged = (self.certificateSwitch.on != [prefs boolForKey:@"AllowInvalidSSLCertificate"]);
+    }
+    if (textHasChanged) {
+        labelText = @"Connect";
+    }
+    self.connectLabel.text = labelText;
     return YES;
 }
 
