@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RQg-o0-i6F">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -14,11 +14,11 @@
                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="1Q3-he-nuB" detailTextLabel="x61-QN-GPh" style="IBUITableViewCellStyleSubtitle" id="kka-p9-Iaq">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="1Q3-he-nuB" detailTextLabel="x61-QN-GPh" style="IBUITableViewCellStyleSubtitle" id="kka-p9-Iaq">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kka-p9-Iaq" id="bx6-5a-S9d">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Q3-he-nuB">
@@ -39,9 +39,6 @@
                                     <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <segue destination="vXZ-lx-hvc" kind="push" identifier="noteSelected" id="cqy-ad-y4y"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -135,7 +132,13 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="dEj-4d-nDe"/>
+                    <navigationItem key="navigationItem" id="dEj-4d-nDe">
+                        <barButtonItem key="leftBarButtonItem" image="sideMenu" id="w5J-UK-Kbh">
+                            <connections>
+                                <action selector="doShowDrawer:" destination="vXZ-lx-hvc" id="hlF-hJ-2QM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityButton" destination="pXa-gb-ki1" id="uG9-It-RGV"/>
                         <outlet property="addButton" destination="nY9-Vh-Cce" id="VpW-eb-f3M"/>
@@ -143,6 +146,7 @@
                         <outlet property="deleteButton" destination="aql-su-dTG" id="v7n-sx-BDb"/>
                         <outlet property="doneButton" destination="1qk-bQ-vnb" id="TsG-jk-zqg"/>
                         <outlet property="fixedSpace" destination="thB-y7-Xbs" id="x5v-Bb-qap"/>
+                        <outlet property="menuButton" destination="w5J-UK-Kbh" id="n9v-JZ-9lO"/>
                         <outlet property="noteContentView" destination="LzS-Ob-leM" id="LGo-Rd-opW"/>
                         <outlet property="redoButton" destination="T7C-FW-CGQ" id="VHV-0J-Zw4"/>
                         <outlet property="undoButton" destination="6bO-Ah-TJ8" id="dAI-LZ-8kW"/>
@@ -169,12 +173,12 @@
                 </barButtonItem>
                 <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="thB-y7-Xbs"/>
             </objects>
-            <point key="canvasLocation" x="825" y="102"/>
+            <point key="canvasLocation" x="1205" y="102"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fMS-Gw-CfY">
             <objects>
-                <navigationController toolbarHidden="NO" id="RQg-o0-i6F" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Notes" id="RQg-o0-i6F" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fRT-Hm-h30">
@@ -504,10 +508,34 @@
             </objects>
             <point key="canvasLocation" x="825" y="799"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1o0-w2-ASY">
+            <objects>
+                <navigationController storyboardIdentifier="Editor" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="R1o-2G-Lxf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="fUW-Ps-K5E"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Kus-pY-rHi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="8pI-Yl-cCX">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="WOe-49-Vig"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bF7-Sg-WkW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="825" y="102"/>
+        </scene>
     </scenes>
     <resources>
         <image name="gear" width="24" height="44"/>
         <image name="ownCloud" width="80" height="44"/>
+        <image name="sideMenu" width="32" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

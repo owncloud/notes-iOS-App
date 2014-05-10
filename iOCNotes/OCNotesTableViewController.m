@@ -121,10 +121,8 @@
     self.navigationController.toolbar.translucent = YES;
     self.navigationController.toolbar.clipsToBounds = YES;
     self.navigationItem.titleView = self.titleButton;
-    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        UINavigationController *navController = (UINavigationController*)self.mm_drawerController.centerViewController;
-        self.editorViewController = (OCEditorViewController*)navController.topViewController;
-    }
+    UINavigationController *navController = (UINavigationController*)self.mm_drawerController.centerViewController;
+    self.editorViewController = (OCEditorViewController*)navController.topViewController;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -174,16 +172,10 @@
     NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
     OCNote *newNote = [noteSet anyObject];
     if (self.addingNote) {
-        if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-            if (!self.refreshControl.refreshing) {
-                [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-                    //
-                }];
-            }
-        } else {
-            if ([self.navigationController.topViewController isEqual:self] && (newNote.content.length == 0)) {
-                [self performSegueWithIdentifier:@"noteSelected" sender:self];
-            }
+        if (!self.refreshControl.refreshing) {
+            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+                //
+            }];
         }
     }
     self.addingNote = NO;
@@ -199,34 +191,17 @@
     NSLog(@"Note added: %@", [notification userInfo]);
     NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
     OCNote *newNote = [noteSet anyObject];
-    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-            newIndex = [self.ocNotes indexOfObject:newNote] + 1;
-            if (newIndex >= self.ocNotes.count) {
-                --newIndex;
-                --newIndex;
-            }
-            if (newIndex >= 0) {
-                newNote = [self.ocNotes objectAtIndex:newIndex];
-                self.editorViewController.ocNote = newNote;
-                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-            } else {
-                self.editorViewController.ocNote = nil;
-            }
+    newIndex = [self.ocNotes indexOfObject:newNote] + 1;
+    if (newIndex >= self.ocNotes.count) {
+        --newIndex;
+        --newIndex;
+    }
+    if (newIndex >= 0) {
+        newNote = [self.ocNotes objectAtIndex:newIndex];
+        self.editorViewController.ocNote = newNote;
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     } else {
-        if ([self.navigationController.topViewController isEqual:self.editorViewController]) {
-            newIndex = [self.ocNotes indexOfObject:newNote] + 1;
-            if (newIndex >= self.ocNotes.count) {
-                --newIndex;
-                --newIndex;
-            }
-            if (newIndex >= 0) {
-                newNote = [self.ocNotes objectAtIndex:newIndex];
-                self.editorViewController.ocNote = newNote;
-                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-            } else {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        }
+        self.editorViewController.ocNote = nil;
     }
 }
 
@@ -339,23 +314,6 @@
 }
 
 
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"noteSelected"]) {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            self.editorViewController = (OCEditorViewController*)segue.destinationViewController;
-        } else {
-            UINavigationController *navController = (UINavigationController*)segue.destinationViewController;
-            self.editorViewController = (OCEditorViewController*)navController.topViewController;
-        }
-    }
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.tableView.isEditing) {
         //[self showRenameForIndex:indexPath.row];
@@ -363,11 +321,9 @@
         OCNote *note = [self.ocNotes objectAtIndex:indexPath.row];
         [[OCNotesHelper sharedHelper] getNote:note];
         self.editorViewController.ocNote = note;
-        if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-                //
-            }];
-        }
+        [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            //
+        }];
     }
 }
 

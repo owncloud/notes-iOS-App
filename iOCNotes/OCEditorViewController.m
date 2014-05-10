@@ -36,6 +36,7 @@
         _ocNote = ocNote;
         self.noteContentView.text = _ocNote.content;
         [self noteUpdated:nil];
+        [self.noteContentView scrollRangeToVisible:NSMakeRange(0, 0)];
     }
 }
 
@@ -43,12 +44,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    CALayer *border = [CALayer layer];
+    border.backgroundColor = [UIColor lightGrayColor].CGColor;
+    border.frame = CGRectMake(0, 0, 1, 1024);
+    [self.mm_drawerController.centerViewController.view.layer addSublayer:border];
+    
     if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        CALayer *border = [CALayer layer];
-        border.backgroundColor = [UIColor lightGrayColor].CGColor;
-        border.frame = CGRectMake(0, 0, 1, 1024);
-        [self.mm_drawerController.centerViewController.view.layer addSublayer:border];
-
         self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
     }
     
@@ -76,6 +77,8 @@
     
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.delegate = self;
+    self.navigationController.toolbar.translucent = YES;
+    self.navigationController.toolbar.clipsToBounds = YES;
     
     self.addingNote = NO;
     
@@ -200,9 +203,10 @@
 }
 
 - (IBAction)doShowDrawer:(id)sender {
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
-        //
-    }];
+    if (self.noteContentView.isFirstResponder) {
+        [self.noteContentView resignFirstResponder];
+    }
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 - (IBAction)doActivities:(id)sender {
@@ -344,11 +348,6 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        //if (self.mm_drawerController.currentTopViewPosition != ECSlidingViewControllerTopViewPositionCentered) {
-        //    return;
-        //}
-    }
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         self.navigationItem.rightBarButtonItems = @[self.doneButton, self.fixedSpace, self.redoButton, self.fixedSpace, self.undoButton];
     }

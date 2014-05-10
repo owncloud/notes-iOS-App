@@ -37,26 +37,31 @@
                             forToolbarPosition: UIToolbarPositionAny
                                     barMetrics: UIBarMetricsDefault];
     
+    UIStoryboard *storyboard;
+
     if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil];
-        UINavigationController *leftNav = [storyboard instantiateViewControllerWithIdentifier:@"Notes"];
-        UINavigationController *centerNav = [storyboard instantiateViewControllerWithIdentifier:@"Editor"];
-        
-        MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:centerNav leftDrawerViewController:leftNav];
-        [drawerController setMaximumLeftDrawerWidth:320.0];
-        [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-        [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModePanningNavigationBar | MMCloseDrawerGestureModeTapCenterView | MMCloseDrawerGestureModeTapNavigationBar];
-        drawerController.showsShadow = NO;
-        [drawerController setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
-            MMDrawerControllerDrawerVisualStateBlock block = [MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2.0];
-            if (block){
-                block(drawerController, drawerSide, percentVisible);
-            }
-        }];
-        
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        [self.window setRootViewController:drawerController];
+        storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil];
+    } else {
+        storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     }
+    UINavigationController *leftNav = [storyboard instantiateViewControllerWithIdentifier:@"Notes"];
+    UINavigationController *centerNav = [storyboard instantiateViewControllerWithIdentifier:@"Editor"];
+    
+    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:centerNav leftDrawerViewController:leftNav];
+    [drawerController setMaximumLeftDrawerWidth:320.0];
+    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModePanningNavigationBar | MMCloseDrawerGestureModeTapCenterView | MMCloseDrawerGestureModeTapNavigationBar];
+    drawerController.showsShadow = NO;
+    [drawerController setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
+        MMDrawerControllerDrawerVisualStateBlock block = [MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2.0];
+        if (block){
+            block(drawerController, drawerSide, percentVisible);
+        }
+    }];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window setRootViewController:drawerController];
+    
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
         if(completed) {
             NSLog(@"Sent %d reports", (int)[reports count]);
