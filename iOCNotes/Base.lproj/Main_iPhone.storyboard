@@ -226,7 +226,7 @@
                         <view key="tableFooterView" contentMode="scaleToFill" id="zNs-QZ-2Yq">
                             <rect key="frame" x="0.0" y="262" width="320" height="309"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.96862751250000001" green="0.96862751250000001" blue="0.96862751250000001" alpha="1" colorSpace="deviceRGB"/>
                         </view>
                         <sections>
                             <tableViewSection headerTitle="SYNCING" footerTitle="     " id="kzL-XI-1Cq">
@@ -337,9 +337,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="eFn-A5-4QO">
-                            <rect key="frame" x="0.0" y="350" width="320" height="150"/>
+                            <rect key="frame" x="0.0" y="350" width="320" height="218"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.96862751250000001" green="0.96862751250000001" blue="0.96862751250000001" alpha="1" colorSpace="deviceRGB"/>
                         </view>
                         <sections>
                             <tableViewSection headerTitle=" " footerTitle=" " id="GFD-er-5qc">
