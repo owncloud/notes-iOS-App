@@ -91,7 +91,7 @@
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(reloadNotes:)
-                                               name:FCModelAnyChangeNotification
+                                               name:FCModelUpdateNotification
                                              object:OCNote.class];
     
     [NSNotificationCenter.defaultCenter addObserver:self
@@ -168,6 +168,8 @@
 
 - (void)noteAdded:(NSNotification *)notification
 {
+    self.ocNotes = [OCNote instancesOrderedBy:@"modified DESC"];
+    [self.tableView reloadData];
     NSLog(@"Note added: %@", [notification userInfo]);
     NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
     OCNote *newNote = [noteSet anyObject];
@@ -188,7 +190,7 @@
 - (void)noteDeleted:(NSNotification *)notification
 {
     NSInteger newIndex = 0;
-    NSLog(@"Note added: %@", [notification userInfo]);
+    NSLog(@"Note deleted: %@", [notification userInfo]);
     NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
     OCNote *newNote = [noteSet anyObject];
     newIndex = [self.ocNotes indexOfObject:newNote] + 1;
@@ -202,6 +204,11 @@
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     } else {
         self.editorViewController.ocNote = nil;
+    }
+    self.ocNotes = [OCNote instancesOrderedBy:@"modified DESC"];
+    if (self.mm_drawerController.openSide == MMDrawerSideNone) {
+        //called while showing editor
+        [self.tableView reloadData];
     }
 }
 
@@ -284,11 +291,14 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [tableView beginUpdates];
         OCNote *note = [self.ocNotes objectAtIndex:indexPath.row];
         if ([note isEqual:self.editorViewController.ocNote]) {
             self.editorViewController.ocNote = nil;
         }
         [[OCNotesHelper sharedHelper] deleteNote:note];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
     }
 }
 

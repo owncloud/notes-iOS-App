@@ -484,27 +484,30 @@
  */
 
 - (void) deleteNote:(OCNote *)note {
+    __block OCNote *noteToDelete = [OCNote instanceWithPrimaryKey:note.guid];
+    __block NSNumber *noteId = [NSNumber numberWithLongLong:noteToDelete.id];
+    [noteToDelete delete];
+    
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
         //online
-        __block OCNote *noteToDelete = [OCNote instanceWithPrimaryKey:note.guid];
-        NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithLongLong:note.id]];
+        NSString *path = [NSString stringWithFormat:@"notes/%@", noteId];
         [[OCAPIClient sharedClient] DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSLog(@"Success deleting note");
-            [noteToDelete delete];
+            //[noteToDelete delete];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"Failure to delete note");
-            [notesToDelete addObject:[NSNumber numberWithLongLong:note.id]];
+            [notesToDelete addObject:noteId];
             [self savePrefs];
-            [noteToDelete delete];
+            //[noteToDelete delete];
             NSString *message = [NSString stringWithFormat:@"The error reported was '%@'", [error localizedDescription]];
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Deleting Note", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
         }];
     } else {
         //offline
-        [notesToDelete addObject:[NSNumber numberWithLongLong:note.id]];
+        [notesToDelete addObject:noteId];
         [self savePrefs];
-        [note delete];
+        //[note delete];
     }
 }
 
