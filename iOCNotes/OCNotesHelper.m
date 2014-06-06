@@ -73,7 +73,11 @@
     //[NSFileManager.defaultManager removeItemAtPath:dbURL.path error:nil];
     
     [FCModel openDatabaseAtPath:dbURL.path withSchemaBuilder:^(FMDatabase *db, int *schemaVersion) {
+#if DEBUG
         [db setCrashOnErrors:YES];
+#else
+        [db setLogsErrors:YES];
+#endif
         db.traceExecution = YES; // Log every query (useful to learn what FCModel is doing or analyze performance)
         [db beginTransaction];
         
