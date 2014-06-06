@@ -249,7 +249,25 @@
 }
 
 - (IBAction)onDelete:(id)sender {
+    __block UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.noteContentView.frame];
+    imageView.image = [self screenshot];
     [[OCNotesHelper sharedHelper] deleteNote:self.ocNote];
+    [self.noteContentView addSubview:imageView];
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         CGRect targetFrame = CGRectMake(self.noteContentView.frame.size.width / 2,
+                                                         self.noteContentView.frame.size.height /2,
+                                                         0, 0);
+                         imageView.frame = targetFrame;
+                         imageView.alpha = 0.0f;
+                     }
+                     completion:^(BOOL finished){
+                         [imageView removeFromSuperview];
+                         [self.view.layer displayIfNeeded];
+                         imageView = nil;
+                     }];
 }
 
 - (IBAction)onAdd:(id)sender {
@@ -435,6 +453,16 @@
             [self.noteContentView becomeFirstResponder];
         }
     }
+}
+
+- (UIImage*)screenshot {
+    UIGraphicsBeginImageContextWithOptions(self.noteContentView.frame.size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [self.noteContentView.layer renderInContext:context];
+    UIImage *capturedScreen = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return capturedScreen;
 }
 
 @end
