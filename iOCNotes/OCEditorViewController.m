@@ -13,9 +13,10 @@
 #import "TTOpenInAppActivity.h"
 #import "TransparentToolbar.h"
 
-@interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate, UINavigationControllerDelegate> {
+@interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
     NSTimer *editingTimer;
     UIPopoverController *_activityPopover;
+    UIActionSheet *deleteConfirmation;
 }
 
 @property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
@@ -249,6 +250,21 @@
 }
 
 - (IBAction)onDelete:(id)sender {
+    if (!deleteConfirmation) {
+        deleteConfirmation = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete Note" otherButtonTitles:nil, nil];
+    }
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [deleteConfirmation showFromBarButtonItem:self.deleteButton animated:YES];
+    } else {
+        [deleteConfirmation showInView:self.view];
+    }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+
     __block UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.noteContentView.frame];
     imageView.image = [self screenshot];
     [[OCNotesHelper sharedHelper] deleteNote:self.ocNote];
