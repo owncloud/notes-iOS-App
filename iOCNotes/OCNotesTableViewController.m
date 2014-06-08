@@ -18,6 +18,7 @@
 
 @interface OCNotesTableViewController () {
     BOOL networkHasBeenUnreachable;
+    NSArray *searchResults;
 }
 
 @property (nonatomic, copy) NSArray *ocNotes;
@@ -123,6 +124,7 @@
     self.navigationItem.titleView = self.titleButton;
     UINavigationController *navController = (UINavigationController*)self.mm_drawerController.centerViewController;
     self.editorViewController = (OCEditorViewController*)navController.topViewController;
+    [self.tableView setContentOffset:CGPointMake(0, self.searchDisplayController.searchBar.frame.size.height + self.tableView.contentOffset.y)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -224,8 +226,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return [self.notesFetchedResultsController fetchedObjects].count;
-    return self.ocNotes.count;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return searchResults.count;
+    } else {
+        return self.ocNotes.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -252,16 +257,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     [selectedBackgroundView setBackgroundColor:[UIColor colorWithRed:0.87f green:0.87f blue:0.87f alpha:1.0f]]; // set color here
     [cell setSelectedBackgroundView:selectedBackgroundView];
     cell.tag = indexPath.row;
-    OCNote *note = [self.ocNotes objectAtIndex:indexPath.row];
+    OCNote *note;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        note = [searchResults objectAtIndex:indexPath.row];
+    } else {
+        note = [self.ocNotes objectAtIndex:indexPath.row];
+    }
     cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
     cell.textLabel.text = note.title;
     cell.backgroundColor = [UIColor clearColor];
@@ -292,7 +302,12 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [tableView beginUpdates];
-        OCNote *note = [self.ocNotes objectAtIndex:indexPath.row];
+        OCNote *note = nil;
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            note = [searchResults objectAtIndex:indexPath.row];
+        } else {
+            note = [self.ocNotes objectAtIndex:indexPath.row];
+        }
         if ([note isEqual:self.editorViewController.ocNote]) {
             self.editorViewController.ocNote = nil;
         }
@@ -328,13 +343,32 @@
     if (self.tableView.isEditing) {
         //[self showRenameForIndex:indexPath.row];
     } else {
-        OCNote *note = [self.ocNotes objectAtIndex:indexPath.row];
+        OCNote *note = nil;
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            note = [searchResults objectAtIndex:indexPath.row];
+        } else {
+            note = [self.ocNotes objectAtIndex:indexPath.row];
+        }
         [[OCNotesHelper sharedHelper] getNote:note];
         self.editorViewController.ocNote = note;
-        [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-            //
-        }];
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
     }
+}
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
+    searchResults = [self.ocNotes filteredArrayUsingPredicate:resultPredicate];
+}
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString
+                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
+                                      objectAtIndex:[self.searchDisplayController.searchBar
+                                                     selectedScopeButtonIndex]]];
+    
+    return YES;
 }
 
 - (IBAction)doRefresh:(id)sender {
