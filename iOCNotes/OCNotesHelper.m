@@ -438,7 +438,7 @@
                 noteToUpdate.title = [noteDict objectForKey:@"title"];
                 noteToUpdate.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];;
                 noteToUpdate.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-                if (!noteToUpdate.isDeleted) {
+                if (noteToUpdate.existsInDatabase) {
                     [noteToUpdate save];
                 }
             }
@@ -457,14 +457,14 @@
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Updating Note", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
             noteToUpdate.modified = [[NSDate date] timeIntervalSince1970];
-            if (!noteToUpdate.isDeleted) {
+            if (noteToUpdate.existsInDatabase) {
                 [noteToUpdate save];
             }
         }];
     } else {
         //offline
         note.modified = [[NSDate date] timeIntervalSince1970];
-        if (!note.isDeleted) {
+        if (note.existsInDatabase) {
             [note save];
         }
         if (note.id > 0) { // Has been synced at least once and is not included in notesToAdd
