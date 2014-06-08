@@ -438,7 +438,9 @@
                 noteToUpdate.title = [noteDict objectForKey:@"title"];
                 noteToUpdate.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];;
                 noteToUpdate.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-                [noteToUpdate save];
+                if (!noteToUpdate.isDeleted) {
+                    [noteToUpdate save];
+                }
             }
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -455,13 +457,16 @@
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Updating Note", @"Title", message, @"Message", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
             noteToUpdate.modified = [[NSDate date] timeIntervalSince1970];
-            [noteToUpdate save];
+            if (!noteToUpdate.isDeleted) {
+                [noteToUpdate save];
+            }
         }];
-        
     } else {
         //offline
         note.modified = [[NSDate date] timeIntervalSince1970];
-        [note save];
+        if (!note.isDeleted) {
+            [note save];
+        }
         if (note.id > 0) { // Has been synced at least once and is not included in notesToAdd
             [notesToUpdate addObject:[NSNumber numberWithLongLong:note.id]];
         }
