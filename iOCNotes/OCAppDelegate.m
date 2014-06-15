@@ -129,14 +129,14 @@
     
     KSCrashInstallationEmail* email = [KSCrashInstallationEmail sharedInstance];
     email.recipients = @[emailAddress];
-    email.subject = @"CloudNotes Crash Report";
-    email.message = @"<Please provide as much details as possible about what you were doing when the crash occurred.>";
+    email.subject = NSLocalizedString(@"CloudNotes Crash Report", @"Crash report email subject");
+    email.message = NSLocalizedString(@"<Please provide as much details as possible about what you were doing when the crash occurred.>", @"Crash report email body placeholder");
     email.filenameFmt = @"crash-report-%d.txt.gz";
     
-    [email addConditionalAlertWithTitle:@"Crash Detected"
-                                message:@"CloudNotes crashed last time it was launched. Do you want to send a report to the developer?"
-                              yesAnswer:@"Yes, please!"
-                               noAnswer:@"No thanks"];
+    [email addConditionalAlertWithTitle:NSLocalizedString(@"Crash Detected", @"Alert view title")
+                                message:NSLocalizedString(@"CloudNotes crashed last time it was launched. Do you want to send a report to the developer?", nil)
+                              yesAnswer:NSLocalizedString(@"Yes, please!", nil)
+                               noAnswer:NSLocalizedString(@"No thanks", nil)];
     
     // Uncomment to send Apple style reports instead of JSON.
     [email setReportStyle:KSCrashEmailReportStyleApple useDefaultFilenameFormat:YES];

@@ -67,9 +67,9 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     self.syncOnStartSwitch.on = [prefs boolForKey:@"SyncOnStart"];
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
-        self.statusLabel.text = @"Logged In";
+        self.statusLabel.text = NSLocalizedString(@"Logged In", @"A status label indicating that the user is logged in");
     } else {
-        self.statusLabel.text = @"Not Logged In";
+        self.statusLabel.text =  NSLocalizedString(@"Not Logged In", @"A status label indicating that the user is not logged in");
     }
 }
 
@@ -150,8 +150,8 @@
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
             mailViewController.mailComposeDelegate = self;
             [mailViewController setToRecipients:[NSArray arrayWithObject:@"support@peterandlinda.com"]];
-            [mailViewController setSubject:@"CloudNotes Support Request"];
-            [mailViewController setMessageBody:@"<Please state your question or problem here>" isHTML:NO ];
+            [mailViewController setSubject:NSLocalizedString( @"CloudNotes Support Request", @"Support email subject")];
+            [mailViewController setMessageBody:NSLocalizedString(@"<Please state your question or problem here>", @"Support email body placeholder") isHTML:NO ];
             mailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
             [self presentViewController:mailViewController animated:YES completion:nil];
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256C9189599570038232A /* NSDictionary+HandleNull.m */; };
 		D02256CD1895BE220038232A /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5831888AD0100165839 /* AFURLConnectionOperation.m */; };
@@ -167,6 +168,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D00CDFB9194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D00CDFBA194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		D00CDFBB194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D00CDFBC194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D00CDFC0194E65B4007505E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D00CDFC2194E65D4007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D00CDFC3194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D00CDFC4194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		D00CDFC5194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D00CDFC6194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D00CDFC7194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D02256C61891FD7C0038232A /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = defaults.plist; sourceTree = "<group>"; };
 		D02256C8189599570038232A /* NSDictionary+HandleNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+HandleNull.h"; sourceTree = "<group>"; };
 		D02256C9189599570038232A /* NSDictionary+HandleNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+HandleNull.m"; sourceTree = "<group>"; };
@@ -558,6 +570,7 @@
 		D0CFE53D1888A7BD00165839 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D00CDFC1194E65B4007505E9 /* Localizable.strings */,
 				D0CFE53E1888A7BD00165839 /* iOCNotes-Info.plist */,
 				D02256F11895BE230038232A /* iOCNotes copy-Info.plist */,
 				D0CFE53F1888A7BD00165839 /* InfoPlist.strings */,
@@ -697,6 +710,8 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
+				de,
 			);
 			mainGroup = D0CFE52A1888A7BD00165839;
 			productRefGroup = D0CFE5341888A7BD00165839 /* Products */;
@@ -758,6 +773,7 @@
 				D022574218984B940038232A /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D022573A18984B940038232A /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				D022574018984B940038232A /* NotificationBackgroundSuccess.png in Resources */,
+				D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */,
 				D02256C71891FD7C0038232A /* defaults.plist in Resources */,
 				D0CFE54A1888A7BD00165839 /* Main_iPhone.storyboard in Resources */,
 				D022573818984B940038232A /* NotificationBackgroundErrorIcon.png in Resources */,
@@ -926,10 +942,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D00CDFC1194E65B4007505E9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D00CDFC0194E65B4007505E9 /* en */,
+				D00CDFC2194E65D4007505E9 /* fr */,
+				D00CDFC5194E6835007505E9 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		D0CFE53F1888A7BD00165839 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D0CFE5401888A7BD00165839 /* en */,
+				D00CDFBB194E64F9007505E9 /* fr */,
+				D00CDFC6194E6835007505E9 /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -938,6 +966,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				D0CFE5491888A7BD00165839 /* Base */,
+				D00CDFB9194E64F9007505E9 /* fr */,
+				D00CDFC3194E6835007505E9 /* de */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -946,6 +976,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				D0CFE54C1888A7BD00165839 /* Base */,
+				D00CDFBA194E64F9007505E9 /* fr */,
+				D00CDFC4194E6835007505E9 /* de */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
@@ -954,6 +986,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				D0CFE5621888A7BD00165839 /* en */,
+				D00CDFBC194E64F9007505E9 /* fr */,
+				D00CDFC7194E6835007505E9 /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

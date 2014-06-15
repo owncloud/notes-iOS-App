@@ -238,14 +238,13 @@
             [self updateNotesOnServer];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkSuccess" object:self userInfo:nil];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-            NSString *message = [NSString stringWithFormat:@"The server responded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Updating Notes", @"Title", message, @"Message", nil];
+            NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Updating Notes", @"The title of an error message"),
+                                       @"Message": [error localizedDescription]};
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
         }];
     } else {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Unable to Reach Server", @"Title",
-                                  @"Please check network connection and login.", @"Message", nil];
+        NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Unable to Reach Server", @"The title of an error message"),
+                                   @"Message": @"Please check network connection and login."};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
     }
 }
@@ -300,14 +299,14 @@
                             NSString *message;
                             switch (response.statusCode) {
                                 case 404:
-                                    message = @"The note does not exist";
+                                    message = NSLocalizedString(@"The note does not exist", @"An error message");
                                     break;
                                 default:
-                                    message = [NSString stringWithFormat:@"The server responded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
+                                    message = [error localizedDescription];
                                     break;
                             }
-                            
-                            NSDictionary *userInfo = @{@"Title": @"Error Getting Note", @"Message": message};
+                            NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Getting Note", @"The title of an error message"),
+                                                       @"Message": message};
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
                         }];
                     
@@ -319,14 +318,14 @@
                 NSString *message;
                 switch (response.statusCode) {
                     case 404:
-                        message = @"The note does not exist";
+                        message = NSLocalizedString(@"The note does not exist", @"An error message");
                         break;
                     default:
-                        message = [NSString stringWithFormat:@"The server responded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
+                        message = [error localizedDescription];
                         break;
                 }
-                
-                NSDictionary *userInfo = @{@"Title": @"Error Getting Note", @"Message": message};
+                NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Getting Note", @"The title of an error message"),
+                                           @"Message": message};
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
             }];
         }
@@ -362,7 +361,7 @@
 
 - (void)addNote:(NSString*)content {
     __block OCNote *newNote = [OCNote new];
-    newNote.title = @"New note";
+    newNote.title = NSLocalizedString(@"New note", @"The title of a new note");
     newNote.content = content;
     newNote.modified = [[NSDate date] timeIntervalSince1970];
     [newNote save];
@@ -382,11 +381,11 @@
             NSString *message;
             switch (response.statusCode) {
                 default:
-                    message = [NSString stringWithFormat:@"The server responded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
+                    message = [error localizedDescription];
                     break;
             }
-            
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Note", @"Title", message, @"Message", nil];
+            NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Adding Note", @"The title of an error message"),
+                                       @"Message": message};
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
             [notesToAdd addObject:newNote.guid];
             [self savePrefs];
@@ -447,14 +446,14 @@
             NSString *message;
             switch (response.statusCode) {
                 case 404:
-                    message = @"The note does not exist";
+                    message = NSLocalizedString(@"The note does not exist", @"An error message");
                     break;
                 default:
-                    message = [NSString stringWithFormat:@"The server responded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
+                    message = [error localizedDescription];
                     break;
             }
-            
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Updating Note", @"Title", message, @"Message", nil];
+            NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Updating Note", @"The title of an error message"),
+                                       @"Message": message};
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
             noteToUpdate.modified = [[NSDate date] timeIntervalSince1970];
             if (noteToUpdate.existsInDatabase) {
@@ -504,8 +503,8 @@
             [notesToDelete addObject:noteId];
             [self savePrefs];
             //[noteToDelete delete];
-            NSString *message = [NSString stringWithFormat:@"The error reported was '%@'", [error localizedDescription]];
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Deleting Note", @"Title", message, @"Message", nil];
+            NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Deleting Note", @"The title of an error message"),
+                                       @"Message": [error localizedDescription]};
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
         }];
     } else {
@@ -556,11 +555,11 @@
                         @synchronized(failedUpdates) {
                             [failedUpdates addObject:[NSNumber numberWithInteger:[failedId integerValue]]];
                         }
-                        message = [NSString stringWithFormat:@"The server responded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
+                        message = [error localizedDescription];
                         break;
                 }
-                
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Updating Note", @"Title", message, @"Message", nil];
+                NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Updating Note", @"The title of an error message"),
+                                           @"Message": message};
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
                 dispatch_group_leave(updateGroup);
             }];
@@ -602,11 +601,11 @@
                 NSString *message;
                 switch (response.statusCode) {
                     default:
-                        message = [NSString stringWithFormat:@"The server responded '%@' and the error reported was '%@'", [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], [error localizedDescription]];
+                        message = [error localizedDescription];
                         break;
                 }
-                
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"Error Adding Note", @"Title", message, @"Message", nil];
+                NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Adding Note", @"The title of an error message"),
+                                           @"Message": message};
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
                 [failedAdditions addObject:ocNote.guid];
                 dispatch_group_leave(addGroup);

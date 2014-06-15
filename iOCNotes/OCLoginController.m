@@ -78,9 +78,9 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
     self.certificateSwitch.on = [prefs boolForKey:@"AllowInvalidSSLCertificate"];
     
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
-        self.connectLabel.text = @"Reconnect";
+        self.connectLabel.text = NSLocalizedString(@"Reconnect", @"A button title");
     } else {
-        self.connectLabel.text = @"Connect";
+        self.connectLabel.text = NSLocalizedString(@"Connect", @"A button title");
     }
 }
 
@@ -98,9 +98,9 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
     
     BOOL textHasChanged = (self.certificateSwitch.on != [[NSUserDefaults standardUserDefaults] boolForKey:@"AllowInvalidSSLCertificate"]);
     if (textHasChanged) {
-        self.connectLabel.text = @"Connect";
+        self.connectLabel.text = NSLocalizedString(@"Connect", @"A button title");
     } else {
-        self.connectLabel.text = @"Reconnect";
+        self.connectLabel.text = NSLocalizedString(@"Reconnect", @"A button title");
     }
 }
 
@@ -135,8 +135,8 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
             
             [self.connectionActivityIndicator stopAnimating];
             [TSMessage showNotificationInViewController:self
-                                                  title:@"Success"
-                                               subtitle:@"You are now connected to Notes on your server"
+                                                  title:NSLocalizedString(@"Success", @"A message title")
+                                               subtitle:NSLocalizedString(@"You are now connected to Notes on your server", @"A message")
                                                   image:nil
                                                    type:TSMessageNotificationTypeSuccess
                                                duration:TSMessageNotificationDurationAutomatic
@@ -162,20 +162,20 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
             NSLog(@"Status code: %ld", (long)response.statusCode);
             switch (response.statusCode) {
                 case 200:
-                    title = @"Notes not found";
-                    message = @"Notes could not be found on your server. Make sure it is installed and enabled";
+                    title = NSLocalizedString(@"Notes not found", @"An error message title");
+                    message = NSLocalizedString(@"Notes could not be found on your server. Make sure it is installed and enabled", @"An error message");
                     break;
                 case 401:
-                    title = @"Unauthorized";
-                    message = @"Check username and password.";
+                    title = NSLocalizedString(@"Unauthorized", @"An error message title");
+                    message = NSLocalizedString(@"Check username and password.", @"An error message");
                     break;
                 case 404:
-                    title = @"Server not found";
-                    message = @"A server installation could not be found. Check the server address.";
+                    title = NSLocalizedString(@"Server not found", @"An error message title");
+                    message = NSLocalizedString(@"A server installation could not be found. Check the server address.", @"An error message");
                     break;
                 default:
-                    title = @"Connection failure";
-                    message = @"Failed to connect to a server. Check your settings.";
+                    title = NSLocalizedString(@"Connection failure", @"An error message title");
+                    message = NSLocalizedString(@"Failed to connect to a server. Check your settings.", @"An error message");
                     break;
             }
             NSLog(@"Error: %@, response: %ld", [error localizedDescription], (long)[response statusCode]);

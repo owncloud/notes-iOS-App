@@ -43,7 +43,12 @@
 
 - (UIActionSheet*)menuActionSheet {
     if (!menuActionSheet) {
-        menuActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Settings", @"Add Note", nil];
+        menuActionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                      delegate:self
+                                             cancelButtonTitle:NSLocalizedString(@"Cancel", @"A menu action")
+                                        destructiveButtonTitle:nil
+                                             otherButtonTitles:NSLocalizedString(@"Settings", @"A menu action"),
+                                                               NSLocalizedString(@"Add Note", @"A menu action"), nil];
     }
     return menuActionSheet;
 }
@@ -436,11 +441,17 @@
     
     if (status == AFNetworkReachabilityStatusNotReachable) {
         networkHasBeenUnreachable = YES;
-        [TSMessage showNotificationInViewController:self.parentViewController title:@"Unable to Reach Server" subtitle:@"Please check network connection and login." type:TSMessageNotificationTypeWarning];
+        [TSMessage showNotificationInViewController:self.parentViewController
+                                              title:NSLocalizedString( @"Unable to Reach Server", @"A message title")
+                                           subtitle:NSLocalizedString(@"Please check network connection and login.", @"A message")
+                                               type:TSMessageNotificationTypeWarning];
     }
     if (status > AFNetworkReachabilityStatusNotReachable) {
         if (networkHasBeenUnreachable) {
-            [TSMessage showNotificationInViewController:self.parentViewController title:@"Server Reachable" subtitle:@"The network connection is working properly." type:TSMessageNotificationTypeSuccess];
+            [TSMessage showNotificationInViewController:self.parentViewController
+                                                  title:NSLocalizedString(@"Server Reachable", @"A message title")
+                                               subtitle:NSLocalizedString(@"The network connection is working properly.", @"A message") 
+                                                   type:TSMessageNotificationTypeSuccess];
             networkHasBeenUnreachable = NO;
         }
     }

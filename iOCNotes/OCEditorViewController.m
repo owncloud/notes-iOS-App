@@ -65,7 +65,7 @@
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
         self.noteContentView.text = @"";
-        self.modifiedLabel.text = @"Select or create a note.";
+        self.modifiedLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
         self.navigationItem.title = @"";
         self.activityButton.enabled = NO;
         self.addButton.enabled = YES;
@@ -251,7 +251,11 @@
 
 - (IBAction)onDelete:(id)sender {
     if (!deleteConfirmation) {
-        deleteConfirmation = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete Note" otherButtonTitles:nil, nil];
+        deleteConfirmation = [[UIActionSheet alloc] initWithTitle:nil
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"Cancel", @"A menu action")
+                                           destructiveButtonTitle:NSLocalizedString(@"Delete Note", @"A menu action")
+                                                otherButtonTitles:nil, nil];
     }
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [deleteConfirmation showFromBarButtonItem:self.deleteButton animated:YES];
@@ -369,7 +373,7 @@
     } else {
         self.noteContentView.editable = NO;
         self.noteContentView.selectable = NO;
-        self.modifiedLabel.text = @"Select or create a note.";
+        self.modifiedLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
         self.navigationItem.title = @"";
     }
     if ([notification.name isEqualToString:FCModelInsertNotification]) {
@@ -451,7 +455,7 @@
         modifiedLabel.textColor = [UIColor lightGrayColor];
         modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         modifiedLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        modifiedLabel.text = @"Select or create a note";
+        modifiedLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
     }
     return modifiedLabel;
 }
