@@ -261,6 +261,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    int noteCount;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        noteCount = searchResults.count;
+    } else {
+        noteCount = self.ocNotes.count;
+    }
+    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
@@ -271,24 +278,28 @@
     [selectedBackgroundView setBackgroundColor:[UIColor colorWithRed:0.87f green:0.87f blue:0.87f alpha:1.0f]]; // set color here
     [cell setSelectedBackgroundView:selectedBackgroundView];
     cell.tag = indexPath.row;
-    OCNote *note;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        note = [searchResults objectAtIndex:indexPath.row];
-    } else {
-        note = [self.ocNotes objectAtIndex:indexPath.row];
+    
+    if (indexPath.row <= noteCount - 1) {
+        OCNote *note;
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            note = [searchResults objectAtIndex:indexPath.row];
+        } else {
+            note = [self.ocNotes objectAtIndex:indexPath.row];
+        }
+        cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+        cell.textLabel.text = note.title;
+        cell.backgroundColor = [UIColor clearColor];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:note.modified];
+        if (date) {
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            dateFormat.dateStyle = NSDateFormatterShortStyle;
+            dateFormat.timeStyle = NSDateFormatterNoStyle;
+            dateFormat.doesRelativeDateFormatting = YES;
+            cell.detailTextLabel.text = [dateFormat stringFromDate:date];
+            cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+        }
     }
-    cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-    cell.textLabel.text = note.title;
-    cell.backgroundColor = [UIColor clearColor];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:note.modified];
-    if (date) {
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        dateFormat.dateStyle = NSDateFormatterShortStyle;
-        dateFormat.timeStyle = NSDateFormatterNoStyle;
-        dateFormat.doesRelativeDateFormatting = YES;
-        cell.detailTextLabel.text = [dateFormat stringFromDate:date];
-        cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-    }
+    
     return cell;
 }
 
@@ -345,9 +356,13 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.tableView.isEditing) {
-        //[self showRenameForIndex:indexPath.row];
+    int noteCount;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        noteCount = searchResults.count;
     } else {
+        noteCount = self.ocNotes.count;
+    }
+    if (indexPath.row <= noteCount - 1) {
         OCNote *note = nil;
         if (tableView == self.searchDisplayController.searchResultsTableView) {
             note = [searchResults objectAtIndex:indexPath.row];

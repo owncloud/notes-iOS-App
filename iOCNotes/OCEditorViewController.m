@@ -37,6 +37,7 @@
         _ocNote = ocNote;
         self.noteContentView.text = _ocNote.content;
         [self noteUpdated:nil];
+        [self.noteContentView.undoManager removeAllActions];
         [self.noteContentView scrollRangeToVisible:NSMakeRange(0, 0)];
     }
 }
