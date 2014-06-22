@@ -67,6 +67,41 @@
     notesToDelete = [NSMutableSet setWithArray:[[prefs arrayForKey:@"NotesToDelete"] mutableCopy]];
     notesToUpdate = [NSMutableSet setWithArray:[[prefs arrayForKey:@"NotesToUpdate"] mutableCopy]];
     
+    [self setupDatabase];
+    
+    __unused BOOL reachable = [[OCAPIClient sharedClient] reachabilityManager].isReachable;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appDidBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+
+    
+    return self;
+}
+
+- (NSURL*) documentsDirectoryURL {
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (void)appDidBecomeActive:(NSNotification*)n {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dbReset"]) {
+        notesToAdd = [NSMutableSet new];
+        notesToDelete = [NSMutableSet new];
+        notesToUpdate = [NSMutableSet new];
+        
+        NSURL *dbURL = [self documentsDirectoryURL];
+        dbURL = [dbURL URLByAppendingPathComponent:@"Notes" isDirectory:NO];
+        dbURL = [dbURL URLByAppendingPathExtension:@"db"];
+        [NSFileManager.defaultManager removeItemAtPath:dbURL.path error:nil];
+        [self setupDatabase];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"dbReset"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:FCModelUpdateNotification object:OCNote.class];
+        [self savePrefs];
+    }
+}
+
+- (void)setupDatabase {
     NSURL *dbURL = [self documentsDirectoryURL];
     dbURL = [dbURL URLByAppendingPathComponent:@"Notes" isDirectory:NO];
     dbURL = [dbURL URLByAppendingPathExtension:@"db"];
@@ -94,14 +129,14 @@
                    @");"
                    ]) failedAt(1);
             /*if (! [db executeUpdate:@"CREATE UNIQUE INDEX IF NOT EXISTS title ON Note (title);"]) failedAt(2);
-            
-            if (! [db executeUpdate:
-                   @"CREATE TABLE Color ("
-                   @"    name         TEXT NOT NULL PRIMARY KEY,"
-                   @"    hex          TEXT NOT NULL"
-                   @");"
-                   ]) failedAt(3);
-            */
+             
+             if (! [db executeUpdate:
+             @"CREATE TABLE Color ("
+             @"    name         TEXT NOT NULL PRIMARY KEY,"
+             @"    hex          TEXT NOT NULL"
+             @");"
+             ]) failedAt(3);
+             */
             // Create any other tables...
             
             *schemaVersion = 1;
@@ -109,54 +144,47 @@
         
         // If you wanted to change the schema in a later app version, you'd add something like this here:
         
-         if (*schemaVersion < 2) {
-             if (! [db executeUpdate:@"ALTER TABLE OCNote RENAME TO OCNote_temp"]) failedAt(3);
-             
-             if (! [db executeUpdate:
-                    @"CREATE TABLE OCNote ("
-                    @"    guid         TEXT PRIMARY KEY,"
-                    @"    id           INTEGER,"
-                    @"    title        TEXT NOT NULL DEFAULT '',"
-                    @"    content      TEXT NOT NULL DEFAULT '',"
-                    @"    modified     INTEGER NOT NULL"
-                    @");"
-                    ]) failedAt(4);
-
-             FMResultSet *rs = [db executeQuery:@"SELECT * FROM OCNote_temp"];
-             while ([rs next]) {
-                 NSString *guid = [OCNote primaryKeyValueForNewInstance];
-                 int myID = [rs intForColumn:@"id"];
-                 NSString *title = [rs stringForColumn:@"title"];
-                 NSString *content = [rs stringForColumn:@"content"];
-                 int modified = [rs doubleForColumn:@"modified"];
-                 NSString *keys = @"(guid, id, title, content, modified)";
-                 NSArray *args = @[guid,
-                                   [NSNumber numberWithInteger:myID],
-                                   title,
-                                   content,
-                                   [NSNumber numberWithDouble:modified]];
-
-                 NSString *sql = [NSString stringWithFormat:@"INSERT INTO OCNote %@ VALUES (?, ?, ?, ?, ?);", keys];
-                 if (! [db executeUpdate:sql withArgumentsInArray:args]) failedAt(5);
-
-             }
-             
-             if (! [db executeUpdate:@"DROP TABLE OCNote_temp"]) failedAt(6);
-
-             *schemaVersion = 2;
-         }
-
+        if (*schemaVersion < 2) {
+            if (! [db executeUpdate:@"ALTER TABLE OCNote RENAME TO OCNote_temp"]) failedAt(3);
+            
+            if (! [db executeUpdate:
+                   @"CREATE TABLE OCNote ("
+                   @"    guid         TEXT PRIMARY KEY,"
+                   @"    id           INTEGER,"
+                   @"    title        TEXT NOT NULL DEFAULT '',"
+                   @"    content      TEXT NOT NULL DEFAULT '',"
+                   @"    modified     INTEGER NOT NULL"
+                   @");"
+                   ]) failedAt(4);
+            
+            FMResultSet *rs = [db executeQuery:@"SELECT * FROM OCNote_temp"];
+            while ([rs next]) {
+                NSString *guid = [OCNote primaryKeyValueForNewInstance];
+                int myID = [rs intForColumn:@"id"];
+                NSString *title = [rs stringForColumn:@"title"];
+                NSString *content = [rs stringForColumn:@"content"];
+                int modified = [rs doubleForColumn:@"modified"];
+                NSString *keys = @"(guid, id, title, content, modified)";
+                NSArray *args = @[guid,
+                                  [NSNumber numberWithInteger:myID],
+                                  title,
+                                  content,
+                                  [NSNumber numberWithDouble:modified]];
+                
+                NSString *sql = [NSString stringWithFormat:@"INSERT INTO OCNote %@ VALUES (?, ?, ?, ?, ?);", keys];
+                if (! [db executeUpdate:sql withArgumentsInArray:args]) failedAt(5);
+                
+            }
+            
+            if (! [db executeUpdate:@"DROP TABLE OCNote_temp"]) failedAt(6);
+            
+            *schemaVersion = 2;
+        }
+        
         [db commit];
     }];
-
-    __unused BOOL reachable = [[OCAPIClient sharedClient] reachabilityManager].isReachable;
-    
-    return self;
 }
 
-- (NSURL*) documentsDirectoryURL {
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
 
 - (void)savePrefs {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
