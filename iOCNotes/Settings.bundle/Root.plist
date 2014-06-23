@@ -6,6 +6,24 @@
 	<array>
 		<dict>
 			<key>FooterText</key>
+			<string>Caution: Turning the switch on will remove all notes locally. Unsynced changes will be lost. Use only if you are experiencing problems.</string>
+			<key>Title</key>
+			<string>Advanced Settings</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>dbReset</string>
+			<key>Title</key>
+			<string>Reset local notes database</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>© 2014 Peter B. Hedlund</string>
 			<key>Title</key>
 			<string>About</string>
@@ -14,7 +32,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>1.5 (1044)</string>
+			<string>1.5 (1050)</string>
 			<key>Key</key>
 			<string>versionNumber</string>
 			<key>Title</key>
