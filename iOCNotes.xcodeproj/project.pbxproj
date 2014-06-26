@@ -119,6 +119,7 @@
 		D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */; };
 		D059745E18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
 		D059745F18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
+		D06591DB195B9A8E005B3670 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
 		D0791B1B18AD4F98005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
 		D0CB434E18D274C200C54D7C /* FCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434B18D274C200C54D7C /* FCModel.m */; };
@@ -131,7 +132,6 @@
 		D0CFE5431888A7BD00165839 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5421888A7BD00165839 /* main.m */; };
 		D0CFE5471888A7BD00165839 /* OCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5461888A7BD00165839 /* OCAppDelegate.m */; };
 		D0CFE54A1888A7BD00165839 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */; };
-		D0CFE54D1888A7BD00165839 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */; };
 		D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */; };
 		D0CFE5521888A7BD00165839 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE5511888A7BD00165839 /* Images.xcassets */; };
 		D0CFE5591888A7BD00165839 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5581888A7BD00165839 /* XCTest.framework */; };
@@ -247,6 +247,8 @@
 		D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		D059745C18CEA28E00867B02 /* OCNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNote.h; sourceTree = "<group>"; };
 		D059745D18CEA28E00867B02 /* OCNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNote.m; sourceTree = "<group>"; };
+		D06591DA195B9A88005B3670 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D06591DC195B9A8F005B3670 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPad.strings; sourceTree = "<group>"; };
 		D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpenInAppActivity.h; sourceTree = "<group>"; };
 		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
 		D0CB434A18D274C200C54D7C /* FCModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModel.h; sourceTree = "<group>"; };
@@ -263,8 +265,6 @@
 		D0CFE5441888A7BD00165839 /* iOCNotes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOCNotes-Prefix.pch"; sourceTree = "<group>"; };
 		D0CFE5451888A7BD00165839 /* OCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCAppDelegate.h; sourceTree = "<group>"; };
 		D0CFE5461888A7BD00165839 /* OCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCAppDelegate.m; sourceTree = "<group>"; };
-		D0CFE5491888A7BD00165839 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		D0CFE54C1888A7BD00165839 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		D0CFE54E1888A7BD00165839 /* OCEditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCEditorViewController.h; sourceTree = "<group>"; };
 		D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCEditorViewController.m; sourceTree = "<group>"; };
 		D0CFE5511888A7BD00165839 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -766,7 +766,6 @@
 				D022574818984B940038232A /* NotificationBackgroundWarning.png in Resources */,
 				D022575018984B940038232A /* NotificationButtonBackground.png in Resources */,
 				D022573618984B940038232A /* NotificationBackgroundError@2x.png in Resources */,
-				D0CFE54D1888A7BD00165839 /* Main_iPad.storyboard in Resources */,
 				D022574A18984B940038232A /* NotificationBackgroundWarning@2x.png in Resources */,
 				D0CFE5521888A7BD00165839 /* Images.xcassets in Resources */,
 				D022574E18984B940038232A /* NotificationBackgroundWarningIcon@2x.png in Resources */,
@@ -782,6 +781,7 @@
 				D022573E18984B940038232A /* NotificationBackgroundMessage@2x.png in Resources */,
 				D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */,
 				D022575218984B940038232A /* NotificationButtonBackground@2x.png in Resources */,
+				D06591DB195B9A8E005B3670 /* Main_iPad.storyboard in Resources */,
 				D022574618984B940038232A /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D022573C18984B940038232A /* NotificationBackgroundMessage.png in Resources */,
 			);
@@ -965,9 +965,9 @@
 		D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D0CFE5491888A7BD00165839 /* Base */,
 				D00CDFB9194E64F9007505E9 /* fr */,
 				D00CDFC3194E6835007505E9 /* de */,
+				D06591DA195B9A88005B3670 /* en */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -975,9 +975,9 @@
 		D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D0CFE54C1888A7BD00165839 /* Base */,
 				D00CDFBA194E64F9007505E9 /* fr */,
 				D00CDFC4194E6835007505E9 /* de */,
+				D06591DC195B9A8F005B3670 /* en */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
