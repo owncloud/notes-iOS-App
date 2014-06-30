@@ -126,6 +126,8 @@
 		D0CB434F18D274C200C54D7C /* FCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434B18D274C200C54D7C /* FCModel.m */; };
 		D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */; };
 		D0CB435118D274C200C54D7C /* FCModelCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */; };
+		D0CBD8B819621F5F00EFB17C /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CBD8B619621F5F00EFB17C /* Main_iPad.storyboard */; };
+		D0CBD8B919621F5F00EFB17C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CBD8B719621F5F00EFB17C /* Main_iPhone.storyboard */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
@@ -255,6 +257,8 @@
 		D0CB434B18D274C200C54D7C /* FCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModel.m; sourceTree = "<group>"; };
 		D0CB434C18D274C200C54D7C /* FCModelCachedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelCachedObject.h; sourceTree = "<group>"; };
 		D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModelCachedObject.m; sourceTree = "<group>"; };
+		D0CBD8B619621F5F00EFB17C /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
+		D0CBD8B719621F5F00EFB17C /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D0CFE5331888A7BD00165839 /* iOCNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOCNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5361888A7BD00165839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0CFE5381888A7BD00165839 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -559,6 +563,8 @@
 				D02256C9189599570038232A /* NSDictionary+HandleNull.m */,
 				D0362BAD190AC83800490D95 /* UIImage+ImageWithColor.h */,
 				D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */,
+				D0CBD8B619621F5F00EFB17C /* Main_iPad.storyboard */,
+				D0CBD8B719621F5F00EFB17C /* Main_iPhone.storyboard */,
 				D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */,
 				D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */,
 				D0CFE53D1888A7BD00165839 /* Supporting Files */,
@@ -760,9 +766,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0CBD8B819621F5F00EFB17C /* Main_iPad.storyboard in Resources */,
 				D022575418984B940038232A /* TSMessagesDefaultDesign.json in Resources */,
 				D022574418984B940038232A /* NotificationBackgroundSuccessIcon.png in Resources */,
 				D022574C18984B940038232A /* NotificationBackgroundWarningIcon.png in Resources */,
+				D0CBD8B919621F5F00EFB17C /* Main_iPhone.storyboard in Resources */,
 				D022574818984B940038232A /* NotificationBackgroundWarning.png in Resources */,
 				D022575018984B940038232A /* NotificationButtonBackground.png in Resources */,
 				D022573618984B940038232A /* NotificationBackgroundError@2x.png in Resources */,
