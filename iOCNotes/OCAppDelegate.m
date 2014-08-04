@@ -62,6 +62,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setRootViewController:drawerController];
     
+    [OCAPIClient sharedClient];
+    [OCNotesHelper sharedHelper];
+    
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
         if(completed) {
             NSLog(@"Sent %d reports", (int)[reports count]);

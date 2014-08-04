@@ -41,6 +41,7 @@
     NSMutableSet *notesToAdd;
     NSMutableSet *notesToDelete;
     NSMutableSet *notesToUpdate;
+    BOOL online;
 }
 
 @end
@@ -69,15 +70,31 @@
     
     [self setupDatabase];
     
-    __unused BOOL reachable = [[OCAPIClient sharedClient] reachabilityManager].isReachable;
+    online = [[OCAPIClient sharedClient] reachabilityManager].isReachable;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appDidBecomeActive:)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
 
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:AFNetworkingReachabilityDidChangeNotification
+                                               object:nil];
+
     return self;
+}
+
+- (void)reachabilityChanged:(NSNotification *)n {
+    NSNumber *s = n.userInfo[AFNetworkingReachabilityNotificationStatusItem];
+    AFNetworkReachabilityStatus status = [s integerValue];
+    
+    if (status == AFNetworkReachabilityStatusNotReachable) {
+        online = NO;
+    }
+    if (status > AFNetworkReachabilityStatusNotReachable) {
+        online = YES;
+    }
 }
 
 - (NSURL*) documentsDirectoryURL {
@@ -213,7 +230,7 @@
  ]
  */
 - (void) sync {
-    if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
+    if (online) {
         
         NSDictionary *params = @{@"exclude": @""};
         [[OCAPIClient sharedClient] GET:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -297,8 +314,7 @@
  */
 
 - (void)getNote:(OCNote *)note {
-    if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
-        //online
+    if (online) {
         NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithLongLong:note.id].stringValue];
         __block OCNote *noteToGet = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [NSNumber numberWithLongLong:note.id]]];
         if (noteToGet) {
@@ -394,8 +410,7 @@
     newNote.modified = [[NSDate date] timeIntervalSince1970];
     [newNote save];
     
-    if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
-        //online
+    if (online) {
         NSDictionary *params = @{@"content": newNote.content};
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *noteDict = (NSDictionary*)responseObject;
@@ -452,7 +467,7 @@
  */
 
 - (void)updateNote:(OCNote*)note {
-    if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
+    if (online) {
         //online
         NSDictionary *params = @{@"content": note.content};
         NSString *path = [NSString stringWithFormat:@"notes/%@",[NSNumber numberWithLongLong:note.id]];
@@ -520,8 +535,7 @@
     __block NSNumber *noteId = [NSNumber numberWithLongLong:noteToDelete.id];
     [noteToDelete delete];
     
-    if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
-        //online
+    if (online) {
         NSString *path = [NSString stringWithFormat:@"notes/%@", noteId];
         [[OCAPIClient sharedClient] DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSLog(@"Success deleting note");
