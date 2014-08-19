@@ -16,6 +16,7 @@
 @property (nonatomic, strong) OCEditorViewController *editorViewController;
 @property (strong, nonatomic) UIActionSheet *menuActionSheet;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *addBarButton;
 @property (strong, nonatomic) IBOutlet UIButton *titleButton;
 @property (assign) BOOL addingNote;
 

@@ -396,6 +396,8 @@
         [self.refreshControl beginRefreshing];
         [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - self.refreshControl.frame.size.height) animated:YES];
     }
+    self.addBarButton.enabled = NO;
+    self.settingsBarButton.enabled = NO;
     [[OCNotesHelper sharedHelper] sync];
 }
 
@@ -484,10 +486,14 @@
 
 - (void) networkSuccess:(NSNotification *)n {
     [self.refreshControl endRefreshing];
+    self.addBarButton.enabled = YES;
+    self.settingsBarButton.enabled = YES;
 }
 
 - (void)networkError:(NSNotification *)n {
     [self.refreshControl endRefreshing];
+    self.addBarButton.enabled = YES;
+    self.settingsBarButton.enabled = YES;
     [TSMessage showNotificationInViewController:self
                                           title:[n.userInfo objectForKey:@"Title"]
                                        subtitle:[n.userInfo objectForKey:@"Message"]
