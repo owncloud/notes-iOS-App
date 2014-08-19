@@ -320,14 +320,20 @@
         [tableView beginUpdates];
         OCNote *note = nil;
         if (tableView == self.searchDisplayController.searchResultsTableView) {
-            note = [searchResults objectAtIndex:indexPath.row];
+            if ((indexPath.row >= 0) && (indexPath.row < searchResults.count)) {
+                note = [searchResults objectAtIndex:indexPath.row];
+            }
         } else {
-            note = [self.ocNotes objectAtIndex:indexPath.row];
+            if ((indexPath.row >= 0) && (indexPath.row < self.ocNotes.count)) {
+                note = [self.ocNotes objectAtIndex:indexPath.row];
+            }
         }
         if ([note isEqual:self.editorViewController.ocNote]) {
             self.editorViewController.ocNote = nil;
         }
-        [[OCNotesHelper sharedHelper] deleteNote:note];
+        if (note) {
+            [[OCNotesHelper sharedHelper] deleteNote:note];
+        }
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [tableView endUpdates];
     }
