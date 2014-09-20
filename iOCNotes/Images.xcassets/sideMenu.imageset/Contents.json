@@ -3,12 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "edit.png"
+      "filename" : "sidemenu.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "edit@2x.png"
+      "filename" : "sidemenu@2x.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "sidemenu@3x.png"
     }
   ],
   "info" : {
