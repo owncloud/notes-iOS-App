@@ -359,6 +359,13 @@
     if (self.ocNote) {
         self.noteContentView.editable = YES;
         self.noteContentView.selectable = YES;
+        if (self.noteContentView.text.length) {
+            self.activityButton.enabled = YES;
+            self.addButton.enabled = YES;
+        } else {
+            self.activityButton.enabled = NO;
+            self.addButton.enabled = NO;
+        }
         self.activityButton.enabled = (self.noteContentView.text.length > 0);
         self.addButton.enabled = (self.noteContentView.text.length > 0);
         self.deleteButton.enabled = YES;
