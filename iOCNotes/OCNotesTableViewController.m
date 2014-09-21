@@ -261,7 +261,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    int noteCount;
+    NSUInteger noteCount;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         noteCount = searchResults.count;
     } else {
@@ -362,7 +362,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    int noteCount;
+    NSUInteger noteCount;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         noteCount = searchResults.count;
     } else {
