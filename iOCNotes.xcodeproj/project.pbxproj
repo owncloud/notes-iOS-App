@@ -17,7 +17,6 @@
 		D02256CF1895BE220038232A /* OCNotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */; };
 		D02256D01895BE220038232A /* NSDictionary+HandleNull.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256C9189599570038232A /* NSDictionary+HandleNull.m */; };
 		D02256D11895BE220038232A /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE57F1888AD0100165839 /* AFNetworkReachabilityManager.m */; };
-		D02256D21895BE220038232A /* TransparentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5971888CC0300165839 /* TransparentToolbar.m */; };
 		D02256D31895BE220038232A /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */; };
 		D02256D51895BE220038232A /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5891888AD0200165839 /* AFURLSessionManager.m */; };
 		D02256D61895BE220038232A /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5851888AD0200165839 /* AFURLRequestSerialization.m */; };
@@ -120,7 +119,6 @@
 		D0CFE5911888AD0200165839 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5871888AD0200165839 /* AFURLResponseSerialization.m */; };
 		D0CFE5921888AD0200165839 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5891888AD0200165839 /* AFURLSessionManager.m */; };
 		D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */; };
-		D0CFE5981888CC0300165839 /* TransparentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5971888CC0300165839 /* TransparentToolbar.m */; };
 		D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE59A188B5A6900165839 /* OCAPIClient.m */; };
 		D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */; };
 		D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5AC1890659600165839 /* QuartzCore.framework */; };
@@ -263,8 +261,6 @@
 		D0CFE5891888AD0200165839 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		D0CFE5931888AE2D00165839 /* OCNotesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNotesTableViewController.h; sourceTree = "<group>"; };
 		D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNotesTableViewController.m; sourceTree = "<group>"; };
-		D0CFE5961888CC0300165839 /* TransparentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentToolbar.h; sourceTree = "<group>"; };
-		D0CFE5971888CC0300165839 /* TransparentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentToolbar.m; sourceTree = "<group>"; };
 		D0CFE599188B5A6900165839 /* OCAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAPIClient.h; sourceTree = "<group>"; };
 		D0CFE59A188B5A6900165839 /* OCAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAPIClient.m; sourceTree = "<group>"; };
 		D0CFE5A5188E199700165839 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFNetworkActivityIndicatorManager.h; path = "../UIKit+AFNetworking/AFNetworkActivityIndicatorManager.h"; sourceTree = "<group>"; };
@@ -503,8 +499,6 @@
 				D0F6FED018CD4C2A00C16FDF /* OCNotesSettings.h */,
 				D0F6FED118CD4C2A00C16FDF /* OCNotesSettings.m */,
 				D0CFE5511888A7BD00165839 /* Images.xcassets */,
-				D0CFE5961888CC0300165839 /* TransparentToolbar.h */,
-				D0CFE5971888CC0300165839 /* TransparentToolbar.m */,
 				D02256C8189599570038232A /* NSDictionary+HandleNull.h */,
 				D02256C9189599570038232A /* NSDictionary+HandleNull.m */,
 				D0362BAD190AC83800490D95 /* UIImage+ImageWithColor.h */,
@@ -767,7 +761,6 @@
 				D02256D01895BE220038232A /* NSDictionary+HandleNull.m in Sources */,
 				D0CB434F18D274C200C54D7C /* FCModel.m in Sources */,
 				D02256D11895BE220038232A /* AFNetworkReachabilityManager.m in Sources */,
-				D02256D21895BE220038232A /* TransparentToolbar.m in Sources */,
 				D059745F18CEA28E00867B02 /* OCNote.m in Sources */,
 				D02256D31895BE220038232A /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D0F6FED318CD4C2A00C16FDF /* OCNotesSettings.m in Sources */,
@@ -817,7 +810,6 @@
 				D0CFE58D1888AD0200165839 /* AFNetworkReachabilityManager.m in Sources */,
 				D08D90B019FDAFAD00E865CC /* NSLayoutConstraint+PureLayout.m in Sources */,
 				D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */,
-				D0CFE5981888CC0300165839 /* TransparentToolbar.m in Sources */,
 				D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D0CFE5921888AD0200165839 /* AFURLSessionManager.m in Sources */,
 				D059745E18CEA28E00867B02 /* OCNote.m in Sources */,

@@ -11,7 +11,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIViewController+MMDrawerController.h"
 #import "TTOpenInAppActivity.h"
-#import "TransparentToolbar.h"
 #import "PureLayout.h"
 
 @interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
