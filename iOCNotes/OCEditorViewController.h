@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "OCNote.h"
+#import "OCHeaderTextView.h"
 
 @interface OCEditorViewController : UIViewController <UITextViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITextView *noteContentView;
+@property (strong, nonatomic) OCHeaderTextView *noteView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *activityButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
@@ -21,9 +22,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *fixedSpace;
 @property (strong, nonatomic) OCNote *ocNote;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomLayoutConstraint;
 
-@property (strong, nonatomic, readonly) UILabel *modifiedLabel;
 @property (assign) BOOL addingNote;
 
 - (IBAction)doShowDrawer:(id)sender;

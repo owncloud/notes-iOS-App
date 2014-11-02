@@ -48,7 +48,12 @@
     UINavigationController *centerNav = [storyboard instantiateViewControllerWithIdentifier:@"Editor"];
     
     MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:centerNav leftDrawerViewController:leftNav];
-    [drawerController setMaximumLeftDrawerWidth:320.0];
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+        [drawerController setMaximumLeftDrawerWidth:320.0];
+    } else {
+        [drawerController setMaximumLeftDrawerWidth:[[UIScreen mainScreen] bounds].size.width];
+    }
+
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModePanningNavigationBar | MMCloseDrawerGestureModeTapCenterView | MMCloseDrawerGestureModeTapNavigationBar];
     drawerController.showsShadow = NO;

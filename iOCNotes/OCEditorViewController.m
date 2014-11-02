@@ -12,6 +12,7 @@
 #import "UIViewController+MMDrawerController.h"
 #import "TTOpenInAppActivity.h"
 #import "TransparentToolbar.h"
+#import "PureLayout.h"
 
 @interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
     NSTimer *editingTimer;
@@ -20,6 +21,8 @@
 }
 
 @property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
+@property (strong, nonatomic) NSLayoutConstraint *bottomLayoutConstraint;
+@property (nonatomic, assign) BOOL didSetupConstraints;
 
 - (void)updateText:(NSTimer*)timer;
 - (void)noteUpdated:(NSNotification*)notification;
@@ -29,16 +32,16 @@
 @implementation OCEditorViewController
 
 @synthesize ocNote = _ocNote;
-@synthesize modifiedLabel;
 @synthesize addingNote;
+@synthesize noteView;
 
 - (void)setOcNote:(OCNote *)ocNote {
     if (![ocNote isEqual:_ocNote]) {
         _ocNote = ocNote;
-        self.noteContentView.text = _ocNote.content;
+        self.noteView.text = _ocNote.content;
         [self noteUpdated:nil];
-        [self.noteContentView.undoManager removeAllActions];
-        [self.noteContentView scrollRangeToVisible:NSMakeRange(0, 0)];
+        [self.noteView.undoManager removeAllActions];
+        [self.noteView scrollRangeToVisible:NSMakeRange(0, 0)];
     }
 }
 
@@ -51,31 +54,29 @@
     border.frame = CGRectMake(0, 0, 1, 1024);
     [self.mm_drawerController.centerViewController.view.layer addSublayer:border];
     
+    [self.view addSubview:self.noteView];
+    
     if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
         self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
     }
     
     if (self.ocNote) {
-        self.noteContentView.text = self.ocNote.content;
-        self.noteContentView.editable = YES;
-        self.noteContentView.selectable = YES;
-        self.activityButton.enabled = (self.noteContentView.text.length > 0);
-        self.addButton.enabled = (self.noteContentView.text.length > 0);
+        self.noteView.text = self.ocNote.content;
+        self.noteView.editable = YES;
+        self.noteView.selectable = YES;
+        self.activityButton.enabled = (self.noteView.text.length > 0);
+        self.addButton.enabled = (self.noteView.text.length > 0);
         self.deleteButton.enabled = YES;
     } else {
-        self.noteContentView.editable = NO;
-        self.noteContentView.selectable = NO;
-        self.noteContentView.text = @"";
-        self.modifiedLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
+        self.noteView.editable = NO;
+        self.noteView.selectable = NO;
+        self.noteView.text = @"";
+        self.noteView.headerLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
         self.navigationItem.title = @"";
         self.activityButton.enabled = NO;
         self.addButton.enabled = YES;
         self.deleteButton.enabled = NO;
     }
-    
-    self.noteContentView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.noteContentView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
-    [self.noteContentView addSubview:self.modifiedLabel];
     
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.delegate = self;
@@ -119,6 +120,8 @@
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
+    [self.view setNeedsUpdateConstraints];
+    
     [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
 }
 
@@ -131,60 +134,40 @@
             dateFormat.dateStyle = NSDateFormatterShortStyle;
             dateFormat.timeStyle = NSDateFormatterShortStyle;
             dateFormat.doesRelativeDateFormatting = NO;
-            self.modifiedLabel.text = [dateFormat stringFromDate:date];
-            self.modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+            self.noteView.headerLabel.text = [dateFormat stringFromDate:date];
+            self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         }
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //[self.noteContentView becomeFirstResponder];
-    //[self.noteContentView resignFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    //self.navigationController.toolbar.hidden = YES;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        self.noteContentView.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
-        
-        int width;
-        int height;
-        if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-            width = CGRectGetHeight([UIScreen mainScreen].applicationFrame);
-            //self.modifiedLabel.frame = CGRectMake(0, kModifiedLabelOffset, width, 15);
-            if (width > 500) { //4" screen
-                //
-            } else {
-                //
-            }
-            
-        } else {
-            height = CGRectGetHeight([UIScreen mainScreen].applicationFrame);
-
-            width = CGRectGetWidth([UIScreen mainScreen].applicationFrame);
-            //self.modifiedLabel.frame = CGRectMake(0, kModifiedLabelOffset, width, 15);
-            if (height > 500) {
-                //
-            } else {
-                //
-            }
-        }
-         
+        //
     } else { //iPad
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-            self.noteContentView.textContainerInset = UIEdgeInsetsMake(20, 178, 20, 178);
-            self.modifiedLabel.frame = CGRectMake(183, -18, 500, 15);
+            self.noteView.textContainerInset = UIEdgeInsetsMake(20, 178, 20, 178);
         } else {
-            self.noteContentView.textContainerInset = UIEdgeInsetsMake(20, 50, 20, 50);
-            self.modifiedLabel.frame = CGRectMake(55, -18, 500, 15);
+            self.noteView.textContainerInset = UIEdgeInsetsMake(20, 50, 20, 50);
         }
     }
+}
+
+- (void)updateViewConstraints {
+    if (!self.didSetupConstraints) {
+        NSArray *constraints = [self.noteView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
+        self.bottomLayoutConstraint = [constraints objectAtIndex:2];
+        self.didSetupConstraints = YES;
+    }
+    [super updateViewConstraints];
 }
 
 - (void)dealloc
@@ -205,20 +188,20 @@
 }
 
 - (IBAction)doShowDrawer:(id)sender {
-    if (self.noteContentView.isFirstResponder) {
-        [self.noteContentView resignFirstResponder];
+    if (self.noteView.isFirstResponder) {
+        [self.noteView resignFirstResponder];
     }
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 - (IBAction)doActivities:(id)sender {
     NSString *textToExport;
-    UITextRange *selectedRange = [self.noteContentView selectedTextRange];
-    NSString *selectedText = [self.noteContentView textInRange:selectedRange];
+    UITextRange *selectedRange = [self.noteView selectedTextRange];
+    NSString *selectedText = [self.noteView textInRange:selectedRange];
     if (selectedText.length > 0) {
         textToExport = selectedText;
     } else {
-        textToExport = self.noteContentView.text;
+        textToExport = self.noteView.text;
     }
     
     NSURL *fileUrl = [[OCNotesHelper sharedHelper] documentsDirectoryURL];
@@ -270,16 +253,16 @@
         return;
     }
 
-    __block UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.noteContentView.frame];
+    __block UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.noteView.frame];
     imageView.image = [self screenshot];
     [[OCNotesHelper sharedHelper] deleteNote:self.ocNote];
-    [self.noteContentView addSubview:imageView];
+    [self.noteView addSubview:imageView];
     [UIView animateWithDuration:0.3f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-                         CGRect targetFrame = CGRectMake(self.noteContentView.frame.size.width / 2,
-                                                         self.noteContentView.frame.size.height /2,
+                         CGRect targetFrame = CGRectMake(self.noteView.frame.size.width / 2,
+                                                         self.noteView.frame.size.height /2,
                                                          0, 0);
                          imageView.frame = targetFrame;
                          imageView.alpha = 0.0f;
@@ -297,19 +280,19 @@
 }
 
 - (IBAction)onUndo:(id)sender {
-    if ([self.noteContentView.undoManager canUndo]) {
-        [self.noteContentView.undoManager undo];
+    if ([self.noteView.undoManager canUndo]) {
+        [self.noteView.undoManager undo];
     }
 }
 
 - (IBAction)onRedo:(id)sender {
-    if ([self.noteContentView.undoManager canRedo]) {
-        [self.noteContentView.undoManager redo];
+    if ([self.noteView.undoManager canRedo]) {
+        [self.noteView.undoManager redo];
     }
 }
 
 - (IBAction)onDone:(id)sender {
-    [self.noteContentView resignFirstResponder];
+    [self.noteView endEditing:YES];
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
@@ -349,7 +332,7 @@
 
 - (void)updateText:(NSTimer*)timer {
     NSLog(@"Ready to update text");
-    self.ocNote.content = self.noteContentView.text;
+    self.ocNote.content = self.noteView.text;
     [self.ocNote save];
     [[OCNotesHelper sharedHelper] updateNote:self.ocNote];
 }
@@ -357,17 +340,17 @@
 - (void)noteUpdated:(NSNotification *)notification {
     NSLog(@"Informed about note update");
     if (self.ocNote) {
-        self.noteContentView.editable = YES;
-        self.noteContentView.selectable = YES;
-        if (self.noteContentView.text.length) {
+        self.noteView.editable = YES;
+        self.noteView.selectable = YES;
+        if (self.noteView.text.length) {
             self.activityButton.enabled = YES;
             self.addButton.enabled = YES;
         } else {
             self.activityButton.enabled = NO;
             self.addButton.enabled = NO;
         }
-        self.activityButton.enabled = (self.noteContentView.text.length > 0);
-        self.addButton.enabled = (self.noteContentView.text.length > 0);
+        self.activityButton.enabled = (self.noteView.text.length > 0);
+        self.addButton.enabled = (self.noteView.text.length > 0);
         self.deleteButton.enabled = YES;
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.ocNote.modified];
         if (date) {
@@ -375,19 +358,19 @@
             dateFormat.dateStyle = NSDateFormatterShortStyle;
             dateFormat.timeStyle = NSDateFormatterShortStyle;
             dateFormat.doesRelativeDateFormatting = NO;
-            self.modifiedLabel.text = [dateFormat stringFromDate:date];
-            self.modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+            self.noteView.headerLabel.text = [dateFormat stringFromDate:date];
+            self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         }
     } else {
-        self.noteContentView.editable = NO;
-        self.noteContentView.selectable = NO;
-        self.modifiedLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
+        self.noteView.editable = NO;
+        self.noteView.selectable = NO;
+        self.noteView.headerLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
         self.navigationItem.title = @"";
     }
     if ([notification.name isEqualToString:FCModelInsertNotification]) {
         if (self.addingNote) {
-            [self.view bringSubviewToFront:self.noteContentView];
-            [self.noteContentView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.3];
+            [self.view bringSubviewToFront:self.noteView];
+            [self.noteView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.3];
             self.addingNote = NO;
         }
     }
@@ -397,18 +380,14 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         self.navigationItem.rightBarButtonItems = @[self.doneButton, self.fixedSpace, self.redoButton, self.fixedSpace, self.undoButton];
     }
+    
     NSDictionary* d = [notification userInfo];
     CGRect r = [d[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     r = [self.view convertRect:r fromView:nil];
     
     NSDictionary *info = [notification userInfo];
-    //NSValue *kbFrame = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
     
     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 2;
-    //CGRect keyboardFrame = [kbFrame CGRectValue];
-    
-    //CGRect finalKeyboardFrame = [self.view convertRect:keyboardFrame fromView:self.view.window];
-    //CGRect myFrame = self.inputView.frame;
     int kbHeight = r.size.height;
     
     int height = kbHeight + self.bottomLayoutConstraint.constant;
@@ -417,8 +396,13 @@
         adjustment = 44;
     }
     
-    self.bottomLayoutConstraint.constant = height - adjustment;
+    UIEdgeInsets textInsets = self.noteView.textContainerInset;
+    textInsets.bottom = height;
     
+    [self.bottomLayoutConstraint autoRemove];
+    [self updateViewConstraints];
+    self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:height];
+
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
     }];
@@ -436,8 +420,10 @@
         adjustment = 44;
     }
     
-    self.bottomLayoutConstraint.constant = -adjustment;
-    
+    [self.bottomLayoutConstraint autoRemove];
+    self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:adjustment];
+    [self updateViewConstraints];
+
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
     }];
@@ -448,24 +434,8 @@
 }
 
 - (void)preferredContentSizeChanged:(NSNotification *)notification {
-    self.noteContentView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-}
-
-- (UILabel*)modifiedLabel {
-    if (!modifiedLabel) {
-        modifiedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -18, 320, 15)];
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            modifiedLabel.textAlignment = NSTextAlignmentLeft;
-        }else {
-            modifiedLabel.textAlignment = NSTextAlignmentCenter;
-        }
-        modifiedLabel.textColor = [UIColor lightGrayColor];
-        modifiedLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        modifiedLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        modifiedLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
-    }
-    return modifiedLabel;
+    self.noteView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
@@ -477,20 +447,29 @@
             }
         }
         if (showKeyboard) {
-            [self.view bringSubviewToFront:self.noteContentView];
-            [self.noteContentView becomeFirstResponder];
+            [self.view bringSubviewToFront:self.noteView];
+            [self.noteView becomeFirstResponder];
         }
     }
 }
 
 - (UIImage*)screenshot {
-    UIGraphicsBeginImageContextWithOptions(self.noteContentView.frame.size, NO, 0);
+    UIGraphicsBeginImageContextWithOptions(self.noteView.frame.size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    [self.noteContentView.layer renderInContext:context];
+    [self.noteView.layer renderInContext:context];
     UIImage *capturedScreen = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
     return capturedScreen;
+}
+
+- (OCHeaderTextView*)noteView {
+    if (!noteView) {
+        noteView = [OCHeaderTextView newAutoLayoutView];
+        noteView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        noteView.alwaysBounceVertical = YES;
+    }
+    return noteView;
 }
 
 @end

@@ -140,7 +140,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self didBecomeActive:nil];
-    [self.editorViewController.noteContentView resignFirstResponder];
+    [self.editorViewController.noteView resignFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -66,6 +66,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
     self.usernameTextField.delegate = self;
     self.passwordTextField.delegate = self;
     self.certificateCell.accessoryView = self.certificateSwitch;
+    self.tableView.backgroundColor = [UIColor colorWithRed:0.957 green:0.957 blue:0.957 alpha:1.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,6 +104,11 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
         self.connectLabel.text = NSLocalizedString(@"Reconnect", @"A button title");
     }
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.0001f;
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
