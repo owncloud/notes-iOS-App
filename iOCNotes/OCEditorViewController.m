@@ -465,6 +465,7 @@
 - (OCHeaderTextView*)noteView {
     if (!noteView) {
         noteView = [OCHeaderTextView newAutoLayoutView];
+        noteView.delegate = self;
         noteView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         noteView.alwaysBounceVertical = YES;
     }
