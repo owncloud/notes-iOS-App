@@ -257,7 +257,9 @@
                             ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
                             ocNote.title = [noteDict objectForKey:@"title"];
                             ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                            [ocNote save];
+                            if ([ocNote existsInDatabase]) {
+                                [ocNote save];
+                            }
                         }
                     }
                 }];
@@ -338,11 +340,13 @@
                                 NSLog(@"NoteDict: %@", noteDict);
                                 if ([[NSNumber numberWithLongLong:note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
                                     if ([[noteDict objectForKey:@"modified"] doubleValue] > noteToGet.modified) {
-                                        noteToGet.title = [noteDict objectForKey:@"title"];
+                                        noteToGet.title = [noteDict objectForKeyNotNull:@"title" fallback:@""];
                                         noteToGet.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                                         noteToGet.modified = [[noteDict objectForKey:@"modified"] doubleValue];
                                     }
-                                    [noteToGet save];
+                                    if ([noteToGet existsInDatabase]) {
+                                        [noteToGet save];
+                                    }
                                 }
                             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                 NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -390,7 +394,9 @@
                 note.title = [noteDict objectForKey:@"title"];
                 note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                 note.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-                [note save];
+                if ([note existsInDatabase]) {
+                    [note save];
+                }
                 [notesToAdd removeObject:note.guid];
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 //TODO: Determine what to do with failures.
@@ -546,7 +552,9 @@
                 note.title = [noteDict objectForKey:@"title"];
                 note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                 note.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-                [note save];
+                if ([note existsInDatabase]) {
+                    [note save];
+                }
                 [notesToAdd removeObject:note.guid];
                 [notesToUpdate removeObject:@(note.id)];
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
