@@ -52,25 +52,31 @@
     if (!self.didSetupConstraints) {
         static const CGFloat kSmallPadding = 20.0;
         
-        [self.headerLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            [self.headerLabel autoSetDimension:ALDimensionWidth toSize:664];
-            [self.headerLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
+        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+            self.contentInset = UIEdgeInsetsMake(94, 0, 0, 0);
         } else {
-            [self.headerLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self withOffset:kSmallPadding];
-            [self.headerLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
+            [self.headerLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                [self.headerLabel autoSetDimension:ALDimensionWidth toSize:664];
+                [self.headerLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
+            } else {
+                [self.headerLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self withOffset:kSmallPadding];
+                [self.headerLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
+            }
+            [self.headerLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:-kSmallPadding];
         }
-        [self.headerLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:-kSmallPadding];
-//        [self autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
         self.didSetupConstraints = YES;
     }
-
     [super updateConstraints];
 }
 
 - (UILabel*)headerLabel {
     if (!headerLabel) {
-        headerLabel = [UILabel newAutoLayoutView];
+        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+            headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, -18, 280, 21)];
+        } else {
+            headerLabel = [UILabel newAutoLayoutView];
+        }
         headerLabel.numberOfLines = 1;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             headerLabel.textAlignment = NSTextAlignmentLeft;

@@ -150,12 +150,26 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        //
+            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+                if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+                    CGFloat width = CGRectGetHeight([UIScreen mainScreen].applicationFrame);
+                    self.noteView.headerLabel.frame = CGRectMake(20, -18, width - 40, 21);
+                } else {
+                    CGFloat width = CGRectGetWidth([UIScreen mainScreen].applicationFrame);
+                    self.noteView.headerLabel.frame = CGRectMake(20, -18, width - 40, 21);
+                }
+            }
     } else { //iPad
         if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
             self.noteView.textContainerInset = UIEdgeInsetsMake(20, 178, 20, 178);
+            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+                self.noteView.headerLabel.frame = CGRectMake(178, -18, 280, 21);
+            }
         } else {
             self.noteView.textContainerInset = UIEdgeInsetsMake(20, 50, 20, 50);
+            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
+                self.noteView.headerLabel.frame = CGRectMake(50, -18, 280, 21);
+            }
         }
     }
 }
