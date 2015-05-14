@@ -17,6 +17,9 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, assign) double modified;
+@property (nonatomic, assign) BOOL addNeeded;
+@property (nonatomic, assign) BOOL updateNeeded;
+@property (nonatomic, assign) BOOL deleteNeeded;
 
 // non-columns:
 @property (nonatomic) NSInteger status;

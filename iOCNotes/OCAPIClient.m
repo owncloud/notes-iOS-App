@@ -69,8 +69,8 @@ static dispatch_once_t oncePredicate = 0;
     
     [self setRequestSerializer:[AFJSONRequestSerializer serializer]];
     [self.requestSerializer setAuthorizationHeaderFieldWithUsername:[keychain objectForKey:(__bridge id)(kSecAttrAccount)] password:[keychain objectForKey:(__bridge id)(kSecValueData)]];
-    [self.reachabilityManager startMonitoring];
-    
+    [self.reachabilityManager startMonitoring];    
+
     return self;
 }
 

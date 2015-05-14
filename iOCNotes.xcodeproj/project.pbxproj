@@ -76,6 +76,7 @@
 		D03DA15618DE578E00178958 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14818DE435900178958 /* FMResultSet.m */; };
 		D03DA15718DE57B600178958 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */; };
 		D03ED3E419CE669700C8723F /* TSMessages.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D03ED3E319CE669700C8723F /* TSMessages.bundle */; };
+		D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */; };
 		D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */; };
 		D059745E18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
 		D059745F18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
@@ -190,6 +191,8 @@
 		D03DA14E18DE446400178958 /* FCModelDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelDatabaseQueue.h; sourceTree = "<group>"; };
 		D03DA14F18DE446400178958 /* FCModelDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModelDatabaseQueue.m; sourceTree = "<group>"; };
 		D03ED3E319CE669700C8723F /* TSMessages.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TSMessages.bundle; path = TSMessages/Pod/Assets/TSMessages.bundle; sourceTree = SOURCE_ROOT; };
+		D054E5F91AEF148E001C6FF1 /* OCNoteOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperation.h; sourceTree = "<group>"; };
+		D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperation.m; sourceTree = "<group>"; };
 		D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		D059745C18CEA28E00867B02 /* OCNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNote.h; sourceTree = "<group>"; };
 		D059745D18CEA28E00867B02 /* OCNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNote.m; sourceTree = "<group>"; };
@@ -484,6 +487,8 @@
 				D0CFE5461888A7BD00165839 /* OCAppDelegate.m */,
 				D0CFE599188B5A6900165839 /* OCAPIClient.h */,
 				D0CFE59A188B5A6900165839 /* OCAPIClient.m */,
+				D054E5F91AEF148E001C6FF1 /* OCNoteOperation.h */,
+				D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */,
 				D02257041896E6650038232A /* OCNotesHelper.h */,
 				D02257051896E6650038232A /* OCNotesHelper.m */,
 				D02256F21895E2F10038232A /* OCSettingsController.h */,
@@ -794,6 +799,7 @@
 			files = (
 				D0CFE58F1888AD0200165839 /* AFURLConnectionOperation.m in Sources */,
 				D0CFE58A1888AD0200165839 /* AFHTTPRequestOperation.m in Sources */,
+				D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */,
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
 				D08D90AF19FDAFAD00E865CC /* NSArray+PureLayout.m in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,

@@ -352,7 +352,7 @@
 
 - (void)noteUpdated:(NSNotification *)notification {
     NSLog(@"Informed about note update");
-    if (self.ocNote) {
+    if (self.ocNote && !self.ocNote.deleteNeeded) {
         self.noteView.editable = YES;
         self.noteView.selectable = YES;
         if (self.noteView.text.length) {

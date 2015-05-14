@@ -156,7 +156,8 @@
 
 - (void)reloadNotes:(NSNotification *)notification
 {
-    self.ocNotes = [OCNote instancesOrderedBy:@"modified DESC"];
+    self.ocNotes = [OCNote instancesWhere:@"deleteNeeded = 0 ORDER BY modified DESC"];
+//    [OCNote instancesOrderedBy:@"modified DESC"];
     NSLog(@"Reloading with %lu notes", (unsigned long) self.ocNotes.count);
     NSIndexPath *currentSelection = [self.tableView indexPathForSelectedRow];
     [self.tableView reloadData];
@@ -175,7 +176,7 @@
 
 - (void)noteAdded:(NSNotification *)notification
 {
-    self.ocNotes = [OCNote instancesOrderedBy:@"modified DESC"];
+    self.ocNotes = [OCNote instancesWhere:@"deleteNeeded = 0 ORDER BY modified DESC"];
     [self.tableView reloadData];
     NSLog(@"Note added: %@", [notification userInfo]);
     NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
@@ -196,27 +197,27 @@
 
 - (void)noteDeleted:(NSNotification *)notification
 {
-    NSInteger newIndex = 0;
-    NSLog(@"Note deleted: %@", [notification userInfo]);
-    NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
-    OCNote *newNote = [noteSet anyObject];
-    newIndex = [self.ocNotes indexOfObject:newNote] + 1;
-    if (newIndex >= self.ocNotes.count) {
-        --newIndex;
-        --newIndex;
-    }
-    if (newIndex >= 0) {
-        newNote = [self.ocNotes objectAtIndex:newIndex];
-        self.editorViewController.ocNote = newNote;
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-    } else {
-        self.editorViewController.ocNote = nil;
-    }
-    self.ocNotes = [OCNote instancesOrderedBy:@"modified DESC"];
-    if (self.mm_drawerController.openSide == MMDrawerSideNone) {
-        //called while showing editor
-        [self.tableView reloadData];
-    }
+//    NSInteger newIndex = 0;
+//    NSLog(@"Note deleted: %@", [notification userInfo]);
+//    NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
+//    OCNote *newNote = [noteSet anyObject];
+//    newIndex = [self.ocNotes indexOfObject:newNote] + 1;
+//    if (newIndex >= self.ocNotes.count) {
+//        --newIndex;
+//        --newIndex;
+//    }
+//    if (newIndex >= 0) {
+//        newNote = [self.ocNotes objectAtIndex:newIndex];
+//        self.editorViewController.ocNote = newNote;
+//        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+//    } else {
+//        self.editorViewController.ocNote = nil;
+//    }
+//    self.ocNotes = [OCNote instancesOrderedBy:@"modified DESC"];
+//    if (self.mm_drawerController.openSide == MMDrawerSideNone) {
+//        //called while showing editor
+//        [self.tableView reloadData];
+//    }
 }
 
 - (void)dealloc
@@ -312,7 +313,6 @@
 }
 
 
-
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -335,7 +335,30 @@
             [[OCNotesHelper sharedHelper] deleteNote:note];
         }
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        self.ocNotes = [OCNote instancesWhere:@"deleteNeeded = 0 ORDER BY modified DESC"];
+        
+        NSInteger newIndex = 0;
+        if (indexPath.row >= 0) {
+            newIndex = indexPath.row;
+        }
+        if (newIndex >= self.ocNotes.count) {
+            --newIndex;
+        }
         [tableView endUpdates];
+
+        if (newIndex >= 0) {
+            OCNote *newNote = [self.ocNotes objectAtIndex:newIndex];
+            self.editorViewController.ocNote = newNote;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+            });
+        } else {
+            self.editorViewController.ocNote = nil;
+        }
+        if (self.mm_drawerController.openSide == MMDrawerSideNone) {
+            //called while showing editor
+            [self.tableView reloadData];
+        }
     }
 }
 
@@ -500,7 +523,7 @@
     [self.refreshControl endRefreshing];
     self.addBarButton.enabled = YES;
     self.settingsBarButton.enabled = YES;
-    [TSMessage showNotificationInViewController:self
+    [TSMessage showNotificationInViewController:self.navigationController.topViewController
                                           title:[n.userInfo objectForKey:@"Title"]
                                        subtitle:[n.userInfo objectForKey:@"Message"]
                                           image:nil
