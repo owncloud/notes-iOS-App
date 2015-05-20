@@ -5,7 +5,7 @@
 
 /************************************************************************
  
- Copyright 2014 Peter Hedlund peter.hedlund@me.com
+ Copyright 2014-2015 Peter Hedlund peter.hedlund@me.com
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -39,9 +39,6 @@
 #import "OCNoteOperation.h"
 
 @interface OCNotesHelper () <OCNoteOperationDelegate>  {
-//    NSMutableSet *notesToAdd;
-//    NSMutableSet *notesToDelete;
-//    NSMutableSet *notesToUpdate;
     BOOL online;
 }
 
@@ -67,11 +64,6 @@
     if (!self) {
         return nil;
     }
-    
-//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-//    notesToAdd = [NSMutableSet setWithArray:[[prefs arrayForKey:@"NotesToAdd"] mutableCopy]];
-//    notesToDelete = [NSMutableSet setWithArray:[[prefs arrayForKey:@"NotesToDelete"] mutableCopy]];
-//    notesToUpdate = [NSMutableSet setWithArray:[[prefs arrayForKey:@"NotesToUpdate"] mutableCopy]];
     
     [self setupDatabase];
     
@@ -112,10 +104,6 @@
 
 - (void)appDidBecomeActive:(NSNotification*)n {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dbReset"]) {
-//        notesToAdd = [NSMutableSet new];
-//        notesToDelete = [NSMutableSet new];
-//        notesToUpdate = [NSMutableSet new];
-        
         NSURL *dbURL = [self documentsDirectoryURL];
         dbURL = [dbURL URLByAppendingPathComponent:@"Notes" isDirectory:NO];
         dbURL = [dbURL URLByAppendingPathExtension:@"db"];
@@ -219,14 +207,6 @@
     }];
 }
 
-//- (void)savePrefs {
-//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-//    [prefs setObject:notesToAdd.allObjects forKey:@"NotesToAdd"];
-//    [prefs setObject:notesToDelete.allObjects forKey:@"NotesToDelete"];
-//    [prefs setObject:notesToUpdate.allObjects forKey:@"NotesToUpdate"];
-//    [prefs synchronize];
-//}
-
 /*
  Get all notes
  
@@ -291,11 +271,6 @@
                 NSLog(@"Deleted on server: %@", deletedOnServer);
                 while (deletedOnServer.count > 0) {
                     OCNote *ocNote = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [deletedOnServer lastObject]]];
-//                    [notesToAdd removeObject:ocNote.guid];
-//                    if (ocNote.id > 0) {
-//                        [notesToDelete removeObject:@(ocNote.id)];
-//                        [notesToUpdate removeObject:@(ocNote.id)];
-//                    }
                     [ocNote delete];
                     [deletedOnServer removeLastObject];
                 }
@@ -340,98 +315,11 @@
         if (note.id > 0) {
             OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeGet delegate:self];
             [self addOperationToQueue:operation];
-
-//            NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithLongLong:note.id].stringValue];
-//            __block OCNote *noteToGet = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [NSNumber numberWithLongLong:note.id]]];
-//            if (noteToGet) {
-//                NSDictionary *params = @{@"exclude": @"title,content"};
-//                [[OCAPIClient sharedClient] GET:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-//                    //NSLog(@"Note: %@", responseObject);
-//                    NSDictionary *noteDict = (NSDictionary*)responseObject;
-//                    NSLog(@"NoteDict: %@", noteDict);
-//                    if ([[NSNumber numberWithLongLong:noteToGet.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-//                        if ([[noteDict objectForKey:@"modified"] doubleValue] > noteToGet.modified) {
-//                            //The server has a newer version. We need to get it.
-//                            [[OCAPIClient sharedClient] GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//                                //NSLog(@"Note: %@", responseObject);
-//                                NSDictionary *noteDict = (NSDictionary*)responseObject;
-//                                NSLog(@"NoteDict: %@", noteDict);
-//                                if ([[NSNumber numberWithLongLong:note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-//                                    if ([[noteDict objectForKey:@"modified"] doubleValue] > noteToGet.modified) {
-//                                        noteToGet.title = [noteDict objectForKeyNotNull:@"title" fallback:@""];
-//                                        noteToGet.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-//                                        noteToGet.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-//                                    }
-//                                    if ([noteToGet existsInDatabase]) {
-//                                        [noteToGet save];
-//                                    }
-//                                }
-//                            } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//                                NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-//                                NSString *message;
-//                                switch (response.statusCode) {
-//                                    case 404:
-//                                        message = NSLocalizedString(@"The note does not exist", @"An error message");
-//                                        break;
-//                                    default:
-//                                        message = [error localizedDescription];
-//                                        break;
-//                                }
-//                                NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Getting Note", @"The title of an error message"),
-//                                                           @"Message": message};
-//                                [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-//                            }];
-//                            
-//                        }
-//                        
-//                    }
-//                } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//                    NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-//                    NSString *message;
-//                    switch (response.statusCode) {
-//                        case 404:
-//                            message = NSLocalizedString(@"The note does not exist", @"An error message");
-//                            break;
-//                        default:
-//                            message = [error localizedDescription];
-//                            break;
-//                    }
-//                    NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Getting Note", @"The title of an error message"),
-//                                               @"Message": message};
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-//                }];
-//            }
         }
         else
         {
             OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeAdd delegate:self];
             [self addOperationToQueue:operation];
-//
-//            NSDictionary *params = @{@"content": note.content};
-//            [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-//                //NSLog(@"Note: %@", responseObject);
-//                NSDictionary *noteDict = (NSDictionary*)responseObject;
-//                note.id = [[noteDict objectForKey:@"id"] intValue];
-//                note.title = [noteDict objectForKey:@"title"];
-//                note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-//                note.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-//                if ([note existsInDatabase]) {
-//                    [note save];
-//                }
-//                [notesToAdd removeObject:note.guid];
-//            } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//                //TODO: Determine what to do with failures.
-//                NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-//                NSString *message;
-//                switch (response.statusCode) {
-//                    default:
-//                        message = [error localizedDescription];
-//                        break;
-//                }
-//                NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Adding Note", @"The title of an error message"),
-//                                           @"Message": message};
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-//            }];
         }
     } else {
         //offline
@@ -474,33 +362,6 @@
     if (online) {
         OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:newNote noteOperationType:NoteOperationTypeAdd delegate:self];
         [self addOperationToQueue:operation];
-//        NSDictionary *params = @{@"content": newNote.content};
-//        [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-//            NSDictionary *noteDict = (NSDictionary*)responseObject;
-//            newNote.id = [[noteDict objectForKey:@"id"] intValue];
-//            newNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-//            newNote.title = [noteDict objectForKey:@"title"];
-//            newNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-//            [newNote save];
-//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-//            NSString *message;
-//            switch (response.statusCode) {
-//                default:
-//                    message = [error localizedDescription];
-//                    break;
-//            }
-//            NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Adding Note", @"The title of an error message"),
-//                                       @"Message": message};
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-//            [notesToAdd addObject:newNote.guid];
-//            [self savePrefs];
-//        }];
-        
-    } else {
-        [newNote save];
-//        [notesToAdd addObject:newNote.guid];
-//        [self savePrefs];
     }
 }
 
@@ -540,84 +401,16 @@
         if (note.id > 0) {
             OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeUpdate delegate:self];
             [self addOperationToQueue:operation];
-
-//            NSDictionary *params = @{@"content": note.content};
-//            NSString *path = [NSString stringWithFormat:@"notes/%@",[NSNumber numberWithLongLong:note.id]];
-//            __block OCNote *noteToUpdate = [OCNote instanceWithPrimaryKey:note.guid];
-//            
-//            [[OCAPIClient sharedClient] PUT:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-//                //NSLog(@"Note: %@", responseObject);
-//                NSDictionary *noteDict = (NSDictionary*)responseObject;
-//                if ([[NSNumber numberWithLongLong:note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-//                    noteToUpdate.title = [noteDict objectForKey:@"title"];
-//                    noteToUpdate.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];;
-//                    noteToUpdate.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-//                    if (noteToUpdate.existsInDatabase) {
-//                        [noteToUpdate save];
-//                    }
-//                }
-//            } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//                NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-//                NSString *message;
-//                switch (response.statusCode) {
-//                    case 404:
-//                        message = NSLocalizedString(@"The note does not exist", @"An error message");
-//                        break;
-//                    default:
-//                        message = [error localizedDescription];
-//                        break;
-//                }
-//                NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Updating Note", @"The title of an error message"),
-//                                           @"Message": message};
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-//                noteToUpdate.modified = [[NSDate date] timeIntervalSince1970];
-//                if (noteToUpdate.existsInDatabase) {
-//                    [noteToUpdate save];
-//                }
-//            }];
         } else {
             OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeAdd delegate:self];
             [self addOperationToQueue:operation];
-
-//            NSDictionary *params = @{@"content": note.content};
-//            [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-//                //NSLog(@"Note: %@", responseObject);
-//                NSDictionary *noteDict = (NSDictionary*)responseObject;
-//                note.id = [[noteDict objectForKey:@"id"] intValue];
-//                note.title = [noteDict objectForKey:@"title"];
-//                note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-//                note.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-//                if ([note existsInDatabase]) {
-//                    [note save];
-//                }
-//                [notesToAdd removeObject:note.guid];
-//                [notesToUpdate removeObject:@(note.id)];
-//            } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//                //TODO: Determine what to do with failures.
-//                NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-//                NSString *message;
-//                switch (response.statusCode) {
-//                    default:
-//                        message = [error localizedDescription];
-//                        break;
-//                }
-//                NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Adding Note", @"The title of an error message"),
-//                                           @"Message": message};
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-//            }];
         }
-        
     } else {
         //offline
         note.modified = [[NSDate date] timeIntervalSince1970];
         if (note.existsInDatabase) {
             [note save];
         }
-//        if (note.id > 0) { // Has been synced at least once and is not included in notesToAdd
-//            note.updateNeeded = YES;
-//            [note save];
-//        }
-//        [self savePrefs];
     }
 }
 
@@ -642,215 +435,64 @@
     noteToDelete.addNeeded = NO;
     noteToDelete.updateNeeded = NO;
     [noteToDelete save];
-//    [noteToDelete delete];
     
     if (noteId > 0) {
         if (online) {
             OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeDelete delegate:self];
             [self addOperationToQueue:operation];
-
-//            NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithInt:noteId]];
-//            [[OCAPIClient sharedClient] DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//                NSLog(@"Success deleting note");
-//                //[noteToDelete delete];
-//            } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//                NSLog(@"Failure to delete note");
-//                [notesToDelete addObject:[NSNumber numberWithInt:noteId]];
-//                [self savePrefs];
-//                //[noteToDelete delete];
-//                NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Deleting Note", @"The title of an error message"),
-//                                           @"Message": [error localizedDescription]};
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-//            }];
-        } else {
-            //offline
-//            [notesToDelete addObject:[NSNumber numberWithInt:noteId]];
-//            [self savePrefs];
         }
     }
 }
 
 - (void)addNotesToServer {
-//    __block NSMutableArray *successfulAdditions = [NSMutableArray new];
-//    __block NSMutableArray *failedAdditions = [NSMutableArray new];
-//    dispatch_group_t addGroup = dispatch_group_create();
-//    
     NSArray *notesToAdd = [OCNote instancesWhere:@"addNeeded = 1"];
     
     [notesToAdd enumerateObjectsUsingBlock:^(OCNote *note, NSUInteger idx, BOOL *stop) {
         if (note) {
-//            dispatch_group_enter(addGroup);
             if (note.content.length > 0) {
                 OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeAdd delegate:self];
                 [self addOperationToQueue:operation];
-//            } else if (ocNote.id > 0) {
-//                //Already added for some reason
-//                [successfulAdditions addObject:ocNote.guid];
-//            } else {
-//                NSDictionary *params = @{@"content": ocNote.content};
-//                [[OCAPIClient sharedClient] POST:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-//                    //NSLog(@"Note: %@", responseObject);
-//                    @synchronized(successfulAdditions) {
-//                        NSDictionary *noteDict = (NSDictionary*)responseObject;
-//                        ocNote.id = [[noteDict objectForKey:@"id"] intValue];
-//                        ocNote.title = [noteDict objectForKey:@"title"];
-//                        ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-//                        ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-//                        [ocNote save];
-//                        [successfulAdditions addObject:ocNote.guid];
-//                    }
-//                    dispatch_group_leave(addGroup);
-//                } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//                    //TODO: Determine what to do with failures.
-//                    NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-//                    NSString *message;
-//                    switch (response.statusCode) {
-//                        default:
-//                            message = [error localizedDescription];
-//                            break;
-//                    }
-//                    NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Adding Note", @"The title of an error message"),
-//                                               @"Message": message};
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-//                    [failedAdditions addObject:ocNote.guid];
-//                    dispatch_group_leave(addGroup);
-//                }];
             }
         }
     }];
-//    dispatch_group_notify(addGroup, dispatch_get_main_queue(), ^{
-//        [successfulAdditions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//            [notesToAdd removeObject:obj];
-//        }];
-//    });
 }
 
 - (void)updateNotesOnServer {
-//    __block NSMutableArray *successfulUpdates = [NSMutableArray new];
-//    __block NSMutableArray *failedUpdates = [NSMutableArray new];
-//    
-//    dispatch_group_t updateGroup = dispatch_group_create();
     NSArray *notesToUpdate = [OCNote instancesWhere:@"updateNeeded = 1"];
 
     [notesToUpdate enumerateObjectsUsingBlock:^(OCNote *note, NSUInteger idx, BOOL *stop) {
         OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeUpdate delegate:self];
         [self addOperationToQueue:operation];
     }];
-//        __block OCNote *noteToUpdate = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", noteId]];
-//        if (noteToUpdate) {
-//            dispatch_group_enter(updateGroup);
-//            NSDictionary *params = @{@"content": noteToUpdate.content};
-//            NSString *path = [NSString stringWithFormat:@"notes/%@", noteId];
-//            [[OCAPIClient sharedClient] PUT:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-//                //NSLog(@"Note: %@", responseObject);
-//                @synchronized(successfulUpdates) {
-//                    NSDictionary *noteDict = (NSDictionary*)responseObject;
-//                    if ([noteId isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-//                        noteToUpdate.title = [noteDict objectForKey:@"title"];
-//                        noteToUpdate.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];;
-//                        noteToUpdate.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-//                        [noteToUpdate save];
-//                        [successfulUpdates addObject:[noteDict objectForKey:@"id"]];
-//                    }
-//                }
-//                dispatch_group_leave(updateGroup);
-//            } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//                //TODO: Determine what to do with failures.
-//                NSString *failedId = [task.originalRequest.URL lastPathComponent];
-//                NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-//                NSString *message;
-//                switch (response.statusCode) {
-//                    case 404:
-//                        NSLog(@"Id %@ no longer exists", failedId);
-//                        @synchronized(successfulUpdates) {
-//                            [successfulUpdates addObject:[NSNumber numberWithInteger:[failedId integerValue]]];
-//                        }
-//                        break;
-//                    default:
-//                        @synchronized(failedUpdates) {
-//                            [failedUpdates addObject:[NSNumber numberWithInteger:[failedId integerValue]]];
-//                        }
-//                        message = [error localizedDescription];
-//                        break;
-//                }
-//                NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Updating Note", @"The title of an error message"),
-//                                           @"Message": message};
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-//                dispatch_group_leave(updateGroup);
-//            }];
-//        }
-//    }];
-//    dispatch_group_notify(updateGroup, dispatch_get_main_queue(), ^{
-//        [successfulUpdates enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//            [notesToUpdate removeObject:obj];
-//        }];
-//    });
 }
 
 - (void)deleteNotesFromServer {
-    
     NSArray *notesToDelete = [OCNote instancesWhere:@"deleteNeeded = 1"];
     
     [notesToDelete enumerateObjectsUsingBlock:^(OCNote *note, NSUInteger idx, BOOL *stop) {
         OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeDelete delegate:self];
         [self addOperationToQueue:operation];
     }];
-
-//    __block NSMutableArray *successfulDeletions = [NSMutableArray new];
-//    __block NSMutableArray *failedDeletions = [NSMutableArray new];
-//    
-//    dispatch_group_t deleteGroup = dispatch_group_create();
-//    [notesToDelete enumerateObjectsUsingBlock:^(NSNumber *noteId, BOOL *stop) {
-//        dispatch_group_enter(deleteGroup);
-//        NSString *path = [NSString stringWithFormat:@"notes/%@", noteId];
-//        [[OCAPIClient sharedClient] DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//            NSLog(@"Success deleting from server");
-//            @synchronized(successfulDeletions) {
-//                NSString *successId = [task.originalRequest.URL lastPathComponent];
-//                [successfulDeletions addObject:[NSNumber numberWithInteger:[successId integerValue]]];
-//            }
-//            dispatch_group_leave(deleteGroup);
-//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            NSLog(@"Failure to delete from server");
-//            NSString *failedId = [task.originalRequest.URL lastPathComponent];
-//            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-//            switch (response.statusCode) {
-//                case 404:
-//                    NSLog(@"Id %@ no longer exists", failedId);
-//                    @synchronized(successfulDeletions) {
-//                        [successfulDeletions addObject:[NSNumber numberWithInteger:[failedId integerValue]]];
-//                    }
-//                    break;
-//                default:
-//                    NSLog(@"Status code: %ld", (long)response.statusCode);
-//                    @synchronized(failedDeletions) {
-//                        [failedDeletions addObject:[NSNumber numberWithInteger:[failedId integerValue]]];
-//                    }
-//                    break;
-//            }
-//            dispatch_group_leave(deleteGroup);
-//        }];
-//    }];
-//    dispatch_group_notify(deleteGroup, dispatch_get_main_queue(), ^{
-//        [successfulDeletions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//            [notesToDelete removeObject:obj];
-//        }];
-//    });
 }
 
 #pragma mark - notesOerationQueue
 
-- (void)addOperationToQueue:(OCNoteOperation*)noteOperation
-{
+- (void)addOperationToQueue:(OCNoteOperation*)noteOperation {
     __block NSString *newGuid = noteOperation.note.guid;
+    NSLog(@"Adding operation to queue %@", newGuid);
     [self.notesOperationQueue.operations enumerateObjectsUsingBlock:^(OCNoteOperation *operation, NSUInteger idx, BOOL *stop) {
+        NSLog(@"Comparing %@ to operation %@", newGuid, operation.note.guid);
+
         if ([operation.note.guid isEqualToString:newGuid]) {
             if (operation.isExecuting) {
                 if (operation.noteOperationType == NoteOperationTypeAdd && noteOperation.noteOperationType == NoteOperationTypeAdd) {
+                    NSLog(@"Changing operation to update");
                     noteOperation.noteOperationType = NoteOperationTypeUpdate;
                 }
+                NSLog(@"Adding operation dependency");
                 [noteOperation addDependency:operation];
             } else {
+                NSLog(@"Cancelling operation");
                 [operation cancel];
             }
         }
@@ -869,53 +511,22 @@
     switch (noteOperation.noteOperationType) {
         case NoteOperationTypeAdd:
         {
-            NSDictionary *noteDict = (NSDictionary*)noteOperation.responseDictionary;
-            OCNote *note = noteOperation.note;
-            note.id = [[noteDict objectForKey:@"id"] intValue];
-            note.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-            note.title = [noteDict objectForKey:@"title"];
-            note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-            note.addNeeded = NO;
-            note.updateNeeded = NO;
-            [note save];
+//
         }
             break;
         case NoteOperationTypeUpdate:
         {
-            NSDictionary *noteDict = (NSDictionary*)noteOperation.responseDictionary;
-            OCNote *note = noteOperation.note;
-            if ([[NSNumber numberWithInt:note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-                note.title = [noteDict objectForKey:@"title"];
-                note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];;
-                note.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-                note.addNeeded = NO;
-                note.updateNeeded = NO;
-                if (note.existsInDatabase) {
-                    [note save];
-                }
-            }
+//
         }
             break;
         case NoteOperationTypeGet:
         {
-            NSDictionary *noteDict = (NSDictionary*)noteOperation.responseDictionary;
-            OCNote *note = noteOperation.note;
-            if ([[NSNumber numberWithInt:note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-                if ([[noteDict objectForKey:@"modified"] doubleValue] > note.modified) {
-                    note.title = [noteDict objectForKeyNotNull:@"title" fallback:@""];
-                    note.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                    note.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-                }
-                if ([note existsInDatabase]) {
-                    [note save];
-                }
-            }
+//
         }
             break;
         case  NoteOperationTypeDelete:
         {
-            OCNote *note = noteOperation.note;
-            [note delete];
+//
         }
             break;
         default:
