@@ -33,13 +33,6 @@
 #import <Foundation/Foundation.h>
 #import "OCNote.h"
 
-typedef NS_ENUM(NSInteger, NoteOperationType) {
-    NoteOperationTypeAdd,
-    NoteOperationTypeUpdate,
-    NoteOperationTypeGet,
-    NoteOperationTypeDelete
-};
-
 @protocol OCNoteOperationDelegate;
 
 @interface OCNoteOperation : NSOperation
@@ -47,13 +40,14 @@ typedef NS_ENUM(NSInteger, NoteOperationType) {
     id <OCNoteOperationDelegate> __unsafe_unretained delegate;
 }
 
-- (id)initWithNote:(OCNote *)note noteOperationType:(NoteOperationType)operationType delegate:(id<OCNoteOperationDelegate>)delegate;
+- (id)initWithNote:(OCNote *)note delegate:(id<OCNoteOperationDelegate>)delegate;
+- (void)performOperation;
+- (void)finish;
 
 @property (nonatomic, unsafe_unretained) id <OCNoteOperationDelegate> delegate;
 @property (nonatomic, strong, readonly) OCNote *note;
-@property (nonatomic, strong, readonly) NSString *errorMessage;
+@property (nonatomic, strong) NSString *errorMessage;
 @property (nonatomic, strong, readonly) NSDictionary *responseDictionary;
-@property (nonatomic, assign) NoteOperationType noteOperationType;
 
 @end
 

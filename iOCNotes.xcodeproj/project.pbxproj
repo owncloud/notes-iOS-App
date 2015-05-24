@@ -87,6 +87,10 @@
 		D08D90AF19FDAFAD00E865CC /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D08D90A819FDAFAD00E865CC /* NSArray+PureLayout.m */; };
 		D08D90B019FDAFAD00E865CC /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D08D90AA19FDAFAD00E865CC /* NSLayoutConstraint+PureLayout.m */; };
 		D08D90B319FDAFC400E865CC /* OCHeaderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D08D90B219FDAFC400E865CC /* OCHeaderTextView.m */; };
+		D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */; };
+		D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648591B0F5BB1005C0981 /* OCNoteOperationUpdate.m */; };
+		D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */; };
+		D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */; };
 		D0C6806419CE45130041E6CC /* TSBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804B19CE45130041E6CC /* TSBlurView.m */; };
 		D0C6806519CE45130041E6CC /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804D19CE45130041E6CC /* TSMessage.m */; };
 		D0C6806619CE45130041E6CC /* TSMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804F19CE45130041E6CC /* TSMessageView.m */; };
@@ -211,6 +215,14 @@
 		D08D90AD19FDAFAD00E865CC /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
 		D08D90B119FDAFC400E865CC /* OCHeaderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCHeaderTextView.h; sourceTree = "<group>"; };
 		D08D90B219FDAFC400E865CC /* OCHeaderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCHeaderTextView.m; sourceTree = "<group>"; };
+		D0A648541B0F5584005C0981 /* OCNoteOperationAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationAdd.h; sourceTree = "<group>"; };
+		D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationAdd.m; sourceTree = "<group>"; };
+		D0A648581B0F5BB1005C0981 /* OCNoteOperationUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationUpdate.h; sourceTree = "<group>"; };
+		D0A648591B0F5BB1005C0981 /* OCNoteOperationUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationUpdate.m; sourceTree = "<group>"; };
+		D0A6485B1B0F5ED0005C0981 /* OCNoteOperationGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationGet.h; sourceTree = "<group>"; };
+		D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationGet.m; sourceTree = "<group>"; };
+		D0A6485E1B0F6F0B005C0981 /* OCNoteOperationDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationDelete.h; sourceTree = "<group>"; };
+		D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationDelete.m; sourceTree = "<group>"; };
 		D0C6804A19CE45130041E6CC /* TSBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSBlurView.h; sourceTree = "<group>"; };
 		D0C6804B19CE45130041E6CC /* TSBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSBlurView.m; sourceTree = "<group>"; };
 		D0C6804C19CE45130041E6CC /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessage.h; sourceTree = "<group>"; };
@@ -403,6 +415,23 @@
 			path = PureLayout/Source;
 			sourceTree = "<group>";
 		};
+		D0A648571B0F582D005C0981 /* OCNoteOperation */ = {
+			isa = PBXGroup;
+			children = (
+				D054E5F91AEF148E001C6FF1 /* OCNoteOperation.h */,
+				D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */,
+				D0A648541B0F5584005C0981 /* OCNoteOperationAdd.h */,
+				D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */,
+				D0A648581B0F5BB1005C0981 /* OCNoteOperationUpdate.h */,
+				D0A648591B0F5BB1005C0981 /* OCNoteOperationUpdate.m */,
+				D0A6485B1B0F5ED0005C0981 /* OCNoteOperationGet.h */,
+				D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */,
+				D0A6485E1B0F6F0B005C0981 /* OCNoteOperationDelete.h */,
+				D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */,
+			);
+			name = OCNoteOperation;
+			sourceTree = "<group>";
+		};
 		D0C6804819CE45130041E6CC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -481,14 +510,13 @@
 		D0CFE53C1888A7BD00165839 /* iOCNotes */ = {
 			isa = PBXGroup;
 			children = (
+				D0A648571B0F582D005C0981 /* OCNoteOperation */,
 				D059745C18CEA28E00867B02 /* OCNote.h */,
 				D059745D18CEA28E00867B02 /* OCNote.m */,
 				D0CFE5451888A7BD00165839 /* OCAppDelegate.h */,
 				D0CFE5461888A7BD00165839 /* OCAppDelegate.m */,
 				D0CFE599188B5A6900165839 /* OCAPIClient.h */,
 				D0CFE59A188B5A6900165839 /* OCAPIClient.m */,
-				D054E5F91AEF148E001C6FF1 /* OCNoteOperation.h */,
-				D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */,
 				D02257041896E6650038232A /* OCNotesHelper.h */,
 				D02257051896E6650038232A /* OCNotesHelper.m */,
 				D02256F21895E2F10038232A /* OCSettingsController.h */,
@@ -802,10 +830,13 @@
 				D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */,
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
 				D08D90AF19FDAFAD00E865CC /* NSArray+PureLayout.m in Sources */,
+				D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
 				D0C6806619CE45130041E6CC /* TSMessageView.m in Sources */,
 				D03DA14D18DE435900178958 /* FMResultSet.m in Sources */,
+				D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */,
 				D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */,
+				D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */,
 				D036BF3B191062B80078FD3E /* UIViewController+MMDrawerController.m in Sources */,
 				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
 				D02256FB1895E5B80038232A /* KeychainItemWrapper.m in Sources */,
@@ -824,6 +855,7 @@
 				D0C6806519CE45130041E6CC /* TSMessage.m in Sources */,
 				D0CFE5901888AD0200165839 /* AFURLRequestSerialization.m in Sources */,
 				D0CFE5471888A7BD00165839 /* OCAppDelegate.m in Sources */,
+				D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */,
 				D0CFE5911888AD0200165839 /* AFURLResponseSerialization.m in Sources */,
 				D0F6FED218CD4C2A00C16FDF /* OCNotesSettings.m in Sources */,
 				D02256F71895E2F10038232A /* OCLoginController.m in Sources */,
@@ -987,7 +1019,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1020,7 +1052,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

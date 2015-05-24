@@ -36,7 +36,10 @@
 #import "OCNotesSettings.h"
 #import "FCModel.h"
 #import "OCNote.h"
-#import "OCNoteOperation.h"
+#import "OCNoteOperationAdd.h"
+#import "OCNoteOperationUpdate.h"
+#import "OCNoteOperationGet.h"
+#import "OCNoteOperationDelete.h"
 
 @interface OCNotesHelper () <OCNoteOperationDelegate>  {
     BOOL online;
@@ -313,12 +316,14 @@
 - (void)getNote:(OCNote *)note {
     if (online) {
         if (note.id > 0) {
-            OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeGet delegate:self];
+            OCNoteOperationGet *operation = [[OCNoteOperationGet alloc] initWithNote:note delegate:self];
+            operation.qualityOfService = NSQualityOfServiceUserInteractive;
             [self addOperationToQueue:operation];
         }
         else
         {
-            OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeAdd delegate:self];
+            OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:note delegate:self];
+            operation.qualityOfService = NSQualityOfServiceUserInitiated;
             [self addOperationToQueue:operation];
         }
     } else {
@@ -360,7 +365,8 @@
     [newNote save];
     
     if (online) {
-        OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:newNote noteOperationType:NoteOperationTypeAdd delegate:self];
+        OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:newNote delegate:self];
+        operation.qualityOfService = NSQualityOfServiceUserInitiated;
         [self addOperationToQueue:operation];
     }
 }
@@ -399,10 +405,12 @@
     if (online) {
         //online
         if (note.id > 0) {
-            OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeUpdate delegate:self];
+            OCNoteOperationUpdate *operation = [[OCNoteOperationUpdate alloc] initWithNote:note delegate:self];
+            operation.qualityOfService = NSQualityOfServiceUserInitiated;
             [self addOperationToQueue:operation];
         } else {
-            OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeAdd delegate:self];
+            OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:note delegate:self];
+            operation.qualityOfService = NSQualityOfServiceUserInitiated;
             [self addOperationToQueue:operation];
         }
     } else {
@@ -438,7 +446,8 @@
     
     if (noteId > 0) {
         if (online) {
-            OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeDelete delegate:self];
+            OCNoteOperationDelete *operation = [[OCNoteOperationDelete alloc] initWithNote:note delegate:self];
+            operation.qualityOfService = NSQualityOfServiceBackground;
             [self addOperationToQueue:operation];
         }
     }
@@ -450,7 +459,8 @@
     [notesToAdd enumerateObjectsUsingBlock:^(OCNote *note, NSUInteger idx, BOOL *stop) {
         if (note) {
             if (note.content.length > 0) {
-                OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeAdd delegate:self];
+                OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:note delegate:self];
+                operation.qualityOfService = NSQualityOfServiceUserInitiated;
                 [self addOperationToQueue:operation];
             }
         }
@@ -461,7 +471,8 @@
     NSArray *notesToUpdate = [OCNote instancesWhere:@"updateNeeded = 1"];
 
     [notesToUpdate enumerateObjectsUsingBlock:^(OCNote *note, NSUInteger idx, BOOL *stop) {
-        OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeUpdate delegate:self];
+        OCNoteOperationUpdate *operation = [[OCNoteOperationUpdate alloc] initWithNote:note delegate:self];
+        operation.qualityOfService = NSQualityOfServiceUserInitiated;
         [self addOperationToQueue:operation];
     }];
 }
@@ -470,7 +481,8 @@
     NSArray *notesToDelete = [OCNote instancesWhere:@"deleteNeeded = 1"];
     
     [notesToDelete enumerateObjectsUsingBlock:^(OCNote *note, NSUInteger idx, BOOL *stop) {
-        OCNoteOperation *operation = [[OCNoteOperation alloc] initWithNote:note noteOperationType:NoteOperationTypeDelete delegate:self];
+        OCNoteOperationDelete *operation = [[OCNoteOperationDelete alloc] initWithNote:note delegate:self];
+        operation.qualityOfService = NSQualityOfServiceBackground;
         [self addOperationToQueue:operation];
     }];
 }
@@ -482,21 +494,27 @@
     NSLog(@"Adding operation to queue %@", newGuid);
     [self.notesOperationQueue.operations enumerateObjectsUsingBlock:^(OCNoteOperation *operation, NSUInteger idx, BOOL *stop) {
         NSLog(@"Comparing %@ to operation %@", newGuid, operation.note.guid);
-
+        
         if ([operation.note.guid isEqualToString:newGuid]) {
             if (operation.isExecuting) {
-                if (operation.noteOperationType == NoteOperationTypeAdd && noteOperation.noteOperationType == NoteOperationTypeAdd) {
+                if ([operation isKindOfClass:[OCNoteOperationAdd class]] && [noteOperation isKindOfClass:[OCNoteOperationAdd class]]) {
                     NSLog(@"Changing operation to update");
-                    noteOperation.noteOperationType = NoteOperationTypeUpdate;
+                    OCNote *theNote = noteOperation.note;
+                    OCNoteOperationUpdate *newNoteOperation = [[OCNoteOperationUpdate alloc] initWithNote:theNote delegate:self];
+                    newNoteOperation.qualityOfService = NSQualityOfServiceUserInitiated;
+                    [newNoteOperation addDependency:operation];
+                    [self.notesOperationQueue addOperation:newNoteOperation];
+                    [noteOperation cancel];
+                } else {
+                    [noteOperation addDependency:operation];
                 }
-                NSLog(@"Adding operation dependency");
-                [noteOperation addDependency:operation];
             } else {
                 NSLog(@"Cancelling operation");
                 [operation cancel];
             }
         }
     }];
+    
     [self.notesOperationQueue addOperation:noteOperation];
 }
 
@@ -508,71 +526,38 @@
 
 - (void)noteOperationDidFinish:(OCNoteOperation *)noteOperation {
     
-    switch (noteOperation.noteOperationType) {
-        case NoteOperationTypeAdd:
-        {
-//
-        }
-            break;
-        case NoteOperationTypeUpdate:
-        {
-//
-        }
-            break;
-        case NoteOperationTypeGet:
-        {
-//
-        }
-            break;
-        case  NoteOperationTypeDelete:
-        {
-//
-        }
-            break;
-        default:
-            break;
-    }
 }
 
 - (void)noteOperationDidFail:(OCNoteOperation *)noteOperation {
-    switch (noteOperation.noteOperationType) {
-        case NoteOperationTypeAdd:
-        {
-            NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Adding Note", @"The title of an error message"),
-                                       @"Message": noteOperation.errorMessage};
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+    if ([noteOperation isKindOfClass:[OCNoteOperationAdd class]])
+    {
+        NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Adding Note", @"The title of an error message"),
+                                   @"Message": noteOperation.errorMessage};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+        [noteOperation.note save];
+    }
+    if ([noteOperation isKindOfClass:[OCNoteOperationUpdate class]])
+    {
+        NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Updating Note", @"The title of an error message"),
+                                   @"Message": noteOperation.errorMessage};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+        noteOperation.note.modified = [[NSDate date] timeIntervalSince1970];
+        if (noteOperation.note.existsInDatabase) {
             [noteOperation.note save];
         }
-            break;
-        case NoteOperationTypeUpdate:
-        {
-            NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Updating Note", @"The title of an error message"),
-                                       @"Message": noteOperation.errorMessage};
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-            noteOperation.note.modified = [[NSDate date] timeIntervalSince1970];
-            if (noteOperation.note.existsInDatabase) {
-                [noteOperation.note save];
-            }
-        }
-            break;
-        case NoteOperationTypeGet:
-        {
-            NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Getting Note", @"The title of an error message"),
-                                       @"Message": noteOperation.errorMessage};
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-        }
-            break;
-        case  NoteOperationTypeDelete:
-        {
-            NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Deleting Note", @"The title of an error message"),
-                                       @"Message": noteOperation.errorMessage};
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-            [noteOperation.note save];
-        }
-            break;
-            
-        default:
-            break;
+    }
+    if ([noteOperation isKindOfClass:[OCNoteOperationGet class]])
+    {
+        NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Getting Note", @"The title of an error message"),
+                                   @"Message": noteOperation.errorMessage};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+    }
+    if ([noteOperation isKindOfClass:[OCNoteOperationDelete class]])
+    {
+        NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Deleting Note", @"The title of an error message"),
+                                   @"Message": noteOperation.errorMessage};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
+        [noteOperation.note save];
     }
 }
 
