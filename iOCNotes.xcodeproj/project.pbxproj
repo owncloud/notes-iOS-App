@@ -83,14 +83,14 @@
 		D06591DB195B9A8E005B3670 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
 		D0791B1B18AD4F98005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
-		D08D90AE19FDAFAD00E865CC /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D08D90A619FDAFAD00E865CC /* ALView+PureLayout.m */; };
-		D08D90AF19FDAFAD00E865CC /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D08D90A819FDAFAD00E865CC /* NSArray+PureLayout.m */; };
-		D08D90B019FDAFAD00E865CC /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D08D90AA19FDAFAD00E865CC /* NSLayoutConstraint+PureLayout.m */; };
 		D08D90B319FDAFC400E865CC /* OCHeaderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D08D90B219FDAFC400E865CC /* OCHeaderTextView.m */; };
 		D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */; };
 		D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648591B0F5BB1005C0981 /* OCNoteOperationUpdate.m */; };
 		D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */; };
 		D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */; };
+		D0A6486A1B132E8A005C0981 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648621B132E8A005C0981 /* ALView+PureLayout.m */; };
+		D0A6486B1B132E8A005C0981 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648641B132E8A005C0981 /* NSArray+PureLayout.m */; };
+		D0A6486C1B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648661B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m */; };
 		D0C6806419CE45130041E6CC /* TSBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804B19CE45130041E6CC /* TSBlurView.m */; };
 		D0C6806519CE45130041E6CC /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804D19CE45130041E6CC /* TSMessage.m */; };
 		D0C6806619CE45130041E6CC /* TSMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804F19CE45130041E6CC /* TSMessageView.m */; };
@@ -204,15 +204,6 @@
 		D06591DC195B9A8F005B3670 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPad.strings; sourceTree = "<group>"; };
 		D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpenInAppActivity.h; sourceTree = "<group>"; };
 		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
-		D08D90A519FDAFAD00E865CC /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
-		D08D90A619FDAFAD00E865CC /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
-		D08D90A719FDAFAD00E865CC /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PureLayout.h"; sourceTree = "<group>"; };
-		D08D90A819FDAFAD00E865CC /* NSArray+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PureLayout.m"; sourceTree = "<group>"; };
-		D08D90A919FDAFAD00E865CC /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
-		D08D90AA19FDAFAD00E865CC /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
-		D08D90AB19FDAFAD00E865CC /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PureLayout+Internal.h"; sourceTree = "<group>"; };
-		D08D90AC19FDAFAD00E865CC /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayout.h; sourceTree = "<group>"; };
-		D08D90AD19FDAFAD00E865CC /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
 		D08D90B119FDAFC400E865CC /* OCHeaderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCHeaderTextView.h; sourceTree = "<group>"; };
 		D08D90B219FDAFC400E865CC /* OCHeaderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCHeaderTextView.m; sourceTree = "<group>"; };
 		D0A648541B0F5584005C0981 /* OCNoteOperationAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationAdd.h; sourceTree = "<group>"; };
@@ -223,6 +214,15 @@
 		D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationGet.m; sourceTree = "<group>"; };
 		D0A6485E1B0F6F0B005C0981 /* OCNoteOperationDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationDelete.h; sourceTree = "<group>"; };
 		D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationDelete.m; sourceTree = "<group>"; };
+		D0A648611B132E8A005C0981 /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ALView+PureLayout.h"; path = "PureLayout/PureLayout/PureLayout/ALView+PureLayout.h"; sourceTree = SOURCE_ROOT; };
+		D0A648621B132E8A005C0981 /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ALView+PureLayout.m"; path = "PureLayout/PureLayout/PureLayout/ALView+PureLayout.m"; sourceTree = SOURCE_ROOT; };
+		D0A648631B132E8A005C0981 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+PureLayout.h"; path = "PureLayout/PureLayout/PureLayout/NSArray+PureLayout.h"; sourceTree = SOURCE_ROOT; };
+		D0A648641B132E8A005C0981 /* NSArray+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PureLayout.m"; path = "PureLayout/PureLayout/PureLayout/NSArray+PureLayout.m"; sourceTree = SOURCE_ROOT; };
+		D0A648651B132E8A005C0981 /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+PureLayout.h"; path = "PureLayout/PureLayout/PureLayout/NSLayoutConstraint+PureLayout.h"; sourceTree = SOURCE_ROOT; };
+		D0A648661B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+PureLayout.m"; path = "PureLayout/PureLayout/PureLayout/NSLayoutConstraint+PureLayout.m"; sourceTree = SOURCE_ROOT; };
+		D0A648671B132E8A005C0981 /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureLayout.h; path = PureLayout/PureLayout/PureLayout/PureLayout.h; sourceTree = SOURCE_ROOT; };
+		D0A648681B132E8A005C0981 /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PureLayout+Internal.h"; path = "PureLayout/PureLayout/PureLayout/PureLayout+Internal.h"; sourceTree = SOURCE_ROOT; };
+		D0A648691B132E8A005C0981 /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureLayoutDefines.h; path = PureLayout/PureLayout/PureLayout/PureLayoutDefines.h; sourceTree = SOURCE_ROOT; };
 		D0C6804A19CE45130041E6CC /* TSBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSBlurView.h; sourceTree = "<group>"; };
 		D0C6804B19CE45130041E6CC /* TSBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSBlurView.m; sourceTree = "<group>"; };
 		D0C6804C19CE45130041E6CC /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessage.h; sourceTree = "<group>"; };
@@ -401,15 +401,15 @@
 		D08D90A419FDAFAD00E865CC /* PureLayout */ = {
 			isa = PBXGroup;
 			children = (
-				D08D90A519FDAFAD00E865CC /* ALView+PureLayout.h */,
-				D08D90A619FDAFAD00E865CC /* ALView+PureLayout.m */,
-				D08D90A719FDAFAD00E865CC /* NSArray+PureLayout.h */,
-				D08D90A819FDAFAD00E865CC /* NSArray+PureLayout.m */,
-				D08D90A919FDAFAD00E865CC /* NSLayoutConstraint+PureLayout.h */,
-				D08D90AA19FDAFAD00E865CC /* NSLayoutConstraint+PureLayout.m */,
-				D08D90AB19FDAFAD00E865CC /* PureLayout+Internal.h */,
-				D08D90AC19FDAFAD00E865CC /* PureLayout.h */,
-				D08D90AD19FDAFAD00E865CC /* PureLayoutDefines.h */,
+				D0A648611B132E8A005C0981 /* ALView+PureLayout.h */,
+				D0A648621B132E8A005C0981 /* ALView+PureLayout.m */,
+				D0A648631B132E8A005C0981 /* NSArray+PureLayout.h */,
+				D0A648641B132E8A005C0981 /* NSArray+PureLayout.m */,
+				D0A648651B132E8A005C0981 /* NSLayoutConstraint+PureLayout.h */,
+				D0A648661B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m */,
+				D0A648671B132E8A005C0981 /* PureLayout.h */,
+				D0A648681B132E8A005C0981 /* PureLayout+Internal.h */,
+				D0A648691B132E8A005C0981 /* PureLayoutDefines.h */,
 			);
 			name = PureLayout;
 			path = PureLayout/Source;
@@ -828,9 +828,10 @@
 				D0CFE58F1888AD0200165839 /* AFURLConnectionOperation.m in Sources */,
 				D0CFE58A1888AD0200165839 /* AFHTTPRequestOperation.m in Sources */,
 				D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */,
+				D0A6486A1B132E8A005C0981 /* ALView+PureLayout.m in Sources */,
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
-				D08D90AF19FDAFAD00E865CC /* NSArray+PureLayout.m in Sources */,
 				D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */,
+				D0A6486B1B132E8A005C0981 /* NSArray+PureLayout.m in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
 				D0C6806619CE45130041E6CC /* TSMessageView.m in Sources */,
 				D03DA14D18DE435900178958 /* FMResultSet.m in Sources */,
@@ -838,6 +839,7 @@
 				D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */,
 				D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */,
 				D036BF3B191062B80078FD3E /* UIViewController+MMDrawerController.m in Sources */,
+				D0A6486C1B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
 				D02256FB1895E5B80038232A /* KeychainItemWrapper.m in Sources */,
 				D08D90B319FDAFC400E865CC /* OCHeaderTextView.m in Sources */,
@@ -845,7 +847,6 @@
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
 				D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */,
 				D0CFE58D1888AD0200165839 /* AFNetworkReachabilityManager.m in Sources */,
-				D08D90B019FDAFAD00E865CC /* NSLayoutConstraint+PureLayout.m in Sources */,
 				D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */,
 				D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D0CFE5921888AD0200165839 /* AFURLSessionManager.m in Sources */,
@@ -863,7 +864,6 @@
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,
 				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
 				D036BF39191062B80078FD3E /* MMDrawerVisualState.m in Sources */,
-				D08D90AE19FDAFAD00E865CC /* ALView+PureLayout.m in Sources */,
 				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
 				D02256F61895E2F10038232A /* OCSettingsController.m in Sources */,
 				D0C6806419CE45130041E6CC /* TSBlurView.m in Sources */,
