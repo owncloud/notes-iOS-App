@@ -153,7 +153,7 @@
                         <action selector="doActivities:" destination="BYZ-38-t0r" id="uhH-bh-lrW"/>
                     </connections>
                 </barButtonItem>
-                <barButtonItem systemItem="compose" id="zRa-zy-Av2">
+                <barButtonItem systemItem="add" id="zRa-zy-Av2">
                     <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="onAdd:" destination="BYZ-38-t0r" id="D6e-35-d7s"/>

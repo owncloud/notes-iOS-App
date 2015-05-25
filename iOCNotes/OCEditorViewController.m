@@ -54,11 +54,8 @@
     [self.mm_drawerController.centerViewController.view.layer addSublayer:border];
     
     [self.view addSubview:self.noteView];
-    
-    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
-    }
-    
+    self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
+
     if (self.ocNote) {
         self.noteView.text = self.ocNote.content;
         self.noteView.editable = YES;
@@ -409,7 +406,7 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        self.navigationItem.rightBarButtonItems = @[];
+        self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
     }
 
     NSDictionary *info = [notification userInfo];

@@ -93,28 +93,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem systemItem="action" id="pXa-gb-ki1">
-                            <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="doActivities:" destination="vXZ-lx-hvc" id="Nun-5m-zrt"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="31P-cH-4xs"/>
-                        <barButtonItem systemItem="trash" id="aql-su-dTG">
-                            <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="onDelete:" destination="vXZ-lx-hvc" id="eLh-Ia-NNJ"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="6H0-NH-vIu"/>
-                        <barButtonItem systemItem="compose" id="nY9-Vh-Cce">
-                            <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="onAdd:" destination="vXZ-lx-hvc" id="hou-FV-ehq"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="dEj-4d-nDe">
                         <barButtonItem key="leftBarButtonItem" image="sideMenu" id="w5J-UK-Kbh">
                             <connections>
@@ -134,6 +113,24 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <barButtonItem systemItem="action" id="pXa-gb-ki1">
+                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="doActivities:" destination="vXZ-lx-hvc" id="Nun-5m-zrt"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="trash" id="aql-su-dTG">
+                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="onDelete:" destination="vXZ-lx-hvc" id="eLh-Ia-NNJ"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="add" id="nY9-Vh-Cce">
+                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="onAdd:" destination="vXZ-lx-hvc" id="hou-FV-ehq"/>
+                    </connections>
+                </barButtonItem>
                 <barButtonItem systemItem="undo" id="6bO-Ah-TJ8">
                     <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
@@ -486,7 +483,7 @@
         <!--Navigation Controller-->
         <scene sceneID="1o0-w2-ASY">
             <objects>
-                <navigationController storyboardIdentifier="Editor" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="R1o-2G-Lxf" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Editor" automaticallyAdjustsScrollViewInsets="NO" id="R1o-2G-Lxf" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="fUW-Ps-K5E"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Kus-pY-rHi">
@@ -494,10 +491,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="8pI-Yl-cCX">
-                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
                     <connections>
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="WOe-49-Vig"/>
                     </connections>
