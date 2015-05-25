@@ -16,11 +16,12 @@
 #import <float.h>
 #import "OCNote.h"
 
-@interface OCNotesTableViewController () {
+@interface OCNotesTableViewController  () <UISearchResultsUpdating, UISearchBarDelegate> {
     BOOL networkHasBeenUnreachable;
     NSArray *searchResults;
 }
 
+@property (strong, nonatomic) UISearchController *searchController;
 @property (nonatomic, copy) NSArray *ocNotes;
 
 @end
@@ -105,11 +106,6 @@
                                                name:FCModelInsertNotification
                                              object:OCNote.class];
     
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(noteDeleted:)
-                                               name:FCModelDeleteNotification
-                                             object:OCNote.class];
-  
     [OCNotesHelper sharedHelper];
     [self reloadNotes:nil];
     
@@ -129,7 +125,16 @@
     self.navigationItem.titleView = self.titleButton;
     UINavigationController *navController = (UINavigationController*)self.mm_drawerController.centerViewController;
     self.editorViewController = (OCEditorViewController*)navController.topViewController;
-    [self.tableView setContentOffset:CGPointMake(0, self.searchDisplayController.searchBar.frame.size.height + self.tableView.contentOffset.y)];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.hidesNavigationBarDuringPresentation = YES;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+    [self.searchController.searchBar sizeToFit];
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    
+    [self.tableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height + self.tableView.contentOffset.y)];
+    self.definesPresentationContext = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -157,7 +162,6 @@
 - (void)reloadNotes:(NSNotification *)notification
 {
     self.ocNotes = [OCNote instancesWhere:@"deleteNeeded = 0 ORDER BY modified DESC"];
-//    [OCNote instancesOrderedBy:@"modified DESC"];
     NSLog(@"Reloading with %lu notes", (unsigned long) self.ocNotes.count);
     NSIndexPath *currentSelection = [self.tableView indexPathForSelectedRow];
     [self.tableView reloadData];
@@ -195,31 +199,6 @@
     }
 }
 
-- (void)noteDeleted:(NSNotification *)notification
-{
-//    NSInteger newIndex = 0;
-//    NSLog(@"Note deleted: %@", [notification userInfo]);
-//    NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
-//    OCNote *newNote = [noteSet anyObject];
-//    newIndex = [self.ocNotes indexOfObject:newNote] + 1;
-//    if (newIndex >= self.ocNotes.count) {
-//        --newIndex;
-//        --newIndex;
-//    }
-//    if (newIndex >= 0) {
-//        newNote = [self.ocNotes objectAtIndex:newIndex];
-//        self.editorViewController.ocNote = newNote;
-//        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-//    } else {
-//        self.editorViewController.ocNote = nil;
-//    }
-//    self.ocNotes = [OCNote instancesOrderedBy:@"modified DESC"];
-//    if (self.mm_drawerController.openSide == MMDrawerSideNone) {
-//        //called while showing editor
-//        [self.tableView reloadData];
-//    }
-}
-
 - (void)dealloc
 {
     [NSNotificationCenter.defaultCenter removeObserver:self name:FCModelAnyChangeNotification object:OCNote.class];
@@ -232,7 +211,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (self.searchController.active) {
         return searchResults.count;
     } else {
         return self.ocNotes.count;
@@ -263,7 +242,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger noteCount;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (self.searchController.active) {
         noteCount = searchResults.count;
     } else {
         noteCount = self.ocNotes.count;
@@ -282,7 +261,7 @@
     
     if (indexPath.row <= noteCount - 1) {
         OCNote *note;
-        if (tableView == self.searchDisplayController.searchResultsTableView) {
+        if (self.searchController.active) {
             note = [searchResults objectAtIndex:indexPath.row];
         } else {
             note = [self.ocNotes objectAtIndex:indexPath.row];
@@ -319,7 +298,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [tableView beginUpdates];
         OCNote *note = nil;
-        if (tableView == self.searchDisplayController.searchResultsTableView) {
+        if (self.searchController.active) {
             if ((indexPath.row >= 0) && (indexPath.row < searchResults.count)) {
                 note = [searchResults objectAtIndex:indexPath.row];
             }
@@ -386,14 +365,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger noteCount;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (self.searchController.active) {
         noteCount = searchResults.count;
     } else {
         noteCount = self.ocNotes.count;
     }
     if (indexPath.row <= noteCount - 1) {
         OCNote *note = nil;
-        if (tableView == self.searchDisplayController.searchResultsTableView) {
+        if (self.searchController.active) {
             note = [searchResults objectAtIndex:indexPath.row];
         } else {
             note = [self.ocNotes objectAtIndex:indexPath.row];
@@ -406,18 +385,18 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"TRUEPREDICATE"];;
+    if ((searchText) && [searchText length] > 0) {
+        resultPredicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
+    }
     searchResults = [self.ocNotes filteredArrayUsingPredicate:resultPredicate];
 }
 
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
-    [self filterContentForSearchText:searchString
-                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
-                                      objectAtIndex:[self.searchDisplayController.searchBar
-                                                     selectedScopeButtonIndex]]];
-    
-    return YES;
+    NSString *searchString = searchController.searchBar.text;
+    [self filterContentForSearchText:searchString scope:nil];
+    [self.tableView reloadData];
 }
 
 - (IBAction)doRefresh:(id)sender {

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E17e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Notes-->
@@ -14,14 +13,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="deviceRGB"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="fsN-W8-QB7">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="DXe-Iw-CcD" id="m9i-RI-LWE"/>
-                            </connections>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="1Q3-he-nuB" detailTextLabel="x61-QN-GPh" style="IBUITableViewCellStyleSubtitle" id="kka-p9-Iaq">
                                 <rect key="frame" x="0.0" y="130" width="320" height="44"/>
@@ -72,7 +63,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addBarButton" destination="MOs-yv-oce" id="KfS-dy-ASJ"/>
-                        <outlet property="searchDisplayController" destination="vmV-BL-HjF" id="TYA-o7-xGo"/>
                         <outlet property="settingsBarButton" destination="Ehu-4h-6IO" id="qQP-ED-FEw"/>
                         <outlet property="titleButton" destination="ZgP-hU-wyM" id="n3Y-8w-u7t"/>
                     </connections>
@@ -88,15 +78,6 @@
                         <action selector="onTitleButton:" destination="DXe-Iw-CcD" eventType="touchUpInside" id="1U1-pI-aFl"/>
                     </connections>
                 </button>
-                <searchDisplayController id="vmV-BL-HjF">
-                    <connections>
-                        <outlet property="delegate" destination="DXe-Iw-CcD" id="PV2-Wr-J24"/>
-                        <outlet property="searchBar" destination="fsN-W8-QB7" id="vpT-wg-Xcd"/>
-                        <outlet property="searchContentsController" destination="DXe-Iw-CcD" id="7YU-It-6Pp"/>
-                        <outlet property="searchResultsDataSource" destination="DXe-Iw-CcD" id="2uO-tv-l8Q"/>
-                        <outlet property="searchResultsDelegate" destination="DXe-Iw-CcD" id="ggd-gZ-aak"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="841.875" y="107.74647887323943"/>
         </scene>
