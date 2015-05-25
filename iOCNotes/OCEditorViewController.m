@@ -120,8 +120,7 @@
                                                object:nil];
     
     [self.view setNeedsUpdateConstraints];
-    
-    [self willRotateToInterfaceOrientation:[UIApplication sharedApplication].statusBarOrientation duration:0];
+    [self viewWillTransitionToSize:[UIScreen mainScreen].bounds.size withTransitionCoordinator:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -147,20 +146,11 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-                if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-                    CGFloat width = CGRectGetHeight([UIScreen mainScreen].applicationFrame);
-                    self.noteView.headerLabel.frame = CGRectMake(20, -18, width - 40, 21);
-                } else {
-                    CGFloat width = CGRectGetWidth([UIScreen mainScreen].applicationFrame);
-                    self.noteView.headerLabel.frame = CGRectMake(20, -18, width - 40, 21);
-                }
-            }
+        self.noteView.headerLabel.frame = CGRectMake(20, -18, size.width - 40, 21);
     } else { //iPad
-        if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+        if (size.width > size.height) {
             self.noteView.textContainerInset = UIEdgeInsetsMake(20, 178, 20, 178);
             if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
                 self.noteView.headerLabel.frame = CGRectMake(178, -18, 280, 21);
@@ -172,6 +162,7 @@
             }
         }
     }
+  
 }
 
 - (void)updateViewConstraints {
@@ -402,13 +393,8 @@
     
     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 2;
     int kbHeight = r.size.height;
-    
     int height = kbHeight + self.bottomLayoutConstraint.constant;
-    int adjustment = 0;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        adjustment = 44;
-    }
-    
+
     UIEdgeInsets textInsets = self.noteView.textContainerInset;
     textInsets.bottom = height;
     
@@ -428,13 +414,9 @@
 
     NSDictionary *info = [notification userInfo];
     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 0.5;
-    int adjustment = 0;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        adjustment = 44;
-    }
     
     [self.bottomLayoutConstraint autoRemove];
-    self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:adjustment];
+    self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     [self updateViewConstraints];
 
     [UIView animateWithDuration:animationDuration animations:^{
