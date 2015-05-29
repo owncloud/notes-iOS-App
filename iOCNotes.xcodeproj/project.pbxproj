@@ -127,8 +127,6 @@
 		D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE59A188B5A6900165839 /* OCAPIClient.m */; };
 		D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */; };
 		D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5AC1890659600165839 /* QuartzCore.framework */; };
-		D0F6FED218CD4C2A00C16FDF /* OCNotesSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6FED118CD4C2A00C16FDF /* OCNotesSettings.m */; };
-		D0F6FED318CD4C2A00C16FDF /* OCNotesSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F6FED118CD4C2A00C16FDF /* OCNotesSettings.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,8 +279,6 @@
 		D0CFE5A5188E199700165839 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFNetworkActivityIndicatorManager.h; path = "../UIKit+AFNetworking/AFNetworkActivityIndicatorManager.h"; sourceTree = "<group>"; };
 		D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = "../UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m"; sourceTree = "<group>"; };
 		D0CFE5AC1890659600165839 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		D0F6FED018CD4C2A00C16FDF /* OCNotesSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNotesSettings.h; sourceTree = "<group>"; };
-		D0F6FED118CD4C2A00C16FDF /* OCNotesSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNotesSettings.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -529,8 +525,6 @@
 				D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */,
 				D08D90B119FDAFC400E865CC /* OCHeaderTextView.h */,
 				D08D90B219FDAFC400E865CC /* OCHeaderTextView.m */,
-				D0F6FED018CD4C2A00C16FDF /* OCNotesSettings.h */,
-				D0F6FED118CD4C2A00C16FDF /* OCNotesSettings.m */,
 				D0CFE5511888A7BD00165839 /* Images.xcassets */,
 				D02256C8189599570038232A /* NSDictionary+HandleNull.h */,
 				D02256C9189599570038232A /* NSDictionary+HandleNull.m */,
@@ -796,7 +790,6 @@
 				D02256D11895BE220038232A /* AFNetworkReachabilityManager.m in Sources */,
 				D059745F18CEA28E00867B02 /* OCNote.m in Sources */,
 				D02256D31895BE220038232A /* AFNetworkActivityIndicatorManager.m in Sources */,
-				D0F6FED318CD4C2A00C16FDF /* OCNotesSettings.m in Sources */,
 				D02256D51895BE220038232A /* AFURLSessionManager.m in Sources */,
 				D03DA15218DE577E00178958 /* FMDatabase.m in Sources */,
 				D036BF38191062B80078FD3E /* MMDrawerController.m in Sources */,
@@ -858,7 +851,6 @@
 				D0CFE5471888A7BD00165839 /* OCAppDelegate.m in Sources */,
 				D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */,
 				D0CFE5911888AD0200165839 /* AFURLResponseSerialization.m in Sources */,
-				D0F6FED218CD4C2A00C16FDF /* OCNotesSettings.m in Sources */,
 				D02256F71895E2F10038232A /* OCLoginController.m in Sources */,
 				D0C6807B19CE45620041E6CC /* HexColor.m in Sources */,
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,

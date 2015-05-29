@@ -33,7 +33,6 @@
 #import "OCNotesHelper.h"
 #import "OCAPIClient.h"
 #import "NSDictionary+HandleNull.h"
-#import "OCNotesSettings.h"
 #import "FCModel.h"
 #import "OCNote.h"
 #import "OCNoteOperationAdd.h"
