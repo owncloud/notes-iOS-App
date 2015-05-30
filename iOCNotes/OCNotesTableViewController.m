@@ -131,6 +131,9 @@
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
     [self.searchController.searchBar sizeToFit];
+    self.searchController.searchBar.tintColor = [UIColor colorWithRed:0.12 green:0.18 blue:0.26 alpha:1.0];
+    self.searchController.searchBar.barTintColor = [UIColor colorWithRed:0.957 green:0.957 blue:0.957 alpha:0.95];
+    self.searchController.searchBar.backgroundImage = [UIImage new];
     self.tableView.tableHeaderView = self.searchController.searchBar;
     
     [self.tableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height + self.tableView.contentOffset.y)];
