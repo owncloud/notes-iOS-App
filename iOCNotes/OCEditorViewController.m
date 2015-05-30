@@ -35,12 +35,14 @@
 @synthesize noteView;
 
 - (void)setOcNote:(OCNote *)ocNote {
-    if (![ocNote isEqual:_ocNote]) {
-        _ocNote = ocNote;
-        self.noteView.text = _ocNote.content;
-        [self noteUpdated:nil];
-        [self.noteView.undoManager removeAllActions];
-        [self.noteView scrollRangeToVisible:NSMakeRange(0, 0)];
+    if (ocNote && [ocNote isKindOfClass:[OCNote class]]) {
+        if (![ocNote isEqual:_ocNote]) {
+            _ocNote = ocNote;
+            self.noteView.text = _ocNote.content;
+            [self noteUpdated:nil];
+            [self.noteView.undoManager removeAllActions];
+            [self.noteView scrollRangeToVisible:NSMakeRange(0, 0)];
+        }
     }
 }
 

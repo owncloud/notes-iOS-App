@@ -259,7 +259,7 @@
     [cell setSelectedBackgroundView:selectedBackgroundView];
     cell.tag = indexPath.row;
     
-    if (indexPath.row <= noteCount - 1) {
+    if ((noteCount > 0) && (indexPath.row <= noteCount - 1)) {
         OCNote *note;
         if (self.searchController.active) {
             note = [searchResults objectAtIndex:indexPath.row];
@@ -370,7 +370,7 @@
     } else {
         noteCount = self.ocNotes.count;
     }
-    if (indexPath.row <= noteCount - 1) {
+    if ((noteCount > 0) && (indexPath.row <= noteCount - 1)) {
         OCNote *note = nil;
         if (self.searchController.active) {
             note = [searchResults objectAtIndex:indexPath.row];

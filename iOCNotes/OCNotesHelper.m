@@ -239,20 +239,18 @@
                     OCNote *ocNote = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [noteDict objectForKey:@"id"]]];
                     //OCNote *ocNote = [OCNote instanceWithPrimaryKey:[noteDict objectForKey:@"id"] createIfNonexistent:YES];
                     if (!ocNote) { //don't re-add a deleted note (it will be deleted from the server below).
-//                        if (![notesToDelete containsObject:[noteDict objectForKey:@"id"]]) {
-                            ocNote = [OCNote new];
-                            ocNote.id = [[noteDict objectForKey:@"id"] intValue];
-                            ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-                            ocNote.title = [noteDict objectForKey:@"title"];
-                            ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                            [ocNote save];
-//                        }
+                        ocNote = [OCNote new];
+                        ocNote.id = [[noteDict objectForKey:@"id"] intValue];
+                        ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
+                        ocNote.title = [noteDict objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
+                        ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                        [ocNote save];
                     } else {
                         if (ocNote.modified > [[noteDict objectForKey:@"modified"] doubleValue]) {
                             ocNote.updateNeeded = YES;
                         } else {
                             ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-                            ocNote.title = [noteDict objectForKey:@"title"];
+                            ocNote.title = [noteDict objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
                             ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                         }
                         if ([ocNote existsInDatabase]) {
@@ -260,7 +258,7 @@
                         }
                     }
                 }];
-
+                
                 NSArray *serverIds = [serverNotesDictArray valueForKey:@"id"];
                 
                 NSArray *knownIds = [[OCNote resultDictionariesFromQuery:@"SELECT * FROM $T WHERE id > 0"] valueForKey:@"id"];
