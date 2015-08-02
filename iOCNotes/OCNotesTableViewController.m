@@ -105,7 +105,12 @@
                                            selector:@selector(noteAdded:)
                                                name:FCModelInsertNotification
                                              object:OCNote.class];
-    
+
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(noteDeleted:)
+                                               name:@"DeletingNote"
+                                             object:nil];
+
     [OCNotesHelper sharedHelper];
     [self reloadNotes:nil];
     
@@ -199,6 +204,18 @@
     self.editorViewController.ocNote = newNote;
     if (self.ocNotes.count) {
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    }
+}
+
+- (void)noteDeleted:(NSNotification *)notification
+{
+    if (self.editorViewController) {
+        if (self.editorViewController.ocNote) {
+            NSInteger currentIndex = [self.ocNotes indexOfObject:self.editorViewController.ocNote];
+            if (currentIndex >= 0) {
+                [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndex inSection:0]];
+            }
+        }
     }
 }
 
@@ -300,6 +317,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [tableView beginUpdates];
+        NSInteger currentNoteCount = self.ocNotes.count;
         OCNote *note = nil;
         if (self.searchController.active) {
             if ((indexPath.row >= 0) && (indexPath.row < searchResults.count)) {
@@ -316,8 +334,11 @@
         if (note) {
             [[OCNotesHelper sharedHelper] deleteNote:note];
         }
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         self.ocNotes = [OCNote instancesWhere:@"deleteNeeded = 0 ORDER BY modified DESC"];
+        NSInteger newCount = self.ocNotes.count;
+        if (newCount + 1 == currentNoteCount) {
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
         
         NSInteger newIndex = 0;
         if (indexPath.row >= 0) {

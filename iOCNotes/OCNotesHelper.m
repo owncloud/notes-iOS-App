@@ -554,7 +554,9 @@
         NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Deleting Note", @"The title of an error message"),
                                    @"Message": noteOperation.errorMessage};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-        [noteOperation.note save];
+        if (noteOperation.note.existsInDatabase) {
+            [noteOperation.note save];
+        }
     }
 }
 

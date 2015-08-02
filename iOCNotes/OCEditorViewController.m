@@ -256,9 +256,10 @@
         return;
     }
 
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DeletingNote" object:nil];
+    
     __block UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.noteView.frame];
     imageView.image = [self screenshot];
-    [[OCNotesHelper sharedHelper] deleteNote:self.ocNote];
     [self.noteView addSubview:imageView];
     [UIView animateWithDuration:0.3f
                           delay:0.0f
@@ -272,6 +273,7 @@
                      }
                      completion:^(BOOL finished){
                          [imageView removeFromSuperview];
+                         [self.view.layer setNeedsDisplay];
                          [self.view.layer displayIfNeeded];
                          imageView = nil;
                      }];
@@ -336,8 +338,10 @@
 - (void)updateText:(NSTimer*)timer {
     NSLog(@"Ready to update text");
     self.ocNote.content = self.noteView.text;
-    [self.ocNote save];
-    [[OCNotesHelper sharedHelper] updateNote:self.ocNote];
+    if (self.ocNote.existsInDatabase) {
+        [self.ocNote save];
+        [[OCNotesHelper sharedHelper] updateNote:self.ocNote];
+    }
 }
 
 - (void)noteUpdated:(NSNotification *)notification {
