@@ -40,7 +40,11 @@
 
 - (void)setup
 {
-    self.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_8_3) {
+        self.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
+    } else {
+        self.contentInset = UIEdgeInsetsMake(94, 0, 0, 0);
+    }
     self.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
     self.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.headerLabel];
