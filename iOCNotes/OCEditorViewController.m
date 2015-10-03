@@ -56,6 +56,7 @@
     [self.mm_drawerController.centerViewController.view.layer addSublayer:border];
     
     [self.view addSubview:self.noteView];
+    [self.noteView autoPinEdgesToSuperviewEdges];
     self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
 
     if (self.ocNote) {
