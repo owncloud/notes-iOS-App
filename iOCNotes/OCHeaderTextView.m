@@ -10,6 +10,10 @@
 #import "PureLayout.h"
 
 @interface OCHeaderTextView ()
+{
+    NSLayoutConstraint *leftHeaderLayoutConstraint;
+    NSLayoutConstraint *rightHeaderLayoutConstraint;
+}
 
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
@@ -49,6 +53,7 @@
     self.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.headerLabel];
     [self setNeedsUpdateConstraints]; // bootstrap Auto Layout
+    [self traitCollectionDidChange:nil];
 }
 
 - (void)updateConstraints
@@ -56,33 +61,49 @@
     if (!self.didSetupConstraints) {
         static const CGFloat kSmallPadding = 20.0;
         
-        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-            self.contentInset = UIEdgeInsetsMake(94, 0, 0, 0);
-        } else {
-            [self.headerLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                [self.headerLabel autoSetDimension:ALDimensionWidth toSize:664];
-                [self.headerLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
-            } else {
-                [self.headerLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self withOffset:kSmallPadding];
-                [self.headerLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
-            }
-            [self.headerLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:-kSmallPadding];
-        }
+        [self.headerLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+        [self.headerLabel autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.headerLabel withOffset:0];
+        [self.headerLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:-kSmallPadding];
+        leftHeaderLayoutConstraint = [self.headerLabel autoPinEdge:ALEdgeLeading toEdge:ALEdgeLeading ofView:self withOffset:20];
+        rightHeaderLayoutConstraint = [self.headerLabel autoPinEdge:ALEdgeTrailing toEdge:ALEdgeTrailing ofView:self withOffset:20];
+        [self.headerLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
+        
         self.didSetupConstraints = YES;
     }
     [super updateConstraints];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+        headerLabel.textAlignment = NSTextAlignmentLeft;
+        if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            if (self.frame.size.width > self.frame.size.height) {
+                [self updateInsetsToSize:178];
+            } else {
+                [self updateInsetsToSize:178];
+            }
+        } else {
+            [self updateInsetsToSize:20];            
+        }
+    } else {
+        headerLabel.textAlignment = NSTextAlignmentCenter;
+        [self updateInsetsToSize:20];
+    }
+}
+
+- (void)updateInsetsToSize:(CGFloat)inset;
+{
+    self.textContainerInset = UIEdgeInsetsMake(20, inset, 20, inset);
+    leftHeaderLayoutConstraint.constant = inset;
+    rightHeaderLayoutConstraint.constant = inset;
+}
+
 - (UILabel*)headerLabel {
     if (!headerLabel) {
-        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-            headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, -18, 280, 21)];
-        } else {
-            headerLabel = [UILabel newAutoLayoutView];
-        }
+        headerLabel = [UILabel newAutoLayoutView];
         headerLabel.numberOfLines = 1;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
             headerLabel.textAlignment = NSTextAlignmentLeft;
         } else {
             headerLabel.textAlignment = NSTextAlignmentCenter;

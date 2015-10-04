@@ -147,22 +147,15 @@
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        self.noteView.headerLabel.frame = CGRectMake(20, -18, size.width - 40, 21);
-    } else { //iPad
-        if (size.width > size.height) {
-            self.noteView.textContainerInset = UIEdgeInsetsMake(20, 178, 20, 178);
-            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-                self.noteView.headerLabel.frame = CGRectMake(178, -18, 280, 21);
-            }
-        } else {
-            self.noteView.textContainerInset = UIEdgeInsetsMake(20, 50, 20, 50);
-            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-                self.noteView.headerLabel.frame = CGRectMake(50, -18, 280, 21);
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+        if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            if (size.width > size.height) {
+                [self.noteView updateInsetsToSize:178];
+            } else {
+                [self.noteView updateInsetsToSize:50];
             }
         }
     }
-  
 }
 
 - (void)updateViewConstraints {

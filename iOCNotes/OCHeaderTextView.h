@@ -13,4 +13,6 @@
 @property (nonatomic, strong) UILabel *headerLabel;
 @property (nonatomic, strong) NSLayoutConstraint *bottomLayoutConstraint;
 
+- (void)updateInsetsToSize:(CGFloat)inset;
+
 @end
