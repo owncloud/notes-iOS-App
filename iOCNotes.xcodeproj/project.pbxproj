@@ -13,7 +13,6 @@
 		D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256C9189599570038232A /* NSDictionary+HandleNull.m */; };
 		D02256F61895E2F10038232A /* OCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256F31895E2F10038232A /* OCSettingsController.m */; };
 		D02256F71895E2F10038232A /* OCLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256F51895E2F10038232A /* OCLoginController.m */; };
-		D02256FB1895E5B80038232A /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256FA1895E5B80038232A /* KeychainItemWrapper.m */; };
 		D02257021895E6D30038232A /* UILabel+VerticalAlignment.m in Sources */ = {isa = PBXBuildFile; fileRef = D02257011895E6D30038232A /* UILabel+VerticalAlignment.m */; };
 		D02257061896E6650038232A /* OCNotesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D02257051896E6650038232A /* OCNotesHelper.m */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
@@ -44,6 +43,8 @@
 		D0A6486A1B132E8A005C0981 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648621B132E8A005C0981 /* ALView+PureLayout.m */; };
 		D0A6486B1B132E8A005C0981 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648641B132E8A005C0981 /* NSArray+PureLayout.m */; };
 		D0A6486C1B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648661B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m */; };
+		D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A669F91C66B806001926D7 /* PDKeychainBindings.m */; };
+		D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A669FB1C66B806001926D7 /* PDKeychainBindingsController.m */; };
 		D0C6806419CE45130041E6CC /* TSBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804B19CE45130041E6CC /* TSBlurView.m */; };
 		D0C6806519CE45130041E6CC /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804D19CE45130041E6CC /* TSMessage.m */; };
 		D0C6806619CE45130041E6CC /* TSMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804F19CE45130041E6CC /* TSMessageView.m */; };
@@ -111,8 +112,6 @@
 		D02256F31895E2F10038232A /* OCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSettingsController.m; sourceTree = "<group>"; };
 		D02256F41895E2F10038232A /* OCLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCLoginController.h; sourceTree = "<group>"; };
 		D02256F51895E2F10038232A /* OCLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCLoginController.m; sourceTree = "<group>"; };
-		D02256F91895E5B80038232A /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
-		D02256FA1895E5B80038232A /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		D02257001895E6D30038232A /* UILabel+VerticalAlignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlignment.h"; sourceTree = "<group>"; };
 		D02257011895E6D30038232A /* UILabel+VerticalAlignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlignment.m"; sourceTree = "<group>"; };
 		D02257041896E6650038232A /* OCNotesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNotesHelper.h; sourceTree = "<group>"; };
@@ -171,6 +170,10 @@
 		D0A648671B132E8A005C0981 /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureLayout.h; path = PureLayout/PureLayout/PureLayout/PureLayout.h; sourceTree = SOURCE_ROOT; };
 		D0A648681B132E8A005C0981 /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PureLayout+Internal.h"; path = "PureLayout/PureLayout/PureLayout/PureLayout+Internal.h"; sourceTree = SOURCE_ROOT; };
 		D0A648691B132E8A005C0981 /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureLayoutDefines.h; path = PureLayout/PureLayout/PureLayout/PureLayoutDefines.h; sourceTree = SOURCE_ROOT; };
+		D0A669F81C66B806001926D7 /* PDKeychainBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindings.h; sourceTree = "<group>"; };
+		D0A669F91C66B806001926D7 /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
+		D0A669FA1C66B806001926D7 /* PDKeychainBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindingsController.h; sourceTree = "<group>"; };
+		D0A669FB1C66B806001926D7 /* PDKeychainBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindingsController.m; sourceTree = "<group>"; };
 		D0C6804A19CE45130041E6CC /* TSBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSBlurView.h; sourceTree = "<group>"; };
 		D0C6804B19CE45130041E6CC /* TSBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSBlurView.m; sourceTree = "<group>"; };
 		D0C6804C19CE45130041E6CC /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessage.h; sourceTree = "<group>"; };
@@ -259,15 +262,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D02256F81895E5B80038232A /* KeychainItemWrapper */ = {
-			isa = PBXGroup;
-			children = (
-				D02256F91895E5B80038232A /* KeychainItemWrapper.h */,
-				D02256FA1895E5B80038232A /* KeychainItemWrapper.m */,
-			);
-			path = KeychainItemWrapper;
-			sourceTree = "<group>";
-		};
 		D02256FF1895E6D30038232A /* UILabel-VerticalAlignment */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +358,18 @@
 			name = OCNoteOperation;
 			sourceTree = "<group>";
 		};
+		D0A669F71C66B806001926D7 /* PDKeychainBindingsController */ = {
+			isa = PBXGroup;
+			children = (
+				D0A669F81C66B806001926D7 /* PDKeychainBindings.h */,
+				D0A669F91C66B806001926D7 /* PDKeychainBindings.m */,
+				D0A669FA1C66B806001926D7 /* PDKeychainBindingsController.h */,
+				D0A669FB1C66B806001926D7 /* PDKeychainBindingsController.m */,
+			);
+			name = PDKeychainBindingsController;
+			path = PDKeychainBindingsController/PDKeychainBindingsController;
+			sourceTree = "<group>";
+		};
 		D0C6804819CE45130041E6CC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +403,7 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
+				D0A669F71C66B806001926D7 /* PDKeychainBindingsController */,
 				D08D90A419FDAFAD00E865CC /* PureLayout */,
 				D036BF2B191062B80078FD3E /* MMDrawerController */,
 				D03DA13D18DE435900178958 /* fmdb */,
@@ -404,7 +411,6 @@
 				D0791B0F18AD4E33005227AB /* TTOpenInAppActivity */,
 				D022571618984B930038232A /* TSMessages */,
 				D02256FF1895E6D30038232A /* UILabel-VerticalAlignment */,
-				D02256F81895E5B80038232A /* KeychainItemWrapper */,
 				D0CFE5761888AD0100165839 /* AFNetworking */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
@@ -681,7 +687,6 @@
 				D036BF3B191062B80078FD3E /* UIViewController+MMDrawerController.m in Sources */,
 				D0A6486C1B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
-				D02256FB1895E5B80038232A /* KeychainItemWrapper.m in Sources */,
 				D08D90B319FDAFC400E865CC /* OCHeaderTextView.m in Sources */,
 				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
@@ -700,6 +705,7 @@
 				D0CFE5911888AD0200165839 /* AFURLResponseSerialization.m in Sources */,
 				D02256F71895E2F10038232A /* OCLoginController.m in Sources */,
 				D0C6807B19CE45620041E6CC /* HexColor.m in Sources */,
+				D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */,
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,
 				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
 				D036BF39191062B80078FD3E /* MMDrawerVisualState.m in Sources */,
@@ -707,6 +713,7 @@
 				D02256F61895E2F10038232A /* OCSettingsController.m in Sources */,
 				D0C6806419CE45130041E6CC /* TSBlurView.m in Sources */,
 				D0CB434E18D274C200C54D7C /* FCModel.m in Sources */,
+				D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */,
 				D0CFE58B1888AD0200165839 /* AFHTTPRequestOperationManager.m in Sources */,
 				D0CFE58E1888AD0200165839 /* AFSecurityPolicy.m in Sources */,
 				D02257021895E6D30038232A /* UILabel+VerticalAlignment.m in Sources */,

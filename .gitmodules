@@ -1,9 +1,6 @@
 [submodule "AFNetworking"]
 	path = AFNetworking
 	url = https://github.com/AFNetworking/AFNetworking.git
-[submodule "KeychainItemWrapper"]
-	path = KeychainItemWrapper
-	url = git://gist.github.com/1170641.git
 [submodule "UILabel-VerticalAlignment"]
 	path = UILabel-VerticalAlignment
 	url = https://github.com/ecentinela/UILabel-VerticalAlignment
@@ -28,3 +25,6 @@
 [submodule "PureLayout"]
 	path = PureLayout
 	url = https://github.com/smileyborg/PureLayout.git
+[submodule "PDKeychainBindingsController"]
+	path = PDKeychainBindingsController
+	url = https://github.com/carlbrown/PDKeychainBindingsController.git

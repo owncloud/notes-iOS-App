@@ -16,7 +16,7 @@
 #import "UIImage+ImageWithColor.h"
 #import "MMDrawerController.h"
 #import "MMDrawerVisualState.h"
-
+#import "PDKeychainBindings.h"
 
 @implementation OCAppDelegate
 
@@ -67,6 +67,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setRootViewController:drawerController];
     
+    [[PDKeychainBindings sharedKeychainBindings] setObject:(__bridge id)(kSecAttrAccessibleAfterFirstUnlock) forKey:(__bridge id)(kSecAttrAccessible)];
     [OCAPIClient sharedClient];
     [OCNotesHelper sharedHelper];
     

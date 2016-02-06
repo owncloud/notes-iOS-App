@@ -5,7 +5,7 @@
 
 /************************************************************************
  
- Copyright 2013 Peter Hedlund peter.hedlund@me.com
+ Copyright 2013-2016 Peter Hedlund peter.hedlund@me.com
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -31,8 +31,7 @@
  *************************************************************************/
 
 #import "OCAPIClient.h"
-#import "KeychainItemWrapper.h"
-#import "NSDictionary+HandleNull.h"
+#import "PDKeychainBindings.h"
 
 //See http://twobitlabs.com/2013/01/objective-c-singleton-pattern-unit-testing/
 //Being able to reinitialize a singleton is a no no, but should happen so rarely
@@ -42,10 +41,10 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
 
 static OCAPIClient *_sharedClient = nil;
 static dispatch_once_t oncePredicate = 0;
-    
+
 @implementation OCAPIClient
 
-+(OCAPIClient *)sharedClient {
++ (OCAPIClient *)sharedClient {
     //static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
         NSString *serverURLString = [[NSUserDefaults standardUserDefaults] stringForKey:@"Server"];
@@ -56,25 +55,47 @@ static dispatch_once_t oncePredicate = 0;
     return _sharedClient;
 }
 
--(id)initWithBaseURL:(NSURL *)url {
+- (id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
     if (!self) {
         return nil;
     }
-    BOOL allowInvalid = [[NSUserDefaults standardUserDefaults] boolForKey:@"AllowInvalidSSLCertificate"];
+    __block BOOL allowInvalid = [[NSUserDefaults standardUserDefaults] boolForKey:@"AllowInvalidSSLCertificate"];
     self.securityPolicy.allowInvalidCertificates = allowInvalid;
 
-    KeychainItemWrapper *keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"iOCNotes" accessGroup:nil];
-    [keychain setObject:(__bridge id)(kSecAttrAccessibleWhenUnlocked) forKey:(__bridge id)(kSecAttrAccessible)];
+    self.requestSerializer = [OCAPIClient jsonRequestSerializer];
     
-    [self setRequestSerializer:[AFJSONRequestSerializer serializer]];
-    [self.requestSerializer setAuthorizationHeaderFieldWithUsername:[keychain objectForKey:(__bridge id)(kSecAttrAccount)] password:[keychain objectForKey:(__bridge id)(kSecValueData)]];
-    [self.reachabilityManager startMonitoring];    
-
+    [self.reachabilityManager startMonitoring];
+    
+    [self setSessionDidReceiveAuthenticationChallengeBlock:^NSURLSessionAuthChallengeDisposition(NSURLSession * _Nonnull session, NSURLAuthenticationChallenge * _Nonnull challenge, NSURLCredential *__autoreleasing  _Nullable * _Nullable credential) {
+        if (allowInvalid) {
+            *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+            return NSURLSessionAuthChallengeUseCredential;
+        } else {
+            return NSURLSessionAuthChallengePerformDefaultHandling;
+        }
+     }];
+    
     return self;
 }
 
-+(void)setSharedClient:(OCAPIClient *)client {
++ (AFHTTPRequestSerializer*)httpRequestSerializer
+{
+    AFHTTPRequestSerializer *result = [AFHTTPRequestSerializer serializer];
+    [result setAuthorizationHeaderFieldWithUsername:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecAttrAccount)]
+                                           password:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecValueData)]];
+    return result;
+}
+
++ (AFJSONRequestSerializer*)jsonRequestSerializer
+{
+    AFJSONRequestSerializer *result = [AFJSONRequestSerializer serializer];
+    [result setAuthorizationHeaderFieldWithUsername:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecAttrAccount)]
+                                           password:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecValueData)]];
+    return result;
+}
+
++ (void)setSharedClient:(OCAPIClient *)client {
     oncePredicate = 0; // resets the once_token so dispatch_once will run again
     _sharedClient = client;
 }

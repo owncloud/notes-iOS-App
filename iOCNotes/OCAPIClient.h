@@ -5,7 +5,7 @@
 
 /************************************************************************
  
- Copyright 2013 Peter Hedlund peter.hedlund@me.com
+ Copyright 2013-2016 Peter Hedlund peter.hedlund@me.com
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -30,12 +30,13 @@
  
  *************************************************************************/
 
-#import <CoreData/CoreData.h>
 #import "AFHTTPSessionManager.h"
 
 @interface OCAPIClient : AFHTTPSessionManager
 
-+(OCAPIClient *)sharedClient;
-+(void)setSharedClient:(OCAPIClient *)client;
++ (OCAPIClient *)sharedClient;
++ (void)setSharedClient:(OCAPIClient *)client;
++ (AFHTTPRequestSerializer*)httpRequestSerializer;
++ (AFJSONRequestSerializer*)jsonRequestSerializer;
 
 @end

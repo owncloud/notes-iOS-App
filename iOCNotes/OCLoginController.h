@@ -31,11 +31,8 @@
  *************************************************************************/
 
 #import <UIKit/UIKit.h>
-#import "KeychainItemWrapper.h"
 
 @interface OCLoginController : UITableViewController <UITextFieldDelegate>
-
-@property (nonatomic, strong, readonly) KeychainItemWrapper *keychain;
 
 @property (strong, nonatomic) IBOutlet UITextField *serverTextField;
 @property (strong, nonatomic) IBOutlet UITextField *usernameTextField;

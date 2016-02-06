@@ -32,7 +32,7 @@
 
 #import "OCLoginController.h"
 #import "OCAPIClient.h"
-#import "KeychainItemWrapper.h"
+#import "PDKeychainBindings.h"
 #import "UILabel+VerticalAlignment.h"
 #import "TSMessage.h"
 
@@ -43,8 +43,6 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
 @end
 
 @implementation OCLoginController
-
-@synthesize keychain;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,8 +71,8 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
     [super viewWillAppear:animated];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     self.serverTextField.text = [prefs stringForKey:@"Server"];
-    self.usernameTextField.text = [self.keychain objectForKey:(__bridge id)(kSecAttrAccount)];
-    self.passwordTextField.text = [self.keychain objectForKey:(__bridge id)(kSecValueData)];
+    self.usernameTextField.text = [[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecAttrAccount)];
+    self.passwordTextField.text = [[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecValueData)];
     self.certificateSwitch.on = [prefs boolForKey:@"AllowInvalidSSLCertificate"];
     
     if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
@@ -117,6 +115,11 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
         }
         [tableView deselectRowAtIndexPath:indexPath animated:true];
         [self.connectionActivityIndicator startAnimating];
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setBool:self.certificateSwitch.on forKey:@"AllowInvalidSSLCertificate"];
+        [prefs synchronize];
+
         OCAPIClient *client = [[OCAPIClient alloc] initWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", self.serverTextField.text, rootPath]]];
         [client setRequestSerializer:[AFJSONRequestSerializer serializer]];
         [client.requestSerializer setAuthorizationHeaderFieldWithUsername:self.usernameTextField.text password:self.passwordTextField.text];
@@ -129,8 +132,8 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
             NSLog(@"notes: %@", responseObject);
                         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             [prefs setObject:self.serverTextField.text forKey:@"Server"];
-            [self.keychain setObject:self.usernameTextField.text forKey:(__bridge id)(kSecAttrAccount)];
-            [self.keychain setObject:self.passwordTextField.text forKey:(__bridge id)(kSecValueData)];
+            [[PDKeychainBindings sharedKeychainBindings] setObject:self.usernameTextField.text forKey:(__bridge id)(kSecAttrAccount)];
+            [[PDKeychainBindings sharedKeychainBindings] setObject:self.passwordTextField.text forKey:(__bridge id)(kSecValueData)];
             [prefs setBool:self.certificateSwitch.on forKey:@"AllowInvalidSSLCertificate"];
             [prefs synchronize];
             [OCAPIClient setSharedClient:nil];
@@ -180,7 +183,11 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
                     break;
                 default:
                     title = NSLocalizedString(@"Connection failure", @"An error message title");
-                    message = NSLocalizedString(@"Failed to connect to a server. Check your settings.", @"An error message");
+                    if (error) {
+                        message = error.localizedDescription;
+                    } else {
+                        message = NSLocalizedString(@"Failed to connect to a server. Check your settings.", @"An error message");
+                    }
                     break;
             }
             NSLog(@"Error: %@, response: %ld", [error localizedDescription], (long)[response statusCode]);
@@ -204,14 +211,6 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
                                    canBeDismissedByUser:YES];
         }];
     }
-}
-
-- (KeychainItemWrapper *)keychain {
-    if (!keychain) {
-        keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"iOCNotes" accessGroup:nil];
-        [keychain setObject:(__bridge id)(kSecAttrAccessibleWhenUnlocked) forKey:(__bridge id)(kSecAttrAccessible)];
-    }
-    return keychain;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -239,10 +238,10 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
         textHasChanged = (![proposedNewString isEqualToString:[prefs stringForKey:@"Server"]]);
     }
     if ([textField isEqual:self.usernameTextField]) {
-        textHasChanged = (![proposedNewString isEqualToString:[self.keychain objectForKey:(__bridge id)(kSecAttrAccount)]]);
+        textHasChanged = (![proposedNewString isEqualToString:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecAttrAccount)]]);
     }
     if ([textField isEqual:self.passwordTextField]) {
-        textHasChanged = (![proposedNewString isEqualToString:[self.keychain objectForKey:(__bridge id)(kSecValueData)]]);
+        textHasChanged = (![proposedNewString isEqualToString:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecValueData)]]);
     }
     if (!textHasChanged) {
         textHasChanged = (self.certificateSwitch.on != [prefs boolForKey:@"AllowInvalidSSLCertificate"]);
