@@ -66,6 +66,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setRootViewController:drawerController];
+    [drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
     
     [[PDKeychainBindings sharedKeychainBindings] setObject:(__bridge id)(kSecAttrAccessibleAfterFirstUnlock) forKey:(__bridge id)(kSecAttrAccessible)];
     [OCAPIClient sharedClient];
