@@ -128,7 +128,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
         client.securityPolicy.allowInvalidCertificates = allowInvalid;
         NSDictionary *params = @{@"exclude": @"content"};
         
-        [client GET:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        [client GET:@"notes" parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSLog(@"notes: %@", responseObject);
                         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             [prefs setObject:self.serverTextField.text forKey:@"Server"];
