@@ -231,6 +231,7 @@
     if (online) {
         
         NSDictionary *params = @{@"exclude": @""};
+        [OCAPIClient sharedClient].requestSerializer = [OCAPIClient jsonRequestSerializer];
         [[OCAPIClient sharedClient] GET:@"notes" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             
             NSArray *serverNotesDictArray = (NSArray *)responseObject;

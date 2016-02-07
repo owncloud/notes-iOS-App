@@ -18,6 +18,7 @@
         __block OCNote *noteToGet = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [NSNumber numberWithInt:self.note.id]]];
         if (noteToGet) {
             NSDictionary *params = @{@"exclude": @"title,content"};
+            [OCAPIClient sharedClient].requestSerializer = [OCAPIClient jsonRequestSerializer];
             [[OCAPIClient sharedClient] GET:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
                 if (!self.isCancelled) {
                     NSDictionary *noteDict = (NSDictionary*)responseObject;
@@ -25,6 +26,7 @@
                     if ([[NSNumber numberWithInt:noteToGet.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
                         if ([[noteDict objectForKey:@"modified"] doubleValue] > noteToGet.modified) {
                             //The server has a newer version. We need to get it.
+                            [OCAPIClient sharedClient].requestSerializer = [OCAPIClient httpRequestSerializer];
                             [[OCAPIClient sharedClient] GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                                 if (!self.isCancelled) {
                                     NSDictionary *responseDictionary = (NSDictionary*)responseObject;

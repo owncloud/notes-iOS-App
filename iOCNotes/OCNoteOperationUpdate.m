@@ -16,6 +16,7 @@
     if (!self.isCancelled) {
         NSDictionary *params = @{@"content": self.note.content};
         NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithInt:self.note.id].stringValue];
+        [OCAPIClient sharedClient].requestSerializer = [OCAPIClient jsonRequestSerializer];
         [[OCAPIClient sharedClient] PUT:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
             if (!self.isCancelled) {
                 //                        NSLog(@"Returning from update operation");

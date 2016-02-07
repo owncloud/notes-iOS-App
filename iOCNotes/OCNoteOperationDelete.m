@@ -14,6 +14,7 @@
 - (void)performOperation {
     if (!self.isCancelled) {
         NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithInt:self.note.id].stringValue];
+        [OCAPIClient sharedClient].requestSerializer = [OCAPIClient httpRequestSerializer];
         [[OCAPIClient sharedClient] DELETE:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             if (!self.isCancelled) {
                 [self.note delete];
