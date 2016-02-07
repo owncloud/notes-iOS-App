@@ -120,7 +120,7 @@
                                                object:nil];
     
     [self.view setNeedsUpdateConstraints];
-    [self viewWillTransitionToSize:[UIScreen mainScreen].bounds.size withTransitionCoordinator:nil];
+    [self viewWillTransitionToSize:[UIScreen mainScreen].bounds.size withTransitionCoordinator:self.transitionCoordinator];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -374,6 +374,9 @@
             [self.noteView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.3];
             self.addingNote = NO;
         }
+    }
+    if ([notification.name isEqualToString:FCModelUpdateNotification]) {
+        self.noteView.text = self.ocNote.content;
     }
 }
 
