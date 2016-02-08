@@ -37,6 +37,7 @@
 @interface OCNotesHelper : NSObject
 
 + (OCNotesHelper *)sharedHelper;
++ (BOOL)isOnline;
 - (void)sync;
 - (void)addNote:(NSString*)content;
 - (void)getNote:(OCNote*)note;

@@ -88,6 +88,11 @@
     return self;
 }
 
++ (BOOL)isOnline
+{
+    return [OCAPIClient sharedClient].reachabilityManager.isReachable;
+}
+
 - (void)reachabilityChanged:(NSNotification *)n {
     NSNumber *s = n.userInfo[AFNetworkingReachabilityNotificationStatusItem];
     AFNetworkReachabilityStatus status = [s integerValue];
@@ -523,7 +528,7 @@
 }
 
 - (void)noteOperationDidFinish:(OCNoteOperation *)noteOperation {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkSuccess" object:self userInfo:nil];
 }
 
 - (void)noteOperationDidFail:(OCNoteOperation *)noteOperation {

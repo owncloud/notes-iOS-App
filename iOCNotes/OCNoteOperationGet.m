@@ -60,6 +60,10 @@
                                 }
                                 [self finish];
                             }];
+                        } else {
+                            if (self.delegate) {
+                                [self.delegate noteOperationDidFinish:self];
+                            }
                         }
                     }
                 }

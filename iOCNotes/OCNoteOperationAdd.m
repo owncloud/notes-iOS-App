@@ -23,7 +23,7 @@
                 self.note.id = [[responseDictionary objectForKey:@"id"] intValue];
                 self.note.modified = [[responseDictionary objectForKey:@"modified"] doubleValue];
                 self.note.title = [responseDictionary objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
-                self.note.content = [responseDictionary objectForKeyNotNull:@"content" fallback:@""];
+//                self.note.content = [responseDictionary objectForKeyNotNull:@"content" fallback:@""];
                 self.note.addNeeded = NO;
                 self.note.updateNeeded = NO;
                 [self.note save];

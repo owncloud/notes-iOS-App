@@ -15,6 +15,7 @@
 #import "UIViewController+MMDrawerController.h"
 #import <float.h>
 #import "OCNote.h"
+#import "KVNProgress.h"
 
 @interface OCNotesTableViewController  () <UISearchResultsUpdating, UISearchBarDelegate> {
     BOOL networkHasBeenUnreachable;
@@ -404,6 +405,9 @@
         [[OCNotesHelper sharedHelper] getNote:note];
         self.editorViewController.ocNote = note;
         [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        if ([OCNotesHelper isOnline]) {
+            [KVNProgress show];
+        }
     }
 }
 
@@ -517,12 +521,14 @@
 }
 
 - (void) networkSuccess:(NSNotification *)n {
+    [KVNProgress dismiss];
     [self.refreshControl endRefreshing];
     self.addBarButton.enabled = YES;
     self.settingsBarButton.enabled = YES;
 }
 
 - (void)networkError:(NSNotification *)n {
+    [KVNProgress dismiss];
     [self.refreshControl endRefreshing];
     self.addBarButton.enabled = YES;
     self.settingsBarButton.enabled = YES;
