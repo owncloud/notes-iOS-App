@@ -25,9 +25,25 @@
             [self finish];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             if (!self.isCancelled) {
-                self.errorMessage = [error localizedDescription];
-                if (self.delegate) {
-                    [self.delegate noteOperationDidFail:self];
+                NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+                //            NSLog(@"Status code: %ld", (long)response.statusCode);
+                switch (response.statusCode) {
+                    case 404:
+                        //Note doesn't exist on the server but we are obviously
+                        //trying to delete it, so let's do that.
+                        if (self.note.existsInDatabase) {
+                            [self.note delete];
+                        }
+                        if (self.delegate) {
+                            [self.delegate noteOperationDidFinish:self];
+                        }
+                        break;
+                    default:
+                        self.errorMessage = [error localizedDescription];
+                        if (self.delegate) {
+                            [self.delegate noteOperationDidFail:self];
+                        }
+                        break;
                 }
             }
             [self finish];

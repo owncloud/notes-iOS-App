@@ -28,3 +28,6 @@
 [submodule "PDKeychainBindingsController"]
 	path = PDKeychainBindingsController
 	url = https://github.com/carlbrown/PDKeychainBindingsController.git
+[submodule "KVNProgress"]
+	path = KVNProgress
+	url = https://github.com/kevin-hirsch/KVNProgress.git
