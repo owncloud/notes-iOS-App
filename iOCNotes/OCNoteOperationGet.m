@@ -22,7 +22,7 @@
             [[OCAPIClient sharedClient] GET:path parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 if (!self.isCancelled) {
                     NSDictionary *noteDict = (NSDictionary*)responseObject;
-                    NSLog(@"NoteDict: %@", noteDict);
+//                    NSLog(@"NoteDict: %@", noteDict);
                     if ([[NSNumber numberWithInt:noteToGet.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
                         if ([[noteDict objectForKey:@"modified"] doubleValue] > noteToGet.modified) {
                             //The server has a newer version. We need to get it.

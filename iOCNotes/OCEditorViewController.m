@@ -330,7 +330,7 @@
 }
 
 - (void)updateText:(NSTimer*)timer {
-    NSLog(@"Ready to update text");
+//    NSLog(@"Ready to update text");
     self.ocNote.content = self.noteView.text;
     if (self.ocNote.existsInDatabase) {
         [self.ocNote save];
@@ -339,7 +339,7 @@
 }
 
 - (void)noteUpdated:(NSNotification *)notification {
-    NSLog(@"Informed about note update");
+//    NSLog(@"Informed about note update");
     if (self.ocNote && !self.ocNote.deleteNeeded) {
         self.noteView.editable = YES;
         self.noteView.selectable = YES;

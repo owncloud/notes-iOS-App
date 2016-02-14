@@ -269,12 +269,12 @@
                 
                 NSArray *knownIds = [[OCNote resultDictionariesFromQuery:@"SELECT * FROM $T WHERE id > 0"] valueForKey:@"id"];
                 
-                NSLog(@"Count: %lu", (unsigned long)knownIds.count);
+//                NSLog(@"Count: %lu", (unsigned long)knownIds.count);
                 
                 NSMutableArray *deletedOnServer = [NSMutableArray arrayWithArray:knownIds];
                 [deletedOnServer removeObjectsInArray:serverIds];
                 //TODO: Fix [deletedOnServer removeObjectsInArray:notesToAdd];
-                NSLog(@"Deleted on server: %@", deletedOnServer);
+//                NSLog(@"Deleted on server: %@", deletedOnServer);
                 while (deletedOnServer.count > 0) {
                     OCNote *ocNote = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [deletedOnServer lastObject]]];
                     [ocNote delete];
@@ -494,14 +494,14 @@
 
 - (void)addOperationToQueue:(OCNoteOperation*)noteOperation {
     __block NSString *newGuid = noteOperation.note.guid;
-    NSLog(@"Adding operation to queue %@", newGuid);
+//    NSLog(@"Adding operation to queue %@", newGuid);
     [self.notesOperationQueue.operations enumerateObjectsUsingBlock:^(OCNoteOperation *operation, NSUInteger idx, BOOL *stop) {
-        NSLog(@"Comparing %@ to operation %@", newGuid, operation.note.guid);
+//        NSLog(@"Comparing %@ to operation %@", newGuid, operation.note.guid);
         
         if ([operation.note.guid isEqualToString:newGuid]) {
             if (operation.isExecuting) {
                 if ([operation isKindOfClass:[OCNoteOperationAdd class]] && [noteOperation isKindOfClass:[OCNoteOperationAdd class]]) {
-                    NSLog(@"Changing operation to update");
+//                    NSLog(@"Changing operation to update");
                     OCNote *theNote = noteOperation.note;
                     OCNoteOperationUpdate *newNoteOperation = [[OCNoteOperationUpdate alloc] initWithNote:theNote delegate:self];
                     newNoteOperation.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -512,7 +512,7 @@
                     [noteOperation addDependency:operation];
                 }
             } else {
-                NSLog(@"Cancelling operation");
+//                NSLog(@"Cancelling operation");
                 [operation cancel];
             }
         }

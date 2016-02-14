@@ -129,16 +129,18 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
         NSDictionary *params = @{@"exclude": @"content"};
         
         [client GET:@"notes" parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-            NSLog(@"notes: %@", responseObject);
-                        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+//            NSLog(@"notes: %@", responseObject);
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             [prefs setObject:self.serverTextField.text forKey:@"Server"];
             [[PDKeychainBindings sharedKeychainBindings] setObject:self.usernameTextField.text forKey:(__bridge id)(kSecAttrAccount)];
             [[PDKeychainBindings sharedKeychainBindings] setObject:self.passwordTextField.text forKey:(__bridge id)(kSecValueData)];
             [prefs setBool:self.certificateSwitch.on forKey:@"AllowInvalidSSLCertificate"];
             [prefs synchronize];
             [OCAPIClient setSharedClient:nil];
+#ifdef DEBUG
             int status = [[OCAPIClient sharedClient].reachabilityManager networkReachabilityStatus];
             NSLog(@"Server status: %i", status);
+#endif
             self.statusLabel.text = [NSString stringWithFormat:@"Connected to an ownCloud Notes server at\n \"%@\".", self.serverTextField.text];
             
             [self.connectionActivityIndicator stopAnimating];
@@ -167,7 +169,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSString *message = @"";
             NSString *title = @"";
-            NSLog(@"Status code: %ld", (long)response.statusCode);
+//            NSLog(@"Status code: %ld", (long)response.statusCode);
             switch (response.statusCode) {
                 case 200:
                     title = NSLocalizedString(@"Notes not found", @"An error message title");
@@ -190,7 +192,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
                     }
                     break;
             }
-            NSLog(@"Error: %@, response: %ld", [error localizedDescription], (long)[response statusCode]);
+//            NSLog(@"Error: %@, response: %ld", [error localizedDescription], (long)[response statusCode]);
             //self.statusLabel.text = message;
             [self.connectionActivityIndicator stopAnimating];
             [TSMessage showNotificationInViewController:self

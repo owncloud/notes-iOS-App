@@ -171,7 +171,7 @@
 - (void)reloadNotes:(NSNotification *)notification
 {
     self.ocNotes = [OCNote instancesWhere:@"deleteNeeded = 0 ORDER BY modified DESC"];
-    NSLog(@"Reloading with %lu notes", (unsigned long) self.ocNotes.count);
+//    NSLog(@"Reloading with %lu notes", (unsigned long) self.ocNotes.count);
     NSIndexPath *currentSelection = [self.tableView indexPathForSelectedRow];
     [self.tableView reloadData];
     if (currentSelection && (self.ocNotes.count > 0)) {
@@ -191,7 +191,7 @@
 {
     self.ocNotes = [OCNote instancesWhere:@"deleteNeeded = 0 ORDER BY modified DESC"];
     [self.tableView reloadData];
-    NSLog(@"Note added: %@", [notification userInfo]);
+//    NSLog(@"Note added: %@", [notification userInfo]);
     NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
     OCNote *newNote = [noteSet anyObject];
     if (self.addingNote) {

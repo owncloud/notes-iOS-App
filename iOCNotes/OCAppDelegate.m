@@ -74,9 +74,9 @@
     
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
         if(completed) {
-            NSLog(@"Sent %d reports", (int)[reports count]);
+//            NSLog(@"Sent %d reports", (int)[reports count]);
         } else{
-            NSLog(@"Failed to send reports: %@", error);
+//            NSLog(@"Failed to send reports: %@", error);
         }
     }];
     
