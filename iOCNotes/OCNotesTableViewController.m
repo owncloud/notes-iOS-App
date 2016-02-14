@@ -174,7 +174,7 @@
     NSLog(@"Reloading with %lu notes", (unsigned long) self.ocNotes.count);
     NSIndexPath *currentSelection = [self.tableView indexPathForSelectedRow];
     [self.tableView reloadData];
-    if (currentSelection) {
+    if (currentSelection && (self.ocNotes.count > 0)) {
         [self.tableView selectRowAtIndexPath:currentSelection animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
     if (self.editorViewController) {
