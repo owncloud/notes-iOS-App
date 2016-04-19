@@ -22,6 +22,7 @@
 @property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
 @property (strong, nonatomic) NSLayoutConstraint *bottomLayoutConstraint;
 @property (nonatomic, assign) BOOL didSetupConstraints;
+@property (nonatomic, assign) BOOL updatedByEditing;
 
 - (void)updateText:(NSTimer*)timer;
 - (void)noteUpdated:(NSNotification*)notification;
@@ -32,6 +33,7 @@
 
 @synthesize ocNote = _ocNote;
 @synthesize addingNote;
+@synthesize updatedByEditing;
 @synthesize noteView;
 
 - (void)setOcNote:(OCNote *)ocNote {
@@ -83,6 +85,7 @@
     self.navigationController.toolbar.clipsToBounds = YES;
     
     self.addingNote = NO;
+    self.updatedByEditing = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -376,7 +379,9 @@
         }
     }
     if ([notification.name isEqualToString:FCModelUpdateNotification]) {
-        self.noteView.text = self.ocNote.content;
+        if (!self.updatedByEditing) {
+            self.noteView.text = self.ocNote.content;
+        }
     }
 }
 
@@ -401,7 +406,8 @@
     [self.bottomLayoutConstraint autoRemove];
     [self updateViewConstraints];
     self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:height];
-
+    self.updatedByEditing = YES;
+    
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
     }];
@@ -418,6 +424,7 @@
     [self.bottomLayoutConstraint autoRemove];
     self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     [self updateViewConstraints];
+    self.updatedByEditing = NO;
 
     [UIView animateWithDuration:animationDuration animations:^{
         [self.view layoutIfNeeded];
