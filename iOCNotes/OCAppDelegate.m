@@ -13,6 +13,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import <KSCrash/KSCrash.h>
 #import <KSCrash/KSCrashInstallationEmail.h>
+#import <KSCrash/KSCrashInstallation+Alert.h> 
 #import "UIImage+ImageWithColor.h"
 #import "MMDrawerController.h"
 #import "MMDrawerVisualState.h"
