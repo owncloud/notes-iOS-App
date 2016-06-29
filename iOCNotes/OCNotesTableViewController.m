@@ -16,6 +16,7 @@
 #import <float.h>
 #import "OCNote.h"
 #import "KVNProgress.h"
+#import "iOCNotes-Swift.h"
 
 @interface OCNotesTableViewController  () <UISearchResultsUpdating, UISearchBarDelegate> {
     BOOL networkHasBeenUnreachable;

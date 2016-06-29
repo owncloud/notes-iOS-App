@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "OCNote.h"
-#import "OCHeaderTextView.h"
 
+@class PBHHeaderTextView;
 @interface OCEditorViewController : UIViewController <UITextViewDelegate>
 
-@property (strong, nonatomic) OCHeaderTextView *noteView;
+@property (strong, nonatomic) PBHHeaderTextView *noteView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *activityButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;

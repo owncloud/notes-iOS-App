@@ -35,7 +35,7 @@
 		D059745E18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
 		D06591DB195B9A8E005B3670 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
-		D08D90B319FDAFC400E865CC /* OCHeaderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D08D90B219FDAFC400E865CC /* OCHeaderTextView.m */; };
+		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D0A3E9DD1CD5759600857A46 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D022570D189847A90038232A /* KSCrash.framework */; };
 		D0A3E9DE1CD5759600857A46 /* KSCrash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D022570D189847A90038232A /* KSCrash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */; };
@@ -84,6 +84,8 @@
 		D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE59A188B5A6900165839 /* OCAPIClient.m */; };
 		D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */; };
 		D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5AC1890659600165839 /* QuartzCore.framework */; };
+		D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */; };
+		D0E5ECC51D0CBFF100CA76EA /* MarklightTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5ECC21D0CBFF100CA76EA /* MarklightTextStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,8 +172,8 @@
 		D06591DC195B9A8F005B3670 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPad.strings; sourceTree = "<group>"; };
 		D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpenInAppActivity.h; sourceTree = "<group>"; };
 		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
-		D08D90B119FDAFC400E865CC /* OCHeaderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCHeaderTextView.h; sourceTree = "<group>"; };
-		D08D90B219FDAFC400E865CC /* OCHeaderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCHeaderTextView.m; sourceTree = "<group>"; };
+		D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHHeaderTextView.swift; sourceTree = "<group>"; };
+		D08713EE1D18E2DF001EAF82 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		D0A648541B0F5584005C0981 /* OCNoteOperationAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationAdd.h; sourceTree = "<group>"; };
 		D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationAdd.m; sourceTree = "<group>"; };
 		D0A648581B0F5BB1005C0981 /* OCNoteOperationUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationUpdate.h; sourceTree = "<group>"; };
@@ -256,6 +258,9 @@
 		D0CFE5A5188E199700165839 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFNetworkActivityIndicatorManager.h; path = "../UIKit+AFNetworking/AFNetworkActivityIndicatorManager.h"; sourceTree = "<group>"; };
 		D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = "../UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m"; sourceTree = "<group>"; };
 		D0CFE5AC1890659600165839 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D0E5ECC01D0CBFF100CA76EA /* Marklight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marklight.h; sourceTree = "<group>"; };
+		D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marklight.swift; sourceTree = "<group>"; };
+		D0E5ECC21D0CBFF100CA76EA /* MarklightTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightTextStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -471,6 +476,7 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
+				D0E5ECBE1D0CBFF100CA76EA /* Marklight */,
 				D0A669FE1C68318D001926D7 /* KVNProgress */,
 				D0A669F71C66B806001926D7 /* PDKeychainBindingsController */,
 				D08D90A419FDAFAD00E865CC /* PureLayout */,
@@ -533,8 +539,8 @@
 				D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */,
 				D0CFE54E1888A7BD00165839 /* OCEditorViewController.h */,
 				D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */,
-				D08D90B119FDAFC400E865CC /* OCHeaderTextView.h */,
-				D08D90B219FDAFC400E865CC /* OCHeaderTextView.m */,
+				D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */,
+				D08713EE1D18E2DF001EAF82 /* BridgingHeader.h */,
 				D0CFE5511888A7BD00165839 /* Images.xcassets */,
 				D02256C8189599570038232A /* NSDictionary+HandleNull.h */,
 				D02256C9189599570038232A /* NSDictionary+HandleNull.m */,
@@ -604,6 +610,17 @@
 			);
 			name = AFNetworking;
 			path = AFNetworking/AFNetworking;
+			sourceTree = "<group>";
+		};
+		D0E5ECBE1D0CBFF100CA76EA /* Marklight */ = {
+			isa = PBXGroup;
+			children = (
+				D0E5ECC01D0CBFF100CA76EA /* Marklight.h */,
+				D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */,
+				D0E5ECC21D0CBFF100CA76EA /* MarklightTextStorage.swift */,
+			);
+			name = Marklight;
+			path = Marklight/Marklight;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -737,8 +754,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */,
+				D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */,
 				D0A6486A1B132E8A005C0981 /* ALView+PureLayout.m in Sources */,
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
+				D0E5ECC51D0CBFF100CA76EA /* MarklightTextStorage.swift in Sources */,
 				D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */,
 				D0A6486B1B132E8A005C0981 /* NSArray+PureLayout.m in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
@@ -750,7 +769,6 @@
 				D036BF3B191062B80078FD3E /* UIViewController+MMDrawerController.m in Sources */,
 				D0A6486C1B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
-				D08D90B319FDAFC400E865CC /* OCHeaderTextView.m in Sources */,
 				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
 				D0A66A1B1C68318D001926D7 /* UIColor+KVNContrast.m in Sources */,
@@ -783,6 +801,7 @@
 				D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */,
 				D0CFE58E1888AD0200165839 /* AFSecurityPolicy.m in Sources */,
 				D02257021895E6D30038232A /* UILabel+VerticalAlignment.m in Sources */,
+				D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */,
 				D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */,
 				D0CFE58C1888AD0200165839 /* AFHTTPSessionManager.m in Sources */,
 				D0A66A1F1C68318D001926D7 /* KVNProgressConfiguration.m in Sources */,
@@ -942,6 +961,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
@@ -956,6 +977,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/iOCNotes/BridgingHeader.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -967,6 +989,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
@@ -981,6 +1005,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/iOCNotes/BridgingHeader.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

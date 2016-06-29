@@ -12,6 +12,7 @@
 #import "UIViewController+MMDrawerController.h"
 #import "TTOpenInAppActivity.h"
 #import "PureLayout.h"
+#import "iOCNotes-Swift.h"
 
 @interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
     NSTimer *editingTimer;
@@ -56,7 +57,8 @@
     border.backgroundColor = [UIColor lightGrayColor].CGColor;
     border.frame = CGRectMake(0, 0, 1, 1024);
     [self.mm_drawerController.centerViewController.view.layer addSublayer:border];
-    
+    self.noteView = [[PBHHeaderTextView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    self.noteView.delegate = self;
     [self.view addSubview:self.noteView];
     [self.noteView autoPinEdgesToSuperviewEdges];
     self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
@@ -463,16 +465,6 @@
     UIGraphicsEndImageContext();
 
     return capturedScreen;
-}
-
-- (OCHeaderTextView*)noteView {
-    if (!noteView) {
-        noteView = [OCHeaderTextView newAutoLayoutView];
-        noteView.delegate = self;
-        noteView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-        noteView.alwaysBounceVertical = YES;
-    }
-    return noteView;
 }
 
 @end
