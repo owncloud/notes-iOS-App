@@ -61,7 +61,7 @@
     self.noteView.delegate = self;
     [self.view addSubview:self.noteView];
     [self.noteView autoPinEdgesToSuperviewEdges];
-    self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
+    self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton, self.fixedSpace, self.previewButton];
 
     if (self.ocNote) {
         self.noteView.text = self.ocNote.content;
@@ -283,6 +283,9 @@
     [[OCNotesHelper sharedHelper] addNote:@""];
 }
 
+- (IBAction)onPreview:(id)sender {
+}
+
 - (IBAction)onUndo:(id)sender {
     if ([self.noteView.undoManager canUndo]) {
         [self.noteView.undoManager undo];
@@ -417,7 +420,7 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton];
+        self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton, self.fixedSpace, self.previewButton];
     }
 
     NSDictionary *info = [notification userInfo];
@@ -454,6 +457,14 @@
             [self.view bringSubviewToFront:self.noteView];
             [self.noteView becomeFirstResponder];
         }
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier  isEqual: @"showPreview"]) {
+        PBHPreviewController *preview = (PBHPreviewController*)segue.destinationViewController;
+        preview.textAsMarkdown = self.noteView.text;
+        preview.noteTitle = self.ocNote.title;
     }
 }
 

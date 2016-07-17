@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
+		D017D4201D3B010900B21443 /* markdown.html in Resources */ = {isa = PBXBuildFile; fileRef = D017D41F1D3B010900B21443 /* markdown.html */; };
+		D017D4221D3B027500B21443 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = D017D4211D3B027500B21443 /* github-markdown.css */; };
+		D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D017D4231D3B03BE00B21443 /* WebKit.framework */; };
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256C9189599570038232A /* NSDictionary+HandleNull.m */; };
 		D02256F61895E2F10038232A /* OCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256F31895E2F10038232A /* OCSettingsController.m */; };
@@ -36,6 +39,8 @@
 		D06591DB195B9A8E005B3670 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
+		D09538491D32A5AD006BB78E /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538461D32A5AD006BB78E /* Markdown.swift */; };
+		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
 		D0A3E9DD1CD5759600857A46 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D022570D189847A90038232A /* KSCrash.framework */; };
 		D0A3E9DE1CD5759600857A46 /* KSCrash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D022570D189847A90038232A /* KSCrash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */; };
@@ -60,7 +65,7 @@
 		D0CB434E18D274C200C54D7C /* FCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434B18D274C200C54D7C /* FCModel.m */; };
 		D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */; };
 		D0CBD8B819621F5F00EFB17C /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CBD8B619621F5F00EFB17C /* Main_iPad.storyboard */; };
-		D0CBD8B919621F5F00EFB17C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CBD8B719621F5F00EFB17C /* Main_iPhone.storyboard */; };
+		D0CCB9A71D33191F007E50EB /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CBD8B719621F5F00EFB17C /* Main_iPhone.storyboard */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
@@ -125,6 +130,9 @@
 		D00CDFC5194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D00CDFC6194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFC7194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D017D41F1D3B010900B21443 /* markdown.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = markdown.html; sourceTree = "<group>"; };
+		D017D4211D3B027500B21443 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "github-markdown.css"; path = "github-markdown-css/github-markdown.css"; sourceTree = SOURCE_ROOT; };
+		D017D4231D3B03BE00B21443 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D02256C61891FD7C0038232A /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = defaults.plist; sourceTree = "<group>"; };
 		D02256C8189599570038232A /* NSDictionary+HandleNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+HandleNull.h"; sourceTree = "<group>"; };
 		D02256C9189599570038232A /* NSDictionary+HandleNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+HandleNull.m"; sourceTree = "<group>"; };
@@ -174,6 +182,9 @@
 		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
 		D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHHeaderTextView.swift; sourceTree = "<group>"; };
 		D08713EE1D18E2DF001EAF82 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		D09538421D32A56A006BB78E /* PBHPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHPreviewController.swift; sourceTree = "<group>"; };
+		D09538461D32A5AD006BB78E /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
+		D09538471D32A5AD006BB78E /* Markingbird.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Markingbird.h; sourceTree = "<group>"; };
 		D0A648541B0F5584005C0981 /* OCNoteOperationAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationAdd.h; sourceTree = "<group>"; };
 		D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationAdd.m; sourceTree = "<group>"; };
 		D0A648581B0F5BB1005C0981 /* OCNoteOperationUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationUpdate.h; sourceTree = "<group>"; };
@@ -268,6 +279,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
 				D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */,
 				D0225713189848120038232A /* libz.dylib in Frameworks */,
 				D0225711189848060038232A /* libc++.dylib in Frameworks */,
@@ -292,6 +304,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D017D41E1D3B010900B21443 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D017D4211D3B027500B21443 /* github-markdown.css */,
+				D017D41F1D3B010900B21443 /* markdown.html */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D02256FF1895E6D30038232A /* UILabel-VerticalAlignment */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +390,16 @@
 			);
 			name = PureLayout;
 			path = PureLayout/Source;
+			sourceTree = "<group>";
+		};
+		D09538441D32A5AD006BB78E /* Markingbird */ = {
+			isa = PBXGroup;
+			children = (
+				D09538461D32A5AD006BB78E /* Markdown.swift */,
+				D09538471D32A5AD006BB78E /* Markingbird.h */,
+			);
+			name = Markingbird;
+			path = Markingbird/Markingbird;
 			sourceTree = "<group>";
 		};
 		D0A648571B0F582D005C0981 /* OCNoteOperation */ = {
@@ -476,6 +507,7 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
+				D09538441D32A5AD006BB78E /* Markingbird */,
 				D0E5ECBE1D0CBFF100CA76EA /* Marklight */,
 				D0A669FE1C68318D001926D7 /* KVNProgress */,
 				D0A669F71C66B806001926D7 /* PDKeychainBindingsController */,
@@ -506,6 +538,7 @@
 		D0CFE5351888A7BD00165839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D017D4231D3B03BE00B21443 /* WebKit.framework */,
 				D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */,
 				D0225712189848120038232A /* libz.dylib */,
 				D0225710189848060038232A /* libc++.dylib */,
@@ -522,6 +555,7 @@
 		D0CFE53C1888A7BD00165839 /* iOCNotes */ = {
 			isa = PBXGroup;
 			children = (
+				D017D41E1D3B010900B21443 /* Resources */,
 				D0A648571B0F582D005C0981 /* OCNoteOperation */,
 				D059745C18CEA28E00867B02 /* OCNote.h */,
 				D059745D18CEA28E00867B02 /* OCNote.m */,
@@ -539,6 +573,7 @@
 				D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */,
 				D0CFE54E1888A7BD00165839 /* OCEditorViewController.h */,
 				D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */,
+				D09538421D32A56A006BB78E /* PBHPreviewController.swift */,
 				D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */,
 				D08713EE1D18E2DF001EAF82 /* BridgingHeader.h */,
 				D0CFE5511888A7BD00165839 /* Images.xcassets */,
@@ -707,16 +742,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D017D4201D3B010900B21443 /* markdown.html in Resources */,
 				D0CBD8B819621F5F00EFB17C /* Main_iPad.storyboard in Resources */,
 				D0A66A261C68318D001926D7 /* KVNProgressView.xib in Resources */,
-				D0CBD8B919621F5F00EFB17C /* Main_iPhone.storyboard in Resources */,
 				D0CFE5521888A7BD00165839 /* Images.xcassets in Resources */,
 				D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */,
 				D03ED3E419CE669700C8723F /* TSMessages.bundle in Resources */,
 				D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */,
 				D02256C71891FD7C0038232A /* defaults.plist in Resources */,
 				D0CFE54A1888A7BD00165839 /* Main_iPhone.storyboard in Resources */,
+				D0CCB9A71D33191F007E50EB /* Main_iPhone.storyboard in Resources */,
 				D0225709189745C40038232A /* Settings.bundle in Resources */,
+				D017D4221D3B027500B21443 /* github-markdown.css in Resources */,
 				D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */,
 				D06591DB195B9A8E005B3670 /* Main_iPad.storyboard in Resources */,
 			);
@@ -753,6 +790,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */,
 				D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */,
 				D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */,
 				D0A6486A1B132E8A005C0981 /* ALView+PureLayout.m in Sources */,
@@ -773,6 +811,7 @@
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
 				D0A66A1B1C68318D001926D7 /* UIColor+KVNContrast.m in Sources */,
 				D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */,
+				D09538491D32A5AD006BB78E /* Markdown.swift in Sources */,
 				D0CFE58D1888AD0200165839 /* AFNetworkReachabilityManager.m in Sources */,
 				D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */,
 				D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -917,6 +956,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -974,10 +1014,12 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/iOCNotes/BridgingHeader.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1002,6 +1044,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;

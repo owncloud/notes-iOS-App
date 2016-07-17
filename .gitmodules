@@ -34,3 +34,9 @@
 [submodule "Marklight"]
 	path = Marklight
 	url = https://github.com/macteo/Marklight.git
+[submodule "Markingbird"]
+	path = Markingbird
+	url = https://github.com/kristopherjohnson/Markingbird.git
+[submodule "github-markdown-css"]
+	path = github-markdown-css
+	url = https://github.com/sindresorhus/github-markdown-css.git
