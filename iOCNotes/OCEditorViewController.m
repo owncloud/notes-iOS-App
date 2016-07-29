@@ -18,6 +18,7 @@
     NSTimer *editingTimer;
     UIPopoverController *_activityPopover;
     UIActionSheet *deleteConfirmation;
+    PBHNoteExporter *noteExporter;
 }
 
 @property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
@@ -205,34 +206,11 @@
     } else {
         textToExport = self.noteView.text;
     }
-    
-    NSURL *fileUrl = [[OCNotesHelper sharedHelper] documentsDirectoryURL];
-    fileUrl = [fileUrl URLByAppendingPathComponent:@"export" isDirectory:YES];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:fileUrl.path]) {
-        [[NSFileManager defaultManager] removeItemAtURL:fileUrl error:nil];
-    }
-    [[NSFileManager defaultManager] createDirectoryAtURL:fileUrl withIntermediateDirectories:YES attributes:nil error:nil];
-    fileUrl = [fileUrl URLByAppendingPathComponent:self.ocNote.title];
-    fileUrl = [fileUrl URLByAppendingPathExtension:@"txt"];
-    [textToExport writeToURL:fileUrl atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    
-    TTOpenInAppActivity *openInAppActivity = [[TTOpenInAppActivity alloc] initWithView:self.view andBarButtonItem:(UIBarButtonItem*)sender];
-    
-    NSArray *activityItems = @[textToExport, fileUrl];
-    
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[openInAppActivity]];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        if (![_activityPopover isPopoverVisible]) {
-            _activityPopover = [[UIPopoverController alloc] initWithContentViewController:activityViewController];
-            _activityPopover.delegate = self;
-            openInAppActivity.superViewController = _activityPopover;
-            [_activityPopover presentPopoverFromBarButtonItem:(UIBarButtonItem*)sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
-    } else {
-        openInAppActivity.superViewController = activityViewController;
-        [self presentViewController:activityViewController animated:YES completion:nil];
+    if (!noteExporter) {
+        noteExporter = [[PBHNoteExporter alloc] initWithViewController:self barButtonItem:self.activityButton text:textToExport title:self.ocNote.title];
     }
+    [noteExporter showMenu];
 }
 
 - (IBAction)onDelete:(id)sender {

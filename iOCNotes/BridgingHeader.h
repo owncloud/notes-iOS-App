@@ -10,5 +10,7 @@
 #define BridgingHeader_h
 
 #import "PureLayout.h"
+#import "OCNote.h"
+#import "TTOpenInAppActivity.h"
 
 #endif /* BridgingHeader_h */
