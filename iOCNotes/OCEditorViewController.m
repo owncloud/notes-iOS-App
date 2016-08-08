@@ -70,6 +70,7 @@
         self.noteView.selectable = YES;
         self.activityButton.enabled = (self.noteView.text.length > 0);
         self.addButton.enabled = (self.noteView.text.length > 0);
+        self.previewButton.enabled = (self.noteView.text.length > 0);
         self.deleteButton.enabled = YES;
     } else {
         self.noteView.editable = NO;
@@ -80,6 +81,7 @@
         self.activityButton.enabled = NO;
         self.addButton.enabled = YES;
         self.deleteButton.enabled = NO;
+        self.previewButton.enabled = NO;
     }
     
     self.navigationController.navigationBar.translucent = YES;
@@ -288,6 +290,7 @@
 - (void)textViewDidChange:(UITextView *)textView {
     self.activityButton.enabled = (textView.text.length > 0);
     self.addButton.enabled = (textView.text.length > 0);
+    self.previewButton.enabled = (textView.text.length > 0);
     self.deleteButton.enabled = YES;
     if (editingTimer) {
         [editingTimer invalidate];
@@ -329,15 +332,9 @@
     if (self.ocNote && !self.ocNote.deleteNeeded) {
         self.noteView.editable = YES;
         self.noteView.selectable = YES;
-        if (self.noteView.text.length) {
-            self.activityButton.enabled = YES;
-            self.addButton.enabled = YES;
-        } else {
-            self.activityButton.enabled = NO;
-            self.addButton.enabled = NO;
-        }
         self.activityButton.enabled = (self.noteView.text.length > 0);
         self.addButton.enabled = (self.noteView.text.length > 0);
+        self.previewButton.enabled = (self.noteView.text.length > 0);
         self.deleteButton.enabled = YES;
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.ocNote.modified];
         if (date) {
