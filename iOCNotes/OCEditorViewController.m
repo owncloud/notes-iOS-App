@@ -9,7 +9,7 @@
 #import "OCEditorViewController.h"
 #import "OCNotesHelper.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIViewController+MMDrawerController.h"
+//#import "UIViewController+MMDrawerController.h"
 #import "TTOpenInAppActivity.h"
 #import "PureLayout.h"
 #import "iOCNotes-Swift.h"
@@ -54,15 +54,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    CALayer *border = [CALayer layer];
-    border.backgroundColor = [UIColor lightGrayColor].CGColor;
-    border.frame = CGRectMake(0, 0, 1, 1024);
-    [self.mm_drawerController.centerViewController.view.layer addSublayer:border];
+//    CALayer *border = [CALayer layer];
+//    border.backgroundColor = [UIColor lightGrayColor].CGColor;
+//    border.frame = CGRectMake(0, 0, 1, 1024);
+//    [self.mm_drawerController.centerViewController.view.layer addSublayer:border];
     self.noteView = [[PBHHeaderTextView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
     self.noteView.delegate = self;
     [self.view addSubview:self.noteView];
     [self.noteView autoPinEdgesToSuperviewEdges];
     self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton, self.fixedSpace, self.previewButton];
+    self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+    self.navigationItem.leftItemsSupplementBackButton = YES;
 
     if (self.ocNote) {
         self.noteView.text = self.ocNote.content;
@@ -122,10 +124,10 @@
                                                name:FCModelDeleteNotification
                                              object:OCNote.class];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(willEnterForeground:)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(willEnterForeground:)
+//                                                 name:UIApplicationDidBecomeActiveNotification
+//                                               object:nil];
     
     [self.view setNeedsUpdateConstraints];
     [self viewWillTransitionToSize:[UIScreen mainScreen].bounds.size withTransitionCoordinator:self.transitionCoordinator];
@@ -186,18 +188,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)willEnterForeground:(NSNotification*)notification {
-    if (!self.ocNote) {
-        [self doShowDrawer:self];
-    }
-}
+//- (void)willEnterForeground:(NSNotification*)notification {
+//    if (!self.ocNote) {
+//        [self doShowDrawer:self];
+//    }
+//}
 
-- (IBAction)doShowDrawer:(id)sender {
-    if (self.noteView.isFirstResponder) {
-        [self.noteView resignFirstResponder];
-    }
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-}
+//- (IBAction)doShowDrawer:(id)sender {
+//    if (self.noteView.isFirstResponder) {
+//        [self.noteView resignFirstResponder];
+//    }
+////    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+//}
 
 - (IBAction)doActivities:(id)sender {
     NSString *textToExport;

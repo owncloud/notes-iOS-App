@@ -12,13 +12,15 @@
 #import "OCNotesHelper.h"
 #import "OCLoginController.h"
 #import "TSMessage.h"
-#import "UIViewController+MMDrawerController.h"
+//#import "UIViewController+MMDrawerController.h"
 #import <float.h>
 #import "OCNote.h"
 #import "KVNProgress.h"
 #import "iOCNotes-Swift.h"
 
-@interface OCNotesTableViewController  () <UISearchResultsUpdating, UISearchBarDelegate> {
+static NSString *DetailSegueIdentifier = @"showDetail";
+
+@interface OCNotesTableViewController  () <UISearchResultsUpdating, UISearchBarDelegate, UISplitViewControllerDelegate> {
     BOOL networkHasBeenUnreachable;
     NSArray *searchResults;
 }
@@ -130,8 +132,9 @@
     self.navigationController.toolbar.translucent = YES;
     self.navigationController.toolbar.clipsToBounds = YES;
     self.navigationItem.titleView = self.titleButton;
-    UINavigationController *navController = (UINavigationController*)self.mm_drawerController.centerViewController;
-    self.editorViewController = (OCEditorViewController*)navController.topViewController;
+    self.splitViewController.delegate = self;
+//    UINavigationController *navController = (UINavigationController*)self.splitViewController.viewControllers.lastObject;
+//    self.editorViewController = (OCEditorViewController*)navController.topViewController;
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.hidesNavigationBarDuringPresentation = YES;
@@ -149,18 +152,18 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.toolbar.hidden = YES;
+//    self.navigationController.toolbar.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self didBecomeActive:nil];
-    [self.editorViewController.noteView resignFirstResponder];
+//    [self.editorViewController.noteView resignFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navigationController.toolbar.hidden = NO;
+//    self.navigationController.toolbar.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -197,9 +200,8 @@
     OCNote *newNote = [noteSet anyObject];
     if (self.addingNote) {
         if (!self.refreshControl.refreshing) {
-            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-                //
-            }];
+            [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+            [self performSegueWithIdentifier:DetailSegueIdentifier sender:self];
         }
     }
     self.addingNote = NO;
@@ -363,7 +365,7 @@
         } else {
             self.editorViewController.ocNote = nil;
         }
-        if (self.mm_drawerController.openSide == MMDrawerSideNone) {
+        if (self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryHidden) {
             //called while showing editor
             [self.tableView reloadData];
         }
@@ -391,26 +393,40 @@
     return UITableViewCellEditingStyleDelete;
 }
 
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger noteCount;
-    if (self.searchController.active) {
-        noteCount = searchResults.count;
-    } else {
-        noteCount = self.ocNotes.count;
-    }
-    if ((noteCount > 0) && (indexPath.row <= noteCount - 1)) {
-        OCNote *note = nil;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:DetailSegueIdentifier]) {
+        NSUInteger noteCount;
         if (self.searchController.active) {
-            note = [searchResults objectAtIndex:indexPath.row];
+            noteCount = searchResults.count;
         } else {
-            note = [self.ocNotes objectAtIndex:indexPath.row];
+            noteCount = self.ocNotes.count;
         }
-        [[OCNotesHelper sharedHelper] getNote:note];
-        self.editorViewController.ocNote = note;
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
-        if ([OCNotesHelper isOnline]) {
-            [KVNProgress show];
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        if ((noteCount > 0) && (indexPath.row <= noteCount - 1)) {
+            OCNote *note = nil;
+            if (self.searchController.active) {
+                note = [searchResults objectAtIndex:indexPath.row];
+            } else {
+                note = [self.ocNotes objectAtIndex:indexPath.row];
+            }
+            [[OCNotesHelper sharedHelper] getNote:note];
+
+            UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
+            self.editorViewController = (OCEditorViewController *)navigationController.topViewController;
+            self.editorViewController.ocNote = note;
+            self.editorViewController.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+            self.editorViewController.navigationItem.leftItemsSupplementBackButton = YES;
+//            self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+            if (self.splitViewController.displayMode == UISplitViewControllerDisplayModeAllVisible || self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryOverlay) {
+                [UIView animateWithDuration:0.3 animations:^{
+                    self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+                } completion:^(BOOL finished){
+//                    self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAutomatic;
+                }];
+            }
+             if ([OCNotesHelper isOnline]) {
+                [KVNProgress show];
+            }
         }
     }
 }
@@ -475,13 +491,8 @@
 }
 
 - (IBAction)doSettings:(id)sender {
-    UIStoryboard *storyboard;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     UINavigationController *nav;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil];
-    } else {
-        storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-    }
     if ([sender isEqual:self.menuActionSheet] || [sender isEqual:self.settingsBarButton]) {
         nav = [storyboard instantiateViewControllerWithIdentifier:@"login"];
     } else {
@@ -551,6 +562,27 @@
 
 - (void)preferredContentSizeChanged:(NSNotification *)notification {
     [self.tableView reloadData];
+}
+
+
+- (void)splitViewController:(UISplitViewController *)svc willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode {
+    if ([svc isEqual:self.splitViewController]) {
+        if (displayMode == UISplitViewControllerDisplayModeAllVisible || displayMode == UISplitViewControllerDisplayModePrimaryOverlay) {
+            [self.editorViewController.noteView resignFirstResponder];
+        }
+    }
+}
+
+- (UISplitViewControllerDisplayMode)targetDisplayModeForActionInSplitViewController:(UISplitViewController *)svc {
+    if (svc.displayMode == UISplitViewControllerDisplayModePrimaryHidden) {
+        if (svc.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+            if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+                return UISplitViewControllerDisplayModeAllVisible;
+            }
+        }
+        return UISplitViewControllerDisplayModePrimaryOverlay;
+    }
+    return UISplitViewControllerDisplayModePrimaryHidden;
 }
 
 @end

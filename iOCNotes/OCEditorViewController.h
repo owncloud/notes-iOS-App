@@ -13,7 +13,6 @@
 @interface OCEditorViewController : UIViewController <UITextViewDelegate>
 
 @property (strong, nonatomic) PBHHeaderTextView *noteView;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *activityButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *addButton;
@@ -26,7 +25,6 @@
 
 @property (assign) BOOL addingNote;
 
-- (IBAction)doShowDrawer:(id)sender;
 - (IBAction)doActivities:(id)sender;
 - (IBAction)onDelete:(id)sender;
 - (IBAction)onAdd:(id)sender;

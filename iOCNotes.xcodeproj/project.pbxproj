@@ -23,9 +23,6 @@
 		D0225711189848060038232A /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0225710189848060038232A /* libc++.dylib */; };
 		D0225713189848120038232A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0225712189848120038232A /* libz.dylib */; };
 		D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */; };
-		D036BF37191062B80078FD3E /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D036BF30191062B80078FD3E /* MMDrawerController.m */; };
-		D036BF39191062B80078FD3E /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = D036BF32191062B80078FD3E /* MMDrawerVisualState.m */; };
-		D036BF3B191062B80078FD3E /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D036BF34191062B80078FD3E /* UIViewController+MMDrawerController.m */; };
 		D03DA14918DE435900178958 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA13F18DE435900178958 /* FMDatabase.m */; };
 		D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14118DE435900178958 /* FMDatabaseAdditions.m */; };
 		D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14318DE435900178958 /* FMDatabasePool.m */; };
@@ -38,7 +35,6 @@
 		D059745E18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
 		D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */; };
 		D059F7DD1D4AF6A200C252F2 /* export.html in Resources */ = {isa = PBXBuildFile; fileRef = D059F7DC1D4AF6A200C252F2 /* export.html */; };
-		D06591DB195B9A8E005B3670 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D09538491D32A5AD006BB78E /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538461D32A5AD006BB78E /* Markdown.swift */; };
@@ -66,7 +62,6 @@
 		D0C6807B19CE45620041E6CC /* HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6807A19CE45620041E6CC /* HexColor.m */; };
 		D0CB434E18D274C200C54D7C /* FCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434B18D274C200C54D7C /* FCModel.m */; };
 		D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */; };
-		D0CBD8B819621F5F00EFB17C /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CBD8B619621F5F00EFB17C /* Main_iPad.storyboard */; };
 		D0CCB9A71D33191F007E50EB /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CBD8B719621F5F00EFB17C /* Main_iPhone.storyboard */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
@@ -122,13 +117,11 @@
 /* Begin PBXFileReference section */
 		D00293D619F48B5300B2DA8F /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D00CDFB9194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
-		D00CDFBA194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPad.strings; sourceTree = "<group>"; };
 		D00CDFBB194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFBC194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFC0194E65B4007505E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D00CDFC2194E65D4007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D00CDFC3194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
-		D00CDFC4194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPad.strings; sourceTree = "<group>"; };
 		D00CDFC5194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D00CDFC6194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFC7194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -153,12 +146,6 @@
 		D0225712189848120038232A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D0362BAD190AC83800490D95 /* UIImage+ImageWithColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithColor.h"; sourceTree = "<group>"; };
 		D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithColor.m"; sourceTree = "<group>"; };
-		D036BF2F191062B80078FD3E /* MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerController.h; sourceTree = "<group>"; };
-		D036BF30191062B80078FD3E /* MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerController.m; sourceTree = "<group>"; };
-		D036BF31191062B80078FD3E /* MMDrawerVisualState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerVisualState.h; sourceTree = "<group>"; };
-		D036BF32191062B80078FD3E /* MMDrawerVisualState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerVisualState.m; sourceTree = "<group>"; };
-		D036BF33191062B80078FD3E /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
-		D036BF34191062B80078FD3E /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
 		D03DA13E18DE435900178958 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		D03DA13F18DE435900178958 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		D03DA14018DE435900178958 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -181,7 +168,6 @@
 		D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHNoteExporter.swift; sourceTree = "<group>"; };
 		D059F7DC1D4AF6A200C252F2 /* export.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = export.html; sourceTree = "<group>"; };
 		D06591DA195B9A88005B3670 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
-		D06591DC195B9A8F005B3670 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPad.strings; sourceTree = "<group>"; };
 		D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpenInAppActivity.h; sourceTree = "<group>"; };
 		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
 		D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHHeaderTextView.swift; sourceTree = "<group>"; };
@@ -233,7 +219,6 @@
 		D0CB434B18D274C200C54D7C /* FCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModel.m; sourceTree = "<group>"; };
 		D0CB434C18D274C200C54D7C /* FCModelCachedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelCachedObject.h; sourceTree = "<group>"; };
 		D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModelCachedObject.m; sourceTree = "<group>"; };
-		D0CBD8B619621F5F00EFB17C /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
 		D0CBD8B719621F5F00EFB17C /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D0CFE5331888A7BD00165839 /* iOCNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOCNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5361888A7BD00165839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -335,20 +320,6 @@
 			);
 			name = TSMessages;
 			path = TSMessages/TSMessages;
-			sourceTree = "<group>";
-		};
-		D036BF2B191062B80078FD3E /* MMDrawerController */ = {
-			isa = PBXGroup;
-			children = (
-				D036BF2F191062B80078FD3E /* MMDrawerController.h */,
-				D036BF30191062B80078FD3E /* MMDrawerController.m */,
-				D036BF31191062B80078FD3E /* MMDrawerVisualState.h */,
-				D036BF32191062B80078FD3E /* MMDrawerVisualState.m */,
-				D036BF33191062B80078FD3E /* UIViewController+MMDrawerController.h */,
-				D036BF34191062B80078FD3E /* UIViewController+MMDrawerController.m */,
-			);
-			name = MMDrawerController;
-			path = MMDrawerController/MMDrawerController;
 			sourceTree = "<group>";
 		};
 		D03DA13D18DE435900178958 /* fmdb */ = {
@@ -517,7 +488,6 @@
 				D0A669FE1C68318D001926D7 /* KVNProgress */,
 				D0A669F71C66B806001926D7 /* PDKeychainBindingsController */,
 				D08D90A419FDAFAD00E865CC /* PureLayout */,
-				D036BF2B191062B80078FD3E /* MMDrawerController */,
 				D03DA13D18DE435900178958 /* fmdb */,
 				D0CB434918D274C200C54D7C /* FCModel */,
 				D0791B0F18AD4E33005227AB /* TTOpenInAppActivity */,
@@ -587,10 +557,8 @@
 				D02256C9189599570038232A /* NSDictionary+HandleNull.m */,
 				D0362BAD190AC83800490D95 /* UIImage+ImageWithColor.h */,
 				D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */,
-				D0CBD8B619621F5F00EFB17C /* Main_iPad.storyboard */,
 				D0CBD8B719621F5F00EFB17C /* Main_iPhone.storyboard */,
 				D0CFE5481888A7BD00165839 /* Main_iPhone.storyboard */,
-				D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */,
 				D0CFE53D1888A7BD00165839 /* Supporting Files */,
 				D0225708189745C40038232A /* Settings.bundle */,
 				D00293D619F48B5300B2DA8F /* Launch Screen.xib */,
@@ -749,7 +717,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D017D4201D3B010900B21443 /* markdown.html in Resources */,
-				D0CBD8B819621F5F00EFB17C /* Main_iPad.storyboard in Resources */,
 				D0A66A261C68318D001926D7 /* KVNProgressView.xib in Resources */,
 				D0CFE5521888A7BD00165839 /* Images.xcassets in Resources */,
 				D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */,
@@ -762,7 +729,6 @@
 				D017D4221D3B027500B21443 /* github-markdown.css in Resources */,
 				D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */,
 				D059F7DD1D4AF6A200C252F2 /* export.html in Resources */,
-				D06591DB195B9A8E005B3670 /* Main_iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -811,7 +777,6 @@
 				D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */,
 				D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */,
 				D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */,
-				D036BF3B191062B80078FD3E /* UIViewController+MMDrawerController.m in Sources */,
 				D0A6486C1B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
 				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
@@ -824,7 +789,6 @@
 				D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D0CFE5921888AD0200165839 /* AFURLSessionManager.m in Sources */,
 				D059745E18CEA28E00867B02 /* OCNote.m in Sources */,
-				D036BF37191062B80078FD3E /* MMDrawerController.m in Sources */,
 				D03DA15018DE446400178958 /* FCModelDatabaseQueue.m in Sources */,
 				D0C6806519CE45130041E6CC /* TSMessage.m in Sources */,
 				D0CFE5901888AD0200165839 /* AFURLRequestSerialization.m in Sources */,
@@ -837,7 +801,6 @@
 				D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */,
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,
 				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
-				D036BF39191062B80078FD3E /* MMDrawerVisualState.m in Sources */,
 				D0A66A1D1C68318D001926D7 /* UIImage+KVNImageEffects.m in Sources */,
 				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
 				D02256F61895E2F10038232A /* OCSettingsController.m in Sources */,
@@ -903,16 +866,6 @@
 				D06591DA195B9A88005B3670 /* en */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		D0CFE54B1888A7BD00165839 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D00CDFBA194E64F9007505E9 /* fr */,
-				D00CDFC4194E6835007505E9 /* de */,
-				D06591DC195B9A8F005B3670 /* en */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		D0CFE5611888A7BD00165839 /* InfoPlist.strings */ = {

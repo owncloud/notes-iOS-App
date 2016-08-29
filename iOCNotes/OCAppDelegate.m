@@ -15,8 +15,8 @@
 #import <KSCrash/KSCrashInstallationEmail.h>
 #import <KSCrash/KSCrashInstallation+Alert.h> 
 #import "UIImage+ImageWithColor.h"
-#import "MMDrawerController.h"
-#import "MMDrawerVisualState.h"
+//#import "MMDrawerController.h"
+//#import "MMDrawerVisualState.h"
 #import "PDKeychainBindings.h"
 
 @implementation OCAppDelegate
@@ -28,8 +28,8 @@
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     [UINavigationBar appearance].barTintColor = [UIColor clearColor];
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage resizeableImageWithColor:[UIColor colorWithRed:0.957 green:0.957 blue:0.957 alpha:0.95]] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    [[UINavigationBar appearance] setBackgroundImage: [UIImage resizeableImageWithColor:[UIColor colorWithRed:0.957 green:0.957 blue:0.957 alpha:0.95]] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage: [UIImage new]];
     [UINavigationBar appearance].tintColor = [UIColor colorWithRed:0.12 green:0.18 blue:0.26 alpha:1.0];
  
     [UIToolbar appearance].barTintColor = [UIColor clearColor];
@@ -38,36 +38,9 @@
                             forToolbarPosition: UIToolbarPositionAny
                                     barMetrics: UIBarMetricsDefault];
     
-    UIStoryboard *storyboard;
-
-    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:nil];
-    } else {
-        storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-    }
-    UINavigationController *leftNav = [storyboard instantiateViewControllerWithIdentifier:@"Notes"];
-    UINavigationController *centerNav = [storyboard instantiateViewControllerWithIdentifier:@"Editor"];
-    
-    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:centerNav leftDrawerViewController:leftNav];
-    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        [drawerController setMaximumLeftDrawerWidth:320.0];
-    } else {
-        [drawerController setMaximumLeftDrawerWidth:[[UIScreen mainScreen] bounds].size.width];
-    }
-
-    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModePanningNavigationBar | MMCloseDrawerGestureModeTapCenterView | MMCloseDrawerGestureModeTapNavigationBar];
-    drawerController.showsShadow = NO;
-    [drawerController setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
-        MMDrawerControllerDrawerVisualStateBlock block = [MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2.0];
-        if (block){
-            block(drawerController, drawerSide, percentVisible);
-        }
-    }];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window setRootViewController:drawerController];
-    [drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
+    navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
     
     [[PDKeychainBindings sharedKeychainBindings] setObject:(__bridge id)(kSecAttrAccessibleAfterFirstUnlock) forKey:(__bridge id)(kSecAttrAccessible)];
     [OCAPIClient sharedClient];

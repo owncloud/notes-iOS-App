@@ -19,9 +19,6 @@
 [submodule "FCModel"]
 	path = FCModel
 	url = https://github.com/marcoarment/FCModel.git
-[submodule "MMDrawerController"]
-	path = MMDrawerController
-	url = https://github.com/mutualmobile/MMDrawerController.git
 [submodule "PureLayout"]
 	path = PureLayout
 	url = https://github.com/smileyborg/PureLayout.git
