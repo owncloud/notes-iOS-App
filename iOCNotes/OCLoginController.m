@@ -34,7 +34,7 @@
 #import "OCAPIClient.h"
 #import "PDKeychainBindings.h"
 #import "UILabel+VerticalAlignment.h"
-#import "TSMessage.h"
+#import "iOCNotes-Swift.h"
 
 static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
 
@@ -144,24 +144,24 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
             self.statusLabel.text = [NSString stringWithFormat:@"Connected to an ownCloud Notes server at\n \"%@\".", self.serverTextField.text];
             
             [self.connectionActivityIndicator stopAnimating];
-            [TSMessage showNotificationInViewController:self
-                                                  title:NSLocalizedString(@"Success", @"A message title")
-                                               subtitle:NSLocalizedString(@"You are now connected to Notes on your server", @"A message")
-                                                  image:nil
-                                                   type:TSMessageNotificationTypeSuccess
-                                               duration:TSMessageNotificationDurationAutomatic
-                                               callback:^{
-                                                   self.connectLabel.enabled = YES;
-                                                   [TSMessage dismissActiveNotification];
-                                               }
-                                            buttonTitle:@"Close & Sync"
-                                         buttonCallback:^{
-                                             self.connectLabel.enabled = YES;
-                                             [TSMessage dismissActiveNotification];
-                                             [self dismissViewControllerAnimated:YES completion:nil];
-                                             [[NSNotificationCenter defaultCenter] postNotificationName:@"SyncNotes" object:self];
-                                         }
-                                             atPosition:TSMessageNotificationPositionTop
+            [[SWMessage sharedInstance] showNotificationInViewController:self
+                                                                   title:NSLocalizedString(@"Success", @"A message title")
+                                                                subtitle:NSLocalizedString(@"You are now connected to Notes on your server", @"A message")
+                                                                   image:nil
+                                                                    type:SWMessageNotificationTypeSuccess
+                                                                duration:SWMessageDurationAutomatic
+                                                                callback:^{
+                                                                    self.connectLabel.enabled = YES;
+                                                                    [[SWMessage sharedInstance] dismissActiveNotification];
+                                                                }
+                                                             buttonTitle:@"Close & Sync"
+                                                          buttonCallback:^{
+                                                              self.connectLabel.enabled = YES;
+                                                              [[SWMessage sharedInstance] dismissActiveNotification];
+                                                              [self dismissViewControllerAnimated:YES completion:nil];
+                                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"SyncNotes" object:self];
+                                                          }
+                                             atPosition:SWMessageNotificationPositionTop
                                    canBeDismissedByUser:YES];
 
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -195,22 +195,22 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
 //            NSLog(@"Error: %@, response: %ld", [error localizedDescription], (long)[response statusCode]);
             //self.statusLabel.text = message;
             [self.connectionActivityIndicator stopAnimating];
-            [TSMessage showNotificationInViewController:self
-                                                  title:title
-                                               subtitle:message
-                                                  image:nil
-                                                   type:TSMessageNotificationTypeError
-                                               duration:TSMessageNotificationDurationEndless
-                                               callback:^{
-                                                   self.connectLabel.enabled = YES;
-                                                   [TSMessage dismissActiveNotification];
-                                               }
-                                            buttonTitle:nil
-                                         buttonCallback:^{
-                                                   //
-                                               }
-                                             atPosition:TSMessageNotificationPositionTop
-                                   canBeDismissedByUser:YES];
+            [[SWMessage sharedInstance] showNotificationInViewController:self
+                                                                   title:title
+                                                                subtitle:message
+                                                                   image:nil
+                                                                    type:SWMessageNotificationTypeError
+                                                                duration:SWMessageDurationEndless
+                                                                callback:^{
+                                                                    self.connectLabel.enabled = YES;
+                                                                    [[SWMessage sharedInstance] dismissActiveNotification];
+                                                                }
+                                                             buttonTitle:nil
+                                                          buttonCallback:^{
+                                                              //
+                                                          }
+                                                              atPosition:SWMessageNotificationPositionTop
+                                                    canBeDismissedByUser:YES];
         }];
     }
 }

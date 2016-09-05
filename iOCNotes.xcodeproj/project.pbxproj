@@ -29,7 +29,6 @@
 		D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14518DE435900178958 /* FMDatabaseQueue.m */; };
 		D03DA14D18DE435900178958 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14818DE435900178958 /* FMResultSet.m */; };
 		D03DA15018DE446400178958 /* FCModelDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14F18DE446400178958 /* FCModelDatabaseQueue.m */; };
-		D03ED3E419CE669700C8723F /* TSMessages.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D03ED3E319CE669700C8723F /* TSMessages.bundle */; };
 		D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */; };
 		D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */; };
 		D059745E18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
@@ -56,10 +55,6 @@
 		D0A66A1E1C68318D001926D7 /* KVNProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A66A0A1C68318D001926D7 /* KVNProgress.m */; };
 		D0A66A1F1C68318D001926D7 /* KVNProgressConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A66A0C1C68318D001926D7 /* KVNProgressConfiguration.m */; };
 		D0A66A261C68318D001926D7 /* KVNProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A66A191C68318D001926D7 /* KVNProgressView.xib */; };
-		D0C6806419CE45130041E6CC /* TSBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804B19CE45130041E6CC /* TSBlurView.m */; };
-		D0C6806519CE45130041E6CC /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804D19CE45130041E6CC /* TSMessage.m */; };
-		D0C6806619CE45130041E6CC /* TSMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6804F19CE45130041E6CC /* TSMessageView.m */; };
-		D0C6807B19CE45620041E6CC /* HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6807A19CE45620041E6CC /* HexColor.m */; };
 		D0CB434E18D274C200C54D7C /* FCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434B18D274C200C54D7C /* FCModel.m */; };
 		D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */; };
 		D0CCB9A71D33191F007E50EB /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0CBD8B719621F5F00EFB17C /* Main_iPhone.storyboard */; };
@@ -88,6 +83,18 @@
 		D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5AC1890659600165839 /* QuartzCore.framework */; };
 		D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */; };
 		D0E5ECC51D0CBFF100CA76EA /* MarklightTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5ECC21D0CBFF100CA76EA /* MarklightTextStorage.swift */; };
+		D0F263451D7B54F700F78B6D /* NotificationBackgroundErrorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F263361D7B54F700F78B6D /* NotificationBackgroundErrorIcon.png */; };
+		D0F263461D7B54F700F78B6D /* NotificationBackgroundErrorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F263371D7B54F700F78B6D /* NotificationBackgroundErrorIcon@2x.png */; };
+		D0F263471D7B54F700F78B6D /* NotificationBackgroundSuccessIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F263381D7B54F700F78B6D /* NotificationBackgroundSuccessIcon.png */; };
+		D0F263481D7B54F700F78B6D /* NotificationBackgroundSuccessIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F263391D7B54F700F78B6D /* NotificationBackgroundSuccessIcon@2x.png */; };
+		D0F263491D7B54F700F78B6D /* NotificationBackgroundWarningIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F2633A1D7B54F700F78B6D /* NotificationBackgroundWarningIcon.png */; };
+		D0F2634A1D7B54F700F78B6D /* NotificationBackgroundWarningIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F2633B1D7B54F700F78B6D /* NotificationBackgroundWarningIcon@2x.png */; };
+		D0F2634B1D7B54F700F78B6D /* NotificationButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F2633C1D7B54F700F78B6D /* NotificationButtonBackground.png */; };
+		D0F2634C1D7B54F700F78B6D /* NotificationButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F2633D1D7B54F700F78B6D /* NotificationButtonBackground@2x.png */; };
+		D0F2634E1D7B54F700F78B6D /* SWMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F263401D7B54F700F78B6D /* SWMessage.swift */; };
+		D0F2634F1D7B54F700F78B6D /* SWMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F263411D7B54F700F78B6D /* SWMessageView.swift */; };
+		D0F263501D7B54F700F78B6D /* SWTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F263421D7B54F700F78B6D /* SWTypes.swift */; };
+		D0F263511D7B54F700F78B6D /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F263431D7B54F700F78B6D /* UIColor+Hex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,7 +166,6 @@
 		D03DA14818DE435900178958 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		D03DA14E18DE446400178958 /* FCModelDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelDatabaseQueue.h; sourceTree = "<group>"; };
 		D03DA14F18DE446400178958 /* FCModelDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModelDatabaseQueue.m; sourceTree = "<group>"; };
-		D03ED3E319CE669700C8723F /* TSMessages.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TSMessages.bundle; path = TSMessages/Pod/Assets/TSMessages.bundle; sourceTree = SOURCE_ROOT; };
 		D054E5F91AEF148E001C6FF1 /* OCNoteOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperation.h; sourceTree = "<group>"; };
 		D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperation.m; sourceTree = "<group>"; };
 		D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -207,14 +213,6 @@
 		D0A66A0B1C68318D001926D7 /* KVNProgressConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNProgressConfiguration.h; sourceTree = "<group>"; };
 		D0A66A0C1C68318D001926D7 /* KVNProgressConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNProgressConfiguration.m; sourceTree = "<group>"; };
 		D0A66A191C68318D001926D7 /* KVNProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KVNProgressView.xib; sourceTree = "<group>"; };
-		D0C6804A19CE45130041E6CC /* TSBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSBlurView.h; sourceTree = "<group>"; };
-		D0C6804B19CE45130041E6CC /* TSBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSBlurView.m; sourceTree = "<group>"; };
-		D0C6804C19CE45130041E6CC /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessage.h; sourceTree = "<group>"; };
-		D0C6804D19CE45130041E6CC /* TSMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMessage.m; sourceTree = "<group>"; };
-		D0C6804E19CE45130041E6CC /* TSMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessageView.h; sourceTree = "<group>"; };
-		D0C6804F19CE45130041E6CC /* TSMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMessageView.m; sourceTree = "<group>"; };
-		D0C6807919CE45620041E6CC /* HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HexColor.h; path = TSMessages/Submodules/HexColors/Classes/HexColor.h; sourceTree = SOURCE_ROOT; };
-		D0C6807A19CE45620041E6CC /* HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HexColor.m; path = TSMessages/Submodules/HexColors/Classes/HexColor.m; sourceTree = SOURCE_ROOT; };
 		D0CB434A18D274C200C54D7C /* FCModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModel.h; sourceTree = "<group>"; };
 		D0CB434B18D274C200C54D7C /* FCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModel.m; sourceTree = "<group>"; };
 		D0CB434C18D274C200C54D7C /* FCModelCachedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelCachedObject.h; sourceTree = "<group>"; };
@@ -261,6 +259,19 @@
 		D0E5ECC01D0CBFF100CA76EA /* Marklight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marklight.h; sourceTree = "<group>"; };
 		D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marklight.swift; sourceTree = "<group>"; };
 		D0E5ECC21D0CBFF100CA76EA /* MarklightTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightTextStorage.swift; sourceTree = "<group>"; };
+		D0F263361D7B54F700F78B6D /* NotificationBackgroundErrorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundErrorIcon.png; sourceTree = "<group>"; };
+		D0F263371D7B54F700F78B6D /* NotificationBackgroundErrorIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationBackgroundErrorIcon@2x.png"; sourceTree = "<group>"; };
+		D0F263381D7B54F700F78B6D /* NotificationBackgroundSuccessIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundSuccessIcon.png; sourceTree = "<group>"; };
+		D0F263391D7B54F700F78B6D /* NotificationBackgroundSuccessIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationBackgroundSuccessIcon@2x.png"; sourceTree = "<group>"; };
+		D0F2633A1D7B54F700F78B6D /* NotificationBackgroundWarningIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundWarningIcon.png; sourceTree = "<group>"; };
+		D0F2633B1D7B54F700F78B6D /* NotificationBackgroundWarningIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationBackgroundWarningIcon@2x.png"; sourceTree = "<group>"; };
+		D0F2633C1D7B54F700F78B6D /* NotificationButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationButtonBackground.png; sourceTree = "<group>"; };
+		D0F2633D1D7B54F700F78B6D /* NotificationButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationButtonBackground@2x.png"; sourceTree = "<group>"; };
+		D0F263401D7B54F700F78B6D /* SWMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWMessage.swift; sourceTree = "<group>"; };
+		D0F263411D7B54F700F78B6D /* SWMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWMessageView.swift; sourceTree = "<group>"; };
+		D0F263421D7B54F700F78B6D /* SWTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWTypes.swift; sourceTree = "<group>"; };
+		D0F263431D7B54F700F78B6D /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		D0F263441D7B54F700F78B6D /* SWMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWMessages.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,16 +321,6 @@
 				D02257011895E6D30038232A /* UILabel+VerticalAlignment.m */,
 			);
 			path = "UILabel-VerticalAlignment";
-			sourceTree = "<group>";
-		};
-		D022571618984B930038232A /* TSMessages */ = {
-			isa = PBXGroup;
-			children = (
-				D03ED3E319CE669700C8723F /* TSMessages.bundle */,
-				D0C6804819CE45130041E6CC /* Classes */,
-			);
-			name = TSMessages;
-			path = TSMessages/TSMessages;
 			sourceTree = "<group>";
 		};
 		D03DA13D18DE435900178958 /* fmdb */ = {
@@ -450,22 +451,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		D0C6804819CE45130041E6CC /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				D0C6807919CE45620041E6CC /* HexColor.h */,
-				D0C6807A19CE45620041E6CC /* HexColor.m */,
-				D0C6804A19CE45130041E6CC /* TSBlurView.h */,
-				D0C6804B19CE45130041E6CC /* TSBlurView.m */,
-				D0C6804C19CE45130041E6CC /* TSMessage.h */,
-				D0C6804D19CE45130041E6CC /* TSMessage.m */,
-				D0C6804E19CE45130041E6CC /* TSMessageView.h */,
-				D0C6804F19CE45130041E6CC /* TSMessageView.m */,
-			);
-			name = Classes;
-			path = TSMessages/Pod/Classes;
-			sourceTree = SOURCE_ROOT;
-		};
 		D0CB434918D274C200C54D7C /* FCModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -483,6 +468,7 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
+				D0F263341D7B54F700F78B6D /* SWMessages */,
 				D09538441D32A5AD006BB78E /* Markingbird */,
 				D0E5ECBE1D0CBFF100CA76EA /* Marklight */,
 				D0A669FE1C68318D001926D7 /* KVNProgress */,
@@ -491,7 +477,6 @@
 				D03DA13D18DE435900178958 /* fmdb */,
 				D0CB434918D274C200C54D7C /* FCModel */,
 				D0791B0F18AD4E33005227AB /* TTOpenInAppActivity */,
-				D022571618984B930038232A /* TSMessages */,
 				D02256FF1895E6D30038232A /* UILabel-VerticalAlignment */,
 				D0CFE5761888AD0100165839 /* AFNetworking */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
@@ -632,6 +617,43 @@
 			path = Marklight/Marklight;
 			sourceTree = "<group>";
 		};
+		D0F263341D7B54F700F78B6D /* SWMessages */ = {
+			isa = PBXGroup;
+			children = (
+				D0F263351D7B54F700F78B6D /* Assets */,
+				D0F2633F1D7B54F700F78B6D /* Source */,
+				D0F263441D7B54F700F78B6D /* SWMessages.h */,
+			);
+			name = SWMessages;
+			path = SWMessages/SWMessages;
+			sourceTree = "<group>";
+		};
+		D0F263351D7B54F700F78B6D /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				D0F263361D7B54F700F78B6D /* NotificationBackgroundErrorIcon.png */,
+				D0F263371D7B54F700F78B6D /* NotificationBackgroundErrorIcon@2x.png */,
+				D0F263381D7B54F700F78B6D /* NotificationBackgroundSuccessIcon.png */,
+				D0F263391D7B54F700F78B6D /* NotificationBackgroundSuccessIcon@2x.png */,
+				D0F2633A1D7B54F700F78B6D /* NotificationBackgroundWarningIcon.png */,
+				D0F2633B1D7B54F700F78B6D /* NotificationBackgroundWarningIcon@2x.png */,
+				D0F2633C1D7B54F700F78B6D /* NotificationButtonBackground.png */,
+				D0F2633D1D7B54F700F78B6D /* NotificationButtonBackground@2x.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		D0F2633F1D7B54F700F78B6D /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D0F263401D7B54F700F78B6D /* SWMessage.swift */,
+				D0F263411D7B54F700F78B6D /* SWMessageView.swift */,
+				D0F263421D7B54F700F78B6D /* SWTypes.swift */,
+				D0F263431D7B54F700F78B6D /* UIColor+Hex.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -717,17 +739,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				D017D4201D3B010900B21443 /* markdown.html in Resources */,
+				D0F263471D7B54F700F78B6D /* NotificationBackgroundSuccessIcon.png in Resources */,
 				D0A66A261C68318D001926D7 /* KVNProgressView.xib in Resources */,
 				D0CFE5521888A7BD00165839 /* Images.xcassets in Resources */,
+				D0F263461D7B54F700F78B6D /* NotificationBackgroundErrorIcon@2x.png in Resources */,
+				D0F2634C1D7B54F700F78B6D /* NotificationButtonBackground@2x.png in Resources */,
 				D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */,
-				D03ED3E419CE669700C8723F /* TSMessages.bundle in Resources */,
 				D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */,
 				D02256C71891FD7C0038232A /* defaults.plist in Resources */,
 				D0CFE54A1888A7BD00165839 /* Main_iPhone.storyboard in Resources */,
 				D0CCB9A71D33191F007E50EB /* Main_iPhone.storyboard in Resources */,
 				D0225709189745C40038232A /* Settings.bundle in Resources */,
+				D0F2634B1D7B54F700F78B6D /* NotificationButtonBackground.png in Resources */,
+				D0F263491D7B54F700F78B6D /* NotificationBackgroundWarningIcon.png in Resources */,
 				D017D4221D3B027500B21443 /* github-markdown.css in Resources */,
+				D0F263481D7B54F700F78B6D /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */,
+				D0F263451D7B54F700F78B6D /* NotificationBackgroundErrorIcon.png in Resources */,
+				D0F2634A1D7B54F700F78B6D /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				D059F7DD1D4AF6A200C252F2 /* export.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -768,15 +797,16 @@
 				D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */,
 				D0A6486A1B132E8A005C0981 /* ALView+PureLayout.m in Sources */,
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
+				D0F2634E1D7B54F700F78B6D /* SWMessage.swift in Sources */,
 				D0E5ECC51D0CBFF100CA76EA /* MarklightTextStorage.swift in Sources */,
 				D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */,
 				D0A6486B1B132E8A005C0981 /* NSArray+PureLayout.m in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
-				D0C6806619CE45130041E6CC /* TSMessageView.m in Sources */,
 				D03DA14D18DE435900178958 /* FMResultSet.m in Sources */,
 				D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */,
 				D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */,
 				D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */,
+				D0F263501D7B54F700F78B6D /* SWTypes.swift in Sources */,
 				D0A6486C1B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
 				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
@@ -787,17 +817,17 @@
 				D0CFE58D1888AD0200165839 /* AFNetworkReachabilityManager.m in Sources */,
 				D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */,
 				D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				D0F2634F1D7B54F700F78B6D /* SWMessageView.swift in Sources */,
 				D0CFE5921888AD0200165839 /* AFURLSessionManager.m in Sources */,
 				D059745E18CEA28E00867B02 /* OCNote.m in Sources */,
 				D03DA15018DE446400178958 /* FCModelDatabaseQueue.m in Sources */,
-				D0C6806519CE45130041E6CC /* TSMessage.m in Sources */,
 				D0CFE5901888AD0200165839 /* AFURLRequestSerialization.m in Sources */,
 				D0CFE5471888A7BD00165839 /* OCAppDelegate.m in Sources */,
+				D0F263511D7B54F700F78B6D /* UIColor+Hex.swift in Sources */,
 				D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */,
 				D0CFE5911888AD0200165839 /* AFURLResponseSerialization.m in Sources */,
 				D02256F71895E2F10038232A /* OCLoginController.m in Sources */,
 				D0A66A1E1C68318D001926D7 /* KVNProgress.m in Sources */,
-				D0C6807B19CE45620041E6CC /* HexColor.m in Sources */,
 				D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */,
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,
 				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
@@ -805,7 +835,6 @@
 				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
 				D02256F61895E2F10038232A /* OCSettingsController.m in Sources */,
 				D0A66A1C1C68318D001926D7 /* UIImage+KVNEmpty.m in Sources */,
-				D0C6806419CE45130041E6CC /* TSBlurView.m in Sources */,
 				D0CB434E18D274C200C54D7C /* FCModel.m in Sources */,
 				D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */,
 				D0CFE58E1888AD0200165839 /* AFSecurityPolicy.m in Sources */,

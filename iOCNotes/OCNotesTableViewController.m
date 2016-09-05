@@ -11,8 +11,6 @@
 #import "OCAPIClient.h"
 #import "OCNotesHelper.h"
 #import "OCLoginController.h"
-#import "TSMessage.h"
-//#import "UIViewController+MMDrawerController.h"
 #import <float.h>
 #import "OCNote.h"
 #import "KVNProgress.h"
@@ -506,20 +504,19 @@ static NSString *DetailSegueIdentifier = @"showDetail";
 - (void)reachabilityChanged:(NSNotification *)n {
     NSNumber *s = n.userInfo[AFNetworkingReachabilityNotificationStatusItem];
     AFNetworkReachabilityStatus status = [s integerValue];
-    
     if (status == AFNetworkReachabilityStatusNotReachable) {
         networkHasBeenUnreachable = YES;
-        [TSMessage showNotificationInViewController:self.parentViewController
-                                              title:NSLocalizedString( @"Unable to Reach Server", @"A message title")
-                                           subtitle:NSLocalizedString(@"Please check network connection and login.", @"A message")
-                                               type:TSMessageNotificationTypeWarning];
+        [[SWMessage sharedInstance] showNotificationInViewController:self.parentViewController
+                                                               title:NSLocalizedString( @"Unable to Reach Server", @"A message title")
+                                                            subtitle:NSLocalizedString(@"Please check network connection and login.", @"A message")
+                                                                type:SWMessageNotificationTypeWarning];
     }
     if (status > AFNetworkReachabilityStatusNotReachable) {
         if (networkHasBeenUnreachable) {
-            [TSMessage showNotificationInViewController:self.parentViewController
-                                                  title:NSLocalizedString(@"Server Reachable", @"A message title")
-                                               subtitle:NSLocalizedString(@"The network connection is working properly.", @"A message") 
-                                                   type:TSMessageNotificationTypeSuccess];
+            [[SWMessage sharedInstance] showNotificationInViewController:self.parentViewController
+                                                                   title:NSLocalizedString(@"Server Reachable", @"A message title")
+                                                                subtitle:NSLocalizedString(@"The network connection is working properly.", @"A message")
+                                                                    type:SWMessageNotificationTypeSuccess];
             networkHasBeenUnreachable = NO;
         }
     }
@@ -547,17 +544,10 @@ static NSString *DetailSegueIdentifier = @"showDetail";
     [self.refreshControl endRefreshing];
     self.addBarButton.enabled = YES;
     self.settingsBarButton.enabled = YES;
-    [TSMessage showNotificationInViewController:self.navigationController.topViewController
+    [[SWMessage sharedInstance] showNotificationInViewController:self.navigationController.topViewController
                                           title:[n.userInfo objectForKey:@"Title"]
                                        subtitle:[n.userInfo objectForKey:@"Message"]
-                                          image:nil
-                                           type:TSMessageNotificationTypeError
-                                       duration:TSMessageNotificationDurationAutomatic
-                                       callback:nil
-                                    buttonTitle:nil
-                                 buttonCallback:nil
-                                     atPosition:TSMessageNotificationPositionTop
-                           canBeDismissedByUser:YES];
+                                           type:SWMessageNotificationTypeError];
 }
 
 - (void)preferredContentSizeChanged:(NSNotification *)notification {

@@ -4,9 +4,6 @@
 [submodule "UILabel-VerticalAlignment"]
 	path = UILabel-VerticalAlignment
 	url = https://github.com/ecentinela/UILabel-VerticalAlignment
-[submodule "TSMessages"]
-	path = TSMessages
-	url = https://github.com/toursprung/TSMessages.git
 [submodule "ECSlidingViewController"]
 	path = ECSlidingViewController
 	url = https://github.com/ECSlidingViewController/ECSlidingViewController.git
@@ -37,3 +34,6 @@
 [submodule "github-markdown-css"]
 	path = github-markdown-css
 	url = https://github.com/sindresorhus/github-markdown-css.git
+[submodule "SWMessages"]
+	path = SWMessages
+	url = git@github.com:phedlund/SWMessages.git
