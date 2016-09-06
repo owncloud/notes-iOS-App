@@ -1,9 +1,6 @@
 [submodule "AFNetworking"]
 	path = AFNetworking
 	url = https://github.com/AFNetworking/AFNetworking.git
-[submodule "UILabel-VerticalAlignment"]
-	path = UILabel-VerticalAlignment
-	url = https://github.com/ecentinela/UILabel-VerticalAlignment
 [submodule "ECSlidingViewController"]
 	path = ECSlidingViewController
 	url = https://github.com/ECSlidingViewController/ECSlidingViewController.git

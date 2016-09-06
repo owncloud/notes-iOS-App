@@ -39,8 +39,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UISwitch *certificateSwitch;
 @property (strong, nonatomic) IBOutlet UITableViewCell *certificateCell;
-
-@property (strong, nonatomic) IBOutlet UILabel *statusLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *connectionActivityIndicator;
 @property (strong, nonatomic) IBOutlet UILabel *connectLabel;
 

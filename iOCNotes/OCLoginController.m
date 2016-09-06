@@ -33,7 +33,6 @@
 #import "OCLoginController.h"
 #import "OCAPIClient.h"
 #import "PDKeychainBindings.h"
-#import "UILabel+VerticalAlignment.h"
 #import "iOCNotes-Swift.h"
 
 static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
@@ -59,7 +58,6 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
 	// Do any additional setup after loading the view.
     NSString *version = @"Version ";
     version = [version stringByAppendingString:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    self.statusLabel.textVerticalAlignment = UITextVerticalAlignmentTop;
     self.serverTextField.delegate = self;
     self.usernameTextField.delegate = self;
     self.passwordTextField.delegate = self;
@@ -140,9 +138,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
 #ifdef DEBUG
             int status = [[OCAPIClient sharedClient].reachabilityManager networkReachabilityStatus];
             NSLog(@"Server status: %i", status);
-#endif
-            self.statusLabel.text = [NSString stringWithFormat:@"Connected to an ownCloud Notes server at\n \"%@\".", self.serverTextField.text];
-            
+#endif            
             [self.connectionActivityIndicator stopAnimating];
             [[SWMessage sharedInstance] showNotificationInViewController:self
                                                                    title:NSLocalizedString(@"Success", @"A message title")
