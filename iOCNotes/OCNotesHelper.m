@@ -117,7 +117,7 @@
         [NSFileManager.defaultManager removeItemAtPath:dbURL.path error:nil];
         [self setupDatabase];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"dbReset"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:FCModelUpdateNotification object:OCNote.class];
+        [[NSNotificationCenter defaultCenter] postNotificationName:FCModelChangeNotification object:OCNote.class];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
@@ -128,7 +128,7 @@
     dbURL = [dbURL URLByAppendingPathExtension:@"db"];
     //[NSFileManager.defaultManager removeItemAtPath:dbURL.path error:nil];
     
-    [FCModel openDatabaseAtPath:dbURL.path withSchemaBuilder:^(FMDatabase *db, int *schemaVersion) {
+    [FCModel openDatabaseAtPath:dbURL.path withDatabaseInitializer:nil schemaBuilder:^(FMDatabase *db, int *schemaVersion) {
         [db setCrashOnErrors:NO];
         db.traceExecution = YES; // Log every query (useful to learn what FCModel is doing or analyze performance)
         [db beginTransaction];
@@ -246,21 +246,23 @@
                     //OCNote *ocNote = [OCNote instanceWithPrimaryKey:[noteDict objectForKey:@"id"] createIfNonexistent:YES];
                     if (!ocNote) { //don't re-add a deleted note (it will be deleted from the server below).
                         ocNote = [OCNote new];
-                        ocNote.id = [[noteDict objectForKey:@"id"] intValue];
-                        ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
-                        ocNote.title = [noteDict objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
-                        ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                        [ocNote save];
-                    } else {
-                        if (ocNote.modified > [[noteDict objectForKey:@"modified"] doubleValue]) {
-                            ocNote.updateNeeded = YES;
-                        } else {
+                        [ocNote save:^{
+                            ocNote.id = [[noteDict objectForKey:@"id"] intValue];
                             ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
                             ocNote.title = [noteDict objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
                             ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
-                        }
+                        }];
+                    } else {
                         if ([ocNote existsInDatabase]) {
-                            [ocNote save];
+                            [ocNote save:^{
+                                if (ocNote.modified > [[noteDict objectForKey:@"modified"] doubleValue]) {
+                                    ocNote.updateNeeded = YES;
+                                } else {
+                                    ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
+                                    ocNote.title = [noteDict objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
+                                    ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                                }
+                            }];
                         }
                     }
                 }];
@@ -361,11 +363,12 @@
 
 - (void)addNote:(NSString*)content {
     __block OCNote *newNote = [OCNote new];
-    newNote.title = NSLocalizedString(@"New note", @"The title of a new note");
-    newNote.content = content;
-    newNote.modified = [[NSDate date] timeIntervalSince1970];
-    newNote.addNeeded = YES;
-    [newNote save];
+    [newNote save:^{
+        newNote.title = NSLocalizedString(@"New note", @"The title of a new note");
+        newNote.content = content;
+        newNote.modified = [[NSDate date] timeIntervalSince1970];
+        newNote.addNeeded = YES;
+    }];
     
     if (online) {
         OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:newNote delegate:self];
@@ -402,8 +405,9 @@
 
 - (void)updateNote:(OCNote*)note {
     if (!note.addNeeded) {
-        note.updateNeeded = YES;
-        [note save];
+        [note save:^{
+            note.updateNeeded = YES;
+        }];
     }
     if (online) {
         //online
@@ -418,9 +422,10 @@
         }
     } else {
         //offline
-        note.modified = [[NSDate date] timeIntervalSince1970];
         if (note.existsInDatabase) {
-            [note save];
+            [note save:^{
+                note.modified = [[NSDate date] timeIntervalSince1970];
+            }];
         }
     }
 }
@@ -442,10 +447,11 @@
 - (void)deleteNote:(OCNote *)note {
     __block OCNote *noteToDelete = [OCNote instanceWithPrimaryKey:note.guid];
     __block int noteId = noteToDelete.id;
-    noteToDelete.deleteNeeded = YES;
-    noteToDelete.addNeeded = NO;
-    noteToDelete.updateNeeded = NO;
-    [noteToDelete save];
+    [noteToDelete save:^{
+        noteToDelete.deleteNeeded = YES;
+        noteToDelete.addNeeded = NO;
+        noteToDelete.updateNeeded = NO;
+    }];
     
     if (noteId > 0) {
         if (online) {
@@ -537,7 +543,6 @@
         NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Adding Note", @"The title of an error message"),
                                    @"Message": noteOperation.errorMessage};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-        [noteOperation.note save];
     }
     if ([noteOperation isKindOfClass:[OCNoteOperationUpdate class]])
     {
@@ -545,9 +550,6 @@
                                    @"Message": noteOperation.errorMessage};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
         noteOperation.note.modified = [[NSDate date] timeIntervalSince1970];
-        if (noteOperation.note.existsInDatabase) {
-            [noteOperation.note save];
-        }
     }
     if ([noteOperation isKindOfClass:[OCNoteOperationGet class]])
     {
@@ -560,9 +562,6 @@
         NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Error Deleting Note", @"The title of an error message"),
                                    @"Message": noteOperation.errorMessage};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
-        if (noteOperation.note.existsInDatabase) {
-            [noteOperation.note save];
-        }
     }
 }
 

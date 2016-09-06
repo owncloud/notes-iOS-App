@@ -100,14 +100,9 @@ static NSString *DetailSegueIdentifier = @"showDetail";
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(reloadNotes:)
-                                               name:FCModelUpdateNotification
+                                               name:FCModelChangeNotification
                                              object:OCNote.class];
     
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(noteAdded:)
-                                               name:FCModelInsertNotification
-                                             object:OCNote.class];
-
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(noteDeleted:)
                                                name:@"DeletingNote"
@@ -176,38 +171,40 @@ static NSString *DetailSegueIdentifier = @"showDetail";
 //    NSLog(@"Reloading with %lu notes", (unsigned long) self.ocNotes.count);
     NSIndexPath *currentSelection = [self.tableView indexPathForSelectedRow];
     [self.tableView reloadData];
-    if (currentSelection && (self.ocNotes.count > 0)) {
-        [self.tableView selectRowAtIndexPath:currentSelection animated:NO scrollPosition:UITableViewScrollPositionNone];
-    }
-    if (self.editorViewController) {
-        if (self.editorViewController.ocNote) {
-            NSInteger currentIndex = [self.ocNotes indexOfObject:self.editorViewController.ocNote];
-            if (currentIndex >= 0) {
-                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-            }
-        }
-    }
-}
-
-- (void)noteAdded:(NSNotification *)notification
-{
-    self.ocNotes = [OCNote instancesWhere:@"deleteNeeded = 0 ORDER BY modified DESC"];
-    [self.tableView reloadData];
-//    NSLog(@"Note added: %@", [notification userInfo]);
-    NSSet *noteSet = [[notification userInfo] objectForKey:FCModelInstanceSetKey];
-    OCNote *newNote = [noteSet anyObject];
+    OCNote *currentNote = [[notification userInfo] objectForKey:FCModelInstanceKey];
+    
     if (self.addingNote) {
         if (!self.refreshControl.refreshing) {
             [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
             [self performSegueWithIdentifier:DetailSegueIdentifier sender:self];
         }
-    }
-    self.addingNote = NO;
-    if (!self.editorViewController.noteView.isFirstResponder)
-    {
-        self.editorViewController.ocNote = newNote;
-        if (self.ocNotes.count) {
-            [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+        if (!self.editorViewController.noteView.isFirstResponder)
+        {
+            self.editorViewController.ocNote = currentNote;
+            if (self.ocNotes.count) {
+                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+            }
+        }
+        self.addingNote = NO;
+        if (!self.editorViewController.noteView.isFirstResponder)
+        {
+            self.editorViewController.ocNote = currentNote;
+            if (self.ocNotes.count) {
+                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+            }
+        }
+    } else {
+        
+        if (currentSelection && (self.ocNotes.count > 0)) {
+            [self.tableView selectRowAtIndexPath:currentSelection animated:NO scrollPosition:UITableViewScrollPositionNone];
+        }
+        if (self.editorViewController) {
+            if (self.editorViewController.ocNote) {
+                NSInteger currentIndex = [self.ocNotes indexOfObject:self.editorViewController.ocNote];
+                if (currentIndex >= 0) {
+                    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+                }
+            }
         }
     }
 }
@@ -226,7 +223,7 @@ static NSString *DetailSegueIdentifier = @"showDetail";
 
 - (void)dealloc
 {
-    [NSNotificationCenter.defaultCenter removeObserver:self name:FCModelAnyChangeNotification object:OCNote.class];
+    [NSNotificationCenter.defaultCenter removeObserver:self name:FCModelChangeNotification object:OCNote.class];
 }
 
 #pragma mark - Table view data source

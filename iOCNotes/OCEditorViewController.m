@@ -111,23 +111,8 @@
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(noteUpdated:)
-                                               name:FCModelInsertNotification
+                                               name:FCModelChangeNotification
                                              object:OCNote.class];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(noteUpdated:)
-                                               name:FCModelUpdateNotification
-                                             object:OCNote.class];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(noteUpdated:)
-                                               name:FCModelDeleteNotification
-                                             object:OCNote.class];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(willEnterForeground:)
-//                                                 name:UIApplicationDidBecomeActiveNotification
-//                                               object:nil];
     
     [self.view setNeedsUpdateConstraints];
     [self viewWillTransitionToSize:[UIScreen mainScreen].bounds.size withTransitionCoordinator:self.transitionCoordinator];
@@ -322,9 +307,10 @@
 
 - (void)updateText:(NSTimer*)timer {
 //    NSLog(@"Ready to update text");
-    self.ocNote.content = self.noteView.text;
     if (self.ocNote.existsInDatabase) {
-        [self.ocNote save];
+        [self.ocNote save:^{
+            self.ocNote.content = self.noteView.text;
+        }];
         [[OCNotesHelper sharedHelper] updateNote:self.ocNote];
     }
 }
@@ -353,17 +339,13 @@
         self.noteView.headerLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
         self.navigationItem.title = @"";
     }
-    if ([notification.name isEqualToString:FCModelInsertNotification]) {
-        if (self.addingNote) {
-            [self.view bringSubviewToFront:self.noteView];
-            [self.noteView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.3];
-            self.addingNote = NO;
-        }
+    if (self.addingNote) {
+        [self.view bringSubviewToFront:self.noteView];
+        [self.noteView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.3];
+        self.addingNote = NO;
     }
-    if ([notification.name isEqualToString:FCModelUpdateNotification]) {
-        if (!self.updatedByEditing) {
-            self.noteView.text = self.ocNote.content;
-        }
+    if (!self.updatedByEditing) {
+        self.noteView.text = self.ocNote.content;
     }
 }
 

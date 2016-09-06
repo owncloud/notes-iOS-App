@@ -22,13 +22,14 @@
                 //                        NSLog(@"Returning from update operation");
                 NSDictionary *responseDictionary = (NSDictionary*)responseObject;
                 if ([[NSNumber numberWithInt:self.note.id] isEqualToNumber:[responseDictionary objectForKey:@"id"]]) {
-                    self.note.title = [responseDictionary objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
-                    self.note.content = [responseDictionary objectForKeyNotNull:@"content" fallback:@""];
-                    self.note.modified = [[responseDictionary objectForKey:@"modified"] doubleValue];
-                    self.note.addNeeded = NO;
-                    self.note.updateNeeded = NO;
                     if (self.note.existsInDatabase) {
-                        [self.note save];
+                        [self.note save:^{
+                            self.note.title = [responseDictionary objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
+                            self.note.content = [responseDictionary objectForKeyNotNull:@"content" fallback:@""];
+                            self.note.modified = [[responseDictionary objectForKey:@"modified"] doubleValue];
+                            self.note.addNeeded = NO;
+                            self.note.updateNeeded = NO;
+                        }];
                     }
                 }
                 
