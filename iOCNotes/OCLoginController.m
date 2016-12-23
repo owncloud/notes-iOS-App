@@ -140,7 +140,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
             NSLog(@"Server status: %i", status);
 #endif            
             [self.connectionActivityIndicator stopAnimating];
-            [[SWMessage sharedInstance] showNotificationInViewController:self
+            [[SWMessage sharedInstance] showNotificationInViewControllerWithViewController:self
                                                                    title:NSLocalizedString(@"Success", @"A message title")
                                                                 subtitle:NSLocalizedString(@"You are now connected to Notes on your server", @"A message")
                                                                    image:nil
@@ -191,7 +191,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
 //            NSLog(@"Error: %@, response: %ld", [error localizedDescription], (long)[response statusCode]);
             //self.statusLabel.text = message;
             [self.connectionActivityIndicator stopAnimating];
-            [[SWMessage sharedInstance] showNotificationInViewController:self
+            [[SWMessage sharedInstance] showNotificationInViewControllerWithViewController:self
                                                                    title:title
                                                                 subtitle:message
                                                                    image:nil

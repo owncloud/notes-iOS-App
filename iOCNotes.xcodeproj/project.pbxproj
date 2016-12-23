@@ -36,7 +36,6 @@
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D09538491D32A5AD006BB78E /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538461D32A5AD006BB78E /* Markdown.swift */; };
 		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
-		D0A3E9DD1CD5759600857A46 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D022570D189847A90038232A /* KSCrash.framework */; };
 		D0A3E9DE1CD5759600857A46 /* KSCrash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D022570D189847A90038232A /* KSCrash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */; };
 		D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648591B0F5BB1005C0981 /* OCNoteOperationUpdate.m */; };
@@ -287,7 +286,6 @@
 				D0225713189848120038232A /* libz.dylib in Frameworks */,
 				D0225711189848060038232A /* libc++.dylib in Frameworks */,
 				D022570E189847A90038232A /* KSCrash.framework in Frameworks */,
-				D0A3E9DD1CD5759600857A46 /* KSCrash.framework in Frameworks */,
 				D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */,
 				D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */,
 				D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */,
@@ -698,11 +696,12 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = OC;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Peter Hedlund";
 				TargetAttributes = {
 					D0CFE5321888A7BD00165839 = {
 						DevelopmentTeam = 73AQJ77PZ5;
+						LastSwiftMigration = 0810;
 					};
 					D0CFE5561888A7BD00165839 = {
 						TestTargetID = D0CFE5321888A7BD00165839;
@@ -912,6 +911,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -921,14 +921,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -953,6 +958,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -962,13 +968,18 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -977,6 +988,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -985,12 +997,12 @@
 		D0CFE5691888A7BD00165839 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
@@ -1008,6 +1020,7 @@
 				STRIP_STYLE = debugging;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/iOCNotes/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1015,12 +1028,12 @@
 		D0CFE56A1888A7BD00165839 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
@@ -1037,6 +1050,7 @@
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/iOCNotes/BridgingHeader.h";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

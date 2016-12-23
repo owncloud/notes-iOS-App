@@ -145,9 +145,9 @@
     if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
         if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
             if (size.width > size.height) {
-                [self.noteView updateInsetsToSize:178];
+                [self.noteView updateInsetsWithSize:178];
             } else {
-                [self.noteView updateInsetsToSize:50];
+                [self.noteView updateInsetsWithSize:50];
             }
         }
     }

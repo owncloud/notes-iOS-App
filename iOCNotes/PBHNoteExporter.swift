@@ -30,12 +30,12 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
     }
     
     func showMenu() -> Void {
-        alert = UIAlertController.init(title: "Share Note As", message: nil, preferredStyle: .ActionSheet)
-        let plainTextAction = UIAlertAction.init(title: "Plain Text", style: .Default, handler: beginExport("txt"))
-        let markdownAction = UIAlertAction.init(title: "Markdown", style: .Default, handler: beginExport("md"))
-        let htmlAction = UIAlertAction.init(title: "HTML", style: .Default, handler: beginExport("html"))
-        let richTextAction = UIAlertAction.init(title: "Rich Text", style: .Default, handler: beginExport("rtf"))
-        let cancelAction = UIAlertAction.init(title: "Cancel", style: .Cancel, handler: beginExport(""))
+        alert = UIAlertController.init(title: "Share Note As", message: nil, preferredStyle: .actionSheet)
+        let plainTextAction = UIAlertAction.init(title: "Plain Text", style: .default, handler: beginExport(type: "txt"))
+        let markdownAction = UIAlertAction.init(title: "Markdown", style: .default, handler: beginExport(type: "md"))
+        let htmlAction = UIAlertAction.init(title: "HTML", style: .default, handler: beginExport(type: "html"))
+        let richTextAction = UIAlertAction.init(title: "Rich Text", style: .default, handler: beginExport(type: "rtf"))
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: beginExport(type: ""))
         
         self.alert.addAction(plainTextAction)
         self.alert.addAction(markdownAction)
@@ -47,26 +47,25 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
         {
             popover.delegate = self
             popover.barButtonItem = self.barButtonItem!
-            popover.permittedArrowDirections = .Any
+            popover.permittedArrowDirections = .any
         }
         
-        self.viewController?.presentViewController(self.alert, animated: true, completion: nil)
+        self.viewController?.present(self.alert, animated: true, completion: nil)
     }
     
-    func beginExport(type: String) -> (action: UIAlertAction) -> Void {
+    func beginExport(type: String) -> (_ action: UIAlertAction) -> Void {
         return { alertAction in
             print("Export type: \(type)")
             
-            let fileManager = NSFileManager.defaultManager()
-            let docDir = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first
-            var fileURL = docDir?.URLByAppendingPathComponent("export")
+            let fileManager = FileManager.default
+            let docDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+            var fileURL = docDir?.appendingPathComponent("export")
             var isDir : ObjCBool = true
-            if fileManager.fileExistsAtPath((fileURL?.path)!, isDirectory: &isDir) {
+            if fileManager.fileExists(atPath: (fileURL?.path)!, isDirectory: &isDir) {
                 do {
-                    try fileManager.removeItemAtURL(fileURL!)
-                    try fileManager.createDirectoryAtURL(fileURL!, withIntermediateDirectories: true, attributes: nil)
-                    fileURL = fileURL!.URLByAppendingPathComponent(self.title!)
-                    fileURL = fileURL!.URLByAppendingPathExtension(type)
+                    try fileManager.removeItem(at: fileURL!)
+                    try fileManager.createDirectory(at: fileURL!, withIntermediateDirectories: true, attributes: nil)
+                    fileURL = fileURL!.appendingPathComponent(self.title!).appendingPathExtension(type)
                 }
                 catch
                 {
@@ -74,27 +73,27 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
                 }
             }
             
-            var activityItems = []
+            var activityItems: [AnyObject]?
             
             switch type {
             case "txt", "md":
                 do {
-                    try self.text?.writeToURL(fileURL!, atomically: true, encoding: NSUTF8StringEncoding)
-                    activityItems = [self.text!, fileURL!]
+                    try self.text?.write(to: fileURL!, atomically: true, encoding: String.Encoding.utf8)
+                    activityItems = [self.text! as AnyObject, fileURL! as AnyObject]
                 }
                 catch {}
             case "html":
                 if let textToTransform = self.text {
                     var markdown = Markdown()
                     let outputHtml: String = markdown.transform(textToTransform)
-                    let htmlTemplateURL = NSBundle.mainBundle().URLForResource("export", withExtension: "html")
+                    let htmlTemplateURL = Bundle.main.url(forResource: "export", withExtension: "html")
                     do
                     {
-                        let htmlTemplate = try String(contentsOfURL: htmlTemplateURL!)
-                        var outputHtml = htmlTemplate.stringByReplacingOccurrencesOfString("$Markdown$", withString: outputHtml)
-                        outputHtml = outputHtml.stringByReplacingOccurrencesOfString("$Title$", withString: self.title!)
-                        try outputHtml.writeToURL(fileURL!, atomically: true, encoding: NSUTF8StringEncoding)
-                        activityItems = [outputHtml, fileURL!]
+                        let htmlTemplate = try String(contentsOf: htmlTemplateURL!)
+                        var outputHtml = htmlTemplate.replacingOccurrences(of: "$Markdown$", with: outputHtml)
+                        outputHtml = outputHtml.replacingOccurrences(of: "$Title$", with: self.title!)
+                        try outputHtml.write(to: fileURL!, atomically: true, encoding: String.Encoding.utf8)
+                        activityItems = [outputHtml as AnyObject, fileURL! as AnyObject]
                     }
                     catch
                     {
@@ -105,17 +104,17 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
                 if let textToTransform = self.text {
                     var markdown = Markdown()
                     let outputHtml: String = markdown.transform(textToTransform)
-                    let htmlTemplateURL = NSBundle.mainBundle().URLForResource("export", withExtension: "html")
+                    let htmlTemplateURL = Bundle.main.url(forResource: "export", withExtension: "html")
                     do
                     {
-                        let htmlTemplate = try String(contentsOfURL: htmlTemplateURL!)
-                        var outputHtml = htmlTemplate.stringByReplacingOccurrencesOfString("$Markdown$", withString: outputHtml)
-                        outputHtml = outputHtml.stringByReplacingOccurrencesOfString("$Title$", withString: self.title!)
-                        let data = outputHtml.dataUsingEncoding(NSUTF8StringEncoding)
+                        let htmlTemplate = try String(contentsOf: htmlTemplateURL!)
+                        var outputHtml = htmlTemplate.replacingOccurrences(of: "$Markdown$", with: outputHtml)
+                        outputHtml = outputHtml.replacingOccurrences(of: "$Title$", with: self.title!)
+                        let data = outputHtml.data(using: String.Encoding.utf8)
                         let attributedString = try NSAttributedString(data: data!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil)
-                        let rtfData = try attributedString.dataFromRange(NSMakeRange(0, attributedString.length), documentAttributes: [NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType])
-                        try rtfData.writeToURL(fileURL!, options: .AtomicWrite)
-                        activityItems = [attributedString, fileURL!]
+                        let rtfData = try attributedString.data(from: NSMakeRange(0, attributedString.length), documentAttributes: [NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType])
+                        try rtfData.write(to: fileURL!, options: .atomicWrite)
+                        activityItems = [attributedString as AnyObject, fileURL! as AnyObject]
                     }
                     catch
                     {
@@ -123,24 +122,26 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
                     }
                 }
             default:
-                self.viewController?.dismissViewControllerAnimated(true, completion: nil)
+                self.viewController?.dismiss(animated: true, completion: nil)
             }
-            let openInAppActivity = TTOpenInAppActivity.init(view: self.viewController?.view, andBarButtonItem: self.barButtonItem)
-            let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: [openInAppActivity])
-            openInAppActivity.superViewController = activityViewController
-            if let popover = activityViewController.popoverPresentationController
-            {
-                let barbuttonItem = self.viewController?.navigationItem.rightBarButtonItems?.first
-                popover.delegate = self
-                popover.barButtonItem = barbuttonItem
-                popover.permittedArrowDirections = .Any
+            if activityItems != nil {
+                let openInAppActivity = TTOpenInAppActivity.init(view: self.viewController?.view, andBarButtonItem: self.barButtonItem)
+                let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject]!, applicationActivities: [openInAppActivity!])
+                openInAppActivity?.superViewController = activityViewController
+                if let popover = activityViewController.popoverPresentationController
+                {
+                    let barbuttonItem = self.viewController?.navigationItem.rightBarButtonItems?.first
+                    popover.delegate = self
+                    popover.barButtonItem = barbuttonItem
+                    popover.permittedArrowDirections = .any
+                }
+                self.viewController?.present(activityViewController, animated: true, completion: nil)
             }
-            self.viewController?.presentViewController(activityViewController, animated: true, completion: nil)
         }
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
+        return UIModalPresentationStyle.none
     }
 
 }

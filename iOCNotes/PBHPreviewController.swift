@@ -22,28 +22,28 @@ import UIKit
         {
             var markdown = Markdown()
             let outputHtml: String = markdown.transform(textToTransform)
-            loadPreview(outputHtml)
+            loadPreview(html: outputHtml)
         }
         self.navigationItem.title = noteTitle
     }
 
     func loadPreview(html: String) -> Void {
-        let cssTemplateURL = NSBundle.mainBundle().URLForResource("github-markdown", withExtension: "css")
-        let htmlTemplateURL = NSBundle.mainBundle().URLForResource("markdown", withExtension: "html")
+        let cssTemplateURL = Bundle.main.url(forResource: "github-markdown", withExtension: "css")
+        let htmlTemplateURL = Bundle.main.url(forResource: "markdown", withExtension: "html")
         do
         {
-            let cssTemplate = try String(contentsOfURL: cssTemplateURL!)
-            let htmlTemplate = try String(contentsOfURL: htmlTemplateURL!)
-            var outputHtml = htmlTemplate.stringByReplacingOccurrencesOfString("$Markdown$", withString: html)
-            outputHtml = outputHtml.stringByReplacingOccurrencesOfString("$Title$", withString: noteTitle!)
+            let cssTemplate = try String(contentsOf: cssTemplateURL!)
+            let htmlTemplate = try String(contentsOf: htmlTemplateURL!)
+            var outputHtml = htmlTemplate.replacingOccurrences(of: "$Markdown$", with: html)
+            outputHtml = outputHtml.replacingOccurrences(of: "$Title$", with: noteTitle!)
             
-            let docDir = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first
-            let cssOutputUrl = docDir?.URLByAppendingPathComponent("github-markdown").URLByAppendingPathExtension("css")
-            let htmlOutputUrl = docDir?.URLByAppendingPathComponent("markdown").URLByAppendingPathExtension("html")
-            try cssTemplate.writeToURL(cssOutputUrl!, atomically: true, encoding: NSUTF8StringEncoding)
-            try outputHtml.writeToURL(htmlOutputUrl!, atomically: true, encoding: NSUTF8StringEncoding)
-            let request = NSURLRequest(URL: htmlOutputUrl!)
-            webView.loadRequest(request)
+            let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            let cssOutputUrl = docDir?.appendingPathComponent("github-markdown").appendingPathExtension("css")
+            let htmlOutputUrl = docDir?.appendingPathComponent("markdown").appendingPathExtension("html")
+            try cssTemplate.write(to: cssOutputUrl!, atomically: true, encoding: String.Encoding.utf8)
+            try outputHtml.write(to: htmlOutputUrl!, atomically: true, encoding: String.Encoding.utf8)
+            let request = NSURLRequest(url: htmlOutputUrl!)
+            webView.loadRequest(request as URLRequest)
         }
         catch
         {

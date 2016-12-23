@@ -22,32 +22,32 @@ class PBHHeaderTextView: UITextView {
     
     
     lazy var headerLabel: UILabel = {
-        var theHeaderLabel = UILabel.newAutoLayoutView()
+        var theHeaderLabel = UILabel.newAutoLayout()
         theHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
         theHeaderLabel.numberOfLines = 1;
-        if (self.traitCollection.horizontalSizeClass == .Regular) {
-            theHeaderLabel.textAlignment = .Left;
+        if (self.traitCollection.horizontalSizeClass == .regular) {
+            theHeaderLabel.textAlignment = .left;
         } else {
-            theHeaderLabel.textAlignment = .Center
+            theHeaderLabel.textAlignment = .center
         }
-        theHeaderLabel.textColor = UIColor.lightGrayColor()
-        theHeaderLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        theHeaderLabel.textColor = UIColor.lightGray
+        theHeaderLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
         theHeaderLabel.text = NSLocalizedString("Select or create a note.", comment: "Placeholder text when no note is selected")
     
         return theHeaderLabel
     }()
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
-        myTextStorage.codeColor = UIColor.greenColor()
-        myTextStorage.quoteColor = UIColor.darkGrayColor()
-        myTextStorage.syntaxColor = UIColor.blueColor()
+        myTextStorage.codeColor = UIColor.green
+        myTextStorage.quoteColor = UIColor.darkGray
+        myTextStorage.syntaxColor = UIColor.blue
         
         let attributedString = NSAttributedString(string: "")
         myTextStorage.setAttributedString(attributedString)
 
 //        let textViewRect = self.frame;
         
-        let containerSize = CGSizeMake(frame.size.width,  CGFloat.max)
+        let containerSize = CGSize(width: frame.size.width, height:CGFloat.greatestFiniteMagnitude)
         let container = NSTextContainer.init(size: containerSize)
         container.widthTracksTextView = true
 
@@ -75,9 +75,9 @@ class PBHHeaderTextView: UITextView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerLabel)
         
-        myTextStorage.codeColor = UIColor.greenColor()
-        myTextStorage.quoteColor = UIColor.darkGrayColor()
-        myTextStorage.syntaxColor = UIColor.blueColor()
+        myTextStorage.codeColor = UIColor.green
+        myTextStorage.quoteColor = UIColor.darkGray
+        myTextStorage.syntaxColor = UIColor.blue
         
         let attributedString = NSAttributedString(string: "")
         myTextStorage.setAttributedString(attributedString)
@@ -85,7 +85,7 @@ class PBHHeaderTextView: UITextView {
         let textViewRect = self.frame;
         let layoutManager = NSLayoutManager()
         
-        let containerSize = CGSizeMake(textViewRect.size.width,  CGFloat.max)
+        let containerSize = CGSize(width:textViewRect.size.width,  height:CGFloat.greatestFiniteMagnitude)
         let container = NSTextContainer.init(size: containerSize)
         container.widthTracksTextView = true
         
@@ -99,33 +99,33 @@ class PBHHeaderTextView: UITextView {
     override func updateConstraints() {
         if (self.didSetupConstraints == false) {
             
-            self.headerLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: UILayoutConstraintAxis.Vertical)
-            self.headerLabel.autoMatchDimension(.Height, toDimension: .Height, ofView: self.headerLabel, withOffset:0)
-            self.headerLabel.autoPinEdgeToSuperviewEdge( .Top, withInset:-kSmallPadding)
-            leftHeaderLayoutConstraint = self.headerLabel.autoPinEdge( .Leading, toEdge: .Leading, ofView: self, withOffset:kSmallPadding)
-            rightHeaderLayoutConstraint = self.headerLabel.autoPinEdge( .Trailing, toEdge: .Trailing, ofView: self, withOffset:kSmallPadding)
-            self.headerLabel.autoAlignAxis( .Vertical, toSameAxisOfView: self)
+            self.headerLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: UILayoutConstraintAxis.vertical)
+            self.headerLabel.autoMatch(.height, to: .height, of: self.headerLabel, withOffset:0)
+            self.headerLabel.autoPinEdge( toSuperviewEdge: .top, withInset:-kSmallPadding)
+            leftHeaderLayoutConstraint = self.headerLabel.autoPinEdge( .leading, to: .leading, of: self, withOffset:kSmallPadding)
+            rightHeaderLayoutConstraint = self.headerLabel.autoPinEdge( .trailing, to: .trailing, of: self, withOffset:kSmallPadding)
+            self.headerLabel.autoAlignAxis( .vertical, toSameAxisOf: self)
             
             self.didSetupConstraints = true
         }
         super.updateConstraints()
     }
     
-    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
-        if (self.traitCollection.horizontalSizeClass == .Regular) {
-            headerLabel.textAlignment = .Left
-            if (self.traitCollection.userInterfaceIdiom == .Pad) {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if (self.traitCollection.horizontalSizeClass == .regular) {
+            headerLabel.textAlignment = .left
+            if (self.traitCollection.userInterfaceIdiom == .pad) {
                 if (self.frame.size.width > self.frame.size.height) {
-                    self.updateInsetsToSize(178)
+                    self.updateInsets(size: 178)
                 } else {
-                    self.updateInsetsToSize(178)
+                    self.updateInsets(size: 178)
                 }
             } else {
-                self.updateInsetsToSize(kSmallPadding)
+                self.updateInsets(size: kSmallPadding)
             }
         } else {
-            headerLabel.textAlignment = .Center;
-            self.updateInsetsToSize(kSmallPadding)
+            headerLabel.textAlignment = .center;
+            self.updateInsets(size: kSmallPadding)
         }
     }
 
@@ -152,11 +152,11 @@ class PBHHeaderTextView: UITextView {
         }
     }
     
-    func updateInsetsToSize(inset: CGFloat)
+    open func updateInsets(size: CGFloat)
     {
-        self.textContainerInset = UIEdgeInsetsMake(kSmallPadding, inset, kSmallPadding, inset);
-        leftHeaderLayoutConstraint.constant = inset;
-        rightHeaderLayoutConstraint.constant = inset;
+        self.textContainerInset = UIEdgeInsetsMake(kSmallPadding, size, kSmallPadding, size);
+        leftHeaderLayoutConstraint.constant = size;
+        rightHeaderLayoutConstraint.constant = size;
     }
 
 }
