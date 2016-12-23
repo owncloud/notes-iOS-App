@@ -14,14 +14,13 @@
 #import "PureLayout.h"
 #import "iOCNotes-Swift.h"
 
-@interface OCEditorViewController () <UIGestureRecognizerDelegate, UIPopoverControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
+@interface OCEditorViewController () <UIPopoverControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
     NSTimer *editingTimer;
     UIPopoverController *_activityPopover;
     UIActionSheet *deleteConfirmation;
     PBHNoteExporter *noteExporter;
 }
 
-@property (strong, nonatomic) UIPanGestureRecognizer *dynamicTransitionPanGesture;
 @property (strong, nonatomic) NSLayoutConstraint *bottomLayoutConstraint;
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @property (nonatomic, assign) BOOL updatedByEditing;
