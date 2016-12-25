@@ -572,4 +572,8 @@ static NSString *DetailSegueIdentifier = @"showDetail";
     return UISplitViewControllerDisplayModePrimaryHidden;
 }
 
+- (BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController {
+    return self.editorViewController.ocNote == nil; //Makes the notes tableview the initial view on launch.
+}
+
 @end
