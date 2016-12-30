@@ -52,15 +52,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-//    CALayer *border = [CALayer layer];
-//    border.backgroundColor = [UIColor lightGrayColor].CGColor;
-//    border.frame = CGRectMake(0, 0, 1, 1024);
-//    [self.mm_drawerController.centerViewController.view.layer addSublayer:border];
     self.noteView = [[PBHHeaderTextView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
     self.noteView.delegate = self;
     [self.view addSubview:self.noteView];
-    [self.noteView autoPinEdgesToSuperviewEdges];
     self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton, self.fixedSpace, self.previewButton];
     self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
     self.navigationItem.leftItemsSupplementBackButton = YES;
@@ -165,25 +159,6 @@
 {
     [NSNotificationCenter.defaultCenter removeObserver:self];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-//- (void)willEnterForeground:(NSNotification*)notification {
-//    if (!self.ocNote) {
-//        [self doShowDrawer:self];
-//    }
-//}
-
-//- (IBAction)doShowDrawer:(id)sender {
-//    if (self.noteView.isFirstResponder) {
-//        [self.noteView resignFirstResponder];
-//    }
-////    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-//}
 
 - (IBAction)doActivities:(id)sender {
     NSString *textToExport;
