@@ -128,6 +128,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    //TODO: This works around a Swift/Objective-C interaction issue. Verify that it is still needed.
+    self.noteView.scrollEnabled = NO;
+    self.noteView.scrollEnabled = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -148,8 +151,10 @@
 
 - (void)updateViewConstraints {
     if (!self.didSetupConstraints) {
-        NSArray *constraints = [self.noteView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero];
-        self.bottomLayoutConstraint = [constraints objectAtIndex:2];
+        self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
+        [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
+        [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:0];
+        [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:0];
         self.didSetupConstraints = YES;
     }
     [super updateViewConstraints];
