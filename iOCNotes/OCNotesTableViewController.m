@@ -32,7 +32,6 @@ static NSString *DetailSegueIdentifier = @"showDetail";
 
 @synthesize notesRefreshControl;
 @synthesize editorViewController;
-@synthesize menuActionSheet;
 @synthesize addingNote;
 
 - (UIRefreshControl *)notesRefreshControl {
@@ -42,18 +41,6 @@ static NSString *DetailSegueIdentifier = @"showDetail";
         [notesRefreshControl addTarget:self action:@selector(doRefresh:) forControlEvents:UIControlEventValueChanged];
     }
     return notesRefreshControl;
-}
-
-- (UIActionSheet*)menuActionSheet {
-    if (!menuActionSheet) {
-        menuActionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                      delegate:self
-                                             cancelButtonTitle:NSLocalizedString(@"Cancel", @"A menu action")
-                                        destructiveButtonTitle:nil
-                                             otherButtonTitles:NSLocalizedString(@"Settings", @"A menu action"),
-                                                               NSLocalizedString(@"Add Note", @"A menu action"), nil];
-    }
-    return menuActionSheet;
 }
 
 - (void)viewDidLoad {
@@ -452,14 +439,6 @@ static NSString *DetailSegueIdentifier = @"showDetail";
     [[OCNotesHelper sharedHelper] sync];
 }
 
-- (IBAction)doMenu:(id)sender {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [self.menuActionSheet showFromBarButtonItem:sender animated:YES];
-    } else {
-        [self.menuActionSheet showInView:self.view];
-    }
-}
-
 - (IBAction)doAdd:(id)sender {
     self.addingNote = YES;
     self.editorViewController.addingNote = YES;
@@ -470,25 +449,10 @@ static NSString *DetailSegueIdentifier = @"showDetail";
     [[UIApplication sharedApplication] openURL:[[OCAPIClient sharedClient] baseURL]];
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ([actionSheet isEqual:self.menuActionSheet]) {
-        switch (buttonIndex) {
-            case 0:
-                [self doSettings:self.menuActionSheet];
-                break;
-            case 1:
-                [[OCNotesHelper sharedHelper] addNote:@""];
-                break;
-            default:
-                break;
-        }
-    }
-}
-
 - (IBAction)doSettings:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     UINavigationController *nav;
-    if ([sender isEqual:self.menuActionSheet] || [sender isEqual:self.settingsBarButton]) {
+    if ([sender isEqual:self.settingsBarButton]) {
         nav = [storyboard instantiateViewControllerWithIdentifier:@"login"];
     } else {
         OCLoginController *lc = [storyboard instantiateViewControllerWithIdentifier:@"server"];
