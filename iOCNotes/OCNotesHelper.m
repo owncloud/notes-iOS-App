@@ -361,7 +361,7 @@
  }
  */
 
-- (void)addNote:(NSString*)content {
+- (OCNote *)addNote:(NSString*)content {
     __block OCNote *newNote = [OCNote new];
     [newNote save:^{
         newNote.title = NSLocalizedString(@"New note", @"The title of a new note");
@@ -375,6 +375,7 @@
         operation.qualityOfService = NSQualityOfServiceUserInitiated;
         [self addOperationToQueue:operation];
     }
+    return newNote;
 }
 
 /*

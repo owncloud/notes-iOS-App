@@ -39,7 +39,7 @@
 + (OCNotesHelper *)sharedHelper;
 + (BOOL)isOnline;
 - (void)sync;
-- (void)addNote:(NSString*)content;
+- (OCNote *)addNote:(NSString*)content;
 - (void)getNote:(OCNote*)note;
 - (void)updateNote:(OCNote*)note;
 - (void)deleteNote:(OCNote*)note;

@@ -226,7 +226,7 @@
 
 - (IBAction)onAdd:(id)sender {
     self.addingNote = YES;
-    [[OCNotesHelper sharedHelper] addNote:@""];
+    self.ocNote = [[OCNotesHelper sharedHelper] addNote:@""];
 }
 
 - (IBAction)onPreview:(id)sender {
