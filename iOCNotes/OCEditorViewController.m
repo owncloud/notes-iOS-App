@@ -321,6 +321,13 @@
     if (self.addingNote) {
         [self.view bringSubviewToFront:self.noteView];
         [self.noteView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.3];
+        if (self.splitViewController.displayMode == UISplitViewControllerDisplayModeAllVisible || self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryOverlay) {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+            } completion:^(BOOL finished){
+                //
+            }];
+        }
         self.addingNote = NO;
     }
     if (!self.updatedByEditing) {
