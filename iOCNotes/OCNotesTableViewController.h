@@ -16,11 +16,9 @@
 @property (nonatomic, strong) OCEditorViewController *editorViewController;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *addBarButton;
-@property (strong, nonatomic) IBOutlet UIButton *titleButton;
 @property (assign) BOOL addingNote;
 
 - (IBAction) doRefresh:(id)sender;
 - (IBAction)doAdd:(id)sender;
-- (IBAction)onTitleButton:(id)sender;
 
 @end

@@ -111,10 +111,7 @@ static NSString *DetailSegueIdentifier = @"showDetail";
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.toolbar.translucent = YES;
     self.navigationController.toolbar.clipsToBounds = YES;
-    self.navigationItem.titleView = self.titleButton;
     self.splitViewController.delegate = self;
-//    UINavigationController *navController = (UINavigationController*)self.splitViewController.viewControllers.lastObject;
-//    self.editorViewController = (OCEditorViewController*)navController.topViewController;
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.hidesNavigationBarDuringPresentation = YES;
@@ -130,26 +127,9 @@ static NSString *DetailSegueIdentifier = @"showDetail";
     self.definesPresentationContext = YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    self.navigationController.toolbar.hidden = YES;
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self didBecomeActive:nil];
-//    [self.editorViewController.noteView resignFirstResponder];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-//    self.navigationController.toolbar.hidden = NO;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)reloadNotes:(NSNotification *)notification
@@ -398,13 +378,10 @@ static NSString *DetailSegueIdentifier = @"showDetail";
             self.editorViewController.ocNote = note;
             self.editorViewController.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
             self.editorViewController.navigationItem.leftItemsSupplementBackButton = YES;
-//            self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
             if (self.splitViewController.displayMode == UISplitViewControllerDisplayModeAllVisible || self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryOverlay) {
                 [UIView animateWithDuration:0.3 animations:^{
                     self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
-                } completion:^(BOOL finished){
-//                    self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAutomatic;
-                }];
+                } completion: nil];
             }
              if ([OCNotesHelper isOnline]) {
                 [KVNProgress show];
@@ -443,10 +420,6 @@ static NSString *DetailSegueIdentifier = @"showDetail";
     self.addingNote = YES;
     self.editorViewController.addingNote = YES;
     [[OCNotesHelper sharedHelper] addNote:@""];
-}
-
-- (IBAction)onTitleButton:(id)sender {
-    [[UIApplication sharedApplication] openURL:[[OCAPIClient sharedClient] baseURL]];
 }
 
 - (IBAction)doSettings:(id)sender {
