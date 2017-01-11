@@ -11,3 +11,7 @@
 @interface OCNoteOperationDelete : OCNoteOperation
 
 @end
+
+@interface OCNoteOperationDeleteSimple : OCNoteOperation
+
+@end
