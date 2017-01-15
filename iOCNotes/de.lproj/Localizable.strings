@@ -1,5 +1,5 @@
 /* Crash report email body placeholder */
-"<Please provide as much details as possible about what you were doing when the crash occurred.>" = "<Please provide as much details as possible about what you were doing when the crash occurred.>";
+"<Please provide as much details as possible about what you were doing when the crash occurred.>" = "<Bitte beschreiben Sie in Detail was Sie getan haben als sich der Absturz erreignete.>";
 
 /* Support email body placeholder */
 "<Please state your question or problem here>" = "<Bitte beschreiben Sie Ihre Frage oder Problem hier.>";
