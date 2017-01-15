@@ -295,7 +295,7 @@
         }];
     } else {
         NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Unable to Reach Server", @"The title of an error message"),
-                                   @"Message": @"Please check network connection and login."};
+                                   @"Message": NSLocalizedString(@"Please check network connection and login.", @"A message to check network connection")};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
     }
 }

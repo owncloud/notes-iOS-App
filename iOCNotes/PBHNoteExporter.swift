@@ -30,12 +30,12 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
     }
     
     func showMenu() -> Void {
-        alert = UIAlertController.init(title: "Share Note As", message: nil, preferredStyle: .actionSheet)
-        let plainTextAction = UIAlertAction.init(title: "Plain Text", style: .default, handler: beginExport(type: "txt"))
-        let markdownAction = UIAlertAction.init(title: "Markdown", style: .default, handler: beginExport(type: "md"))
-        let htmlAction = UIAlertAction.init(title: "HTML", style: .default, handler: beginExport(type: "html"))
-        let richTextAction = UIAlertAction.init(title: "Rich Text", style: .default, handler: beginExport(type: "rtf"))
-        let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: beginExport(type: ""))
+        alert = UIAlertController.init(title: NSLocalizedString("Share Note As", comment: "Title of a menu with sharing options"), message: nil, preferredStyle: .actionSheet)
+        let plainTextAction = UIAlertAction.init(title: NSLocalizedString("Plain Text", comment: "A menu option for sharing in plain text format"), style: .default, handler: beginExport(type: "txt"))
+        let markdownAction = UIAlertAction.init(title: NSLocalizedString("Markdown", comment: "A menu option for sharing in markdown format"), style: .default, handler: beginExport(type: "md"))
+        let htmlAction = UIAlertAction.init(title: NSLocalizedString("HTML", comment: "A menu option for plain sharing in html format"), style: .default, handler: beginExport(type: "html"))
+        let richTextAction = UIAlertAction.init(title: NSLocalizedString("Rich Text", comment: "A menu option for sharing in rich text format"), style: .default, handler: beginExport(type: "rtf"))
+        let cancelAction = UIAlertAction.init(title: NSLocalizedString("Cancel", comment: "A menu option for cancelling"), style: .cancel, handler: beginExport(type: ""))
         
         self.alert.addAction(plainTextAction)
         self.alert.addAction(markdownAction)

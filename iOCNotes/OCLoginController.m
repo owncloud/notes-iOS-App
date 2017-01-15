@@ -150,7 +150,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
                                                                     self.connectLabel.enabled = YES;
                                                                     [[SWMessage sharedInstance] dismissActiveNotification];
                                                                 }
-                                                             buttonTitle:@"Close & Sync"
+                                                                buttonTitle:NSLocalizedString(@"Close & Sync", @"Title of a button allowing the user to close the login screen and sync with the server")
                                                           buttonCallback:^{
                                                               self.connectLabel.enabled = YES;
                                                               [[SWMessage sharedInstance] dismissActiveNotification];
@@ -225,7 +225,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSString *labelText = @"Reconnect";
+    NSString *labelText = NSLocalizedString(@"Reconnect", @"A button title");
     BOOL textHasChanged = NO;
     
     NSMutableString *proposedNewString = [NSMutableString stringWithString:textField.text];
@@ -245,7 +245,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
         textHasChanged = (self.certificateSwitch.on != [prefs boolForKey:@"AllowInvalidSSLCertificate"]);
     }
     if (textHasChanged) {
-        labelText = @"Connect";
+        labelText = NSLocalizedString(@"Connect", @"A button title");
     }
     self.connectLabel.text = labelText;
     return YES;
