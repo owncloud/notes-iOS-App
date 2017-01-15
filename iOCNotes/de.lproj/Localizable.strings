@@ -1,0 +1,128 @@
+/* Crash report email body placeholder */
+"<Please provide as much details as possible about what you were doing when the crash occurred.>" = "<Please provide as much details as possible about what you were doing when the crash occurred.>";
+
+/* Support email body placeholder */
+"<Please state your question or problem here>" = "<Bitte beschreiben Sie Ihre Frage oder Problem hier.>";
+
+/* An error message */
+"A server installation could not be found. Check the server address." = "Es konnte keine Serverinstallation gefunden werden. Prüfen Sie die Serveradresse";
+
+/* A menu action
+   A menu option for cancelling */
+"Cancel" = "Abbrechen";
+
+/* An error message */
+"Check username and password." = "Benutzername und Passwort prüfen.";
+
+/* Title of a button allowing the user to close the login screen and sync with the server */
+"Close & Sync" = "Schließen & syncen";
+
+/* Crash report email subject */
+"CloudNotes Crash Report" = "CloudNotes Absturzbericht";
+
+/* No comment provided by engineer. */
+"CloudNotes crashed last time it was launched. Do you want to send a report to the developer?" = "CloudNotes ist beim letzten Start abgestürzt. Möchten Sie an den Entwickler einen Bericht senden?";
+
+/* Support email subject */
+"CloudNotes Support Request" = "CloudNotes Hilfe-Anfrage";
+
+/* A button title */
+"Connect" = "Verbinden";
+
+/* An error message title */
+"Connection failure" = "Verbindungsfehler";
+
+/* Alert view title */
+"Crash Detected" = "Absturz entdeckt";
+
+/* A menu action */
+"Delete Note" = "Notiz löschen";
+
+/* The title of an error message */
+"Error Adding Note" = "Fehler beim Notiz hinzufügen";
+
+/* The title of an error message */
+"Error Deleting Note" = "Fehler beim Notiz löschen";
+
+/* The title of an error message */
+"Error Getting Note" = "Fehler beim Notiz laden";
+
+/* The title of an error message */
+"Error Updating Note" = "Fehler beim Notiz aktualisieren";
+
+/* The title of an error message */
+"Error Updating Notes" = "Fehler beim Notizen aktualisieren";
+
+/* An error message */
+"Failed to connect to a server. Check your settings." = "Fehler beim Verbinden mit dem Server. Bitte prüfen Sie die Einstellungen";
+
+/* A menu option for plain sharing in html format */
+"HTML" = "HTML";
+
+/* A status label indicating that the user is logged in */
+"Logged In" = "Angemeldet";
+
+/* A menu option for sharing in markdown format */
+"Markdown" = "Markdown";
+
+/* The title of a new note */
+"New note" = "Neue Notiz";
+
+/* No comment provided by engineer. */
+"No thanks" = "Nein, danke";
+
+/* A status label indicating that the user is not logged in */
+"Not Logged In" = "Nicht angemeldet";
+
+/* An error message */
+"Notes could not be found on your server. Make sure it is installed and enabled" = "Notes konnte auf Ihrem Server nicht gefunden werden. Stellen Sie sicher, dass Notes installiert und aktiviert ist.";
+
+/* An error message title */
+"Notes not found" = "Notizen nicht gefunden";
+
+/* A menu option for sharing in plain text format */
+"Plain Text" = "Einfacher Text";
+
+/* A message
+   A message to check network connection */
+"Please check network connection and login." = "Bitte Netzwerkverbindung und Anmeldedaten prüfen.";
+
+/* A button title */
+"Reconnect" = "Erneut Verbinden";
+
+/* A menu option for sharing in rich text format */
+"Rich Text" = "Rich-Text";
+
+/* Placeholder text when no note is selected */
+"Select or create a note." = "Notiz auswählen oder erstellen.";
+
+/* An error message title */
+"Server not found" = "Server nicht gefunden";
+
+/* A message title */
+"Server Reachable" = "Server erreichbar";
+
+/* Title of a menu with sharing options */
+"Share Note As" = "Notiz teilen als";
+
+/* A message title */
+"Success" = "Erfolg";
+
+/* A message */
+"The network connection is working properly." = "Die Netzwerkverbindung funktioniert korrekt.";
+
+/* An error message */
+"The note does not exist" = "Die Notiz existiert nicht";
+
+/* A message title
+   The title of an error message */
+"Unable to Reach Server" = "Server nicht erreichbar";
+
+/* An error message title */
+"Unauthorized" = "Nicht authorisiert";
+
+/* No comment provided by engineer. */
+"Yes, please!" = "Ja, bitte!";
+
+/* A message */
+"You are now connected to Notes on your server" = "Sie sind jetzt mit Notes auf Ihrem Server verbunden";
