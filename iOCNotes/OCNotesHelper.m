@@ -279,7 +279,8 @@
 //                NSLog(@"Deleted on server: %@", deletedOnServer);
                 while (deletedOnServer.count > 0) {
                     OCNote *ocNote = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [deletedOnServer lastObject]]];
-                    [ocNote delete];
+                    OCNoteOperationDeleteSimple *operation = [[OCNoteOperationDeleteSimple alloc] initWithNote:ocNote delegate:self];
+                    [self addOperationToQueue:operation];
                     [deletedOnServer removeLastObject];
                 }
             }
@@ -294,7 +295,7 @@
         }];
     } else {
         NSDictionary *userInfo = @{@"Title": NSLocalizedString(@"Unable to Reach Server", @"The title of an error message"),
-                                   @"Message": @"Please check network connection and login."};
+                                   @"Message": NSLocalizedString(@"Please check network connection and login.", @"A message to check network connection")};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NetworkError" object:self userInfo:userInfo];
     }
 }
@@ -322,13 +323,11 @@
     if (online) {
         if (note.id > 0) {
             OCNoteOperationGet *operation = [[OCNoteOperationGet alloc] initWithNote:note delegate:self];
-            operation.qualityOfService = NSQualityOfServiceUserInteractive;
             [self addOperationToQueue:operation];
         }
         else
         {
             OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:note delegate:self];
-            operation.qualityOfService = NSQualityOfServiceUserInitiated;
             [self addOperationToQueue:operation];
         }
     } else {
@@ -372,7 +371,6 @@
     
     if (online) {
         OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:newNote delegate:self];
-        operation.qualityOfService = NSQualityOfServiceUserInitiated;
         [self addOperationToQueue:operation];
     }
     return newNote;
@@ -414,11 +412,9 @@
         //online
         if (note.id > 0) {
             OCNoteOperationUpdate *operation = [[OCNoteOperationUpdate alloc] initWithNote:note delegate:self];
-            operation.qualityOfService = NSQualityOfServiceUserInitiated;
             [self addOperationToQueue:operation];
         } else {
             OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:note delegate:self];
-            operation.qualityOfService = NSQualityOfServiceUserInitiated;
             [self addOperationToQueue:operation];
         }
     } else {
@@ -457,7 +453,6 @@
     if (noteId > 0) {
         if (online) {
             OCNoteOperationDelete *operation = [[OCNoteOperationDelete alloc] initWithNote:note delegate:self];
-            operation.qualityOfService = NSQualityOfServiceBackground;
             [self addOperationToQueue:operation];
         }
     }
@@ -470,7 +465,6 @@
         if (note) {
             if (note.content.length > 0) {
                 OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:note delegate:self];
-                operation.qualityOfService = NSQualityOfServiceUserInitiated;
                 [self addOperationToQueue:operation];
             }
         }
@@ -482,7 +476,6 @@
 
     [notesToUpdate enumerateObjectsUsingBlock:^(OCNote *note, NSUInteger idx, BOOL *stop) {
         OCNoteOperationUpdate *operation = [[OCNoteOperationUpdate alloc] initWithNote:note delegate:self];
-        operation.qualityOfService = NSQualityOfServiceUserInitiated;
         [self addOperationToQueue:operation];
     }];
 }
@@ -492,7 +485,6 @@
     
     [notesToDelete enumerateObjectsUsingBlock:^(OCNote *note, NSUInteger idx, BOOL *stop) {
         OCNoteOperationDelete *operation = [[OCNoteOperationDelete alloc] initWithNote:note delegate:self];
-        operation.qualityOfService = NSQualityOfServiceBackground;
         [self addOperationToQueue:operation];
     }];
 }
@@ -511,7 +503,6 @@
 //                    NSLog(@"Changing operation to update");
                     OCNote *theNote = noteOperation.note;
                     OCNoteOperationUpdate *newNoteOperation = [[OCNoteOperationUpdate alloc] initWithNote:theNote delegate:self];
-                    newNoteOperation.qualityOfService = NSQualityOfServiceUserInitiated;
                     [newNoteOperation addDependency:operation];
                     [self.notesOperationQueue addOperation:newNoteOperation];
                     [noteOperation cancel];

@@ -52,3 +52,17 @@
 }
 
 @end
+
+@implementation OCNoteOperationDeleteSimple
+
+- (void)performOperation {
+    if (!self.isCancelled) {
+        [self.note delete];
+        if (self.delegate) {
+            [self.delegate noteOperationDidFinish:self];
+        }
+        [self finish];
+    }
+}
+
+@end

@@ -61,6 +61,7 @@
         _responseDictionary = nil;
         _isExecuting = NO;
         _isFinished = NO;
+        self.qualityOfService = NSQualityOfServiceUserInitiated;
     }
     return self;
 }
