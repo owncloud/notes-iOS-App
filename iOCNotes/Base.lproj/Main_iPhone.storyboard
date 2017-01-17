@@ -406,7 +406,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJL-8q-B7Y">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="DJL-8q-B7Y">
                                                     <rect key="frame" x="15" y="0.0" width="80" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -460,14 +460,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Allow Untrusted SSL Certificate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orC-1X-Xw7">
-                                                    <rect key="frame" x="15" y="0.0" width="225" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="Allow Untrusted SSL Certificate" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="orC-1X-Xw7">
+                                                    <rect key="frame" x="17" y="12.5" width="266" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="216" id="d6f-3A-dTP"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="w3G-i7-TTY">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="w3G-i7-TTY">
                                                     <rect key="frame" x="298" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="onCertificateSwitch:" destination="luf-N8-Oc5" eventType="valueChanged" id="ux4-bq-Pej"/>
@@ -475,7 +477,10 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="orC-1X-Xw7" firstAttribute="centerY" secondItem="rV6-rI-VDS" secondAttribute="centerY" id="BWW-OF-PFR"/>
+                                                <constraint firstItem="orC-1X-Xw7" firstAttribute="leading" secondItem="rV6-rI-VDS" secondAttribute="leadingMargin" constant="9" id="WBv-TG-yiF"/>
                                                 <constraint firstAttribute="centerY" secondItem="w3G-i7-TTY" secondAttribute="centerY" id="bte-R8-tYx"/>
+                                                <constraint firstItem="w3G-i7-TTY" firstAttribute="leading" secondItem="orC-1X-Xw7" secondAttribute="trailing" constant="15" id="fEj-gv-XYw"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="w3G-i7-TTY" secondAttribute="trailing" constant="20" id="fa1-lE-hX0"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -543,7 +548,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZW-cQ-m4U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1338" y="236"/>
+            <point key="canvasLocation" x="1336.8" y="235.23238380809596"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1o0-w2-ASY">

@@ -39,7 +39,7 @@
 "LzS-Ob-leM.text" = "Notiz auswählen oder erstellen.";
 
 /* Class = "IBUITextField"; placeholder = "http://example.com/owncloud"; ObjectID = "POY-0l-xVn"; */
-"POY-0l-xVn.placeholder" = "http://example.com/owncloud";
+"POY-0l-xVn.placeholder" = "http://example.com/cloud";
 
 /* Class = "IBUITextField"; placeholder = "ownCloud Username"; ObjectID = "PXx-Ke-abd"; */
 "PXx-Ke-abd.placeholder" = "ownCloud-Benutzername";
