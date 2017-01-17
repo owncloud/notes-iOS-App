@@ -11,20 +11,22 @@
 #import "OCNotesHelper.h"
 #import "OCAPIClient.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#if !TARGET_OS_SIMULATOR
 #import <KSCrash/KSCrash.h>
 #import <KSCrash/KSCrashInstallationEmail.h>
 #import <KSCrash/KSCrashInstallation+Alert.h> 
+#endif
 #import "UIImage+ImageWithColor.h"
-//#import "MMDrawerController.h"
-//#import "MMDrawerVisualState.h"
 #import "PDKeychainBindings.h"
 
 @implementation OCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if !TARGET_OS_SIMULATOR
     KSCrashInstallation* installation = [self makeEmailInstallation];
     [installation install];
+#endif
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     [UINavigationBar appearance].barTintColor = [UIColor clearColor];
@@ -46,6 +48,7 @@
     [OCAPIClient sharedClient];
     [OCNotesHelper sharedHelper];
     
+#if !TARGET_OS_SIMULATOR
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {
         if(completed) {
 //            NSLog(@"Sent %d reports", (int)[reports count]);
@@ -53,6 +56,7 @@
 //            NSLog(@"Failed to send reports: %@", error);
         }
     }];
+#endif
     
     return YES;
 }
@@ -108,6 +112,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#if !TARGET_OS_SIMULATOR
 - (KSCrashInstallation*) makeEmailInstallation {
     NSString* emailAddress = @"support@peterandlinda.com";
     
@@ -127,5 +132,6 @@
     
     return email;
 }
+#endif
 
 @end
