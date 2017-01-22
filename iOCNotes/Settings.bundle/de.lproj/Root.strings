@@ -10,7 +10,7 @@
 
 "Advanced Settings" = "Erweiterte Einstellungen";
 
-"Reset local notes database"
+"Reset local notes database" = "Zurücksetzen der lokalen Notizdatenbank";
 
 "Caution: Turning the switch on will remove all notes locally. Unsynced changes will be lost. Use only if you are experiencing problems." = "Achtung: Nach Aktivieren dieser Option werden alle lokalen Notizen entfernt. Änderungen, welche nicht synchronisiert sind, gehen verloren. Nur aktivieren wenn Sie Probleme haben.";
 
