@@ -138,6 +138,7 @@
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
         if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
             if (size.width > size.height) {

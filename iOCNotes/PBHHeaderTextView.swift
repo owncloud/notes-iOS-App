@@ -115,10 +115,10 @@ class PBHHeaderTextView: UITextView {
         if (self.traitCollection.horizontalSizeClass == .regular) {
             headerLabel.textAlignment = .left
             if (self.traitCollection.userInterfaceIdiom == .pad) {
-                if (self.frame.size.width > self.frame.size.height) {
+                if (UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height) {
                     self.updateInsets(size: 178)
                 } else {
-                    self.updateInsets(size: 178)
+                    self.updateInsets(size: 50)
                 }
             } else {
                 self.updateInsets(size: kSmallPadding)
