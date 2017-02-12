@@ -161,7 +161,6 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
                                    canBeDismissedByUser:YES];
 
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            self.connectLabel.enabled = NO;
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSString *message = @"";
             NSString *title = @"";
