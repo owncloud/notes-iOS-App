@@ -35,9 +35,12 @@
 #import "PDKeychainBindings.h"
 #import "iOCNotes-Swift.h"
 
-static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
+static const NSString *rootPath = @"apps/notes/api/v0.2/";
 
 @interface OCLoginController ()
+{
+    BOOL shouldRetry;
+}
 
 @end
 
@@ -118,7 +121,10 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
         [prefs setBool:self.certificateSwitch.on forKey:@"AllowInvalidSSLCertificate"];
         [prefs synchronize];
 
-        OCAPIClient *client = [[OCAPIClient alloc] initWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", self.serverTextField.text, rootPath]]];
+        __block NSString *serverAddress = self.serverTextField.text;
+        serverAddress = [serverAddress stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/ "]];
+        shouldRetry = ![serverAddress hasSuffix:@".php"];
+        OCAPIClient *client = [[OCAPIClient alloc] initWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", serverAddress, rootPath]]];
         [client setRequestSerializer:[AFJSONRequestSerializer serializer]];
         [client.requestSerializer setAuthorizationHeaderFieldWithUsername:self.usernameTextField.text password:self.passwordTextField.text];
 
@@ -129,7 +135,7 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
         [client GET:@"notes" parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 //            NSLog(@"notes: %@", responseObject);
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            [prefs setObject:self.serverTextField.text forKey:@"Server"];
+            [prefs setObject:serverAddress forKey:@"Server"];
             [[PDKeychainBindings sharedKeychainBindings] setObject:self.usernameTextField.text forKey:(__bridge id)(kSecAttrAccount)];
             [[PDKeychainBindings sharedKeychainBindings] setObject:self.passwordTextField.text forKey:(__bridge id)(kSecValueData)];
             [prefs setBool:self.certificateSwitch.on forKey:@"AllowInvalidSSLCertificate"];
@@ -161,6 +167,11 @@ static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
                                    canBeDismissedByUser:YES];
 
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            if (shouldRetry) {
+                self.serverTextField.text = [serverAddress stringByAppendingString:@"/index.php"];
+                [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+            }
+            
             NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
             NSString *message = @"";
             NSString *title = @"";

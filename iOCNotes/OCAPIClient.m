@@ -37,7 +37,7 @@
 //Being able to reinitialize a singleton is a no no, but should happen so rarely
 //we can live with it?
 
-static const NSString *rootPath = @"index.php/apps/notes/api/v0.2/";
+static const NSString *rootPath = @"apps/notes/api/v0.2/";
 
 static OCAPIClient *_sharedClient = nil;
 static dispatch_once_t oncePredicate = 0;
