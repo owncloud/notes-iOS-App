@@ -38,9 +38,9 @@ class PBHHeaderTextView: UITextView {
     }()
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
-        myTextStorage.codeColor = UIColor.green
-        myTextStorage.quoteColor = UIColor.darkGray
-        myTextStorage.syntaxColor = UIColor.blue
+        myTextStorage.marklightTextProcessor.codeColor = UIColor.green
+        myTextStorage.marklightTextProcessor.quoteColor = UIColor.darkGray
+        myTextStorage.marklightTextProcessor.syntaxColor = UIColor.blue
         
         let attributedString = NSAttributedString(string: "")
         myTextStorage.setAttributedString(attributedString)
@@ -75,9 +75,9 @@ class PBHHeaderTextView: UITextView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerLabel)
         
-        myTextStorage.codeColor = UIColor.green
-        myTextStorage.quoteColor = UIColor.darkGray
-        myTextStorage.syntaxColor = UIColor.blue
+        myTextStorage.marklightTextProcessor.codeColor = UIColor.green
+        myTextStorage.marklightTextProcessor.quoteColor = UIColor.darkGray
+        myTextStorage.marklightTextProcessor.syntaxColor = UIColor.blue
         
         let attributedString = NSAttributedString(string: "")
         myTextStorage.setAttributedString(attributedString)

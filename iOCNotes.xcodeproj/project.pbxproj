@@ -55,6 +55,12 @@
 		D0A66A261C68318D001926D7 /* KVNProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A66A191C68318D001926D7 /* KVNProgressView.xib */; };
 		D0CB434E18D274C200C54D7C /* FCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434B18D274C200C54D7C /* FCModel.m */; };
 		D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */; };
+		D0CCF2A41F73556300535D54 /* NSString+paragraphRangeAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF29E1F73556300535D54 /* NSString+paragraphRangeAt.swift */; };
+		D0CCF2A51F73556300535D54 /* Array+appending.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF29F1F73556300535D54 /* Array+appending.swift */; };
+		D0CCF2A61F73556300535D54 /* UniversalTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A01F73556300535D54 /* UniversalTypes.swift */; };
+		D0CCF2A71F73556300535D54 /* MarklightTextProcessingResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A11F73556300535D54 /* MarklightTextProcessingResult.swift */; };
+		D0CCF2A81F73556300535D54 /* MarklightTextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A21F73556300535D54 /* MarklightTextProcessor.swift */; };
+		D0CCF2A91F73556300535D54 /* MarklightStyleApplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A31F73556300535D54 /* MarklightStyleApplier.swift */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
@@ -213,6 +219,12 @@
 		D0CB434B18D274C200C54D7C /* FCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModel.m; sourceTree = "<group>"; };
 		D0CB434C18D274C200C54D7C /* FCModelCachedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelCachedObject.h; sourceTree = "<group>"; };
 		D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModelCachedObject.m; sourceTree = "<group>"; };
+		D0CCF29E1F73556300535D54 /* NSString+paragraphRangeAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+paragraphRangeAt.swift"; sourceTree = "<group>"; };
+		D0CCF29F1F73556300535D54 /* Array+appending.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+appending.swift"; sourceTree = "<group>"; };
+		D0CCF2A01F73556300535D54 /* UniversalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalTypes.swift; sourceTree = "<group>"; };
+		D0CCF2A11F73556300535D54 /* MarklightTextProcessingResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightTextProcessingResult.swift; sourceTree = "<group>"; };
+		D0CCF2A21F73556300535D54 /* MarklightTextProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightTextProcessor.swift; sourceTree = "<group>"; };
+		D0CCF2A31F73556300535D54 /* MarklightStyleApplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightStyleApplier.swift; sourceTree = "<group>"; };
 		D0CFE5331888A7BD00165839 /* iOCNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOCNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5361888A7BD00165839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0CFE5381888A7BD00165839 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -602,6 +614,12 @@
 		D0E5ECBE1D0CBFF100CA76EA /* Marklight */ = {
 			isa = PBXGroup;
 			children = (
+				D0CCF29F1F73556300535D54 /* Array+appending.swift */,
+				D0CCF2A31F73556300535D54 /* MarklightStyleApplier.swift */,
+				D0CCF2A11F73556300535D54 /* MarklightTextProcessingResult.swift */,
+				D0CCF2A21F73556300535D54 /* MarklightTextProcessor.swift */,
+				D0CCF29E1F73556300535D54 /* NSString+paragraphRangeAt.swift */,
+				D0CCF2A01F73556300535D54 /* UniversalTypes.swift */,
 				D0E5ECC01D0CBFF100CA76EA /* Marklight.h */,
 				D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */,
 				D0E5ECC21D0CBFF100CA76EA /* MarklightTextStorage.swift */,
@@ -788,9 +806,11 @@
 				D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */,
 				D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */,
 				D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */,
+				D0CCF2A61F73556300535D54 /* UniversalTypes.swift in Sources */,
 				D0A6486A1B132E8A005C0981 /* ALView+PureLayout.m in Sources */,
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
 				D0F2634E1D7B54F700F78B6D /* SWMessage.swift in Sources */,
+				D0CCF2A81F73556300535D54 /* MarklightTextProcessor.swift in Sources */,
 				D0E5ECC51D0CBFF100CA76EA /* MarklightTextStorage.swift in Sources */,
 				D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */,
 				D0A6486B1B132E8A005C0981 /* NSArray+PureLayout.m in Sources */,
@@ -808,6 +828,7 @@
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
 				D0A66A1B1C68318D001926D7 /* UIColor+KVNContrast.m in Sources */,
 				D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */,
+				D0CCF2A71F73556300535D54 /* MarklightTextProcessingResult.swift in Sources */,
 				D09538491D32A5AD006BB78E /* Markdown.swift in Sources */,
 				D0CFE58D1888AD0200165839 /* AFNetworkReachabilityManager.m in Sources */,
 				D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */,
@@ -825,6 +846,7 @@
 				D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */,
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,
 				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
+				D0CCF2A51F73556300535D54 /* Array+appending.swift in Sources */,
 				D0A66A1D1C68318D001926D7 /* UIImage+KVNImageEffects.m in Sources */,
 				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
 				D02256F61895E2F10038232A /* OCSettingsController.m in Sources */,
@@ -835,10 +857,12 @@
 				D0F263541D7CF9A300F78B6D /* KVNRotationViewController.m in Sources */,
 				D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */,
 				D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */,
+				D0CCF2A41F73556300535D54 /* NSString+paragraphRangeAt.swift in Sources */,
 				D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */,
 				D0CFE58C1888AD0200165839 /* AFHTTPSessionManager.m in Sources */,
 				D0A66A1F1C68318D001926D7 /* KVNProgressConfiguration.m in Sources */,
 				D02257061896E6650038232A /* OCNotesHelper.m in Sources */,
+				D0CCF2A91F73556300535D54 /* MarklightStyleApplier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
