@@ -154,12 +154,12 @@ static const NSString *rootPath = @"apps/notes/api/v0.2/";
                                                                 duration:SWMessageDurationAutomatic
                                                                 callback:^{
                                                                     self.connectLabel.enabled = YES;
-                                                                    [[SWMessage sharedInstance] dismissActiveNotification];
+                                                                    __unused BOOL success = [[SWMessage sharedInstance] dismissActiveNotification];
                                                                 }
                                                                 buttonTitle:NSLocalizedString(@"Close & Sync", @"Title of a button allowing the user to close the login screen and sync with the server")
                                                           buttonCallback:^{
                                                               self.connectLabel.enabled = YES;
-                                                              [[SWMessage sharedInstance] dismissActiveNotification];
+                                                              __unused BOOL success = [[SWMessage sharedInstance] dismissActiveNotification];
                                                               [self dismissViewControllerAnimated:YES completion:nil];
                                                               [[NSNotificationCenter defaultCenter] postNotificationName:@"SyncNotes" object:self];
                                                           }
@@ -209,7 +209,7 @@ static const NSString *rootPath = @"apps/notes/api/v0.2/";
                                                                 duration:SWMessageDurationEndless
                                                                 callback:^{
                                                                     self.connectLabel.enabled = YES;
-                                                                    [[SWMessage sharedInstance] dismissActiveNotification];
+                                                                    __unused BOOL success = [[SWMessage sharedInstance] dismissActiveNotification];
                                                                 }
                                                              buttonTitle:nil
                                                           buttonCallback:^{
