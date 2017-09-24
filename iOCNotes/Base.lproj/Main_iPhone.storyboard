@@ -378,9 +378,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Server" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JA-kC-iF4">
-                                                    <rect key="frame" x="15" y="0.0" width="80" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Server" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JA-kC-iF4">
+                                                    <rect key="frame" x="8" y="12.5" width="45" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -392,8 +391,10 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="6JA-kC-iF4" firstAttribute="leading" secondItem="IJS-jg-0wW" secondAttribute="leadingMargin" id="5iW-zv-hU1"/>
                                                 <constraint firstAttribute="trailing" secondItem="POY-0l-xVn" secondAttribute="trailing" constant="20" id="Erz-M2-3pR"/>
                                                 <constraint firstItem="POY-0l-xVn" firstAttribute="leading" secondItem="IJS-jg-0wW" secondAttribute="leading" constant="103" id="Oz9-cm-zsN"/>
+                                                <constraint firstItem="6JA-kC-iF4" firstAttribute="centerY" secondItem="IJS-jg-0wW" secondAttribute="centerY" id="caS-gt-S7X"/>
                                                 <constraint firstAttribute="centerY" secondItem="POY-0l-xVn" secondAttribute="centerY" constant="-1.5" id="zWf-S5-tWG"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -405,9 +406,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="DJL-8q-B7Y">
-                                                    <rect key="frame" x="15" y="0.0" width="80" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="DJL-8q-B7Y">
+                                                    <rect key="frame" x="8" y="12.5" width="70.5" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -419,7 +419,9 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="DJL-8q-B7Y" firstAttribute="centerY" secondItem="FS5-qB-3Y4" secondAttribute="centerY" id="PRn-uc-vaf"/>
                                                 <constraint firstAttribute="trailing" secondItem="PXx-Ke-abd" secondAttribute="trailing" constant="20" id="bZt-ga-Xs2"/>
+                                                <constraint firstItem="DJL-8q-B7Y" firstAttribute="leading" secondItem="FS5-qB-3Y4" secondAttribute="leadingMargin" id="boX-Ce-JSr"/>
                                                 <constraint firstAttribute="centerY" secondItem="PXx-Ke-abd" secondAttribute="centerY" constant="-0.5" id="ufj-cw-Bdt"/>
                                                 <constraint firstItem="PXx-Ke-abd" firstAttribute="leading" secondItem="FS5-qB-3Y4" secondAttribute="leading" constant="103" id="yBW-Vg-e94"/>
                                             </constraints>
@@ -432,9 +434,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDE-jW-f9T">
-                                                    <rect key="frame" x="15" y="0.0" width="80" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDE-jW-f9T">
+                                                    <rect key="frame" x="8" y="12.5" width="66" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -449,6 +450,8 @@
                                                 <constraint firstAttribute="trailing" secondItem="TWC-3X-LgS" secondAttribute="trailing" constant="20" id="7Wn-9P-SQz"/>
                                                 <constraint firstItem="TWC-3X-LgS" firstAttribute="leading" secondItem="Wtt-0T-xMp" secondAttribute="leading" constant="103" id="Cf9-to-cAe"/>
                                                 <constraint firstAttribute="centerY" secondItem="TWC-3X-LgS" secondAttribute="centerY" constant="-1.5" id="DaQ-vd-1Ri"/>
+                                                <constraint firstItem="fDE-jW-f9T" firstAttribute="leading" secondItem="Wtt-0T-xMp" secondAttribute="leadingMargin" id="GyP-qy-yG7"/>
+                                                <constraint firstItem="fDE-jW-f9T" firstAttribute="centerY" secondItem="Wtt-0T-xMp" secondAttribute="centerY" id="cYr-Tg-nZs"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
