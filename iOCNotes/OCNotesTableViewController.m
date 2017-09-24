@@ -15,10 +15,11 @@
 #import "OCNote.h"
 #import "KVNProgress.h"
 #import "iOCNotes-Swift.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 static NSString *DetailSegueIdentifier = @"showDetail";
 
-@interface OCNotesTableViewController  () <UISearchResultsUpdating, UISearchBarDelegate, UISplitViewControllerDelegate> {
+@interface OCNotesTableViewController  () <UISearchResultsUpdating, UISearchBarDelegate, UISplitViewControllerDelegate, UITableViewDropDelegate> {
     BOOL networkHasBeenUnreachable;
     NSArray *searchResults;
 }
@@ -124,6 +125,10 @@ static NSString *DetailSegueIdentifier = @"showDetail";
     self.tableView.tableHeaderView = self.searchController.searchBar;
     
     [self.tableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height + self.tableView.contentOffset.y)];
+    
+    if (@available(iOS 11.0, *)) {
+        self.tableView.dropDelegate = self;
+    }
     self.definesPresentationContext = YES;
 }
 
@@ -511,6 +516,33 @@ static NSString *DetailSegueIdentifier = @"showDetail";
 
 - (BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController {
     return self.editorViewController.ocNote == nil; //Makes the notes tableview the initial view on launch.
+}
+
+- (BOOL)tableView:(UITableView *)tableView canHandleDropSession:(id<UIDropSession>)session NS_AVAILABLE_IOS(11.0) {
+    if (session.items.count > 0) {
+        if ([session hasItemsConformingToTypeIdentifiers:@[(NSString *)kUTTypeText, (NSString *)kUTTypeXML, (NSString *)kUTTypeHTML, (NSString *)kUTTypeJSON, (NSString *)kUTTypePlainText]]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (UITableViewDropProposal *)tableView:(UITableView *)tableView dropSessionDidUpdate:(nonnull id<UIDropSession>)session withDestinationIndexPath:(nullable NSIndexPath *)destinationIndexPath NS_AVAILABLE_IOS(11.0)
+{
+    if (destinationIndexPath.row != 0) {
+        return [[UITableViewDropProposal alloc] initWithDropOperation:UIDropOperationForbidden intent:UITableViewDropIntentAutomatic];
+    } else {
+        return [[UITableViewDropProposal alloc] initWithDropOperation:UIDropOperationCopy intent:UITableViewDropIntentInsertAtDestinationIndexPath];
+    }
+}
+
+- (void)tableView:(nonnull UITableView *)tableView performDropWithCoordinator:(nonnull id<UITableViewDropCoordinator>)coordinator NS_AVAILABLE_IOS(11.0) {
+    for (UIDragItem *item in coordinator.session.items) {
+        [item.itemProvider loadDataRepresentationForTypeIdentifier:(NSString *)kUTTypeText completionHandler:^(NSData * _Nullable data, NSError * _Nullable error) {
+            NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            [[OCNotesHelper sharedHelper] performSelectorOnMainThread:@selector(addNote:) withObject:content waitUntilDone:NO];
+        }];
+    }
 }
 
 @end

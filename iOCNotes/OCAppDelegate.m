@@ -61,6 +61,19 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    [[OCAPIClient sharedClient].reachabilityManager startMonitoring];
+    __unused BOOL reachable = [[OCAPIClient sharedClient] reachabilityManager].isReachable;
+    if ([url isFileURL]) {
+        NSString *content = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        if (content) {
+            [[OCNotesHelper sharedHelper] addNote:content];
+        }
+        [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+    }
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     [[OCAPIClient sharedClient].reachabilityManager startMonitoring];
     __unused BOOL reachable = [[OCAPIClient sharedClient] reachabilityManager].isReachable;

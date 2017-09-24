@@ -61,6 +61,7 @@
 		D0CCF2A71F73556300535D54 /* MarklightTextProcessingResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A11F73556300535D54 /* MarklightTextProcessingResult.swift */; };
 		D0CCF2A81F73556300535D54 /* MarklightTextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A21F73556300535D54 /* MarklightTextProcessor.swift */; };
 		D0CCF2A91F73556300535D54 /* MarklightStyleApplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A31F73556300535D54 /* MarklightStyleApplier.swift */; };
+		D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
@@ -225,6 +226,7 @@
 		D0CCF2A11F73556300535D54 /* MarklightTextProcessingResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightTextProcessingResult.swift; sourceTree = "<group>"; };
 		D0CCF2A21F73556300535D54 /* MarklightTextProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightTextProcessor.swift; sourceTree = "<group>"; };
 		D0CCF2A31F73556300535D54 /* MarklightStyleApplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightStyleApplier.swift; sourceTree = "<group>"; };
+		D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D0CFE5331888A7BD00165839 /* iOCNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOCNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5361888A7BD00165839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0CFE5381888A7BD00165839 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -292,6 +294,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
 				D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */,
 				D0225713189848120038232A /* libz.dylib in Frameworks */,
@@ -504,6 +507,7 @@
 		D0CFE5351888A7BD00165839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */,
 				D017D4231D3B03BE00B21443 /* WebKit.framework */,
 				D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */,
 				D0225712189848120038232A /* libz.dylib */,

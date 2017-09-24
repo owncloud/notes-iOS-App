@@ -10,7 +10,7 @@ import UIKit
 
 
 @objc(PBHHeaderTextView)
-class PBHHeaderTextView: UITextView {
+class PBHHeaderTextView: UITextView, UITextDropDelegate {
 
     let kSmallPadding: CGFloat = 20.0
 
@@ -158,5 +158,15 @@ class PBHHeaderTextView: UITextView {
         leftHeaderLayoutConstraint.constant = size;
         rightHeaderLayoutConstraint.constant = size;
     }
+    
+    @available(iOS 11, *)
+    func textDroppableView(_ textDroppableView: UIView, proposalForDrop drop: UITextDropRequest) -> UITextDropProposal {
+        if drop.isSameView {
+            return UITextDropProposal(operation: .move)
 
+        } else {
+            return UITextDropProposal(operation: .copy)
+        }
+    }
+        
 }
