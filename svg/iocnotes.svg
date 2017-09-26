@@ -12,14 +12,14 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:export-ydpi="2.55"
-   inkscape:export-xdpi="2.55"
-   inkscape:export-filename="/Users/peter/Projects/iOCNotes/iOCNotes/Images.xcassets/AppIcon.appiconset/icon-29.png"
+   inkscape:export-ydpi="90"
+   inkscape:export-xdpi="90"
+   inkscape:export-filename="/Users/peter/Projects/iOCNotes/iOCNotes/cloudnotes_1024.png"
    width="1024"
    height="1024"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.48.4 r9943 custom"
+   inkscape:version="0.91pre2+osxmenu r12816"
    sodipodi:docname="iocnotes.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    version="1.0">
@@ -34,14 +34,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.83300781"
-     inkscape:cx="512"
-     inkscape:cy="512"
+     inkscape:cx="304.91911"
+     inkscape:cy="512.60023"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     inkscape:window-width="1633"
-     inkscape:window-height="1006"
+     inkscape:window-width="1898"
+     inkscape:window-height="1234"
      inkscape:window-x="47"
-     inkscape:window-y="22"
+     inkscape:window-y="23"
      showgrid="false"
      inkscape:window-maximized="0"
      fit-margin-top="20"
@@ -51,6 +51,17 @@
      inkscape:showpageshadow="false" />
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient21107">
+      <stop
+         id="stop21109"
+         offset="0"
+         style="stop-color:#146edb;stop-opacity:1" />
+      <stop
+         id="stop21111"
+         offset="1"
+         style="stop-color:#1d4ca8;stop-opacity:1" />
+    </linearGradient>
     <linearGradient
        id="linearGradient6645">
       <stop
@@ -17623,7 +17634,7 @@
        gradientTransform="matrix(1.0009775,0,0,0.35190615,55.198862,-363.70986)"
        gradientUnits="userSpaceOnUse"
        id="linearGradient27077"
-       xlink:href="#linearGradient6825"
+       xlink:href="#linearGradient21107"
        inkscape:collect="always" />
     <linearGradient
        inkscape:collect="always"
@@ -18109,7 +18120,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -18130,12 +18141,6 @@
        height="360"
        x="55.699322"
        y="-353.55307" />
-    <path
-       sodipodi:nodetypes="sscscsssscscscsscscccsssssssscscsccsscscsssssscscscsscscssssssccs"
-       inkscape:connector-curvature="0"
-       d="m 538.34539,-325.42633 c -40.58714,0 -73.38088,32.79371 -73.38088,73.38089 0,16.73015 5.58194,32.12436 14.97439,44.45453 20.37552,-23.58327 50.43313,-38.55425 84.00991,-38.55425 16.42729,0 32.01589,3.66179 46.0521,10.07522 1.13642,-5.13938 1.72534,-10.48953 1.72534,-15.9755 0,-40.58718 -32.79368,-73.38089 -73.38086,-73.38089 z m -95.83181,33.97461 c -21.13669,0 -38.12823,17.11934 -38.12823,38.25604 0,6.84343 1.77291,13.31281 4.89915,18.8511 12.75472,-7.19506 27.49235,-11.35326 43.15521,-11.35326 1.51159,0 2.98041,0.0453 4.47313,0.12781 -0.16896,-2.14269 -0.2982,-4.28977 -0.2982,-6.47541 0,-11.77264 2.55748,-22.96182 7.05053,-33.07999 -6.04951,-4.05662 -13.29898,-6.32629 -21.15159,-6.32629 z m 181.01326,26.32766 c -1.56152,0 -3.06355,0.18082 -4.60094,0.2769 0.66502,4.19301 1.15023,8.42344 1.15023,12.80172 0,6.81374 -0.87023,13.40179 -2.44957,19.72443 18.51712,10.24765 33.89669,25.56639 44.02851,44.15633 10.50901,-5.47103 22.23504,-8.94311 34.67752,-9.77702 -3.20666,-37.60621 -34.36525,-67.18236 -72.80576,-67.18236 z m -59.57803,27.32878 c -56.79361,0 -102.73322,45.93577 -102.73322,102.73321 0,56.79133 45.93727,102.73323 102.73322,102.73323 56.796,0 102.73323,-45.94201 102.73323,-102.73323 0,-56.79733 -45.9396,-102.73321 -102.73323,-102.73321 z m -111.5091,0.42601 c -44.06107,0 -79.70719,35.64609 -79.70719,79.70717 0,25.93784 12.37408,48.9041 31.52503,63.45476 8.07363,-15.57177 24.27574,-26.17855 43.00608,-26.17855 2.26373,0 4.44271,0.274 6.62453,0.57513 -0.68493,-4.98298 -1.00114,-10.08126 -1.00114,-15.25131 0,-24.71898 8.04739,-47.59102 21.72671,-66.05343 -8.18832,-10.24623 -14.05289,-22.54357 -16.55063,-35.95557 -1.85118,-0.1282 -3.73933,-0.2982 -5.62339,-0.2982 z m 249.77188,47.47924 c -13.37895,0 -25.89167,3.43069 -36.95669,9.22319 6.28309,13.91746 9.777,29.35476 9.777,45.60477 0,30.42682 -12.2273,58.05983 -32.07883,78.13094 14.58363,16.19085 35.72349,26.32765 59.25852,26.32765 44.06108,0 79.70718,-35.64611 79.70718,-79.70719 0,-44.06109 -35.6461,-79.57936 -79.70718,-79.57936 z m -337.23252,10.50124 c -40.58834,0 -73.52997,32.66474 -73.52997,73.25306 0,40.58835 32.94163,73.50869 73.52997,73.50869 15.4485,0 29.75732,-4.81502 41.57894,-12.95082 -4.88491,-7.59061 -7.77474,-16.66356 -7.77474,-26.32765 0,-5.01594 0.7333,-9.82499 2.15137,-14.37797 -22.13127,-15.99396 -36.53068,-42.03618 -36.53068,-71.37862 0,-7.45526 0.97522,-14.66005 2.72649,-21.57758 -0.7269,-0.021 -1.41924,-0.14911 -2.15138,-0.14911 z m 431.48808,63.02873 c -2.16524,0 -4.25609,0.24625 -6.3263,0.57513 0.11402,1.83016 0.12779,3.61538 0.12779,5.47426 0,23.40296 -9.23873,44.64547 -24.17628,60.43007 7.34873,8.54573 18.15954,13.95195 30.37479,13.95195 22.25017,0 40.27958,-17.90163 40.27958,-40.1518 0,-22.2502 -18.02941,-40.27961 -40.27958,-40.27961 z m -349.20352,4.32405 c -22.24904,0 -40.13049,17.88145 -40.13049,40.1305 0,22.24902 17.88144,40.2796 40.13049,40.2796 17.05418,0 31.52553,-10.63468 37.40401,-25.60343 -14.34371,-14.60888 -24.64835,-33.24647 -29.20325,-53.95465 -2.66546,-0.5512 -5.3706,-0.85202 -8.20077,-0.85202 z"
-       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:4;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
-       id="path6113" />
     <g
        inkscape:label="fill text"
        id="g3232"
