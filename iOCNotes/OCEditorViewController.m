@@ -341,22 +341,19 @@
         self.navigationItem.rightBarButtonItems = @[self.doneButton, self.fixedSpace, self.redoButton, self.fixedSpace, self.undoButton];
     }
     
-    NSDictionary* d = [notification userInfo];
-    CGRect r = [d[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    r = [self.view convertRect:r fromView:nil];
-    
-    NSDictionary *info = [notification userInfo];
+    NSDictionary* info = [notification userInfo];
+    CGRect r = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect ar = [self.view convertRect:r fromView:nil];
     
     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 2;
-    int kbHeight = r.size.height;
-    int height = kbHeight + self.bottomLayoutConstraint.constant;
+    int kbHeight = ar.size.height;
 
     UIEdgeInsets textInsets = self.noteView.textContainerInset;
-    textInsets.bottom = height;
+    textInsets.bottom = kbHeight;
     
     [self.bottomLayoutConstraint autoRemove];
     [self updateViewConstraints];
-    self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:height];
+    self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kbHeight];
     self.updatedByEditing = YES;
     
     [UIView animateWithDuration:animationDuration animations:^{
