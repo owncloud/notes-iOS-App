@@ -167,7 +167,7 @@ static const NSString *rootPath = @"apps/notes/api/v0.2/";
                                    canBeDismissedByUser:YES];
 
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            if (shouldRetry) {
+            if (self->shouldRetry) {
                 self.serverTextField.text = [serverAddress stringByAppendingString:@"/index.php"];
                 [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
             }

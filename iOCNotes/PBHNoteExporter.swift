@@ -124,9 +124,9 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
             default:
                 self.viewController?.dismiss(animated: true, completion: nil)
             }
-            if activityItems != nil {
+            if let activityItems = activityItems {
                 let openInAppActivity = TTOpenInAppActivity.init(view: self.viewController?.view, andBarButtonItem: self.barButtonItem)
-                let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject]!, applicationActivities: [openInAppActivity!])
+                let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: [openInAppActivity] as? [UIActivity])
                 openInAppActivity?.superViewController = activityViewController
                 if let popover = activityViewController.popoverPresentationController
                 {
