@@ -1,9 +1,6 @@
 [submodule "AFNetworking"]
 	path = AFNetworking
 	url = https://github.com/AFNetworking/AFNetworking.git
-[submodule "ECSlidingViewController"]
-	path = ECSlidingViewController
-	url = https://github.com/ECSlidingViewController/ECSlidingViewController.git
 [submodule "TTOpenInAppActivity"]
 	path = TTOpenInAppActivity
 	url = https://github.com/honkmaster/TTOpenInAppActivity.git
