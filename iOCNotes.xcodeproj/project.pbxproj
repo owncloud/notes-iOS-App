@@ -18,7 +18,6 @@
 		D02256F71895E2F10038232A /* OCLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256F51895E2F10038232A /* OCLoginController.m */; };
 		D02257061896E6650038232A /* OCNotesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D02257051896E6650038232A /* OCNotesHelper.m */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
-		D022570E189847A90038232A /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D022570D189847A90038232A /* KSCrash.framework */; };
 		D0225711189848060038232A /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0225710189848060038232A /* libc++.dylib */; };
 		D0225713189848120038232A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0225712189848120038232A /* libz.dylib */; };
 		D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */; };
@@ -27,6 +26,8 @@
 		D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14318DE435900178958 /* FMDatabasePool.m */; };
 		D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14518DE435900178958 /* FMDatabaseQueue.m */; };
 		D03DA14D18DE435900178958 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14818DE435900178958 /* FMResultSet.m */; };
+		D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */; };
+		D05110BC20C8C9FF00AFFDC7 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */; };
 		D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */; };
 		D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */; };
 		D059745E18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
@@ -37,7 +38,6 @@
 		D09538491D32A5AD006BB78E /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538461D32A5AD006BB78E /* Markdown.swift */; };
 		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
 		D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */; };
-		D0A3E9DE1CD5759600857A46 /* KSCrash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D022570D189847A90038232A /* KSCrash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */; };
 		D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648591B0F5BB1005C0981 /* OCNoteOperationUpdate.m */; };
 		D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */; };
@@ -74,15 +74,8 @@
 		D0CFE55B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5631888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE5611888A7BD00165839 /* InfoPlist.strings */; };
 		D0CFE5651888A7BD00165839 /* iOCNotesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5641888A7BD00165839 /* iOCNotesTests.m */; };
-		D0CFE58C1888AD0200165839 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE57C1888AD0100165839 /* AFHTTPSessionManager.m */; };
-		D0CFE58D1888AD0200165839 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE57F1888AD0100165839 /* AFNetworkReachabilityManager.m */; };
-		D0CFE58E1888AD0200165839 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5811888AD0100165839 /* AFSecurityPolicy.m */; };
-		D0CFE5901888AD0200165839 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5851888AD0200165839 /* AFURLRequestSerialization.m */; };
-		D0CFE5911888AD0200165839 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5871888AD0200165839 /* AFURLResponseSerialization.m */; };
-		D0CFE5921888AD0200165839 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5891888AD0200165839 /* AFURLSessionManager.m */; };
 		D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */; };
 		D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE59A188B5A6900165839 /* OCAPIClient.m */; };
-		D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */; };
 		D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5AC1890659600165839 /* QuartzCore.framework */; };
 		D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */; };
 		D0E5ECC51D0CBFF100CA76EA /* MarklightTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5ECC21D0CBFF100CA76EA /* MarklightTextStorage.swift */; };
@@ -120,7 +113,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D0A3E9DE1CD5759600857A46 /* KSCrash.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,7 +142,6 @@
 		D02257041896E6650038232A /* OCNotesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNotesHelper.h; sourceTree = "<group>"; };
 		D02257051896E6650038232A /* OCNotesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNotesHelper.m; sourceTree = "<group>"; };
 		D0225708189745C40038232A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		D022570D189847A90038232A /* KSCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KSCrash.framework; sourceTree = "<group>"; };
 		D0225710189848060038232A /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D0225712189848120038232A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D0362BAD190AC83800490D95 /* UIImage+ImageWithColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithColor.h"; sourceTree = "<group>"; };
@@ -166,6 +157,8 @@
 		D03DA14618DE435900178958 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		D03DA14718DE435900178958 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		D03DA14818DE435900178958 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSCrash.framework; path = Carthage/Build/iOS/KSCrash.framework; sourceTree = "<group>"; };
+		D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
 		D054E5F91AEF148E001C6FF1 /* OCNoteOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperation.h; sourceTree = "<group>"; };
 		D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperation.m; sourceTree = "<group>"; };
 		D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -245,25 +238,10 @@
 		D0CFE5601888A7BD00165839 /* iOCNotesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOCNotesTests-Info.plist"; sourceTree = "<group>"; };
 		D0CFE5621888A7BD00165839 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D0CFE5641888A7BD00165839 /* iOCNotesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOCNotesTests.m; sourceTree = "<group>"; };
-		D0CFE57B1888AD0100165839 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		D0CFE57C1888AD0100165839 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
-		D0CFE57D1888AD0100165839 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
-		D0CFE57E1888AD0100165839 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
-		D0CFE57F1888AD0100165839 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
-		D0CFE5801888AD0100165839 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
-		D0CFE5811888AD0100165839 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
-		D0CFE5841888AD0100165839 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
-		D0CFE5851888AD0200165839 /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
-		D0CFE5861888AD0200165839 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
-		D0CFE5871888AD0200165839 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
-		D0CFE5881888AD0200165839 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
-		D0CFE5891888AD0200165839 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		D0CFE5931888AE2D00165839 /* OCNotesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNotesTableViewController.h; sourceTree = "<group>"; };
 		D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNotesTableViewController.m; sourceTree = "<group>"; };
 		D0CFE599188B5A6900165839 /* OCAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAPIClient.h; sourceTree = "<group>"; };
 		D0CFE59A188B5A6900165839 /* OCAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAPIClient.m; sourceTree = "<group>"; };
-		D0CFE5A5188E199700165839 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFNetworkActivityIndicatorManager.h; path = "../UIKit+AFNetworking/AFNetworkActivityIndicatorManager.h"; sourceTree = "<group>"; };
-		D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFNetworkActivityIndicatorManager.m; path = "../UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m"; sourceTree = "<group>"; };
 		D0CFE5AC1890659600165839 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D0E5ECC01D0CBFF100CA76EA /* Marklight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marklight.h; sourceTree = "<group>"; };
 		D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marklight.swift; sourceTree = "<group>"; };
@@ -295,12 +273,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */,
+				D05110BC20C8C9FF00AFFDC7 /* AFNetworking.framework in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
 				D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */,
 				D0225713189848120038232A /* libz.dylib in Frameworks */,
 				D0225711189848060038232A /* libc++.dylib in Frameworks */,
-				D022570E189847A90038232A /* KSCrash.framework in Frameworks */,
 				D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */,
+				D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */,
 				D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */,
 				D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */,
 			);
@@ -487,7 +466,6 @@
 				D03DA13D18DE435900178958 /* fmdb */,
 				D0CB434918D274C200C54D7C /* FCModel */,
 				D0791B0F18AD4E33005227AB /* TTOpenInAppActivity */,
-				D0CFE5761888AD0100165839 /* AFNetworking */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
 				D0CFE5351888A7BD00165839 /* Frameworks */,
@@ -507,12 +485,13 @@
 		D0CFE5351888A7BD00165839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */,
+				D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */,
 				D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */,
 				D017D4231D3B03BE00B21443 /* WebKit.framework */,
 				D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */,
 				D0225712189848120038232A /* libz.dylib */,
 				D0225710189848060038232A /* libc++.dylib */,
-				D022570D189847A90038232A /* KSCrash.framework */,
 				D0CFE5AC1890659600165839 /* QuartzCore.framework */,
 				D0CFE5361888A7BD00165839 /* Foundation.framework */,
 				D0CFE5381888A7BD00165839 /* CoreGraphics.framework */,
@@ -592,29 +571,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D0CFE5761888AD0100165839 /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				D0CFE5A5188E199700165839 /* AFNetworkActivityIndicatorManager.h */,
-				D0CFE5A6188E199700165839 /* AFNetworkActivityIndicatorManager.m */,
-				D0CFE57B1888AD0100165839 /* AFHTTPSessionManager.h */,
-				D0CFE57C1888AD0100165839 /* AFHTTPSessionManager.m */,
-				D0CFE57D1888AD0100165839 /* AFNetworking.h */,
-				D0CFE57E1888AD0100165839 /* AFNetworkReachabilityManager.h */,
-				D0CFE57F1888AD0100165839 /* AFNetworkReachabilityManager.m */,
-				D0CFE5801888AD0100165839 /* AFSecurityPolicy.h */,
-				D0CFE5811888AD0100165839 /* AFSecurityPolicy.m */,
-				D0CFE5841888AD0100165839 /* AFURLRequestSerialization.h */,
-				D0CFE5851888AD0200165839 /* AFURLRequestSerialization.m */,
-				D0CFE5861888AD0200165839 /* AFURLResponseSerialization.h */,
-				D0CFE5871888AD0200165839 /* AFURLResponseSerialization.m */,
-				D0CFE5881888AD0200165839 /* AFURLSessionManager.h */,
-				D0CFE5891888AD0200165839 /* AFURLSessionManager.m */,
-			);
-			name = AFNetworking;
-			path = AFNetworking/AFNetworking;
-			sourceTree = "<group>";
-		};
 		D0E5ECBE1D0CBFF100CA76EA /* Marklight */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,6 +637,7 @@
 				D0CFE5311888A7BD00165839 /* Resources */,
 				D022570C189749920038232A /* ShellScript */,
 				D0A3E9DF1CD5759700857A46 /* Embed Frameworks */,
+				D05110BD20C8CA2A00AFFDC7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -800,6 +757,23 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\n\n#note: for simplicity, it's assumed that there's already a bundle version (which is an integer) and a version string. set them in the Summary pane!\n\n#get path to the BUILT .plist, NOT the packaged one! this fixes the off-by-one bug\nbuiltInfoPlistPath=${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\necho \"using plist at $builtInfoPlistPath\"\n\n\n#increment the build number\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"$builtInfoPlistPath\")\necho \"retrieved current build number: $buildNumber\"\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$builtInfoPlistPath\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n\n#compose the version number string\nversionString=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleShortVersionString\" \"$builtInfoPlistPath\")\nversionString+=\" (\"\nversionString+=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"$builtInfoPlistPath\")\nversionString+=\")\"\n\n#write the version number string to the settings bundle\n#IMPORTANT: this assumes the version number is the second property in the settings bundle!\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:1:DefaultValue $versionString\" \"$SRCROOT/iOCNotes/Settings.bundle/Root.plist\"\n";
 		};
+		D05110BD20C8CA2A00AFFDC7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/KSCrash.framework",
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AFNetworking.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KSCrash.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -834,17 +808,12 @@
 				D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */,
 				D0CCF2A71F73556300535D54 /* MarklightTextProcessingResult.swift in Sources */,
 				D09538491D32A5AD006BB78E /* Markdown.swift in Sources */,
-				D0CFE58D1888AD0200165839 /* AFNetworkReachabilityManager.m in Sources */,
 				D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */,
-				D0CFE5A7188E199700165839 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D0F2634F1D7B54F700F78B6D /* SWMessageView.swift in Sources */,
-				D0CFE5921888AD0200165839 /* AFURLSessionManager.m in Sources */,
 				D059745E18CEA28E00867B02 /* OCNote.m in Sources */,
-				D0CFE5901888AD0200165839 /* AFURLRequestSerialization.m in Sources */,
 				D0CFE5471888A7BD00165839 /* OCAppDelegate.m in Sources */,
 				D0F263511D7B54F700F78B6D /* UIColor+Hex.swift in Sources */,
 				D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */,
-				D0CFE5911888AD0200165839 /* AFURLResponseSerialization.m in Sources */,
 				D02256F71895E2F10038232A /* OCLoginController.m in Sources */,
 				D0A66A1E1C68318D001926D7 /* KVNProgress.m in Sources */,
 				D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */,
@@ -857,13 +826,11 @@
 				D0A66A1C1C68318D001926D7 /* UIImage+KVNEmpty.m in Sources */,
 				D0CB434E18D274C200C54D7C /* FCModel.m in Sources */,
 				D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */,
-				D0CFE58E1888AD0200165839 /* AFSecurityPolicy.m in Sources */,
 				D0F263541D7CF9A300F78B6D /* KVNRotationViewController.m in Sources */,
 				D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */,
 				D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */,
 				D0CCF2A41F73556300535D54 /* NSString+paragraphRangeAt.swift in Sources */,
 				D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */,
-				D0CFE58C1888AD0200165839 /* AFHTTPSessionManager.m in Sources */,
 				D0A66A1F1C68318D001926D7 /* KVNProgressConfiguration.m in Sources */,
 				D02257061896E6650038232A /* OCNotesHelper.m in Sources */,
 				D0CCF2A91F73556300535D54 /* MarklightStyleApplier.swift in Sources */,
@@ -1049,6 +1016,7 @@
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOCNotes/iOCNotes-Prefix.pch";
@@ -1080,6 +1048,7 @@
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOCNotes/iOCNotes-Prefix.pch";

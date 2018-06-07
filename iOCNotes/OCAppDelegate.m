@@ -10,7 +10,7 @@
 #import "OCEditorViewController.h"
 #import "OCNotesHelper.h"
 #import "OCAPIClient.h"
-#import "AFNetworkActivityIndicatorManager.h"
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 #if !TARGET_OS_SIMULATOR
 #import <KSCrash/KSCrash.h>
 #import <KSCrash/KSCrashInstallationEmail.h>
