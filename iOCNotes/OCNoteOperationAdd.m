@@ -14,7 +14,7 @@
 
 - (void)performOperation {
     if (!self.isCancelled) {
-        NSDictionary *params = @{@"content": self.note.content};
+        NSDictionary *params = @{@"content": self.note.content, };
         [OCAPIClient sharedClient].requestSerializer = [OCAPIClient jsonRequestSerializer];
         [[OCAPIClient sharedClient] POST:@"notes" parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             if (!self.isCancelled) {

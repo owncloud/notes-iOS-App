@@ -323,7 +323,7 @@ static NSString *DetailSegueIdentifier = @"showDetail";
         }
         [tableView endUpdates];
 
-        if (newIndex >= 0) {
+        if (newIndex >= 0 && newIndex < self.ocNotes.count) {
             OCNote *newNote = [self.ocNotes objectAtIndex:newIndex];
             self.editorViewController.ocNote = newNote;
             dispatch_async(dispatch_get_main_queue(), ^{
