@@ -24,7 +24,7 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>© 2014-2017 Peter B. Hedlund</string>
+			<string>© 2014-2018 Peter B. Hedlund</string>
 			<key>Title</key>
 			<string>About</string>
 			<key>Type</key>
@@ -32,7 +32,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>2.1 (2122)</string>
+			<string>2.1.2 (2133)</string>
 			<key>Key</key>
 			<string>versionNumber</string>
 			<key>Title</key>
