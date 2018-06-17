@@ -388,7 +388,7 @@ static NSString *DetailSegueIdentifier = @"showDetail";
                     self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
                 } completion: nil];
             }
-             if ([OCNotesHelper isOnline]) {
+             if ([OCAPIClient sharedClient].isOnline) {
                 [KVNProgress show];
             }
         }

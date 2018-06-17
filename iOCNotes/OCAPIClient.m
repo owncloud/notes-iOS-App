@@ -100,4 +100,8 @@ static dispatch_once_t oncePredicate = 0;
     _sharedClient = client;
 }
 
+- (BOOL)isOnline {
+    return self.reachabilityManager.isReachable;
+}
+
 @end

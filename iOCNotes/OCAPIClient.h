@@ -34,6 +34,8 @@
 
 @interface OCAPIClient : AFHTTPSessionManager
 
+@property (assign, readonly) BOOL isOnline;
+
 + (OCAPIClient *)sharedClient;
 + (void)setSharedClient:(OCAPIClient *)client;
 + (AFHTTPRequestSerializer*)httpRequestSerializer;

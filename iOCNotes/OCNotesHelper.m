@@ -88,11 +88,6 @@
     return self;
 }
 
-+ (BOOL)isOnline
-{
-    return [OCAPIClient sharedClient].reachabilityManager.isReachable;
-}
-
 - (void)reachabilityChanged:(NSNotification *)n {
     NSNumber *s = n.userInfo[AFNetworkingReachabilityNotificationStatusItem];
     AFNetworkReachabilityStatus status = [s integerValue];
