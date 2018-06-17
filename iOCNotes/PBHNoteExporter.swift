@@ -127,7 +127,7 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
             if let activityItems = activityItems {
                 let openInAppActivity = TTOpenInAppActivity.init(view: self.viewController?.view, andBarButtonItem: self.barButtonItem)
                 let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: [openInAppActivity] as? [UIActivity])
-                openInAppActivity?.superViewController = activityViewController
+//                openInAppActivity?.activityViewController = activityViewController
                 if let popover = activityViewController.popoverPresentationController
                 {
                     let barbuttonItem = self.viewController?.navigationItem.rightBarButtonItems?.first
