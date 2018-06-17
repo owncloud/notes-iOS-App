@@ -39,6 +39,7 @@
 		D0782BED20D5FD1A009AF66B /* NoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BEC20D5FD1A009AF66B /* NoteProtocol.swift */; };
 		D0782BEF20D5FD7A009AF66B /* Note+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BEE20D5FD7A009AF66B /* Note+Extension.swift */; };
 		D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF120D60682009AF66B /* KVNProgressKit.framework */; };
+		D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF320D6EA4D009AF66B /* PureLayout.framework */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D09538491D32A5AD006BB78E /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538461D32A5AD006BB78E /* Markdown.swift */; };
@@ -48,9 +49,6 @@
 		D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648591B0F5BB1005C0981 /* OCNoteOperationUpdate.m */; };
 		D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */; };
 		D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */; };
-		D0A6486A1B132E8A005C0981 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648621B132E8A005C0981 /* ALView+PureLayout.m */; };
-		D0A6486B1B132E8A005C0981 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648641B132E8A005C0981 /* NSArray+PureLayout.m */; };
-		D0A6486C1B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648661B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m */; };
 		D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A669F91C66B806001926D7 /* PDKeychainBindings.m */; };
 		D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A669FB1C66B806001926D7 /* PDKeychainBindingsController.m */; };
 		D0CB434E18D274C200C54D7C /* FCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434B18D274C200C54D7C /* FCModel.m */; };
@@ -172,6 +170,7 @@
 		D0782BEE20D5FD7A009AF66B /* Note+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+Extension.swift"; path = "CoreData/Note+Extension.swift"; sourceTree = "<group>"; };
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D0782BF120D60682009AF66B /* KVNProgressKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVNProgressKit.framework; path = Carthage/Build/iOS/KVNProgressKit.framework; sourceTree = "<group>"; };
+		D0782BF320D6EA4D009AF66B /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
 		D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpenInAppActivity.h; sourceTree = "<group>"; };
 		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
 		D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHHeaderTextView.swift; sourceTree = "<group>"; };
@@ -191,15 +190,6 @@
 		D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationGet.m; sourceTree = "<group>"; };
 		D0A6485E1B0F6F0B005C0981 /* OCNoteOperationDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationDelete.h; sourceTree = "<group>"; };
 		D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationDelete.m; sourceTree = "<group>"; };
-		D0A648611B132E8A005C0981 /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ALView+PureLayout.h"; path = "PureLayout/PureLayout/PureLayout/ALView+PureLayout.h"; sourceTree = SOURCE_ROOT; };
-		D0A648621B132E8A005C0981 /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ALView+PureLayout.m"; path = "PureLayout/PureLayout/PureLayout/ALView+PureLayout.m"; sourceTree = SOURCE_ROOT; };
-		D0A648631B132E8A005C0981 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+PureLayout.h"; path = "PureLayout/PureLayout/PureLayout/NSArray+PureLayout.h"; sourceTree = SOURCE_ROOT; };
-		D0A648641B132E8A005C0981 /* NSArray+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PureLayout.m"; path = "PureLayout/PureLayout/PureLayout/NSArray+PureLayout.m"; sourceTree = SOURCE_ROOT; };
-		D0A648651B132E8A005C0981 /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+PureLayout.h"; path = "PureLayout/PureLayout/PureLayout/NSLayoutConstraint+PureLayout.h"; sourceTree = SOURCE_ROOT; };
-		D0A648661B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+PureLayout.m"; path = "PureLayout/PureLayout/PureLayout/NSLayoutConstraint+PureLayout.m"; sourceTree = SOURCE_ROOT; };
-		D0A648671B132E8A005C0981 /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureLayout.h; path = PureLayout/PureLayout/PureLayout/PureLayout.h; sourceTree = SOURCE_ROOT; };
-		D0A648681B132E8A005C0981 /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PureLayout+Internal.h"; path = "PureLayout/PureLayout/PureLayout/PureLayout+Internal.h"; sourceTree = SOURCE_ROOT; };
-		D0A648691B132E8A005C0981 /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PureLayoutDefines.h; path = PureLayout/PureLayout/PureLayout/PureLayoutDefines.h; sourceTree = SOURCE_ROOT; };
 		D0A669F81C66B806001926D7 /* PDKeychainBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindings.h; sourceTree = "<group>"; };
 		D0A669F91C66B806001926D7 /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
 		D0A669FA1C66B806001926D7 /* PDKeychainBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindingsController.h; sourceTree = "<group>"; };
@@ -265,6 +255,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */,
 				D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */,
 				D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */,
 				D05110BC20C8C9FF00AFFDC7 /* AFNetworking.framework in Frameworks */,
@@ -343,23 +334,6 @@
 			path = TTOpenInAppActivity/TTOpenInAppActivity;
 			sourceTree = "<group>";
 		};
-		D08D90A419FDAFAD00E865CC /* PureLayout */ = {
-			isa = PBXGroup;
-			children = (
-				D0A648611B132E8A005C0981 /* ALView+PureLayout.h */,
-				D0A648621B132E8A005C0981 /* ALView+PureLayout.m */,
-				D0A648631B132E8A005C0981 /* NSArray+PureLayout.h */,
-				D0A648641B132E8A005C0981 /* NSArray+PureLayout.m */,
-				D0A648651B132E8A005C0981 /* NSLayoutConstraint+PureLayout.h */,
-				D0A648661B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m */,
-				D0A648671B132E8A005C0981 /* PureLayout.h */,
-				D0A648681B132E8A005C0981 /* PureLayout+Internal.h */,
-				D0A648691B132E8A005C0981 /* PureLayoutDefines.h */,
-			);
-			name = PureLayout;
-			path = PureLayout/PureLayout/PureLayout;
-			sourceTree = "<group>";
-		};
 		D09538441D32A5AD006BB78E /* Markingbird */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,7 +396,6 @@
 				D09538441D32A5AD006BB78E /* Markingbird */,
 				D0E5ECBE1D0CBFF100CA76EA /* Marklight */,
 				D0A669F71C66B806001926D7 /* PDKeychainBindingsController */,
-				D08D90A419FDAFAD00E865CC /* PureLayout */,
 				D03DA13D18DE435900178958 /* fmdb */,
 				D0CB434918D274C200C54D7C /* FCModel */,
 				D0791B0F18AD4E33005227AB /* TTOpenInAppActivity */,
@@ -445,6 +418,7 @@
 		D0CFE5351888A7BD00165839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D0782BF320D6EA4D009AF66B /* PureLayout.framework */,
 				D0782BF120D60682009AF66B /* KVNProgressKit.framework */,
 				D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */,
 				D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */,
@@ -727,10 +701,14 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KSCrash.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/KVNProgressKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PureLayout.framework",
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AFNetworking.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KSCrash.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KVNProgressKit.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PureLayout.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -749,14 +727,12 @@
 				D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */,
 				D0CCF2A61F73556300535D54 /* UniversalTypes.swift in Sources */,
 				D0782BED20D5FD1A009AF66B /* NoteProtocol.swift in Sources */,
-				D0A6486A1B132E8A005C0981 /* ALView+PureLayout.m in Sources */,
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
 				D0F2634E1D7B54F700F78B6D /* SWMessage.swift in Sources */,
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
 				D0CCF2A81F73556300535D54 /* MarklightTextProcessor.swift in Sources */,
 				D0E5ECC51D0CBFF100CA76EA /* MarklightTextStorage.swift in Sources */,
 				D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */,
-				D0A6486B1B132E8A005C0981 /* NSArray+PureLayout.m in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
 				D03DA14D18DE435900178958 /* FMResultSet.m in Sources */,
 				D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */,
@@ -764,7 +740,6 @@
 				D05110C720CA245700AFFDC7 /* NotesManager.swift in Sources */,
 				D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */,
 				D0F263501D7B54F700F78B6D /* SWTypes.swift in Sources */,
-				D0A6486C1B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				D0F2635A1D7DF23300F78B6D /* FCModelNotificationCenter.m in Sources */,
 				D0F263591D7DF23300F78B6D /* FCModelDatabase.m in Sources */,
 				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,

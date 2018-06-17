@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 //#import "UIViewController+MMDrawerController.h"
 #import "TTOpenInAppActivity.h"
-#import "PureLayout.h"
+#import <PureLayout/PureLayout.h>
 #import "iOCNotes-Swift.h"
 
 @interface OCEditorViewController () <UIPopoverControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
