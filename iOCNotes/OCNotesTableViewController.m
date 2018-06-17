@@ -13,7 +13,7 @@
 #import "OCLoginController.h"
 #import <float.h>
 #import "OCNote.h"
-#import "KVNProgress.h"
+#import <KVNProgressKit/KVNProgressKit.h>
 #import "iOCNotes-Swift.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 

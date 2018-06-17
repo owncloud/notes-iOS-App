@@ -13,9 +13,6 @@
 [submodule "PDKeychainBindingsController"]
 	path = PDKeychainBindingsController
 	url = https://github.com/carlbrown/PDKeychainBindingsController.git
-[submodule "KVNProgress"]
-	path = KVNProgress
-	url = https://github.com/kevin-hirsch/KVNProgress.git
 [submodule "Marklight"]
 	path = Marklight
 	url = https://github.com/macteo/Marklight.git

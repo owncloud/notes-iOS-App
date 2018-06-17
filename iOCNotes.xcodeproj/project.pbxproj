@@ -38,6 +38,7 @@
 		D059F7DD1D4AF6A200C252F2 /* export.html in Resources */ = {isa = PBXBuildFile; fileRef = D059F7DC1D4AF6A200C252F2 /* export.html */; };
 		D0782BED20D5FD1A009AF66B /* NoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BEC20D5FD1A009AF66B /* NoteProtocol.swift */; };
 		D0782BEF20D5FD7A009AF66B /* Note+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BEE20D5FD7A009AF66B /* Note+Extension.swift */; };
+		D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF120D60682009AF66B /* KVNProgressKit.framework */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D09538491D32A5AD006BB78E /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538461D32A5AD006BB78E /* Markdown.swift */; };
@@ -52,12 +53,6 @@
 		D0A6486C1B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648661B132E8A005C0981 /* NSLayoutConstraint+PureLayout.m */; };
 		D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A669F91C66B806001926D7 /* PDKeychainBindings.m */; };
 		D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A669FB1C66B806001926D7 /* PDKeychainBindingsController.m */; };
-		D0A66A1B1C68318D001926D7 /* UIColor+KVNContrast.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A66A031C68318D001926D7 /* UIColor+KVNContrast.m */; };
-		D0A66A1C1C68318D001926D7 /* UIImage+KVNEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A66A051C68318D001926D7 /* UIImage+KVNEmpty.m */; };
-		D0A66A1D1C68318D001926D7 /* UIImage+KVNImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A66A071C68318D001926D7 /* UIImage+KVNImageEffects.m */; };
-		D0A66A1E1C68318D001926D7 /* KVNProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A66A0A1C68318D001926D7 /* KVNProgress.m */; };
-		D0A66A1F1C68318D001926D7 /* KVNProgressConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A66A0C1C68318D001926D7 /* KVNProgressConfiguration.m */; };
-		D0A66A261C68318D001926D7 /* KVNProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A66A191C68318D001926D7 /* KVNProgressView.xib */; };
 		D0CB434E18D274C200C54D7C /* FCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434B18D274C200C54D7C /* FCModel.m */; };
 		D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */; };
 		D0CCF2A41F73556300535D54 /* NSString+paragraphRangeAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF29E1F73556300535D54 /* NSString+paragraphRangeAt.swift */; };
@@ -96,7 +91,6 @@
 		D0F2634F1D7B54F700F78B6D /* SWMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F263411D7B54F700F78B6D /* SWMessageView.swift */; };
 		D0F263501D7B54F700F78B6D /* SWTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F263421D7B54F700F78B6D /* SWTypes.swift */; };
 		D0F263511D7B54F700F78B6D /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F263431D7B54F700F78B6D /* UIColor+Hex.swift */; };
-		D0F263541D7CF9A300F78B6D /* KVNRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F263531D7CF9A300F78B6D /* KVNRotationViewController.m */; };
 		D0F263591D7DF23300F78B6D /* FCModelDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F263561D7DF23300F78B6D /* FCModelDatabase.m */; };
 		D0F2635A1D7DF23300F78B6D /* FCModelNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F263581D7DF23300F78B6D /* FCModelNotificationCenter.m */; };
 /* End PBXBuildFile section */
@@ -176,6 +170,8 @@
 		D059F7DC1D4AF6A200C252F2 /* export.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = export.html; sourceTree = "<group>"; };
 		D0782BEC20D5FD1A009AF66B /* NoteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteProtocol.swift; path = CoreData/NoteProtocol.swift; sourceTree = "<group>"; };
 		D0782BEE20D5FD7A009AF66B /* Note+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+Extension.swift"; path = "CoreData/Note+Extension.swift"; sourceTree = "<group>"; };
+		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
+		D0782BF120D60682009AF66B /* KVNProgressKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVNProgressKit.framework; path = Carthage/Build/iOS/KVNProgressKit.framework; sourceTree = "<group>"; };
 		D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpenInAppActivity.h; sourceTree = "<group>"; };
 		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
 		D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHHeaderTextView.swift; sourceTree = "<group>"; };
@@ -208,17 +204,6 @@
 		D0A669F91C66B806001926D7 /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
 		D0A669FA1C66B806001926D7 /* PDKeychainBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindingsController.h; sourceTree = "<group>"; };
 		D0A669FB1C66B806001926D7 /* PDKeychainBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindingsController.m; sourceTree = "<group>"; };
-		D0A66A021C68318D001926D7 /* UIColor+KVNContrast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+KVNContrast.h"; sourceTree = "<group>"; };
-		D0A66A031C68318D001926D7 /* UIColor+KVNContrast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+KVNContrast.m"; sourceTree = "<group>"; };
-		D0A66A041C68318D001926D7 /* UIImage+KVNEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KVNEmpty.h"; sourceTree = "<group>"; };
-		D0A66A051C68318D001926D7 /* UIImage+KVNEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KVNEmpty.m"; sourceTree = "<group>"; };
-		D0A66A061C68318D001926D7 /* UIImage+KVNImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KVNImageEffects.h"; sourceTree = "<group>"; };
-		D0A66A071C68318D001926D7 /* UIImage+KVNImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KVNImageEffects.m"; sourceTree = "<group>"; };
-		D0A66A091C68318D001926D7 /* KVNProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNProgress.h; sourceTree = "<group>"; };
-		D0A66A0A1C68318D001926D7 /* KVNProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNProgress.m; sourceTree = "<group>"; };
-		D0A66A0B1C68318D001926D7 /* KVNProgressConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNProgressConfiguration.h; sourceTree = "<group>"; };
-		D0A66A0C1C68318D001926D7 /* KVNProgressConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNProgressConfiguration.m; sourceTree = "<group>"; };
-		D0A66A191C68318D001926D7 /* KVNProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KVNProgressView.xib; sourceTree = "<group>"; };
 		D0CB434A18D274C200C54D7C /* FCModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModel.h; sourceTree = "<group>"; };
 		D0CB434B18D274C200C54D7C /* FCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModel.m; sourceTree = "<group>"; };
 		D0CB434C18D274C200C54D7C /* FCModelCachedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelCachedObject.h; sourceTree = "<group>"; };
@@ -269,8 +254,6 @@
 		D0F263421D7B54F700F78B6D /* SWTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWTypes.swift; sourceTree = "<group>"; };
 		D0F263431D7B54F700F78B6D /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		D0F263441D7B54F700F78B6D /* SWMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWMessages.h; sourceTree = "<group>"; };
-		D0F263521D7CF9A300F78B6D /* KVNRotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNRotationViewController.h; sourceTree = "<group>"; };
-		D0F263531D7CF9A300F78B6D /* KVNRotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNRotationViewController.m; sourceTree = "<group>"; };
 		D0F263551D7DF23300F78B6D /* FCModelDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelDatabase.h; sourceTree = "<group>"; };
 		D0F263561D7DF23300F78B6D /* FCModelDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModelDatabase.m; sourceTree = "<group>"; };
 		D0F263571D7DF23300F78B6D /* FCModelNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelNotificationCenter.h; sourceTree = "<group>"; };
@@ -282,6 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */,
 				D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */,
 				D05110BC20C8C9FF00AFFDC7 /* AFNetworking.framework in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
@@ -415,51 +399,6 @@
 			path = PDKeychainBindingsController/PDKeychainBindingsController;
 			sourceTree = "<group>";
 		};
-		D0A669FE1C68318D001926D7 /* KVNProgress */ = {
-			isa = PBXGroup;
-			children = (
-				D0A66A011C68318D001926D7 /* Categories */,
-				D0A66A081C68318D001926D7 /* Classes */,
-				D0A66A181C68318D001926D7 /* Resources */,
-			);
-			name = KVNProgress;
-			path = KVNProgress/KVNProgress;
-			sourceTree = "<group>";
-		};
-		D0A66A011C68318D001926D7 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				D0A66A021C68318D001926D7 /* UIColor+KVNContrast.h */,
-				D0A66A031C68318D001926D7 /* UIColor+KVNContrast.m */,
-				D0A66A041C68318D001926D7 /* UIImage+KVNEmpty.h */,
-				D0A66A051C68318D001926D7 /* UIImage+KVNEmpty.m */,
-				D0A66A061C68318D001926D7 /* UIImage+KVNImageEffects.h */,
-				D0A66A071C68318D001926D7 /* UIImage+KVNImageEffects.m */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
-		D0A66A081C68318D001926D7 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				D0F263521D7CF9A300F78B6D /* KVNRotationViewController.h */,
-				D0F263531D7CF9A300F78B6D /* KVNRotationViewController.m */,
-				D0A66A091C68318D001926D7 /* KVNProgress.h */,
-				D0A66A0A1C68318D001926D7 /* KVNProgress.m */,
-				D0A66A0B1C68318D001926D7 /* KVNProgressConfiguration.h */,
-				D0A66A0C1C68318D001926D7 /* KVNProgressConfiguration.m */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		D0A66A181C68318D001926D7 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				D0A66A191C68318D001926D7 /* KVNProgressView.xib */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		D0CB434918D274C200C54D7C /* FCModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,7 +421,6 @@
 				D0F263341D7B54F700F78B6D /* SWMessages */,
 				D09538441D32A5AD006BB78E /* Markingbird */,
 				D0E5ECBE1D0CBFF100CA76EA /* Marklight */,
-				D0A669FE1C68318D001926D7 /* KVNProgress */,
 				D0A669F71C66B806001926D7 /* PDKeychainBindingsController */,
 				D08D90A419FDAFAD00E865CC /* PureLayout */,
 				D03DA13D18DE435900178958 /* fmdb */,
@@ -507,6 +445,7 @@
 		D0CFE5351888A7BD00165839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D0782BF120D60682009AF66B /* KVNProgressKit.framework */,
 				D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */,
 				D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */,
 				D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */,
@@ -565,6 +504,7 @@
 		D0CFE53D1888A7BD00165839 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D0782BF020D60430009AF66B /* Cartfile */,
 				D00CDFC1194E65B4007505E9 /* Localizable.strings */,
 				D0CFE53E1888A7BD00165839 /* iOCNotes-Info.plist */,
 				D02256F11895BE230038232A /* iOCNotes copy-Info.plist */,
@@ -736,7 +676,6 @@
 			files = (
 				D017D4201D3B010900B21443 /* markdown.html in Resources */,
 				D0F263471D7B54F700F78B6D /* NotificationBackgroundSuccessIcon.png in Resources */,
-				D0A66A261C68318D001926D7 /* KVNProgressView.xib in Resources */,
 				D0CFE5521888A7BD00165839 /* Images.xcassets in Resources */,
 				D0F263461D7B54F700F78B6D /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				D0F2634C1D7B54F700F78B6D /* NotificationButtonBackground@2x.png in Resources */,
@@ -831,7 +770,6 @@
 				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
 				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
-				D0A66A1B1C68318D001926D7 /* UIColor+KVNContrast.m in Sources */,
 				D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */,
 				D0CCF2A71F73556300535D54 /* MarklightTextProcessingResult.swift in Sources */,
 				D09538491D32A5AD006BB78E /* Markdown.swift in Sources */,
@@ -842,24 +780,19 @@
 				D0F263511D7B54F700F78B6D /* UIColor+Hex.swift in Sources */,
 				D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */,
 				D02256F71895E2F10038232A /* OCLoginController.m in Sources */,
-				D0A66A1E1C68318D001926D7 /* KVNProgress.m in Sources */,
 				D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */,
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,
 				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
 				D0CCF2A51F73556300535D54 /* Array+appending.swift in Sources */,
-				D0A66A1D1C68318D001926D7 /* UIImage+KVNImageEffects.m in Sources */,
 				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
 				D02256F61895E2F10038232A /* OCSettingsController.m in Sources */,
-				D0A66A1C1C68318D001926D7 /* UIImage+KVNEmpty.m in Sources */,
 				D0CB434E18D274C200C54D7C /* FCModel.m in Sources */,
 				D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */,
-				D0F263541D7CF9A300F78B6D /* KVNRotationViewController.m in Sources */,
 				D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */,
 				D0782BEF20D5FD7A009AF66B /* Note+Extension.swift in Sources */,
 				D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */,
 				D0CCF2A41F73556300535D54 /* NSString+paragraphRangeAt.swift in Sources */,
 				D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */,
-				D0A66A1F1C68318D001926D7 /* KVNProgressConfiguration.m in Sources */,
 				D02257061896E6650038232A /* OCNotesHelper.m in Sources */,
 				D0CCF2A91F73556300535D54 /* MarklightStyleApplier.swift in Sources */,
 			);

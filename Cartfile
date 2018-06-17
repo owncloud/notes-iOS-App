@@ -1,2 +1,3 @@
 github "AFNetworking/AFNetworking"
 github "kstenerud/KSCrash"
+github "rroy1590/KVNProgress"
