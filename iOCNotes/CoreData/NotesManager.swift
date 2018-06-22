@@ -19,6 +19,7 @@ class NotesManager: NSObject {
     var objectContext: NSManagedObjectContext
     
     private var persistentContainer: NSPersistentContainer
+    private var online = false
     
     let  persistentContainerQueue: OperationQueue = {
         let queue = OperationQueue();
@@ -47,6 +48,18 @@ class NotesManager: NSObject {
         objectContext = persistentContainer.viewContext
         super.init()
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+        
+        self.online = OCAPIClient.shared().reachabilityManager.isReachable
+        NotificationCenter.default.addObserver(forName: Notification.Name.AFNetworkingReachabilityDidChange, object: nil, queue: OperationQueue.main) { (notification) in
+            if let status = notification.userInfo?[AFNetworkingReachabilityNotificationStatusItem] as? AFNetworkReachabilityStatus {
+                if status == AFNetworkReachabilityStatus.notReachable {
+                    self.online = false
+                }
+                if status == AFNetworkReachabilityStatus.reachableViaWiFi || status == AFNetworkReachabilityStatus.reachableViaWWAN {
+                    self.online = true
+                }
+            }
+        }
     }
     
     func enqueueCoreDataBlock(_ block: @escaping (NSManagedObjectContext) -> Void) {
@@ -68,20 +81,60 @@ class NotesManager: NSObject {
         //
     }
     
-//    func add(content: String) -> Note {
-//        return Note(entity: <#T##NSEntityDescription#>, insertInto: <#T##NSManagedObjectContext?#>)
-//    }
+    func add(content: String) {
+        self.enqueueCoreDataBlock { (context) in
+            let newNote = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context) as? Note
+            newNote?.content = content
+        }
+    }
     
     func get(note: Note) {
         //
     }
     
     func update(note: Note) {
-        //
+        self.enqueueCoreDataBlock { (context) in
+        if note.addNeeded == false {
+                note.updateNeeded = true
+        }
+        if (self.online) {
+            //online
+            if (note.serverId > 0) {
+                let operation = NoteOperationUpdate(note: note, delegate: self)
+                [self addOperationToQueue:operation];
+            } else {
+                OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:note delegate:self];
+                [self addOperationToQueue:operation];
+            }
+        } else {
+            //offline
+            if (note.existsInDatabase) {
+                [note save:^{
+                    note.modified = [[NSDate date] timeIntervalSince1970];
+                    }];
+            }
+        }
     }
     
     func delete(note: Note) {
         //
     }
+    }
+    
+}
 
+extension NotesManager: NoteOperationDelegate {
+    
+    func didStart(operation: NoteOperation) {
+        //
+    }
+    
+    func didFinish(operation: NoteOperation) {
+        //
+    }
+    
+    func didFail(operation: NoteOperation) {
+        //
+    }
+        
 }

@@ -9,8 +9,10 @@
 #ifndef BridgingHeader_h
 #define BridgingHeader_h
 
+#import "OCAPIClient.h"
 #import <PureLayout/PureLayout.h>
 #import "OCNote.h"
 #import "TTOpenInAppActivity.h"
+#import "OCNoteOperationUpdate.h"
 
 #endif /* BridgingHeader_h */

@@ -40,6 +40,11 @@
 		D0782BEF20D5FD7A009AF66B /* Note+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BEE20D5FD7A009AF66B /* Note+Extension.swift */; };
 		D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF120D60682009AF66B /* KVNProgressKit.framework */; };
 		D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF320D6EA4D009AF66B /* PureLayout.framework */; };
+		D0782BF620D7422E009AF66B /* NoteOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BF520D7422E009AF66B /* NoteOperation.swift */; };
+		D0782BF820D7487D009AF66B /* NoteOperationUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BF720D7487D009AF66B /* NoteOperationUpdate.swift */; };
+		D0782BFA20D748FD009AF66B /* NoteOperationAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BF920D748FD009AF66B /* NoteOperationAdd.swift */; };
+		D0782BFC20D74947009AF66B /* NoteOperationGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BFB20D74947009AF66B /* NoteOperationGet.swift */; };
+		D0782BFE20D7496B009AF66B /* NoteOperationDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BFD20D7496B009AF66B /* NoteOperationDelete.swift */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D09538491D32A5AD006BB78E /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538461D32A5AD006BB78E /* Markdown.swift */; };
@@ -171,6 +176,11 @@
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D0782BF120D60682009AF66B /* KVNProgressKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVNProgressKit.framework; path = Carthage/Build/iOS/KVNProgressKit.framework; sourceTree = "<group>"; };
 		D0782BF320D6EA4D009AF66B /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
+		D0782BF520D7422E009AF66B /* NoteOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperation.swift; path = Operations/NoteOperation.swift; sourceTree = "<group>"; };
+		D0782BF720D7487D009AF66B /* NoteOperationUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationUpdate.swift; path = Operations/NoteOperationUpdate.swift; sourceTree = "<group>"; };
+		D0782BF920D748FD009AF66B /* NoteOperationAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationAdd.swift; path = Operations/NoteOperationAdd.swift; sourceTree = "<group>"; };
+		D0782BFB20D74947009AF66B /* NoteOperationGet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteOperationGet.swift; sourceTree = "<group>"; };
+		D0782BFD20D7496B009AF66B /* NoteOperationDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationDelete.swift; path = Operations/NoteOperationDelete.swift; sourceTree = "<group>"; };
 		D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpenInAppActivity.h; sourceTree = "<group>"; };
 		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
 		D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHHeaderTextView.swift; sourceTree = "<group>"; };
@@ -357,6 +367,11 @@
 				D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */,
 				D0A6485E1B0F6F0B005C0981 /* OCNoteOperationDelete.h */,
 				D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */,
+				D0782BF520D7422E009AF66B /* NoteOperation.swift */,
+				D0782BF920D748FD009AF66B /* NoteOperationAdd.swift */,
+				D0782BF720D7487D009AF66B /* NoteOperationUpdate.swift */,
+				D0782BFB20D74947009AF66B /* NoteOperationGet.swift */,
+				D0782BFD20D7496B009AF66B /* NoteOperationDelete.swift */,
 			);
 			name = OCNoteOperation;
 			sourceTree = "<group>";
@@ -724,7 +739,9 @@
 				D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */,
 				D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */,
 				D05110C420CA22CD00AFFDC7 /* Note+CoreDataClass.swift in Sources */,
+				D0782BF620D7422E009AF66B /* NoteOperation.swift in Sources */,
 				D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */,
+				D0782BFC20D74947009AF66B /* NoteOperationGet.swift in Sources */,
 				D0CCF2A61F73556300535D54 /* UniversalTypes.swift in Sources */,
 				D0782BED20D5FD1A009AF66B /* NoteProtocol.swift in Sources */,
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
@@ -735,18 +752,21 @@
 				D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
 				D03DA14D18DE435900178958 /* FMResultSet.m in Sources */,
+				D0782BFE20D7496B009AF66B /* NoteOperationDelete.swift in Sources */,
 				D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */,
 				D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */,
 				D05110C720CA245700AFFDC7 /* NotesManager.swift in Sources */,
 				D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */,
 				D0F263501D7B54F700F78B6D /* SWTypes.swift in Sources */,
 				D0F2635A1D7DF23300F78B6D /* FCModelNotificationCenter.m in Sources */,
+				D0782BFA20D748FD009AF66B /* NoteOperationAdd.swift in Sources */,
 				D0F263591D7DF23300F78B6D /* FCModelDatabase.m in Sources */,
 				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
 				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
 				D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */,
 				D0CCF2A71F73556300535D54 /* MarklightTextProcessingResult.swift in Sources */,
+				D0782BF820D7487D009AF66B /* NoteOperationUpdate.swift in Sources */,
 				D09538491D32A5AD006BB78E /* Markdown.swift in Sources */,
 				D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */,
 				D0F2634F1D7B54F700F78B6D /* SWMessageView.swift in Sources */,
