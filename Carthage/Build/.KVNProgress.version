@@ -1,18 +1,9 @@
 {
-  "Mac" : [
-
-  ],
-  "watchOS" : [
-
-  ],
-  "tvOS" : [
-
-  ],
   "commitish" : "2.2.3",
   "iOS" : [
     {
       "name" : "KVNProgressKit",
-      "hash" : "1bc1d4d079451829609a3b5987e90c0b99a6a9fb8dc0f9cd07dfb16296d72d46"
+      "hash" : "f5bf39b8f3b0803524f9a85aef610cbeec522fc7b182d1963b23b374630c9472"
     }
   ]
 }

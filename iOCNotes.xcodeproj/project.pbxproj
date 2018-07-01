@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD0F26F020E9277D003D7D4A /* Marklight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0F26EF20E9277D003D7D4A /* Marklight.framework */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
 		D017D4201D3B010900B21443 /* markdown.html in Resources */ = {isa = PBXBuildFile; fileRef = D017D41F1D3B010900B21443 /* markdown.html */; };
@@ -58,12 +59,6 @@
 		D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A669FB1C66B806001926D7 /* PDKeychainBindingsController.m */; };
 		D0CB434E18D274C200C54D7C /* FCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434B18D274C200C54D7C /* FCModel.m */; };
 		D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */; };
-		D0CCF2A41F73556300535D54 /* NSString+paragraphRangeAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF29E1F73556300535D54 /* NSString+paragraphRangeAt.swift */; };
-		D0CCF2A51F73556300535D54 /* Array+appending.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF29F1F73556300535D54 /* Array+appending.swift */; };
-		D0CCF2A61F73556300535D54 /* UniversalTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A01F73556300535D54 /* UniversalTypes.swift */; };
-		D0CCF2A71F73556300535D54 /* MarklightTextProcessingResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A11F73556300535D54 /* MarklightTextProcessingResult.swift */; };
-		D0CCF2A81F73556300535D54 /* MarklightTextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A21F73556300535D54 /* MarklightTextProcessor.swift */; };
-		D0CCF2A91F73556300535D54 /* MarklightStyleApplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CCF2A31F73556300535D54 /* MarklightStyleApplier.swift */; };
 		D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
@@ -80,8 +75,6 @@
 		D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */; };
 		D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE59A188B5A6900165839 /* OCAPIClient.m */; };
 		D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5AC1890659600165839 /* QuartzCore.framework */; };
-		D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */; };
-		D0E5ECC51D0CBFF100CA76EA /* MarklightTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5ECC21D0CBFF100CA76EA /* MarklightTextStorage.swift */; };
 		D0F263451D7B54F700F78B6D /* NotificationBackgroundErrorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F263361D7B54F700F78B6D /* NotificationBackgroundErrorIcon.png */; };
 		D0F263461D7B54F700F78B6D /* NotificationBackgroundErrorIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F263371D7B54F700F78B6D /* NotificationBackgroundErrorIcon@2x.png */; };
 		D0F263471D7B54F700F78B6D /* NotificationBackgroundSuccessIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F263381D7B54F700F78B6D /* NotificationBackgroundSuccessIcon.png */; };
@@ -122,6 +115,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BD0F26EF20E9277D003D7D4A /* Marklight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Marklight.framework; path = Carthage/Build/iOS/Marklight.framework; sourceTree = "<group>"; };
 		D00293D619F48B5300B2DA8F /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D00CDFBB194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFBC194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -208,12 +202,6 @@
 		D0CB434B18D274C200C54D7C /* FCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModel.m; sourceTree = "<group>"; };
 		D0CB434C18D274C200C54D7C /* FCModelCachedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelCachedObject.h; sourceTree = "<group>"; };
 		D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModelCachedObject.m; sourceTree = "<group>"; };
-		D0CCF29E1F73556300535D54 /* NSString+paragraphRangeAt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+paragraphRangeAt.swift"; sourceTree = "<group>"; };
-		D0CCF29F1F73556300535D54 /* Array+appending.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+appending.swift"; sourceTree = "<group>"; };
-		D0CCF2A01F73556300535D54 /* UniversalTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalTypes.swift; sourceTree = "<group>"; };
-		D0CCF2A11F73556300535D54 /* MarklightTextProcessingResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightTextProcessingResult.swift; sourceTree = "<group>"; };
-		D0CCF2A21F73556300535D54 /* MarklightTextProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightTextProcessor.swift; sourceTree = "<group>"; };
-		D0CCF2A31F73556300535D54 /* MarklightStyleApplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightStyleApplier.swift; sourceTree = "<group>"; };
 		D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D0CFE5331888A7BD00165839 /* iOCNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOCNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5361888A7BD00165839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -238,9 +226,6 @@
 		D0CFE599188B5A6900165839 /* OCAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAPIClient.h; sourceTree = "<group>"; };
 		D0CFE59A188B5A6900165839 /* OCAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAPIClient.m; sourceTree = "<group>"; };
 		D0CFE5AC1890659600165839 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		D0E5ECC01D0CBFF100CA76EA /* Marklight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marklight.h; sourceTree = "<group>"; };
-		D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marklight.swift; sourceTree = "<group>"; };
-		D0E5ECC21D0CBFF100CA76EA /* MarklightTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarklightTextStorage.swift; sourceTree = "<group>"; };
 		D0F263361D7B54F700F78B6D /* NotificationBackgroundErrorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundErrorIcon.png; sourceTree = "<group>"; };
 		D0F263371D7B54F700F78B6D /* NotificationBackgroundErrorIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationBackgroundErrorIcon@2x.png"; sourceTree = "<group>"; };
 		D0F263381D7B54F700F78B6D /* NotificationBackgroundSuccessIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundSuccessIcon.png; sourceTree = "<group>"; };
@@ -265,6 +250,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD0F26F020E9277D003D7D4A /* Marklight.framework in Frameworks */,
 				D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */,
 				D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */,
 				D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */,
@@ -409,7 +395,6 @@
 			children = (
 				D0F263341D7B54F700F78B6D /* SWMessages */,
 				D09538441D32A5AD006BB78E /* Markingbird */,
-				D0E5ECBE1D0CBFF100CA76EA /* Marklight */,
 				D0A669F71C66B806001926D7 /* PDKeychainBindingsController */,
 				D03DA13D18DE435900178958 /* fmdb */,
 				D0CB434918D274C200C54D7C /* FCModel */,
@@ -433,6 +418,7 @@
 		D0CFE5351888A7BD00165839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BD0F26EF20E9277D003D7D4A /* Marklight.framework */,
 				D0782BF320D6EA4D009AF66B /* PureLayout.framework */,
 				D0782BF120D60682009AF66B /* KVNProgressKit.framework */,
 				D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */,
@@ -521,23 +507,6 @@
 				D0CFE5611888A7BD00165839 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		D0E5ECBE1D0CBFF100CA76EA /* Marklight */ = {
-			isa = PBXGroup;
-			children = (
-				D0CCF29F1F73556300535D54 /* Array+appending.swift */,
-				D0CCF2A31F73556300535D54 /* MarklightStyleApplier.swift */,
-				D0CCF2A11F73556300535D54 /* MarklightTextProcessingResult.swift */,
-				D0CCF2A21F73556300535D54 /* MarklightTextProcessor.swift */,
-				D0CCF29E1F73556300535D54 /* NSString+paragraphRangeAt.swift */,
-				D0CCF2A01F73556300535D54 /* UniversalTypes.swift */,
-				D0E5ECC01D0CBFF100CA76EA /* Marklight.h */,
-				D0E5ECC11D0CBFF100CA76EA /* Marklight.swift */,
-				D0E5ECC21D0CBFF100CA76EA /* MarklightTextStorage.swift */,
-			);
-			name = Marklight;
-			path = Marklight/Marklight;
 			sourceTree = "<group>";
 		};
 		D0F263341D7B54F700F78B6D /* SWMessages */ = {
@@ -718,12 +687,14 @@
 				"$(SRCROOT)/Carthage/Build/iOS/KSCrash.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KVNProgressKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PureLayout.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Marklight.framework",
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AFNetworking.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KSCrash.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KVNProgressKit.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PureLayout.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Marklight.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -740,15 +711,11 @@
 				D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */,
 				D05110C420CA22CD00AFFDC7 /* Note+CoreDataClass.swift in Sources */,
 				D0782BF620D7422E009AF66B /* NoteOperation.swift in Sources */,
-				D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */,
 				D0782BFC20D74947009AF66B /* NoteOperationGet.swift in Sources */,
-				D0CCF2A61F73556300535D54 /* UniversalTypes.swift in Sources */,
 				D0782BED20D5FD1A009AF66B /* NoteProtocol.swift in Sources */,
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
 				D0F2634E1D7B54F700F78B6D /* SWMessage.swift in Sources */,
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
-				D0CCF2A81F73556300535D54 /* MarklightTextProcessor.swift in Sources */,
-				D0E5ECC51D0CBFF100CA76EA /* MarklightTextStorage.swift in Sources */,
 				D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
 				D03DA14D18DE435900178958 /* FMResultSet.m in Sources */,
@@ -765,7 +732,6 @@
 				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
 				D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */,
-				D0CCF2A71F73556300535D54 /* MarklightTextProcessingResult.swift in Sources */,
 				D0782BF820D7487D009AF66B /* NoteOperationUpdate.swift in Sources */,
 				D09538491D32A5AD006BB78E /* Markdown.swift in Sources */,
 				D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */,
@@ -778,7 +744,6 @@
 				D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */,
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,
 				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
-				D0CCF2A51F73556300535D54 /* Array+appending.swift in Sources */,
 				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
 				D02256F61895E2F10038232A /* OCSettingsController.m in Sources */,
 				D0CB434E18D274C200C54D7C /* FCModel.m in Sources */,
@@ -786,10 +751,8 @@
 				D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */,
 				D0782BEF20D5FD7A009AF66B /* Note+Extension.swift in Sources */,
 				D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */,
-				D0CCF2A41F73556300535D54 /* NSString+paragraphRangeAt.swift in Sources */,
 				D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */,
 				D02257061896E6650038232A /* OCNotesHelper.m in Sources */,
-				D0CCF2A91F73556300535D54 /* MarklightStyleApplier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

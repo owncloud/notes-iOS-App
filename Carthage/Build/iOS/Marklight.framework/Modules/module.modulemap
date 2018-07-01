@@ -1,0 +1,11 @@
+framework module Marklight {
+  umbrella header "Marklight.h"
+
+  export *
+  module * { export * }
+}
+
+module Marklight.Swift {
+    header "Marklight-Swift.h"
+    requires objc
+}

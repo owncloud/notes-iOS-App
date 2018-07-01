@@ -1,4 +1,5 @@
 github "AFNetworking/AFNetworking" "3.2.1"
 github "PureLayout/PureLayout" "v3.0.2"
 github "kstenerud/KSCrash" "1.15.18"
+github "macteo/Marklight" "v1.4.0"
 github "rroy1590/KVNProgress" "2.2.3"
