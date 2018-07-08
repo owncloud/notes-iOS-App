@@ -142,7 +142,6 @@
 		D02256C61891FD7C0038232A /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = defaults.plist; sourceTree = "<group>"; };
 		D02256C8189599570038232A /* NSDictionary+HandleNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+HandleNull.h"; sourceTree = "<group>"; };
 		D02256C9189599570038232A /* NSDictionary+HandleNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+HandleNull.m"; sourceTree = "<group>"; };
-		D02256F11895BE230038232A /* iOCNotes copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iOCNotes copy-Info.plist"; path = "/Users/peter/Projects/iOCNotes/iOCNotes copy-Info.plist"; sourceTree = "<absolute>"; };
 		D02256F21895E2F10038232A /* OCSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSettingsController.h; sourceTree = "<group>"; };
 		D02256F31895E2F10038232A /* OCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSettingsController.m; sourceTree = "<group>"; };
 		D02256F41895E2F10038232A /* OCLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCLoginController.h; sourceTree = "<group>"; };
@@ -565,7 +564,6 @@
 			children = (
 				D00CDFC1194E65B4007505E9 /* Localizable.strings */,
 				D0CFE53E1888A7BD00165839 /* iOCNotes-Info.plist */,
-				D02256F11895BE230038232A /* iOCNotes copy-Info.plist */,
 				D0CFE53F1888A7BD00165839 /* InfoPlist.strings */,
 				D02256C61891FD7C0038232A /* defaults.plist */,
 				D0CFE5421888A7BD00165839 /* main.m */,
