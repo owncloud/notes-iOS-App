@@ -239,6 +239,9 @@ static const NSString *rootPath = @"apps/notes/api/v0.2/";
     BOOL textHasChanged = NO;
     
     NSMutableString *proposedNewString = [NSMutableString stringWithString:textField.text];
+    if ((range.length + range.location) > proposedNewString.length) {
+        return NO;
+    }
     [proposedNewString replaceCharactersInRange:range withString:string];
 
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
