@@ -45,8 +45,6 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
         let attributedString = NSAttributedString(string: "")
         myTextStorage.setAttributedString(attributedString)
 
-//        let textViewRect = self.frame;
-        
         let containerSize = CGSize(width: frame.size.width, height:CGFloat.greatestFiniteMagnitude)
         let container = NSTextContainer.init(size: containerSize)
         container.widthTracksTextView = true
@@ -112,6 +110,7 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
         if (self.traitCollection.horizontalSizeClass == .regular) {
             headerLabel.textAlignment = .left
             if (self.traitCollection.userInterfaceIdiom == .pad) {
@@ -127,6 +126,8 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
             headerLabel.textAlignment = .center;
             self.updateInsets(size: kSmallPadding)
         }
+        self.isScrollEnabled = false
+        self.isScrollEnabled = true
     }
 
     override var text: String! {
