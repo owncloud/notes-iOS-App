@@ -319,7 +319,7 @@ static NSString *DetailSegueIdentifier = @"showDetail";
             newIndex = indexPath.row;
         }
         if (newIndex >= self.ocNotes.count) {
-            --newIndex;
+            newIndex = self.ocNotes.count - 1;
         }
         [tableView endUpdates];
 
