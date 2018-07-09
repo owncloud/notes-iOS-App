@@ -128,6 +128,10 @@ open class MarklightTextStorage: NSTextStorage, MarklightStyleApplier {
 
     // MARK: Reading Text
     
+    public var attributedString: NSAttributedString {
+        return imp
+    }
+    
     /**
     Use this method to extract the text from the `UITextView` as plain text.
     

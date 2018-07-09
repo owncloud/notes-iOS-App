@@ -1,9 +1,9 @@
 {
-  "commitish" : "v1.4.0",
+  "commitish" : "8a49cfb536a8f32fbe909ea7b66e18e4e7f12e76",
   "iOS" : [
     {
       "name" : "Marklight",
-      "hash" : "5c8184e034ef450f7fa7fb0f134a90f5622b9b0f9a19856e00dd4e4010106585"
+      "hash" : "dea61fd6556ec749a6fbe73ad590f9aa8d3e0beaa04cdc342a7f734a5440327f"
     }
   ]
 }

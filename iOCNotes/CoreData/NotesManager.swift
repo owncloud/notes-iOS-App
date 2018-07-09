@@ -93,32 +93,31 @@ class NotesManager: NSObject {
     }
     
     func update(note: Note) {
-        self.enqueueCoreDataBlock { (context) in
-        if note.addNeeded == false {
-                note.updateNeeded = true
-        }
-        if (self.online) {
-            //online
-            if (note.serverId > 0) {
-                let operation = NoteOperationUpdate(note: note, delegate: self)
-                [self addOperationToQueue:operation];
-            } else {
-                OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:note delegate:self];
-                [self addOperationToQueue:operation];
-            }
-        } else {
-            //offline
-            if (note.existsInDatabase) {
-                [note save:^{
-                    note.modified = [[NSDate date] timeIntervalSince1970];
-                    }];
-            }
-        }
+//        self.enqueueCoreDataBlock { (context) in
+//        if note.addNeeded == false {
+//                note.updateNeeded = true
+//        }
+//        if (self.online) {
+//            //online
+//            if (note.serverId > 0) {
+//                let operation = NoteOperationUpdate(note: note, delegate: self)
+//                [self addOperationToQueue:operation];
+//            } else {
+//                OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:note delegate:self];
+//                [self addOperationToQueue:operation];
+//            }
+//        } else {
+//            //offline
+//            if (note.existsInDatabase) {
+//                [note save:^{
+//                    note.modified = [[NSDate date] timeIntervalSince1970];
+//                    }];
+//            }
+//        }
     }
     
     func delete(note: Note) {
         //
-    }
     }
     
 }
