@@ -6,61 +6,53 @@
 //  Copyright © 2018 Peter Hedlund. All rights reserved.
 //
 
-import Foundation
-
 class NoteOperationUpdate: NoteOperation {
 
     override func performOperation() {
         if self.isCancelled == true {
             return
         }
-        let params = ["content": self.note.content]
+        let params = [NoteKeys.content: self.note.content]
+        let path = "notes/\(self.note.serverId)"
         OCAPIClient.shared().requestSerializer = OCAPIClient.jsonRequestSerializer()
-        
-
-/*
-        NSDictionary *params = @{@"content": self.note.content};
-        NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithInt:self.note.id].stringValue];
-        [OCAPIClient sharedClient].requestSerializer = [OCAPIClient jsonRequestSerializer];
-        [[OCAPIClient sharedClient] PUT:path parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-            if (!self.isCancelled) {
-            //                        NSLog(@"Returning from update operation");
-            NSDictionary *responseDictionary = (NSDictionary*)responseObject;
-            if ([[NSNumber numberWithInt:self.note.id] isEqualToNumber:[responseDictionary objectForKey:@"id"]]) {
-            if (self.note.existsInDatabase) {
-            [self.note save:^{
-            self.note.title = [responseDictionary objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
-            self.note.content = [responseDictionary objectForKeyNotNull:@"content" fallback:@""];
-            self.note.modified = [[responseDictionary objectForKey:@"modified"] doubleValue];
-            self.note.addNeeded = NO;
-            self.note.updateNeeded = NO;
-            }];
+        OCAPIClient.shared().put(path, parameters: params, success: { (task, responseObject) in
+            if !self.isCancelled {
+                if let responseDictionary = responseObject as? [String: Any] {
+                    if self.note.serverId == responseDictionary[NoteKeys.serverId] as? Int64 ?? 0 {
+                        NotesManager.shared.enqueueCoreDataBlock({ [weak self] (context)  in
+                            self?.note.title = responseDictionary[NoteKeys.title] as? String ?? NSLocalizedString("New note", comment: "The title of a new note")
+                            self?.note.content = responseDictionary[NoteKeys.content] as? String ?? ""
+                            self?.note.modified = responseDictionary[NoteKeys.modified] as? TimeInterval ?? Date().timeIntervalSince1970
+                            self?.note.favorite = responseDictionary[NoteKeys.favorite] as? Bool ?? false
+                            self?.note.category = responseDictionary[NoteKeys.category] as? String ?? ""
+                            self?.note.addNeeded = false
+                            self?.note.updateNeeded = false
+                        })
+                    }
+                }
+                if let delegate = self.delegate {
+                    delegate.didFinish(operation: self)
+                }
             }
+            self.finish(true)
+        }) { (task, error) in
+            if !self.isCancelled {
+                if let response = task?.response as? HTTPURLResponse {
+                    switch response.statusCode {
+                    case 404:
+                        self.errorMessage = NSLocalizedString("The note does not exist", comment: "An error message")
+                        break;
+                    default:
+                        self.errorMessage = error.localizedDescription
+                        break;
+                    }
+                }
+                if let delegate = self.delegate {
+                    delegate.didFail(operation: self)
+                }
             }
-            
-            if (self.delegate) {
-            [self.delegate noteOperationDidFinish:self];
-            }
-            }
-            [self finish];
-            } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            if (!self.isCancelled) {
-            NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-            switch (response.statusCode) {
-            case 404:
-            self.errorMessage = NSLocalizedString(@"The note does not exist", @"An error message");
-            break;
-            default:
-            self.errorMessage = [error localizedDescription];
-            break;
-            }
-            if (self.delegate) {
-            [self.delegate noteOperationDidFail:self];
-            }
-            }
-            [self finish];
-            }];
- */
+            self.finish(true)
+        }
     }
     
 }

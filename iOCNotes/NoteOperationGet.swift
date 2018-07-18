@@ -6,92 +6,77 @@
 //  Copyright © 2018 Peter Hedlund. All rights reserved.
 //
 
-import UIKit
-
 class NoteOperationGet: NoteOperation {
 
     override func performOperation() {
         if self.isCancelled == true {
             return
         }
-/*
-        NSString *path = [NSString stringWithFormat:@"notes/%@", [NSNumber numberWithInt:self.note.id].stringValue];
-        __block OCNote *noteToGet = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [NSNumber numberWithInt:self.note.id]]];
-        if (noteToGet) {
-            NSDictionary *params = @{@"exclude": @"title,content"};
-            [OCAPIClient sharedClient].requestSerializer = [OCAPIClient jsonRequestSerializer];
-            [[OCAPIClient sharedClient] GET:path parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-                if (!self.isCancelled) {
-                NSDictionary *noteDict = (NSDictionary*)responseObject;
-                //                    NSLog(@"NoteDict: %@", noteDict);
-                if ([[NSNumber numberWithInt:noteToGet.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-                if ([[noteDict objectForKey:@"modified"] doubleValue] > noteToGet.modified) {
-                //The server has a newer version. We need to get it.
-                [OCAPIClient sharedClient].requestSerializer = [OCAPIClient httpRequestSerializer];
-                [[OCAPIClient sharedClient] GET:path parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-                if (!self.isCancelled) {
-                NSDictionary *responseDictionary = (NSDictionary*)responseObject;
-                if ([[NSNumber numberWithInt:self.note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-                if ([[noteDict objectForKey:@"modified"] doubleValue] > self.note.modified) {
-                if ([self.note existsInDatabase]) {
-                [self.note save:^{
-                self.note.title = [responseDictionary objectForKeyNotNull:@"title" fallback:@""];
-                self.note.content = [responseDictionary objectForKeyNotNull:@"content" fallback:@""];
-                self.note.modified = [[responseDictionary objectForKey:@"modified"] doubleValue];
-                }];
+        let params = [NoteKeys.exclude: "\(NoteKeys.title),\(NoteKeys.content)"]
+        let path = "notes/\(self.note.serverId)"
+        OCAPIClient.shared().requestSerializer = OCAPIClient.jsonRequestSerializer()
+        OCAPIClient.shared().get(path, parameters: params, progress: nil, success: { (task, responseObject) in
+            if (!self.isCancelled) {
+                if let responseDictionary = responseObject as? [String: Any] {
+                    //                    NSLog(@"NoteDict: %@", noteDict);
+                    if self.note.serverId == responseDictionary[NoteKeys.serverId] as? Int64 ?? 0 {
+                        if responseDictionary[NoteKeys.modified] as? TimeInterval ??  0 > self.note.modified {
+                            //The server has a newer version. We need to get it.
+                            OCAPIClient.shared().get(path, parameters: nil, progress: nil, success: { (task, responseObject) in
+                                if (!self.isCancelled) {
+                                    if let responseDictionary = responseObject as? [String: Any] {
+                                        if self.note.serverId == responseDictionary[NoteKeys.serverId] as? Int64 ?? 0 {
+                                            if responseDictionary[NoteKeys.modified] as? TimeInterval ??  0 > self.note.modified {
+                                                NotesManager.shared.enqueueCoreDataBlock({ [weak self] (context)  in
+                                                    self?.note.title = responseDictionary[NoteKeys.title] as? String ?? ""
+                                                    self?.note.content = responseDictionary[NoteKeys.content] as? String ?? ""
+                                                    self?.note.modified = responseDictionary[NoteKeys.modified] as? Double ?? Date().timeIntervalSince1970
+                                                })
+                                            }
+                                        }
+                                    }
+                                    self.delegate?.didFinish(operation: self)
+                                }
+                                self.finish(true)
+                                
+                            }, failure: { (task, error) in
+                                if let response = task?.response as? HTTPURLResponse {
+                                    switch response.statusCode {
+                                    case 404:
+                                        self.errorMessage = NSLocalizedString("The note does not exist", comment: "An error message");
+                                    default:
+                                        self.errorMessage = error.localizedDescription
+                                    }
+                                    
+                                    self.delegate?.didFail(operation: self)
+                                }
+                                self.finish(true)
+                            })
+                        } else {
+                            self.delegate?.didFinish(operation: self)
+                        }
+                    }
                 }
+            }
+            self.finish(true)
+        }) { (task, error) in
+            if (!self.isCancelled) {
+                if let response = task?.response as? HTTPURLResponse {
+                    switch response.statusCode {
+                    case 404:
+                        self.errorMessage = NSLocalizedString("The note does not exist", comment: "An error message");
+                    default:
+                        self.errorMessage = error.localizedDescription
+                    }
+                    
+                    self.delegate?.didFail(operation: self)
                 }
-                }
-                if (self.delegate) {
-                [self.delegate noteOperationDidFinish:self];
-                }
-                }
-                [self finish];
-                } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-                switch (response.statusCode) {
-                case 404:
-                self.errorMessage = NSLocalizedString(@"The note does not exist", @"An error message");
-                break;
-                default:
-                self.errorMessage = [error localizedDescription];
-                break;
-                }
-                if (self.delegate) {
-                [self.delegate noteOperationDidFail:self];
-                }
-                [self finish];
-                }];
-                } else {
-                if (self.delegate) {
-                [self.delegate noteOperationDidFinish:self];
-                }
-                }
-                }
-                }
-                [self finish];
-                //                            //NSLog(@"Note: %@", responseObject);
-                } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                if (!self.isCancelled) {
-                NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-                switch (response.statusCode) {
-                case 404:
-                self.errorMessage = NSLocalizedString(@"The note does not exist", @"An error message");
-                break;
-                default:
-                self.errorMessage = [error localizedDescription];
-                break;
-                }
-                if (self.delegate) {
-                [self.delegate noteOperationDidFail:self];
-                }
-                }
-                [self finish];
-                }];
+                self.finish(true)
+                
+            }
+            self.finish(true)
+
         }
-        
-        [self finish];
- */
     }
 
 }

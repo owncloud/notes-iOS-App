@@ -21,7 +21,13 @@ class NotesManager: NSObject {
     private var persistentContainer: NSPersistentContainer
     private var online = false
     
-    let  persistentContainerQueue: OperationQueue = {
+    let noteOperationsQueue: OperationQueue = {
+        let queue = OperationQueue();
+        queue.maxConcurrentOperationCount = 1;
+        return queue;
+    }()
+
+    let persistentContainerQueue: OperationQueue = {
         let queue = OperationQueue();
         queue.maxConcurrentOperationCount = 1;
         return queue;
@@ -89,37 +95,78 @@ class NotesManager: NSObject {
     }
     
     func get(note: Note) {
-        //
+        if self.online == true {
+            if note.serverId > 0 {
+                let operation = NoteOperationGet(note: note, delegate: self)
+                self.addOperationToQueue(operation: operation)
+            } else {
+                let operation = NoteOperationAdd(note: note, delegate: self)
+                self.addOperationToQueue(operation: operation)
+            }
+        } else {
+            //offline
+        }
     }
     
     func update(note: Note) {
-//        self.enqueueCoreDataBlock { (context) in
-//        if note.addNeeded == false {
-//                note.updateNeeded = true
-//        }
-//        if (self.online) {
-//            //online
-//            if (note.serverId > 0) {
-//                let operation = NoteOperationUpdate(note: note, delegate: self)
-//                [self addOperationToQueue:operation];
-//            } else {
-//                OCNoteOperationAdd *operation = [[OCNoteOperationAdd alloc] initWithNote:note delegate:self];
-//                [self addOperationToQueue:operation];
-//            }
-//        } else {
-//            //offline
-//            if (note.existsInDatabase) {
-//                [note save:^{
-//                    note.modified = [[NSDate date] timeIntervalSince1970];
-//                    }];
-//            }
-//        }
+        if note.addNeeded == false {
+                note.updateNeeded = true
+        }
+        if self.online == true {
+            //online
+            if note.serverId > 0 {
+                let operation = NoteOperationUpdate(note: note, delegate: self)
+                self.addOperationToQueue(operation: operation)
+            } else {
+                let operation = NoteOperationAdd(note: note, delegate: self)
+                self.addOperationToQueue(operation: operation)
+            }
+        } else {
+            //offline
+            self.enqueueCoreDataBlock { (context) in
+                if note.addNeeded == false {
+                    note.updateNeeded = true
+                }
+                note.modified = Date().timeIntervalSince1970
+            }
+        }
     }
     
     func delete(note: Note) {
-        //
+        note.deleteNeeded = true
+        note.addNeeded = false
+        note.updateNeeded = false
+        
+        if note.serverId > 0 {
+            if (online) {
+                let operation = NoteOperationDelete(note: note, delegate: self)
+                self.addOperationToQueue(operation: operation)
+            }
+        }
     }
     
+    func addOperationToQueue(operation: NoteOperation) {
+        for op in self.noteOperationsQueue.operations {
+            if let scheduledOp = op as? NoteOperation {
+                if scheduledOp.note.guid == operation.note.guid {
+                    if scheduledOp.isExecuting {
+                        if scheduledOp is NoteOperationAdd && operation is NoteOperationAdd {
+                            let updateOperation = NoteOperationUpdate(note: operation.note, delegate: self)
+                            updateOperation.addDependency(scheduledOp)
+                            self.noteOperationsQueue.addOperation(updateOperation)
+                            operation.cancel()
+                        } else {
+                            operation.addDependency(scheduledOp)
+                        }
+                    } else {
+                        scheduledOp.cancel()
+                    }
+                }
+            }
+        }
+        self.noteOperationsQueue.addOperation(operation)
+    }
+
 }
 
 extension NotesManager: NoteOperationDelegate {

@@ -38,7 +38,6 @@
 		D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */; };
 		D059F7DD1D4AF6A200C252F2 /* export.html in Resources */ = {isa = PBXBuildFile; fileRef = D059F7DC1D4AF6A200C252F2 /* export.html */; };
 		D0782BED20D5FD1A009AF66B /* NoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BEC20D5FD1A009AF66B /* NoteProtocol.swift */; };
-		D0782BEF20D5FD7A009AF66B /* Note+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BEE20D5FD7A009AF66B /* Note+Extension.swift */; };
 		D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF120D60682009AF66B /* KVNProgressKit.framework */; };
 		D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF320D6EA4D009AF66B /* PureLayout.framework */; };
 		D0782BF620D7422E009AF66B /* NoteOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BF520D7422E009AF66B /* NoteOperation.swift */; };
@@ -165,7 +164,6 @@
 		D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHNoteExporter.swift; sourceTree = "<group>"; };
 		D059F7DC1D4AF6A200C252F2 /* export.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = export.html; sourceTree = "<group>"; };
 		D0782BEC20D5FD1A009AF66B /* NoteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteProtocol.swift; path = CoreData/NoteProtocol.swift; sourceTree = "<group>"; };
-		D0782BEE20D5FD7A009AF66B /* Note+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Note+Extension.swift"; path = "CoreData/Note+Extension.swift"; sourceTree = "<group>"; };
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D0782BF120D60682009AF66B /* KVNProgressKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVNProgressKit.framework; path = Carthage/Build/iOS/KVNProgressKit.framework; sourceTree = "<group>"; };
 		D0782BF320D6EA4D009AF66B /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
@@ -312,7 +310,6 @@
 			children = (
 				D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */,
 				D05110C220CA22CD00AFFDC7 /* Note+CoreDataClass.swift */,
-				D0782BEE20D5FD7A009AF66B /* Note+Extension.swift */,
 				D05110C620CA245700AFFDC7 /* NotesManager.swift */,
 				D0782BEC20D5FD1A009AF66B /* NoteProtocol.swift */,
 			);
@@ -747,7 +744,6 @@
 				D0CB434E18D274C200C54D7C /* FCModel.m in Sources */,
 				D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */,
 				D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */,
-				D0782BEF20D5FD7A009AF66B /* Note+Extension.swift in Sources */,
 				D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */,
 				D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */,
 				D02257061896E6650038232A /* OCNotesHelper.m in Sources */,
