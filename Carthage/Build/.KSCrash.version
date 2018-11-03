@@ -2,11 +2,11 @@
   "Mac" : [
     {
       "name" : "KSCrash",
-      "hash" : "68c51dcad02162d9bb28ee5c5cb1bd988a3ac0959c7e42c62ca1aa6582896c63"
+      "hash" : "cf8b01ac47f03b96a8b5320e661c4782e3f01076efaf308aa359c7e4927dc405"
     },
     {
       "name" : "KSCrash",
-      "hash" : "68c51dcad02162d9bb28ee5c5cb1bd988a3ac0959c7e42c62ca1aa6582896c63"
+      "hash" : "cf8b01ac47f03b96a8b5320e661c4782e3f01076efaf308aa359c7e4927dc405"
     }
   ],
   "watchOS" : [
@@ -15,14 +15,14 @@
   "tvOS" : [
     {
       "name" : "KSCrash",
-      "hash" : "c8f339f45087bc14c799598c927f7042c24cdc8186bd3ed7cdfa4ed8244fdcaf"
+      "hash" : "27488f1c5ab6583562575704912468a6d8961e2912388e2f5ce18e5b22f574e6"
     }
   ],
   "commitish" : "1.15.18",
   "iOS" : [
     {
       "name" : "KSCrash",
-      "hash" : "516a02ba653d9669317a229785eb614c821cf6c2104fd313eae9626714d869ec"
+      "hash" : "881472851a9bf4ff83a9c67dbea0b03538279f21ab5f0989a119aa1f97e8266f"
     }
   ]
 }
