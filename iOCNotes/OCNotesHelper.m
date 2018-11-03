@@ -227,6 +227,12 @@
  }, // etc
  ]
  */
+
+- (NSNumber *) dateAsNumber {
+    NSTimeInterval now = [NSDate date].timeIntervalSince1970;
+    return [NSNumber numberWithDouble:now];
+}
+
 - (void) sync {
     if (online) {
         
@@ -243,17 +249,17 @@
                         ocNote = [OCNote new];
                         [ocNote save:^{
                             ocNote.id = [[noteDict objectForKey:@"id"] intValue];
-                            ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
+                            ocNote.modified = [[noteDict objectForKeyNotNull:@"modified" fallback:[self dateAsNumber]] doubleValue];
                             ocNote.title = [noteDict objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
                             ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                         }];
                     } else {
                         if ([ocNote existsInDatabase]) {
                             [ocNote save:^{
-                                if (ocNote.modified > [[noteDict objectForKey:@"modified"] doubleValue]) {
+                                if (ocNote.modified > [[noteDict objectForKeyNotNull:@"modified" fallback:[self dateAsNumber]] doubleValue]) {
                                     ocNote.updateNeeded = YES;
                                 } else {
-                                    ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
+                                    ocNote.modified = [[noteDict objectForKeyNotNull:@"modified" fallback:[self dateAsNumber]] doubleValue];
                                     ocNote.title = [noteDict objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
                                     ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
                                 }
