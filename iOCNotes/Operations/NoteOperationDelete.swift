@@ -19,7 +19,7 @@ class NoteOperationDelete: NoteOperation {
                 NotesManager.shared.enqueueCoreDataBlock({ [weak self] (context)  in
                     context.delete((self?.note)!)
                 })
-                self.delegate?.didFinish(operation: self)
+                NotificationCenter.default.post(name: NetworkSuccess, object: nil)
                 self.finish(true)
             }
         }) { (task, error) in
@@ -30,7 +30,7 @@ class NoteOperationDelete: NoteOperation {
                         NotesManager.shared.enqueueCoreDataBlock({ [weak self] (context)  in
                             context.delete((self?.note)!)
                         })
-                        self.delegate?.didFinish(operation: self)
+                        NotificationCenter.default.post(name: NetworkSuccess, object: nil)
                     default:
                         self.errorMessage = error.localizedDescription
                         self.delegate?.didFail(operation: self)
@@ -39,6 +39,20 @@ class NoteOperationDelete: NoteOperation {
                 }
                 self.finish(true)
             }
+        }
+    }
+
+}
+
+class NoteOperationDeleteSimple: NoteOperation {
+    
+    override func performOperation() {
+        if self.isCancelled == false {
+            NotesManager.shared.enqueueCoreDataBlock({ [weak self] (context)  in
+                context.delete((self?.note)!)
+            })
+            NotificationCenter.default.post(name: NetworkSuccess, object: nil)
+            self.finish(true)
         }
     }
 

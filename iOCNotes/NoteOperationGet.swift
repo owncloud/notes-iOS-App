@@ -18,7 +18,6 @@ class NoteOperationGet: NoteOperation {
         OCAPIClient.shared().get(path, parameters: params, progress: nil, success: { (task, responseObject) in
             if (!self.isCancelled) {
                 if let responseDictionary = responseObject as? [String: Any] {
-                    //                    NSLog(@"NoteDict: %@", noteDict);
                     if self.note.serverId == responseDictionary[NoteKeys.serverId] as? Int64 ?? 0 {
                         if responseDictionary[NoteKeys.modified] as? TimeInterval ??  0 > self.note.modified {
                             //The server has a newer version. We need to get it.
@@ -35,10 +34,9 @@ class NoteOperationGet: NoteOperation {
                                             }
                                         }
                                     }
-                                    self.delegate?.didFinish(operation: self)
+                                    NotificationCenter.default.post(name: NetworkSuccess, object: nil)
                                 }
                                 self.finish(true)
-                                
                             }, failure: { (task, error) in
                                 if let response = task?.response as? HTTPURLResponse {
                                     switch response.statusCode {
@@ -53,7 +51,7 @@ class NoteOperationGet: NoteOperation {
                                 self.finish(true)
                             })
                         } else {
-                            self.delegate?.didFinish(operation: self)
+                            NotificationCenter.default.post(name: NetworkSuccess, object: nil)
                         }
                     }
                 }

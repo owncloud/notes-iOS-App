@@ -27,9 +27,7 @@ class NoteOperationAdd: NoteOperation {
                         self?.note.addNeeded = false
                         self?.note.updateNeeded = false
                     })
-                    if let delegate = self.delegate {
-                        delegate.didFinish(operation: self)
-                    }
+                    NotificationCenter.default.post(name: NetworkSuccess, object: nil)
                  } else {
                     if let delegate = self.delegate {
                         self.errorMessage = NSLocalizedString("Failed to create note on server", comment: "An error message");

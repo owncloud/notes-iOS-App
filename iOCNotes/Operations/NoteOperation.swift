@@ -9,8 +9,6 @@
 import Foundation
 
 protocol NoteOperationDelegate {
-    func didStart(operation: NoteOperation)
-    func didFinish(operation: NoteOperation)
     func didFail(operation: NoteOperation)
 }
 

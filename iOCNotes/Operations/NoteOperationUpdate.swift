@@ -30,9 +30,7 @@ class NoteOperationUpdate: NoteOperation {
                         })
                     }
                 }
-                if let delegate = self.delegate {
-                    delegate.didFinish(operation: self)
-                }
+                NotificationCenter.default.post(name: NetworkSuccess, object: nil)
             }
             self.finish(true)
         }) { (task, error) in

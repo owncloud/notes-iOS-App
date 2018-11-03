@@ -30,4 +30,15 @@ struct NoteKeys {
     static let modified = "modified"
     
     static let exclude = "exclude"
+    static let addNeeded = "addNeeded"
+    static let updateNeeded = "updateNeeded"
+    static let deleteNeeded = "deleteNeeded"
 }
+
+struct MessageKeys {
+    static let title = "Title"
+    static let message = "Message"
+}
+
+let NetworkSuccess = Notification.Name(rawValue: "NetworkSuccess")
+let NetworkFailure = Notification.Name(rawValue: "NetworkFailure")

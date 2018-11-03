@@ -84,7 +84,76 @@ class NotesManager: NSObject {
     }
 
     func sync() {
-        //
+            if self.online == true {
+        
+                let params = ["exclude": ""]
+                OCAPIClient.shared().requestSerializer = OCAPIClient.jsonRequestSerializer()
+                OCAPIClient.shared().get("notes", parameters: params, progress: nil, success: { (task, responseObject) in
+                    if let responseArray = responseObject as? [[String: Any]] {
+                        for noteDict in responseArray {
+                            if let donwloadedId = noteDict[NoteKeys.serverId] as? Int64 {
+                                
+                            }
+                        }
+
+
+                    }
+                    //                        [serverNotesDictArray enumerateObjectsUsingBlock:^(NSDictionary *noteDict, NSUInteger idx, BOOL *stop) {
+                    //                            OCNote *ocNote = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [noteDict objectForKey:@"id"]]];
+                    //                            //OCNote *ocNote = [OCNote instanceWithPrimaryKey:[noteDict objectForKey:@"id"] createIfNonexistent:YES];
+                    //                            if (!ocNote) { //don't re-add a deleted note (it will be deleted from the server below).
+                    //                                ocNote = [OCNote new];
+                    //                                [ocNote save:^{
+                    //                                    ocNote.id = [[noteDict objectForKey:@"id"] intValue];
+                    //                                    ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
+                    //                                    ocNote.title = [noteDict objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
+                    //                                    ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                    //                                }];
+                    //                            } else {
+                    //                                if ([ocNote existsInDatabase]) {
+                    //                                    [ocNote save:^{
+                    //                                        if (ocNote.modified > [[noteDict objectForKey:@"modified"] doubleValue]) {
+                    //                                            ocNote.updateNeeded = YES;
+                    //                                        } else {
+                    //                                            ocNote.modified = [[noteDict objectForKey:@"modified"] doubleValue];
+                    //                                            ocNote.title = [noteDict objectForKeyNotNull:@"title" fallback:NSLocalizedString(@"New note", @"The title of a new note")];
+                    //                                            ocNote.content = [noteDict objectForKeyNotNull:@"content" fallback:@""];
+                    //                                        }
+                    //                                    }];
+                    //                                }
+                    //                            }
+                    //                        }];
+                    //
+                    //                        NSArray *serverIds = [serverNotesDictArray valueForKey:@"id"];
+                    //
+                    //                        NSArray *knownIds = [[OCNote resultDictionariesFromQuery:@"SELECT * FROM $T WHERE id > 0"] valueForKey:@"id"];
+                    //
+                    //        //                NSLog(@"Count: %lu", (unsigned long)knownIds.count);
+                    //
+                    //                        NSMutableArray *deletedOnServer = [NSMutableArray arrayWithArray:knownIds];
+                    //                        [deletedOnServer removeObjectsInArray:serverIds];
+                    //                        //TODO: Fix [deletedOnServer removeObjectsInArray:notesToAdd];
+                    //        //                NSLog(@"Deleted on server: %@", deletedOnServer);
+                    //                        while (deletedOnServer.count > 0) {
+                    //                            OCNote *ocNote = [OCNote firstInstanceWhere:[NSString stringWithFormat:@"id=%@", [deletedOnServer lastObject]]];
+                    //                            OCNoteOperationDeleteSimple *operation = [[OCNoteOperationDeleteSimple alloc] initWithNote:ocNote delegate:self];
+                    //                            [self addOperationToQueue:operation];
+                    //                            [deletedOnServer removeLastObject];
+                    //                        }
+                    self.deleteNotesFromServer()
+                    self.addNotesToServer()
+                    self.updateNotesOnServer()
+                    NotificationCenter.default.post(name: NetworkSuccess, object: self, userInfo: nil)
+                }) { (task, error) in
+                    let userInfo = [MessageKeys.title: NSLocalizedString("Error Updating Notes", comment: "The title of an error message"),
+                                    MessageKeys.message: error.localizedDescription]
+                    NotificationCenter.default.post(name: NetworkFailure, object: self, userInfo: userInfo)
+                }
+            } else {
+                let userInfo = [MessageKeys.title: NSLocalizedString("Unable to Reach Server", comment: "The title of an error message"),
+                                MessageKeys.message: NSLocalizedString("Please check network connection and login.", comment: "A message to check network connection")]
+                NotificationCenter.default.post(name: NetworkFailure, object: self, userInfo: userInfo)
+            }
     }
     
     func add(content: String) {
@@ -145,6 +214,73 @@ class NotesManager: NSObject {
         }
     }
     
+    func fetchOne(withPredicate predicate: NSPredicate? = nil) -> Note? {
+        var result: Note? = nil
+        self.persistentContainer.viewContext.performAndWait {
+            let sortDescriptor = NSSortDescriptor(key: NoteKeys.modified, ascending: false)
+            let request: NSFetchRequest<Note> = Note.fetchRequest()
+            request.sortDescriptors = [sortDescriptor]
+            request.predicate = predicate
+            do {
+                let results = try self.persistentContainer.viewContext.fetch(request)
+                if results.count > 0 {
+                    result = results.first!
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return result
+    }
+
+    func allNotes(withPredicate predicate: NSPredicate? = nil) -> [Note] {
+        var result = [Note]()
+        self.persistentContainer.viewContext.performAndWait {
+            let sortDescriptor = NSSortDescriptor(key: NoteKeys.modified, ascending: false)
+            let request: NSFetchRequest<Note> = Note.fetchRequest()
+            request.sortDescriptors = [sortDescriptor]
+            request.predicate = predicate
+            do {
+                result = try self.persistentContainer.viewContext.fetch(request)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return result
+    }
+
+    func addNotesToServer() {
+        let predicate = NSPredicate(format: NoteKeys.addNeeded + " = \(NSNumber(value: true))")
+        let notesToAdd = self.allNotes(withPredicate: predicate)
+        
+        for note in notesToAdd {
+            if note.content.count > 0 {
+                let operation = NoteOperationAdd(note: note, delegate: self)
+                self.addOperationToQueue(operation: operation)
+            }
+        }
+    }
+
+    func updateNotesOnServer() {
+        let predicate = NSPredicate(format: NoteKeys.updateNeeded + " = \(NSNumber(value: true))")
+        let notesToUpdate = self.allNotes(withPredicate: predicate)
+
+        for note in notesToUpdate {
+            let operation = NoteOperationUpdate(note: note, delegate: self)
+            self.addOperationToQueue(operation: operation)
+        }
+    }
+    
+    func deleteNotesFromServer() {
+        let predicate = NSPredicate(format: NoteKeys.deleteNeeded + " = \(NSNumber(value: true))")
+        let notesToDelete = self.allNotes(withPredicate: predicate)
+
+        for note in notesToDelete {
+            let operation = NoteOperationDelete(note: note, delegate: self)
+            self.addOperationToQueue(operation: operation)
+        }
+    }
+    
     func addOperationToQueue(operation: NoteOperation) {
         for op in self.noteOperationsQueue.operations {
             if let scheduledOp = op as? NoteOperation {
@@ -171,16 +307,28 @@ class NotesManager: NSObject {
 
 extension NotesManager: NoteOperationDelegate {
     
-    func didStart(operation: NoteOperation) {
-        //
-    }
-    
-    func didFinish(operation: NoteOperation) {
-        //
-    }
-    
     func didFail(operation: NoteOperation) {
-        //
+        if operation is NoteOperationAdd {
+            let userInfo: [String: String] = [MessageKeys.title: NSLocalizedString("Error Adding Note", comment: "The title of an error message"),
+                            MessageKeys.message: operation.errorMessage ?? ""]
+            NotificationCenter.default.post(name: NetworkFailure, object: self, userInfo: userInfo)
+        }
+        if operation is NoteOperationUpdate {
+            let userInfo: [String: String] = [MessageKeys.title: NSLocalizedString("Error Updating Note", comment: "The title of an error message"),
+                            MessageKeys.message: operation.errorMessage ?? ""]
+            NotificationCenter.default.post(name: NetworkFailure, object: self, userInfo: userInfo)
+            operation.note.modified = Date().timeIntervalSince1970
+        }
+        if operation is NoteOperationGet {
+            let userInfo: [String: String] = [MessageKeys.title: NSLocalizedString("Error Getting Note", comment: "The title of an error message"),
+                            MessageKeys.message: operation.errorMessage ?? ""]
+            NotificationCenter.default.post(name: NetworkFailure, object: self, userInfo: userInfo)
+        }
+        if operation is NoteOperationDelete {
+            let userInfo: [String: String] = [MessageKeys.title: NSLocalizedString("Error Deleting Note", comment: "The title of an error message"),
+                            MessageKeys.message: operation.errorMessage ?? ""]
+            NotificationCenter.default.post(name: NetworkFailure, object: self, userInfo: userInfo)
+        }
     }
         
 }
