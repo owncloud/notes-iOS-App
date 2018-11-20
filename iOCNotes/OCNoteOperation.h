@@ -43,6 +43,7 @@
 - (id)initWithNote:(OCNote *)note delegate:(id<OCNoteOperationDelegate>)delegate;
 - (void)performOperation;
 - (void)finish;
+- (NSNumber *)dateAsNumber;
 
 @property (nonatomic, unsafe_unretained) id <OCNoteOperationDelegate> delegate;
 @property (nonatomic, strong, readonly) OCNote *note;

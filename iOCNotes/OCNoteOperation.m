@@ -115,4 +115,9 @@
     NSLog(@"Should be implemented by subclasses");
 }
 
+- (NSNumber *)dateAsNumber {
+    NSTimeInterval now = [NSDate date].timeIntervalSince1970;
+    return [NSNumber numberWithDouble:now];
+}
+
 @end

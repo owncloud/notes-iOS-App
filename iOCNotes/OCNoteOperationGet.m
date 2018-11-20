@@ -24,19 +24,19 @@
                     NSDictionary *noteDict = (NSDictionary*)responseObject;
 //                    NSLog(@"NoteDict: %@", noteDict);
                     if ([[NSNumber numberWithInt:noteToGet.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-                        if ([[noteDict objectForKey:@"modified"] doubleValue] > noteToGet.modified) {
+                        if ([[noteDict objectForKeyNotNull:@"modified" fallback:[self dateAsNumber]] doubleValue] > noteToGet.modified) {
                             //The server has a newer version. We need to get it.
                             [OCAPIClient sharedClient].requestSerializer = [OCAPIClient httpRequestSerializer];
                             [[OCAPIClient sharedClient] GET:path parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                                 if (!self.isCancelled) {
                                     NSDictionary *responseDictionary = (NSDictionary*)responseObject;
                                     if ([[NSNumber numberWithInt:self.note.id] isEqualToNumber:[noteDict objectForKey:@"id"]]) {
-                                        if ([[noteDict objectForKey:@"modified"] doubleValue] > self.note.modified) {
+                                        if ([[noteDict objectForKeyNotNull:@"modified" fallback:[self dateAsNumber]] doubleValue] > self.note.modified) {
                                             if ([self.note existsInDatabase]) {
                                                 [self.note save:^{
                                                     self.note.title = [responseDictionary objectForKeyNotNull:@"title" fallback:@""];
                                                     self.note.content = [responseDictionary objectForKeyNotNull:@"content" fallback:@""];
-                                                    self.note.modified = [[responseDictionary objectForKey:@"modified"] doubleValue];
+                                                    self.note.modified = [[responseDictionary objectForKeyNotNull:@"modified" fallback:[self dateAsNumber]] doubleValue];
                                                 }];
                                             }
                                         }
