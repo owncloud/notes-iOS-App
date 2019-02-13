@@ -37,7 +37,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
+<<<<<<< Updated upstream
 	<string>2170</string>
+=======
+	<string>2201</string>
+>>>>>>> Stashed changes
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

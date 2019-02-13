@@ -18,6 +18,7 @@
 #endif
 #import "UIImage+ImageWithColor.h"
 #import "PDKeychainBindings.h"
+#import "iOCNotes-Swift.h"
 
 @implementation OCAppDelegate
 
@@ -47,6 +48,8 @@
     [[PDKeychainBindings sharedKeychainBindings] setObject:(__bridge id)(kSecAttrAccessibleAfterFirstUnlock) forKey:(__bridge id)(kSecAttrAccessible)];
     [OCAPIClient sharedClient];
     [OCNotesHelper sharedHelper];
+    
+    [[NotesManager shared] sync];
     
 #if !TARGET_OS_SIMULATOR
     [installation sendAllReportsWithCompletion:^(NSArray* reports, BOOL completed, NSError* error) {

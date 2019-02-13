@@ -10,6 +10,9 @@
 		BD0F26F020E9277D003D7D4A /* Marklight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0F26EF20E9277D003D7D4A /* Marklight.framework */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
+		D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DA220BCA290047E090 /* ResponseSerializer.swift */; };
+		D01067DE220BCE3C0047E090 /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
+		D01067E022110BF10047E090 /* CoreDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DF22110BF10047E090 /* CoreDataExtension.swift */; };
 		D017D4201D3B010900B21443 /* markdown.html in Resources */ = {isa = PBXBuildFile; fileRef = D017D41F1D3B010900B21443 /* markdown.html */; };
 		D017D4221D3B027500B21443 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = D017D4211D3B027500B21443 /* github-markdown.css */; };
 		D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D017D4231D3B03BE00B21443 /* WebKit.framework */; };
@@ -28,10 +31,8 @@
 		D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14518DE435900178958 /* FMDatabaseQueue.m */; };
 		D03DA14D18DE435900178958 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14818DE435900178958 /* FMResultSet.m */; };
 		D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */; };
-		D05110BC20C8C9FF00AFFDC7 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */; };
 		D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */; };
-		D05110C420CA22CD00AFFDC7 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05110C220CA22CD00AFFDC7 /* Note+CoreDataClass.swift */; };
-		D05110C720CA245700AFFDC7 /* NotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05110C620CA245700AFFDC7 /* NotesManager.swift */; };
+		D05110C720CA245700AFFDC7 /* NotesDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05110C620CA245700AFFDC7 /* NotesDataManager.swift */; };
 		D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */; };
 		D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */; };
 		D059745E18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
@@ -46,6 +47,12 @@
 		D0782BFC20D74947009AF66B /* NoteOperationGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BFB20D74947009AF66B /* NoteOperationGet.swift */; };
 		D0782BFE20D7496B009AF66B /* NoteOperationDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0782BFD20D7496B009AF66B /* NoteOperationDelete.swift */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
+		D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */; };
+		D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */; };
+		D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E882207B2CF00528E90 /* NotesData.swift */; };
+		D07F5E8B2207B61500528E90 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07F5E8A2207B61500528E90 /* Alamofire.framework */; };
+		D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */; };
+		D07F5E902207B81F00528E90 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07F5E8F2207B81F00528E90 /* KeychainAccess.framework */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D09538491D32A5AD006BB78E /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538461D32A5AD006BB78E /* Markdown.swift */; };
 		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
@@ -123,6 +130,9 @@
 		D00CDFC5194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D00CDFC6194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFC7194E6835007505E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D01067DA220BCA290047E090 /* ResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseSerializer.swift; sourceTree = "<group>"; };
+		D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSessionManager.swift; sourceTree = "<group>"; };
+		D01067DF22110BF10047E090 /* CoreDataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataExtension.swift; path = CoreData/CoreDataExtension.swift; sourceTree = "<group>"; };
 		D017D41F1D3B010900B21443 /* markdown.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = markdown.html; sourceTree = "<group>"; };
 		D017D4211D3B027500B21443 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "github-markdown.css"; path = "github-markdown-css/github-markdown.css"; sourceTree = SOURCE_ROOT; };
 		D017D4231D3B03BE00B21443 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -154,8 +164,7 @@
 		D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSCrash.framework; path = Carthage/Build/iOS/KSCrash.framework; sourceTree = "<group>"; };
 		D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
 		D05110C020CA1FE000AFFDC7 /* Notes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Notes.xcdatamodel; sourceTree = "<group>"; };
-		D05110C220CA22CD00AFFDC7 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D05110C620CA245700AFFDC7 /* NotesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotesManager.swift; path = CoreData/NotesManager.swift; sourceTree = "<group>"; };
+		D05110C620CA245700AFFDC7 /* NotesDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotesDataManager.swift; path = CoreData/NotesDataManager.swift; sourceTree = "<group>"; };
 		D054E5F91AEF148E001C6FF1 /* OCNoteOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperation.h; sourceTree = "<group>"; };
 		D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperation.m; sourceTree = "<group>"; };
 		D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -163,7 +172,11 @@
 		D059745D18CEA28E00867B02 /* OCNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNote.m; sourceTree = "<group>"; };
 		D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHNoteExporter.swift; sourceTree = "<group>"; };
 		D059F7DC1D4AF6A200C252F2 /* export.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = export.html; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
 		D0782BEC20D5FD1A009AF66B /* NoteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteProtocol.swift; path = CoreData/NoteProtocol.swift; sourceTree = "<group>"; };
+=======
+		D0782BEC20D5FD1A009AF66B /* NoteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteProtocol.swift; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D0782BF120D60682009AF66B /* KVNProgressKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVNProgressKit.framework; path = Carthage/Build/iOS/KVNProgressKit.framework; sourceTree = "<group>"; };
 		D0782BF320D6EA4D009AF66B /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
@@ -174,6 +187,12 @@
 		D0782BFD20D7496B009AF66B /* NoteOperationDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationDelete.swift; path = Operations/NoteOperationDelete.swift; sourceTree = "<group>"; };
 		D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpenInAppActivity.h; sourceTree = "<group>"; };
 		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
+		D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataClass.swift"; path = "CoreData/CDNote+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataProperties.swift"; path = "CoreData/CDNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D07F5E882207B2CF00528E90 /* NotesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotesData.swift; path = CoreData/NotesData.swift; sourceTree = "<group>"; };
+		D07F5E8A2207B61500528E90 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRouter.swift; sourceTree = "<group>"; };
+		D07F5E8F2207B81F00528E90 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
 		D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHHeaderTextView.swift; sourceTree = "<group>"; };
 		D08713EE1D18E2DF001EAF82 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		D09538421D32A56A006BB78E /* PBHPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHPreviewController.swift; sourceTree = "<group>"; };
@@ -247,11 +266,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< Updated upstream
 				BD0F26F020E9277D003D7D4A /* Marklight.framework in Frameworks */,
+=======
+				D07F5E902207B81F00528E90 /* KeychainAccess.framework in Frameworks */,
+				D07F5E8B2207B61500528E90 /* Alamofire.framework in Frameworks */,
+>>>>>>> Stashed changes
 				D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */,
 				D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */,
 				D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */,
-				D05110BC20C8C9FF00AFFDC7 /* AFNetworking.framework in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
 				D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */,
 				D0225713189848120038232A /* libz.dylib in Frameworks */,
@@ -276,6 +299,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D01067DC220BCAD60047E090 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D0782BEC20D5FD1A009AF66B /* NoteProtocol.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		D017D41E1D3B010900B21443 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,9 +340,17 @@
 			isa = PBXGroup;
 			children = (
 				D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */,
+<<<<<<< Updated upstream
 				D05110C220CA22CD00AFFDC7 /* Note+CoreDataClass.swift */,
 				D05110C620CA245700AFFDC7 /* NotesManager.swift */,
 				D0782BEC20D5FD1A009AF66B /* NoteProtocol.swift */,
+=======
+				D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */,
+				D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */,
+				D01067DF22110BF10047E090 /* CoreDataExtension.swift */,
+				D05110C620CA245700AFFDC7 /* NotesDataManager.swift */,
+				D07F5E882207B2CF00528E90 /* NotesData.swift */,
+>>>>>>> Stashed changes
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -324,6 +363,16 @@
 			);
 			name = TTOpenInAppActivity;
 			path = TTOpenInAppActivity/TTOpenInAppActivity;
+			sourceTree = "<group>";
+		};
+		D07F5E8C2207B6D700528E90 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */,
+				D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */,
+				D01067DA220BCA290047E090 /* ResponseSerializer.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		D09538441D32A5AD006BB78E /* Markingbird */ = {
@@ -414,7 +463,12 @@
 		D0CFE5351888A7BD00165839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				BD0F26EF20E9277D003D7D4A /* Marklight.framework */,
+=======
+				D07F5E8F2207B81F00528E90 /* KeychainAccess.framework */,
+				D07F5E8A2207B61500528E90 /* Alamofire.framework */,
+>>>>>>> Stashed changes
 				D0782BF320D6EA4D009AF66B /* PureLayout.framework */,
 				D0782BF120D60682009AF66B /* KVNProgressKit.framework */,
 				D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */,
@@ -436,6 +490,8 @@
 		D0CFE53C1888A7BD00165839 /* iOCNotes */ = {
 			isa = PBXGroup;
 			children = (
+				D01067DC220BCAD60047E090 /* Models */,
+				D07F5E8C2207B6D700528E90 /* Networking */,
 				D05110BE20CA1F9D00AFFDC7 /* CoreData */,
 				D017D41E1D3B010900B21443 /* Resources */,
 				D0A648571B0F582D005C0981 /* OCNoteOperation */,
@@ -678,10 +734,11 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KSCrash.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KVNProgressKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PureLayout.framework",
+<<<<<<< Updated upstream
 				"$(SRCROOT)/Carthage/Build/iOS/Marklight.framework",
 			);
 			outputPaths = (
@@ -689,6 +746,17 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KVNProgressKit.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PureLayout.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Marklight.framework",
+=======
+				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KSCrash.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KVNProgressKit.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PureLayout.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KeychainAccess.framework",
+>>>>>>> Stashed changes
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AFNetworking.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -704,20 +772,33 @@
 			files = (
 				D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */,
 				D054E5FB1AEF148E001C6FF1 /* OCNoteOperation.m in Sources */,
+<<<<<<< Updated upstream
 				D05110C420CA22CD00AFFDC7 /* Note+CoreDataClass.swift in Sources */,
 				D0782BF620D7422E009AF66B /* NoteOperation.swift in Sources */,
 				D0782BFC20D74947009AF66B /* NoteOperationGet.swift in Sources */,
+=======
+				D01067DE220BCE3C0047E090 /* NoteSessionManager.swift in Sources */,
+				D0E5ECC41D0CBFF100CA76EA /* Marklight.swift in Sources */,
+				D0CCF2A61F73556300535D54 /* UniversalTypes.swift in Sources */,
+>>>>>>> Stashed changes
 				D0782BED20D5FD1A009AF66B /* NoteProtocol.swift in Sources */,
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
+				D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */,
 				D0F2634E1D7B54F700F78B6D /* SWMessage.swift in Sources */,
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
+<<<<<<< Updated upstream
+=======
+				D0CCF2A81F73556300535D54 /* MarklightTextProcessor.swift in Sources */,
+				D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */,
+				D0E5ECC51D0CBFF100CA76EA /* MarklightTextStorage.swift in Sources */,
+>>>>>>> Stashed changes
 				D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
 				D03DA14D18DE435900178958 /* FMResultSet.m in Sources */,
 				D0782BFE20D7496B009AF66B /* NoteOperationDelete.swift in Sources */,
 				D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */,
 				D0CFE5951888AE2D00165839 /* OCNotesTableViewController.m in Sources */,
-				D05110C720CA245700AFFDC7 /* NotesManager.swift in Sources */,
+				D05110C720CA245700AFFDC7 /* NotesDataManager.swift in Sources */,
 				D0A648561B0F5584005C0981 /* OCNoteOperationAdd.m in Sources */,
 				D0F263501D7B54F700F78B6D /* SWTypes.swift in Sources */,
 				D0F2635A1D7DF23300F78B6D /* FCModelNotificationCenter.m in Sources */,
@@ -726,6 +807,7 @@
 				D0362BAF190AC83800490D95 /* UIImage+ImageWithColor.m in Sources */,
 				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
+				D01067E022110BF10047E090 /* CoreDataExtension.swift in Sources */,
 				D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */,
 				D0782BF820D7487D009AF66B /* NoteOperationUpdate.swift in Sources */,
 				D09538491D32A5AD006BB78E /* Markdown.swift in Sources */,
@@ -738,12 +820,18 @@
 				D02256F71895E2F10038232A /* OCLoginController.m in Sources */,
 				D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */,
 				D0CFE5431888A7BD00165839 /* main.m in Sources */,
+				D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */,
 				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
 				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
+				D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */,
 				D02256F61895E2F10038232A /* OCSettingsController.m in Sources */,
 				D0CB434E18D274C200C54D7C /* FCModel.m in Sources */,
 				D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */,
 				D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */,
+<<<<<<< Updated upstream
+=======
+				D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */,
+>>>>>>> Stashed changes
 				D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */,
 				D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */,
 				D02257061896E6650038232A /* OCNotesHelper.m in Sources */,

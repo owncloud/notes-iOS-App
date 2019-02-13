@@ -1,5 +1,7 @@
 github "AFNetworking/AFNetworking"
+github "Alamofire/Alamofire"
 github "kstenerud/KSCrash"
 github "rroy1590/KVNProgress"
 github "PureLayout/PureLayout"
 github "phedlund/Marklight" "master"
+github "kishikawakatsumi/KeychainAccess"

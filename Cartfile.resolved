@@ -1,5 +1,7 @@
 github "AFNetworking/AFNetworking" "3.2.1"
-github "PureLayout/PureLayout" "v3.0.2"
+github "Alamofire/Alamofire" "4.8.1"
+github "PureLayout/PureLayout" "v3.1.4"
+github "kishikawakatsumi/KeychainAccess" "v3.1.2"
 github "kstenerud/KSCrash" "1.15.18"
 github "phedlund/Marklight" "8a49cfb536a8f32fbe909ea7b66e18e4e7f12e76"
 github "rroy1590/KVNProgress" "2.2.3"
