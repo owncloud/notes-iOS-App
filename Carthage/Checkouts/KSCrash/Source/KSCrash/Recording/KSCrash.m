@@ -100,11 +100,11 @@ static NSString* getBasePath()
 @synthesize deleteBehaviorAfterSendAll = _deleteBehaviorAfterSendAll;
 @synthesize monitoring = _monitoring;
 @synthesize deadlockWatchdogInterval = _deadlockWatchdogInterval;
+@synthesize searchQueueNames = _searchQueueNames;
 @synthesize onCrash = _onCrash;
 @synthesize bundleName = _bundleName;
 @synthesize basePath = _basePath;
 @synthesize introspectMemory = _introspectMemory;
-@synthesize catchZombies = _catchZombies;
 @synthesize doNotIntrospectClasses = _doNotIntrospectClasses;
 @synthesize demangleLanguages = _demangleLanguages;
 @synthesize addConsoleLogToReport = _addConsoleLogToReport;
@@ -148,6 +148,7 @@ static NSString* getBasePath()
         self.introspectMemory = YES;
         self.catchZombies = NO;
         self.maxReportCount = 5;
+        self.searchQueueNames = NO;
         self.monitoring = KSCrashMonitorTypeProductionSafeMinimal;
     }
     return self;
@@ -197,6 +198,12 @@ static NSString* getBasePath()
     kscrash_setDeadlockWatchdogInterval(deadlockWatchdogInterval);
 }
 
+- (void) setSearchQueueNames:(BOOL) searchQueueNames
+{
+    _searchQueueNames = searchQueueNames;
+    kscrash_setSearchQueueNames(searchQueueNames);
+}
+
 - (void) setOnCrash:(KSReportWriteCallback) onCrash
 {
     _onCrash = onCrash;
@@ -209,10 +216,21 @@ static NSString* getBasePath()
     kscrash_setIntrospectMemory(introspectMemory);
 }
 
+- (BOOL) catchZombies
+{
+    return (self.monitoring & KSCrashMonitorTypeZombie) != 0;
+}
+
 - (void) setCatchZombies:(BOOL)catchZombies
 {
-    _catchZombies = catchZombies;
-    self.monitoring |= KSCrashMonitorTypeZombie;
+    if(catchZombies)
+    {
+        self.monitoring |= KSCrashMonitorTypeZombie;
+    }
+    else
+    {
+        self.monitoring &= (KSCrashMonitorType)~KSCrashMonitorTypeZombie;
+    }
 }
 
 - (void) setDoNotIntrospectClasses:(NSArray *)doNotIntrospectClasses
@@ -369,7 +387,7 @@ static NSString* getBasePath()
 
 - (void) deleteReportWithID:(NSNumber*) reportID
 {
-    kscrash_deleteReportWithID([reportID longValue]);
+    kscrash_deleteReportWithID([reportID longLongValue]);
 }
 
 - (void) reportUserException:(NSString*) name
@@ -483,14 +501,14 @@ SYNTHESIZE_CRASH_STATE_PROPERTY(BOOL, crashedLastLaunch)
     NSMutableArray* reportIDs = [NSMutableArray arrayWithCapacity:(NSUInteger)reportCount];
     for(int i = 0; i < reportCount; i++)
     {
-        [reportIDs addObject:@(reportIDsC[i])];
+        [reportIDs addObject:[NSNumber numberWithLongLong:reportIDsC[i]]];
     }
     return reportIDs;
 }
 
 - (NSDictionary*) reportWithID:(NSNumber*) reportID
 {
-    return [self reportWithIntID:[reportID longValue]];
+    return [self reportWithIntID:[reportID longLongValue]];
 }
 
 - (NSDictionary*) reportWithIntID:(int64_t) reportID
@@ -601,7 +619,7 @@ SYNTHESIZE_CRASH_STATE_PROPERTY(BOOL, crashedLastLaunch)
 
 
 //! Project version number for KSCrashFramework.
-const double KSCrashFrameworkVersionNumber = 1.1518;
+const double KSCrashFrameworkVersionNumber = 1.1519;
 
 //! Project version string for KSCrashFramework.
-const unsigned char KSCrashFrameworkVersionString[] = "1.15.18";
+const unsigned char KSCrashFrameworkVersionString[] = "1.15.19";

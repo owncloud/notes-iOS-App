@@ -1,0 +1,343 @@
+BCSymbolMap Version: 2.0
+-[UIImage(KVNImageEffects) applyLightEffect]
+-[UIImage(KVNImageEffects) applyExtraLightEffect]
+-[UIImage(KVNImageEffects) applyDarkEffect]
+-[UIImage(KVNImageEffects) applyTintEffectWithColor:]
+-[UIImage(KVNImageEffects) applyBlurWithRadius:tintColor:saturationDeltaFactor:maskImage:]
+/Users/peter/Library/Caches/org.carthage.CarthageKit/DerivedData/10.2_10E125/KVNProgress/2.2.3/Build/Intermediates.noindex/ArchiveIntermediates/KVNProgressKit/IntermediateBuildFilesPath/KVNProgress.build/Release-iphoneos/KVNProgressKit.build/Objects-normal/armv7/UIImage+KVNImageEffects.gcno
+Apple LLVM version 10.0.1 (clang-1001.0.46.3)
+/Users/peter/Projects/iOCNotes/Carthage/Checkouts/KVNProgress/KVNProgress/Categories/UIImage+KVNImageEffects.m
+/Users/peter/Projects/iOCNotes/Carthage/Checkouts/KVNProgress
++[UIImage(KVNEmpty) emptyImage]
+/Users/peter/Library/Caches/org.carthage.CarthageKit/DerivedData/10.2_10E125/KVNProgress/2.2.3/Build/Intermediates.noindex/ArchiveIntermediates/KVNProgressKit/IntermediateBuildFilesPath/KVNProgress.build/Release-iphoneos/KVNProgressKit.build/Objects-normal/armv7/UIImage+KVNEmpty.gcno
+/Users/peter/Projects/iOCNotes/Carthage/Checkouts/KVNProgress/KVNProgress/Categories/UIImage+KVNEmpty.m
+-[UIColor(KVNContrast) statusBarStyleConstrastStyle]
+/Users/peter/Library/Caches/org.carthage.CarthageKit/DerivedData/10.2_10E125/KVNProgress/2.2.3/Build/Intermediates.noindex/ArchiveIntermediates/KVNProgressKit/IntermediateBuildFilesPath/KVNProgress.build/Release-iphoneos/KVNProgressKit.build/Objects-normal/armv7/UIColor+KVNContrast.gcno
+/Users/peter/Projects/iOCNotes/Carthage/Checkouts/KVNProgress/KVNProgress/Categories/UIColor+KVNContrast.m
++[KVNProgress sharedView]
+___25+[KVNProgress sharedView]_block_invoke
+___copy_helper_block_e4_
+___destroy_helper_block_e4_
+-[KVNProgress initWithCoder:]
+-[KVNProgress dealloc]
+-[KVNProgress registerForNotifications]
+-[KVNProgress applicationDidBecomeActive]
+-[KVNProgress orientationDidChange:]
+___36-[KVNProgress orientationDidChange:]_block_invoke
+___copy_helper_block_e4_20w
+___destroy_helper_block_e4_20w
++[KVNProgress show]
++[KVNProgress showWithStatus:]
++[KVNProgress showWithStatus:onView:]
++[KVNProgress showProgress:]
++[KVNProgress showProgress:status:]
++[KVNProgress showProgress:status:onView:]
++[KVNProgress showSuccess]
++[KVNProgress showSuccessWithCompletion:]
++[KVNProgress showSuccessWithStatus:]
++[KVNProgress showSuccessWithStatus:completion:]
++[KVNProgress showSuccessWithStatus:onView:]
++[KVNProgress showSuccessWithStatus:onView:completion:]
++[KVNProgress showError]
++[KVNProgress showErrorWithCompletion:]
++[KVNProgress showErrorWithStatus:]
++[KVNProgress showErrorWithStatus:completion:]
++[KVNProgress showErrorWithStatus:onView:]
++[KVNProgress showErrorWithStatus:onView:completion:]
++[KVNProgress showHUDWithProgress:style:status:superview:completion:]
+-[KVNProgress showProgress:status:style:backgroundType:fullScreen:view:completion:]
+___83-[KVNProgress showProgress:status:style:backgroundType:fullScreen:view:completion:]_block_invoke
+___copy_helper_block_e4_20s24s28b32w
+___destroy_helper_block_e4_20s24s28s32w
+___83-[KVNProgress showProgress:status:style:backgroundType:fullScreen:view:completion:]_block_invoke.115
+___83-[KVNProgress showProgress:status:style:backgroundType:fullScreen:view:completion:]_block_invoke_2
+___83-[KVNProgress showProgress:status:style:backgroundType:fullScreen:view:completion:]_block_invoke_3
+___copy_helper_block_e4_20b24w
+___destroy_helper_block_e4_20s24w
++[KVNProgress dismiss]
++[KVNProgress dismissWithCompletion:]
+___37+[KVNProgress dismissWithCompletion:]_block_invoke
+___copy_helper_block_e4_24b
+___destroy_helper_block_e4_24s
++[KVNProgress dismissAnimatedWithCompletion:]
+___45+[KVNProgress dismissAnimatedWithCompletion:]_block_invoke
+___copy_helper_block_e4_24s
+___45+[KVNProgress dismissAnimatedWithCompletion:]_block_invoke.145
+___copy_helper_block_e4_20s28b
+___destroy_helper_block_e4_20s28s
++[KVNProgress endDismissWithCompletion:]
+___40+[KVNProgress endDismissWithCompletion:]_block_invoke
+___copy_helper_block_e4_20b
+___destroy_helper_block_e4_20s
+-[KVNProgress setupUI:]
+-[KVNProgress setupStatusBar]
+-[KVNProgress setupGestures]
+-[KVNProgress setupConstraints]
+-[KVNProgress setupCircleProgressView]
+-[KVNProgress setupInfiniteCircle]
+-[KVNProgress setupProgressCircle]
+-[KVNProgress setupSuccessUI]
+-[KVNProgress setupErrorUI]
+-[KVNProgress setupStopUI]
+-[KVNProgress setupFullRoundCircleWithColor:]
+-[KVNProgress setupStatus:]
+-[KVNProgress setupBackground]
+___30-[KVNProgress setupBackground]_block_invoke
+-[KVNProgress setupMotionEffect]
+-[KVNProgress addToCurrentWindow]
+-[KVNProgress addToView:]
+-[KVNProgress updateUIForOrientation]
+-[KVNProgress updateBackground]
+-[KVNProgress updateBackgroundConstraints]
++[KVNProgress updateStatus:]
+-[KVNProgress updateStatus:]
+___28-[KVNProgress updateStatus:]_block_invoke
+___copy_helper_block_e4_20s24s
+___destroy_helper_block_e4_20s24s
+-[KVNProgress updateStatusConstraints]
++[KVNProgress updateProgress:animated:]
+-[KVNProgress updateProgress:animated:]
+-[KVNProgress animateUI]
+-[KVNProgress animateAppearance]
+___32-[KVNProgress animateAppearance]_block_invoke
+___32-[KVNProgress animateAppearance]_block_invoke_2
+___32-[KVNProgress animateAppearance]_block_invoke_3
+___copy_helper_block_e4_20s24w
+-[KVNProgress animateCircleWithInfiniteLoop]
+-[KVNProgress cancelCircleAnimation]
+-[KVNProgress animateSuccess]
+-[KVNProgress animateError]
+-[KVNProgress animateFullCircleWithColor:]
+-[KVNProgress removeAllSubLayersOfLayer:]
+-[KVNProgress blurredScreenShot]
+-[KVNProgress blurredScreenShotWithRect:]
+-[KVNProgress applyTintEffectWithColor:image:]
+-[KVNProgress cropImage:rect:]
+-[KVNProgress motionEffectWithType:keyPath:]
+-[KVNProgress rotationForStatusBarOrientation]
+-[KVNProgress correctedBounds]
+-[KVNProgress correctedBoundsForBounds:]
++[KVNProgress configuration]
++[KVNProgress setConfiguration:]
+-[KVNProgress isIndeterminate]
++[KVNProgress isVisible]
+-[KVNProgress performTapBlock]
+-[KVNProgress hitTest:withEvent:]
+-[KVNProgress progress]
+-[KVNProgress setProgress:]
+-[KVNProgress backgroundType]
+-[KVNProgress setBackgroundType:]
+-[KVNProgress status]
+-[KVNProgress setStatus:]
+-[KVNProgress style]
+-[KVNProgress setStyle:]
+-[KVNProgress configuration]
+-[KVNProgress setConfiguration:]
+-[KVNProgress showActionTrigerredDate]
+-[KVNProgress setShowActionTrigerredDate:]
+-[KVNProgress isFullScreen]
+-[KVNProgress setFullScreen:]
+-[KVNProgress isWaitingToChangeHUD]
+-[KVNProgress setWaitingToChangeHUD:]
+-[KVNProgress state]
+-[KVNProgress setState:]
+-[KVNProgress contentView]
+-[KVNProgress setContentView:]
+-[KVNProgress circleProgressView]
+-[KVNProgress setCircleProgressView:]
+-[KVNProgress statusLabel]
+-[KVNProgress setStatusLabel:]
+-[KVNProgress backgroundImageView]
+-[KVNProgress setBackgroundImageView:]
+-[KVNProgress checkmarkLayer]
+-[KVNProgress setCheckmarkLayer:]
+-[KVNProgress crossLayer]
+-[KVNProgress setCrossLayer:]
+-[KVNProgress circleProgressLineLayer]
+-[KVNProgress setCircleProgressLineLayer:]
+-[KVNProgress circleBackgroundLineLayer]
+-[KVNProgress setCircleBackgroundLineLayer:]
+-[KVNProgress stopLayer]
+-[KVNProgress setStopLayer:]
+-[KVNProgress rootControllerStatusBarStyle]
+-[KVNProgress setRootControllerStatusBarStyle:]
+-[KVNProgress circleProgressViewWidthConstraint]
+-[KVNProgress setCircleProgressViewWidthConstraint:]
+-[KVNProgress circleProgressViewHeightConstraint]
+-[KVNProgress setCircleProgressViewHeightConstraint:]
+-[KVNProgress circleProgressViewToStatusLabelVerticalSpaceConstraint]
+-[KVNProgress setCircleProgressViewToStatusLabelVerticalSpaceConstraint:]
+-[KVNProgress statusLabelHeightConstraint]
+-[KVNProgress setStatusLabelHeightConstraint:]
+-[KVNProgress circleProgressViewTopToSuperViewConstraint]
+-[KVNProgress setCircleProgressViewTopToSuperViewConstraint:]
+-[KVNProgress statusLabelBottomToSuperViewConstraint]
+-[KVNProgress setStatusLabelBottomToSuperViewConstraint:]
+-[KVNProgress contentViewWidthConstraint]
+-[KVNProgress setContentViewWidthConstraint:]
+-[KVNProgress constraintsToSuperview]
+-[KVNProgress setConstraintsToSuperview:]
+-[KVNProgress .cxx_destruct]
+_sharedView.sharedView
+_sharedView.onceToken
+___block_descriptor_24_e4__e5_v4@?0l
+_configuration
+_OBJC_IVAR_$_KVNProgress._configuration
+___block_descriptor_24_e4_20w_e5_v4@?0l
+___block_descriptor_49_e4_20s24s28bs32w_e5_v4@?0l
+___block_descriptor_28_e4_20bs24w_e5_v4@?0l
+___block_descriptor_28_e4_24bs_e5_v4@?0l
+___block_descriptor_28_e4_24s_e5_v4@?0l
+___block_descriptor_32_e4_20s28bs_e7_v8@?0c4l
+___block_descriptor_24_e4_20bs_e5_v4@?0l
+_setupBackground.onceToken
+___block_descriptor_28_e4_20s24s_e5_v4@?0l
+___block_descriptor_20_e5_v4@?0l
+___block_literal_global
+___block_descriptor_28_e4_20s24w_e7_v8@?0c4l
+_OBJC_IVAR_$_KVNProgress._progress
+_OBJC_IVAR_$_KVNProgress._backgroundType
+_OBJC_IVAR_$_KVNProgress._status
+_OBJC_IVAR_$_KVNProgress._style
+_OBJC_IVAR_$_KVNProgress._showActionTrigerredDate
+_OBJC_IVAR_$_KVNProgress._fullScreen
+_OBJC_IVAR_$_KVNProgress._waitingToChangeHUD
+_OBJC_IVAR_$_KVNProgress._state
+_OBJC_IVAR_$_KVNProgress._contentView
+_OBJC_IVAR_$_KVNProgress._circleProgressView
+_OBJC_IVAR_$_KVNProgress._statusLabel
+_OBJC_IVAR_$_KVNProgress._backgroundImageView
+_OBJC_IVAR_$_KVNProgress._checkmarkLayer
+_OBJC_IVAR_$_KVNProgress._crossLayer
+_OBJC_IVAR_$_KVNProgress._circleProgressLineLayer
+_OBJC_IVAR_$_KVNProgress._circleBackgroundLineLayer
+_OBJC_IVAR_$_KVNProgress._stopLayer
+_OBJC_IVAR_$_KVNProgress._rootControllerStatusBarStyle
+_OBJC_IVAR_$_KVNProgress._circleProgressViewWidthConstraint
+_OBJC_IVAR_$_KVNProgress._circleProgressViewHeightConstraint
+_OBJC_IVAR_$_KVNProgress._circleProgressViewToStatusLabelVerticalSpaceConstraint
+_OBJC_IVAR_$_KVNProgress._statusLabelHeightConstraint
+_OBJC_IVAR_$_KVNProgress._circleProgressViewTopToSuperViewConstraint
+_OBJC_IVAR_$_KVNProgress._statusLabelBottomToSuperViewConstraint
+_OBJC_IVAR_$_KVNProgress._contentViewWidthConstraint
+_OBJC_IVAR_$_KVNProgress._constraintsToSuperview
+/Users/peter/Library/Caches/org.carthage.CarthageKit/DerivedData/10.2_10E125/KVNProgress/2.2.3/Build/Intermediates.noindex/ArchiveIntermediates/KVNProgressKit/IntermediateBuildFilesPath/KVNProgress.build/Release-iphoneos/KVNProgressKit.build/Objects-normal/armv7/KVNProgress.gcno
+/Users/peter/Projects/iOCNotes/Carthage/Checkouts/KVNProgress/KVNProgress/Classes/KVNProgress.m
+UIInterfaceOrientationIsPortrait
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIApplication.h
+UIInterfaceOrientationIsLandscape
+__copy_helper_block_e4_20s24w
+__32-[KVNProgress animateAppearance]_block_invoke_3
+__32-[KVNProgress animateAppearance]_block_invoke_2
+__32-[KVNProgress animateAppearance]_block_invoke
+CGSizeMake
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CGGeometry.h
+__destroy_helper_block_e4_20s24s
+__copy_helper_block_e4_20s24s
+__28-[KVNProgress updateStatus:]_block_invoke
+__30-[KVNProgress setupBackground]_block_invoke
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/usr/include/dispatch/once.h
+CGPointMake
+UI_USER_INTERFACE_IDIOM
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIDevice.h
+__destroy_helper_block_e4_20s
+__copy_helper_block_e4_20b
+__40+[KVNProgress endDismissWithCompletion:]_block_invoke
+__destroy_helper_block_e4_20s28s
+__copy_helper_block_e4_20s28b
+__45+[KVNProgress dismissAnimatedWithCompletion:]_block_invoke.145
+__copy_helper_block_e4_24s
+__45+[KVNProgress dismissAnimatedWithCompletion:]_block_invoke
+__tg_fabs
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/usr/include/tgmath.h
+__destroy_helper_block_e4_24s
+__copy_helper_block_e4_24b
+__37+[KVNProgress dismissWithCompletion:]_block_invoke
+__destroy_helper_block_e4_20s24w
+__copy_helper_block_e4_20b24w
+__83-[KVNProgress showProgress:status:style:backgroundType:fullScreen:view:completion:]_block_invoke_3
+__83-[KVNProgress showProgress:status:style:backgroundType:fullScreen:view:completion:]_block_invoke_2
+__83-[KVNProgress showProgress:status:style:backgroundType:fullScreen:view:completion:]_block_invoke.115
+__destroy_helper_block_e4_20s24s28s32w
+__copy_helper_block_e4_20s24s28b32w
+__83-[KVNProgress showProgress:status:style:backgroundType:fullScreen:view:completion:]_block_invoke
+__destroy_helper_block_e4_20w
+__copy_helper_block_e4_20w
+__36-[KVNProgress orientationDidChange:]_block_invoke
+__destroy_helper_block_e4_
+__copy_helper_block_e4_
+__25+[KVNProgress sharedView]_block_invoke
+-[KVNProgressConfiguration init]
+-[KVNProgressConfiguration copyWithZone:]
+-[KVNProgressConfiguration setStopRelativeHeight:]
++[KVNProgressConfiguration defaultConfiguration]
+-[KVNProgressConfiguration backgroundFillColor]
+-[KVNProgressConfiguration setBackgroundFillColor:]
+-[KVNProgressConfiguration backgroundTintColor]
+-[KVNProgressConfiguration setBackgroundTintColor:]
+-[KVNProgressConfiguration backgroundType]
+-[KVNProgressConfiguration setBackgroundType:]
+-[KVNProgressConfiguration isFullScreen]
+-[KVNProgressConfiguration setFullScreen:]
+-[KVNProgressConfiguration doesShowStop]
+-[KVNProgressConfiguration setShowStop:]
+-[KVNProgressConfiguration circleStrokeForegroundColor]
+-[KVNProgressConfiguration setCircleStrokeForegroundColor:]
+-[KVNProgressConfiguration circleStrokeBackgroundColor]
+-[KVNProgressConfiguration setCircleStrokeBackgroundColor:]
+-[KVNProgressConfiguration circleFillBackgroundColor]
+-[KVNProgressConfiguration setCircleFillBackgroundColor:]
+-[KVNProgressConfiguration circleSize]
+-[KVNProgressConfiguration setCircleSize:]
+-[KVNProgressConfiguration stopRelativeHeight]
+-[KVNProgressConfiguration lineWidth]
+-[KVNProgressConfiguration setLineWidth:]
+-[KVNProgressConfiguration statusColor]
+-[KVNProgressConfiguration setStatusColor:]
+-[KVNProgressConfiguration statusFont]
+-[KVNProgressConfiguration setStatusFont:]
+-[KVNProgressConfiguration successColor]
+-[KVNProgressConfiguration setSuccessColor:]
+-[KVNProgressConfiguration errorColor]
+-[KVNProgressConfiguration setErrorColor:]
+-[KVNProgressConfiguration stopColor]
+-[KVNProgressConfiguration setStopColor:]
+-[KVNProgressConfiguration minimumDisplayTime]
+-[KVNProgressConfiguration setMinimumDisplayTime:]
+-[KVNProgressConfiguration minimumSuccessDisplayTime]
+-[KVNProgressConfiguration setMinimumSuccessDisplayTime:]
+-[KVNProgressConfiguration minimumErrorDisplayTime]
+-[KVNProgressConfiguration setMinimumErrorDisplayTime:]
+-[KVNProgressConfiguration tapBlock]
+-[KVNProgressConfiguration setTapBlock:]
+-[KVNProgressConfiguration doesAllowUserInteraction]
+-[KVNProgressConfiguration setAllowUserInteraction:]
+-[KVNProgressConfiguration .cxx_destruct]
+_OBJC_IVAR_$_KVNProgressConfiguration._backgroundFillColor
+_OBJC_IVAR_$_KVNProgressConfiguration._backgroundTintColor
+_OBJC_IVAR_$_KVNProgressConfiguration._backgroundType
+_OBJC_IVAR_$_KVNProgressConfiguration._fullScreen
+_OBJC_IVAR_$_KVNProgressConfiguration._showStop
+_OBJC_IVAR_$_KVNProgressConfiguration._circleStrokeForegroundColor
+_OBJC_IVAR_$_KVNProgressConfiguration._circleStrokeBackgroundColor
+_OBJC_IVAR_$_KVNProgressConfiguration._circleFillBackgroundColor
+_OBJC_IVAR_$_KVNProgressConfiguration._circleSize
+_OBJC_IVAR_$_KVNProgressConfiguration._stopRelativeHeight
+_OBJC_IVAR_$_KVNProgressConfiguration._lineWidth
+_OBJC_IVAR_$_KVNProgressConfiguration._statusColor
+_OBJC_IVAR_$_KVNProgressConfiguration._statusFont
+_OBJC_IVAR_$_KVNProgressConfiguration._successColor
+_OBJC_IVAR_$_KVNProgressConfiguration._errorColor
+_OBJC_IVAR_$_KVNProgressConfiguration._stopColor
+_OBJC_IVAR_$_KVNProgressConfiguration._minimumDisplayTime
+_OBJC_IVAR_$_KVNProgressConfiguration._minimumSuccessDisplayTime
+_OBJC_IVAR_$_KVNProgressConfiguration._minimumErrorDisplayTime
+_OBJC_IVAR_$_KVNProgressConfiguration._tapBlock
+_OBJC_IVAR_$_KVNProgressConfiguration._allowUserInteraction
+l_OBJC_PROTOCOL_$_NSCopying
+l_OBJC_LABEL_PROTOCOL_$_NSCopying
+/Users/peter/Library/Caches/org.carthage.CarthageKit/DerivedData/10.2_10E125/KVNProgress/2.2.3/Build/Intermediates.noindex/ArchiveIntermediates/KVNProgressKit/IntermediateBuildFilesPath/KVNProgress.build/Release-iphoneos/KVNProgressKit.build/Objects-normal/armv7/KVNProgressConfiguration.gcno
+/Users/peter/Projects/iOCNotes/Carthage/Checkouts/KVNProgress/KVNProgress/Classes/KVNProgressConfiguration.m
+/Users/peter/Projects/iOCNotes/Carthage/Checkouts/KVNProgress/KVNProgress/Classes/KVNProgressConfiguration.h
+/Users/peter/Library/Caches/org.carthage.CarthageKit/DerivedData/10.2_10E125/KVNProgress/2.2.3/Build/Intermediates.noindex/ArchiveIntermediates/KVNProgressKit/IntermediateBuildFilesPath/KVNProgress.build/Release-iphoneos/KVNProgressKit.build/Objects-normal/armv7/KVNProgressKit_vers.gcno
+/Users/peter/Library/Caches/org.carthage.CarthageKit/DerivedData/10.2_10E125/KVNProgress/2.2.3/Build/Intermediates.noindex/ArchiveIntermediates/KVNProgressKit/IntermediateBuildFilesPath/KVNProgress.build/Release-iphoneos/KVNProgressKit.build/DerivedSources/KVNProgressKit_vers.c

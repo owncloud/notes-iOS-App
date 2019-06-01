@@ -52,9 +52,12 @@ static const char** g_allThreadNames;
 static const char** g_allQueueNames;
 static int g_allThreadsCount;
 static _Atomic(int) g_semaphoreCount;
+static bool g_searchQueueNames = false;
+static bool g_hasThreadStarted = false;
 
 static void updateThreadList()
 {
+    const task_t thisTask = mach_task_self();
     int oldThreadsCount = g_allThreadsCount;
     KSThread* allMachThreads = NULL;
     KSThread* allPThreads = NULL;
@@ -63,7 +66,7 @@ static void updateThreadList()
 
     mach_msg_type_number_t allThreadsCount;
     thread_act_array_t threads;
-    task_threads(mach_task_self(), &threads, &allThreadsCount);
+    task_threads(thisTask, &threads, &allThreadsCount);
     
     allMachThreads = calloc(allThreadsCount, sizeof(*allMachThreads));
     allPThreads = calloc(allThreadsCount, sizeof(*allPThreads));
@@ -81,7 +84,7 @@ static void updateThreadList()
         {
             allThreadNames[i] = strdup(buffer);
         }
-        if(ksthread_getQueueName((KSThread)thread, buffer, sizeof(buffer)) && buffer[0] != 0)
+        if(g_searchQueueNames && ksthread_getQueueName((KSThread)thread, buffer, sizeof(buffer)) && buffer[0] != 0)
         {
             allQueueNames[i] = strdup(buffer);
         }
@@ -126,6 +129,12 @@ static void updateThreadList()
         }
         free(allQueueNames);
     }
+    
+    for(mach_msg_type_number_t i = 0; i < allThreadsCount; i++)
+    {
+        mach_port_deallocate(thisTask, threads[i]);
+    }
+    vm_deallocate(thisTask, (vm_address_t)threads, sizeof(thread_t) * allThreadsCount);
 }
 
 static void* monitorCachedData(__unused void* const userData)
@@ -152,6 +161,10 @@ static void* monitorCachedData(__unused void* const userData)
 
 void ksccd_init(int pollingIntervalInSeconds)
 {
+    if (g_hasThreadStarted == true) {
+        return ;
+    }
+    g_hasThreadStarted = true;
     g_pollingIntervalInSeconds = pollingIntervalInSeconds;
     pthread_attr_t attr;
     pthread_attr_init(&attr);
@@ -183,6 +196,11 @@ void ksccd_unfreeze()
         // Handle extra calls to unfreeze somewhat gracefully.
         g_semaphoreCount++;
     }
+}
+
+void ksccd_setSearchQueueNames(bool searchQueueNames)
+{
+    g_searchQueueNames = searchQueueNames;
 }
 
 KSThread* ksccd_getAllThreads(int* threadCount)

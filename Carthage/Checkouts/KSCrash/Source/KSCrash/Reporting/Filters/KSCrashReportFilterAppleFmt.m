@@ -35,6 +35,7 @@
 #import "KSJSONCodecObjC.h"
 #import "KSCrashMonitor_System.h"
 
+#define CPU_SUBTYPE_ARM64E              ((cpu_subtype_t) 2)
 
 #if defined(__LP64__)
     #define FMT_LONG_DIGITS "16"
@@ -257,7 +258,16 @@ static NSDictionary* g_registerOrders;
         }
 #ifdef CPU_TYPE_ARM64
         case CPU_TYPE_ARM64:
+        {
+            switch (minorCode)
+            {
+#ifdef CPU_SUBTYPE_ARM64E
+                case CPU_SUBTYPE_ARM64E:
+                    return @"arm64e";
+#endif
+            }
             return @"arm64";
+        }
 #endif
         case CPU_TYPE_X86:
             return @"i386";
@@ -439,8 +449,8 @@ static NSDictionary* g_registerOrders;
     [str appendFormat:@"Path:            %@\n", executablePath];
     [str appendFormat:@"Identifier:      %@\n", [system objectForKey:@KSCrashField_BundleID]];
     [str appendFormat:@"Version:         %@ (%@)\n",
-     [system objectForKey:@KSCrashField_BundleShortVersion],
-     [system objectForKey:@KSCrashField_BundleVersion]];
+     [system objectForKey:@KSCrashField_BundleVersion],
+     [system objectForKey:@KSCrashField_BundleShortVersion]];
     [str appendFormat:@"Code Type:       %@\n", cpuArchType];
     [str appendFormat:@"Parent Process:  ? [%@]\n",
      [system objectForKey:@KSCrashField_ParentProcessID]];
@@ -564,7 +574,7 @@ static NSDictionary* g_registerOrders;
     {
         [str appendFormat:@"Object referenced by NSException:\n%@\n", [self JSONForObject:referencedObject]];
     }
-    
+
     NSDictionary* crashedThread = [self crashedThread:report];
     if(crashedThread != nil)
     {
@@ -847,25 +857,20 @@ static NSDictionary* g_registerOrders;
 
 - (NSString*) recrashReportString:(NSDictionary*) report
 {
-    NSDictionary* recrashReport = [self recrashReport:report];
-    if(recrashReport == nil)
-    {
-        return @"";
-    }
-
     NSMutableString* str = [NSMutableString string];
-
-    NSDictionary* system = [self systemReport:report];
+    
+    NSDictionary* recrashReport = [self recrashReport:report];
+    NSDictionary* system = [self systemReport:recrashReport];
     NSString* executablePath = [system objectForKey:@KSCrashField_ExecutablePath];
     NSString* executableName = [executablePath lastPathComponent];
-    NSDictionary* crash = [self crashReport:recrashReport];
+    NSDictionary* crash = [self crashReport:report];
     NSDictionary* thread = [crash objectForKey:@KSCrashField_CrashedThread];
 
     [str appendString:@"\nHandler crashed while reporting:\n"];
-    [str appendString:[self errorInfoStringForReport:recrashReport]];
+    [str appendString:[self errorInfoStringForReport:report]];
     [str appendString:[self threadStringForThread:thread mainExecutableName:executableName]];
-    [str appendString:[self crashedThreadCPUStateStringForReport:recrashReport
-                                                         cpuArch:[self cpuArchForReport:report]]];
+    [str appendString:[self crashedThreadCPUStateStringForReport:report
+                                                         cpuArch:[self cpuArchForReport:recrashReport]]];
     NSString* diagnosis = [crash objectForKey:@KSCrashField_Diagnosis];
     if(diagnosis != nil)
     {
@@ -879,9 +884,14 @@ static NSDictionary* g_registerOrders;
 - (NSString*) toAppleFormat:(NSDictionary*) report
 {
     NSMutableString* str = [NSMutableString string];
-
-    [str appendString:[self crashReportString:report]];
-    [str appendString:[self recrashReportString:report]];
+    
+    NSDictionary* recrashReport = report[@KSCrashField_RecrashReport];
+    if (recrashReport) {
+        [str appendString:[self crashReportString:recrashReport]];
+        [str appendString:[self recrashReportString:report]];
+    } else {
+        [str appendString:[self crashReportString:report]];
+    }
 
     return str;
 }
