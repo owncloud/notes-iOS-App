@@ -111,8 +111,8 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
                         var outputHtml = htmlTemplate.replacingOccurrences(of: "$Markdown$", with: outputHtml)
                         outputHtml = outputHtml.replacingOccurrences(of: "$Title$", with: self.title!)
                         let data = outputHtml.data(using: String.Encoding.utf8)
-                        let attributedString = try NSAttributedString(data: data!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil)
-                        let rtfData = try attributedString.data(from: NSMakeRange(0, attributedString.length), documentAttributes: [NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType])
+                        let attributedString = try NSAttributedString(data: data!, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+                        let rtfData = try attributedString.data(from: NSMakeRange(0, attributedString.length), documentAttributes: [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.rtf])
                         try rtfData.write(to: fileURL!, options: .atomicWrite)
                         activityItems = [attributedString as AnyObject, fileURL! as AnyObject]
                     }

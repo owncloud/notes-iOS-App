@@ -29,7 +29,7 @@ class NotesTableViewController: UITableViewController {
     static var notesRefreshControl: UIRefreshControl {
         let rControl = UIRefreshControl()
         rControl.tintColor =  UIColor(red: 0.13, green: 0.145, blue: 0.16, alpha: 1.0)
-        rControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+        rControl.addTarget(self, action: Selector(("onRefresh:")), for: .valueChanged)
         return rControl
     }
 

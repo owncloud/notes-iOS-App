@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "OCNote.h"
+#import "iOCNotes-Swift.h"
 
-@class PBHHeaderTextView;
+//@class PBHHeaderTextView;
 @interface OCEditorViewController : UIViewController <UITextViewDelegate>
 
 @property (strong, nonatomic) PBHHeaderTextView *noteView;

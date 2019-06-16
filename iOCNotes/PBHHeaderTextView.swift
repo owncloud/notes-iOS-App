@@ -31,7 +31,7 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
             theHeaderLabel.textAlignment = .center
         }
         theHeaderLabel.textColor = UIColor.lightGray
-        theHeaderLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
+        theHeaderLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         theHeaderLabel.text = NSLocalizedString("Select or create a note.", comment: "Placeholder text when no note is selected")
     
         return theHeaderLabel
@@ -54,8 +54,8 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
         myTextStorage.addLayoutManager(layoutManager)
 
         super.init(frame: frame, textContainer: container)
-        self.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
-        self.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
+        self.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0);
+        self.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20);
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerLabel)
         self.setNeedsUpdateConstraints()
@@ -68,8 +68,8 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
     }
     
     func setup() {
-        self.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
-        self.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
+        self.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0);
+        self.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20);
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerLabel)
         
@@ -97,7 +97,7 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
     override func updateConstraints() {
         if (self.didSetupConstraints == false) {
             
-            self.headerLabel.setContentCompressionResistancePriority(UILayoutPriorityRequired, for: UILayoutConstraintAxis.vertical)
+            self.headerLabel.setContentCompressionResistancePriority(.required, for: .vertical)
             self.headerLabel.autoMatch(.height, to: .height, of: self.headerLabel, withOffset:0)
             self.headerLabel.autoPinEdge( toSuperviewEdge: .top, withInset:-kSmallPadding)
             leftHeaderLayoutConstraint = self.headerLabel.autoPinEdge( .leading, to: .leading, of: self, withOffset:kSmallPadding)
@@ -155,7 +155,7 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
     
     open func updateInsets(size: CGFloat)
     {
-        self.textContainerInset = UIEdgeInsetsMake(kSmallPadding, size, kSmallPadding, size);
+        self.textContainerInset = UIEdgeInsets(top: kSmallPadding, left: size, bottom: kSmallPadding, right: size);
         leftHeaderLayoutConstraint.constant = size;
         rightHeaderLayoutConstraint.constant = size;
     }

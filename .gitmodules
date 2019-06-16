@@ -12,7 +12,7 @@
 	url = https://github.com/carlbrown/PDKeychainBindingsController.git
 [submodule "Markingbird"]
 	path = Markingbird
-	url = https://github.com/kristopherjohnson/Markingbird.git
+url=https://github.com/phedlund/Markingbird.git
 [submodule "github-markdown-css"]
 	path = github-markdown-css
 	url = https://github.com/sindresorhus/github-markdown-css.git

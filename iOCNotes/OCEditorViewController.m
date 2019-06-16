@@ -12,7 +12,6 @@
 //#import "UIViewController+MMDrawerController.h"
 #import "TTOpenInAppActivity.h"
 #import <PureLayout/PureLayout.h>
-#import "iOCNotes-Swift.h"
 
 @interface OCEditorViewController () <UIPopoverControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
     NSTimer *editingTimer;
@@ -71,7 +70,7 @@
         self.noteView.editable = NO;
         self.noteView.selectable = NO;
         self.noteView.text = @"";
-        self.noteView.headerLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
+        //TODO self.noteView.headerLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
         self.navigationItem.title = @"";
         self.activityButton.enabled = NO;
         self.addButton.enabled = YES;
@@ -120,8 +119,8 @@
             dateFormat.dateStyle = NSDateFormatterShortStyle;
             dateFormat.timeStyle = NSDateFormatterShortStyle;
             dateFormat.doesRelativeDateFormatting = NO;
-            self.noteView.headerLabel.text = [dateFormat stringFromDate:date];
-            self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+            //TODO self.noteView.headerLabel.text = [dateFormat stringFromDate:date];
+            //TODO self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         }
     }
 }
@@ -141,11 +140,11 @@
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
         if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-            if (size.width > size.height) {
-                [self.noteView updateInsetsWithSize:178];
-            } else {
-                [self.noteView updateInsetsWithSize:50];
-            }
+//TODO            if (size.width > size.height) {
+//                [self.noteView updateInsetsWithSize:178];
+//            } else {
+//                [self.noteView updateInsetsWithSize:50];
+//            }
         }
     }
 }
@@ -176,10 +175,10 @@
         textToExport = self.noteView.text;
     }
 
-    if (!noteExporter) {
-        noteExporter = [[PBHNoteExporter alloc] initWithViewController:self barButtonItem:self.activityButton text:textToExport title:self.ocNote.title];
-    }
-    [noteExporter showMenu];
+//TODO    if (!noteExporter) {
+//        noteExporter = [[PBHNoteExporter alloc] initWithViewController:self barButtonItem:self.activityButton text:textToExport title:self.ocNote.title];
+//    }
+//    [noteExporter showMenu];
 }
 
 - (IBAction)onDelete:(id)sender {
@@ -310,13 +309,13 @@
             dateFormat.dateStyle = NSDateFormatterShortStyle;
             dateFormat.timeStyle = NSDateFormatterShortStyle;
             dateFormat.doesRelativeDateFormatting = NO;
-            self.noteView.headerLabel.text = [dateFormat stringFromDate:date];
-            self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+            //TODO self.noteView.headerLabel.text = [dateFormat stringFromDate:date];
+            //TODO self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         }
     } else {
         self.noteView.editable = NO;
         self.noteView.selectable = NO;
-        self.noteView.headerLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
+        //TODO self.noteView.headerLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
         self.navigationItem.title = @"";
     }
     if (self.addingNote) {
@@ -385,7 +384,7 @@
 
 - (void)preferredContentSizeChanged:(NSNotification *)notification {
     self.noteView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    //TODO self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {

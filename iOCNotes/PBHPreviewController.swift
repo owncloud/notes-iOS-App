@@ -10,8 +10,8 @@ import UIKit
 
 @objc class PBHPreviewController: UIViewController {
 
-    dynamic var textAsMarkdown: String?
-    dynamic var noteTitle: String?
+    @objc dynamic var textAsMarkdown: String?
+    @objc dynamic var noteTitle: String?
 
     @IBOutlet var webView: UIWebView!
 
