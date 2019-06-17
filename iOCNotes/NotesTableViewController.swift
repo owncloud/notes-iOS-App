@@ -25,7 +25,10 @@ class NotesTableViewController: UITableViewController {
  - (IBAction) doRefresh:(id)sender;
  - (IBAction)doAdd:(id)sender;
 */
-    
+
+    @IBOutlet var addBarButton: UIBarButtonItem!
+    @IBOutlet var settingsBarButton: UIBarButtonItem!
+
     static var notesRefreshControl: UIRefreshControl {
         let rControl = UIRefreshControl()
         rControl.tintColor =  UIColor(red: 0.13, green: 0.145, blue: 0.16, alpha: 1.0)
@@ -35,6 +38,10 @@ class NotesTableViewController: UITableViewController {
 
     var networkHasBeenUnreachable = false
     var addingNote = false
+
+    private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
+
+    var notes: [CDNote]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,24 +143,41 @@ class NotesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.notesFrc.fetchedObjects?.count ?? 0
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath)
+        
+        let selectedBackgroundView = UIView(frame: cell.frame)
+        selectedBackgroundView.backgroundColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 1.0) // set color here
+        cell.selectedBackgroundView = selectedBackgroundView
+        cell.tag = indexPath.row
+        
+        //        if (self.searchController.active) {
+        //            note = [searchResults objectAtIndex:indexPath.row];
+        //        } else {
+        if let note = self.notesFrc.fetchedObjects?[indexPath.row] {
+            //        }
+            cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+            cell.textLabel?.text = note.title
+            cell.backgroundColor = .clear
+            if let date = note.modified {
+                let dateFormat = DateFormatter()
+                dateFormat.dateStyle = .short
+                dateFormat.timeStyle = .none;
+                dateFormat.doesRelativeDateFormatting = true
+                cell.detailTextLabel?.text = dateFormat.string(from: date as Date)
+                cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+            }
+        }
+        
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -203,6 +227,20 @@ class NotesTableViewController: UITableViewController {
     func onRefresh(sender: Any?) {
         //
     }
+
+
+    private func configureFRC() -> NSFetchedResultsController<CDNote> {
+        let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
+        request.fetchBatchSize = 288
+        request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: NotesData.mainThreadContext,
+                                             sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
+        try! frc.performFetch()
+        return frc
+    }
+
 
 }
 

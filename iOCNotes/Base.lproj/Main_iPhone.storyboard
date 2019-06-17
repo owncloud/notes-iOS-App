@@ -12,14 +12,14 @@
         <!--Notes-->
         <scene sceneID="rtV-CN-b4x">
             <objects>
-                <tableViewController id="DXe-Iw-CcD" customClass="OCNotesTableViewController" sceneMemberID="viewController">
+                <tableViewController id="DXe-Iw-CcD" customClass="NotesTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="K35-HQ-LQQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.83514857292175293" green="0.83512353897094727" blue="0.83513772487640381" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="1Q3-he-nuB" detailTextLabel="x61-QN-GPh" style="IBUITableViewCellStyleSubtitle" id="kka-p9-Iaq">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoteCell" textLabel="1Q3-he-nuB" detailTextLabel="x61-QN-GPh" style="IBUITableViewCellStyleSubtitle" id="kka-p9-Iaq">
                                 <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kka-p9-Iaq" id="bx6-5a-S9d">
