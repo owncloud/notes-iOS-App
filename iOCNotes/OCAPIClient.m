@@ -31,7 +31,7 @@
  *************************************************************************/
 
 #import "OCAPIClient.h"
-#import "PDKeychainBindings.h"
+//#import "PDKeychainBindings.h"
 
 //See http://twobitlabs.com/2013/01/objective-c-singleton-pattern-unit-testing/
 //Being able to reinitialize a singleton is a no no, but should happen so rarely
@@ -82,16 +82,16 @@ static dispatch_once_t oncePredicate = 0;
 + (AFHTTPRequestSerializer*)httpRequestSerializer
 {
     AFHTTPRequestSerializer *result = [AFHTTPRequestSerializer serializer];
-    [result setAuthorizationHeaderFieldWithUsername:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecAttrAccount)]
-                                           password:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecValueData)]];
+//    [result setAuthorizationHeaderFieldWithUsername:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecAttrAccount)]
+//                                           password:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecValueData)]];
     return result;
 }
 
 + (AFJSONRequestSerializer*)jsonRequestSerializer
 {
     AFJSONRequestSerializer *result = [AFJSONRequestSerializer serializer];
-    [result setAuthorizationHeaderFieldWithUsername:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecAttrAccount)]
-                                           password:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecValueData)]];
+//    [result setAuthorizationHeaderFieldWithUsername:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecAttrAccount)]
+//                                           password:[[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecValueData)]];
     return result;
 }
 

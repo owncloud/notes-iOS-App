@@ -7,9 +7,6 @@
 [submodule "FCModel"]
 	path = FCModel
 	url = https://github.com/marcoarment/FCModel.git
-[submodule "PDKeychainBindingsController"]
-	path = PDKeychainBindingsController
-	url = https://github.com/carlbrown/PDKeychainBindingsController.git
 [submodule "Markingbird"]
 	path = Markingbird
 url=https://github.com/phedlund/Markingbird.git

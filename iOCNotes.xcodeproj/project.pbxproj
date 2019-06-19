@@ -59,8 +59,6 @@
 		D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A648591B0F5BB1005C0981 /* OCNoteOperationUpdate.m */; };
 		D0A6485D1B0F5ED0005C0981 /* OCNoteOperationGet.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */; };
 		D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */; };
-		D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A669F91C66B806001926D7 /* PDKeychainBindings.m */; };
-		D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A669FB1C66B806001926D7 /* PDKeychainBindingsController.m */; };
 		D0CB434E18D274C200C54D7C /* FCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434B18D274C200C54D7C /* FCModel.m */; };
 		D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB434D18D274C200C54D7C /* FCModelCachedObject.m */; };
 		D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */; };
@@ -203,10 +201,6 @@
 		D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationGet.m; sourceTree = "<group>"; };
 		D0A6485E1B0F6F0B005C0981 /* OCNoteOperationDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationDelete.h; sourceTree = "<group>"; };
 		D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationDelete.m; sourceTree = "<group>"; };
-		D0A669F81C66B806001926D7 /* PDKeychainBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindings.h; sourceTree = "<group>"; };
-		D0A669F91C66B806001926D7 /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
-		D0A669FA1C66B806001926D7 /* PDKeychainBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindingsController.h; sourceTree = "<group>"; };
-		D0A669FB1C66B806001926D7 /* PDKeychainBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindingsController.m; sourceTree = "<group>"; };
 		D0CB434A18D274C200C54D7C /* FCModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModel.h; sourceTree = "<group>"; };
 		D0CB434B18D274C200C54D7C /* FCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCModel.m; sourceTree = "<group>"; };
 		D0CB434C18D274C200C54D7C /* FCModelCachedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCModelCachedObject.h; sourceTree = "<group>"; };
@@ -388,18 +382,6 @@
 			name = OCNoteOperation;
 			sourceTree = "<group>";
 		};
-		D0A669F71C66B806001926D7 /* PDKeychainBindingsController */ = {
-			isa = PBXGroup;
-			children = (
-				D0A669F81C66B806001926D7 /* PDKeychainBindings.h */,
-				D0A669F91C66B806001926D7 /* PDKeychainBindings.m */,
-				D0A669FA1C66B806001926D7 /* PDKeychainBindingsController.h */,
-				D0A669FB1C66B806001926D7 /* PDKeychainBindingsController.m */,
-			);
-			name = PDKeychainBindingsController;
-			path = PDKeychainBindingsController/PDKeychainBindingsController;
-			sourceTree = "<group>";
-		};
 		D0CB434918D274C200C54D7C /* FCModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,7 +403,6 @@
 			children = (
 				D0F263341D7B54F700F78B6D /* SWMessages */,
 				D09538441D32A5AD006BB78E /* Markingbird */,
-				D0A669F71C66B806001926D7 /* PDKeychainBindingsController */,
 				D03DA13D18DE435900178958 /* fmdb */,
 				D0CB434918D274C200C54D7C /* FCModel */,
 				D0791B0F18AD4E33005227AB /* TTOpenInAppActivity */,
@@ -771,14 +752,12 @@
 				D059745E18CEA28E00867B02 /* OCNote.m in Sources */,
 				D0F263511D7B54F700F78B6D /* UIColor+Hex.swift in Sources */,
 				D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */,
-				D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */,
 				D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */,
 				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
 				D01067E22213BB5E0047E090 /* NoteProtocol.swift in Sources */,
 				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
 				D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */,
 				D0CB434E18D274C200C54D7C /* FCModel.m in Sources */,
-				D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */,
 				D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */,
 				D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */,
 				BD86DD8522B9CDD500115E5D /* KeychainHelper.swift in Sources */,
