@@ -43,6 +43,7 @@
 		D059745E18CEA28E00867B02 /* OCNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D059745D18CEA28E00867B02 /* OCNote.m */; };
 		D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */; };
 		D059F7DD1D4AF6A200C252F2 /* export.html in Resources */ = {isa = PBXBuildFile; fileRef = D059F7DC1D4AF6A200C252F2 /* export.html */; };
+		D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */; };
 		D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF120D60682009AF66B /* KVNProgressKit.framework */; };
 		D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF320D6EA4D009AF66B /* PureLayout.framework */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
@@ -174,6 +175,7 @@
 		D059745D18CEA28E00867B02 /* OCNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNote.m; sourceTree = "<group>"; };
 		D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHNoteExporter.swift; sourceTree = "<group>"; };
 		D059F7DC1D4AF6A200C252F2 /* export.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = export.html; sourceTree = "<group>"; };
+		D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D0782BF120D60682009AF66B /* KVNProgressKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVNProgressKit.framework; path = Carthage/Build/iOS/KVNProgressKit.framework; sourceTree = "<group>"; };
 		D0782BF320D6EA4D009AF66B /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
@@ -483,6 +485,7 @@
 				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
 				D01067E52213C17D0047E090 /* NotesTableViewController.swift */,
 				BD302B8F22B8061A00067888 /* LoginTableViewController.swift */,
+				D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */,
 				D0CFE599188B5A6900165839 /* OCAPIClient.h */,
 				D0CFE59A188B5A6900165839 /* OCAPIClient.m */,
 				D02257041896E6650038232A /* OCNotesHelper.h */,
@@ -752,6 +755,7 @@
 				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
 				D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */,
 				D0F2634E1D7B54F700F78B6D /* SWMessage.swift in Sources */,
+				D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */,
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
 				D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */,
 				D0A648601B0F6F0B005C0981 /* OCNoteOperationDelete.m in Sources */,

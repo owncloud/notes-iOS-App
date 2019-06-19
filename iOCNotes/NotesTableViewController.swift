@@ -224,10 +224,24 @@ class NotesTableViewController: UITableViewController {
     }
     */
 
-    func onRefresh(sender: Any?) {
+    @IBAction func onRefresh(sender: Any?) {
         //
     }
 
+    @IBAction func onSettings(sender: Any?) {
+        let storyboard = UIStoryboard(name: "Main_iPhone", bundle:nil)
+        var nav: UINavigationController?
+        if sender as? UIBarButtonItem == settingsBarButton {
+            nav = storyboard.instantiateViewController(withIdentifier: "login") as? UINavigationController
+        } else {
+            let loginController = storyboard.instantiateViewController(withIdentifier: "server")
+            nav = UINavigationController(rootViewController: loginController)
+            nav?.modalPresentationStyle = .formSheet
+        }
+        if let nav = nav {
+            present(nav, animated: true, completion: nil)
+        }
+    }
 
     private func configureFRC() -> NSFetchedResultsController<CDNote> {
         let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()

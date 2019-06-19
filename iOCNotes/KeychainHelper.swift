@@ -39,4 +39,22 @@ struct KeychainHelper {
         }
     }
 
+    static var version: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "version")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "version")
+        }
+    }
+
+    static var syncOnStart: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "SyncOnStart")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "SyncOnStart")
+        }
+    }
+    
 }

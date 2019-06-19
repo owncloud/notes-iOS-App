@@ -18,8 +18,8 @@ class LoginTableViewController: UITableViewController {
     @IBOutlet var certificateSwitch: UISwitch!
     @IBOutlet var certificateCell: UITableViewCell!
     @IBOutlet var connectionActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet var statusLabel: UILabel!
-
+    @IBOutlet var connectLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.serverTextField.delegate = self
@@ -31,18 +31,18 @@ class LoginTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let server = KeychainHelper.server
-        let version = UserDefaults.standard.string(forKey: "version")
+//        let version = KeychainHelper.version
         self.serverTextField.text = server
         self.usernameTextField.text = KeychainHelper.username
         self.passwordTextField.text = KeychainHelper.password
 //        if server == nil || server?.count == 0 {
 //            self.tabView.selectLastTabViewItem(nil)
 //        }
-        if let version = version, version.count > 0 {
-            self.statusLabel.text = "Notes version \(version) found on server"
-        } else {
-            self.statusLabel.text = "Not connected to Notes on a server"
-        }
+//        if let version = version, version.count > 0 {
+//            self.infoLabel.text = "Notes version \(version) found on server"
+//        } else {
+//            self.infoLabel.text = "Not connected to Notes on a server"
+//        }
 //        self.usernameTextField.text = [[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecAttrAccount)];
 //        self.passwordTextField.text = [[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecValueData)];
 //        self.certificateSwitch.on = [prefs boolForKey:@"AllowInvalidSSLCertificate"];
@@ -50,7 +50,7 @@ class LoginTableViewController: UITableViewController {
 //        if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
 //            self.connectLabel.text = NSLocalizedString(@"Reconnect", @"A button title");
 //        } else {
-        self.statusLabel.text = NSLocalizedString("Connect", comment: "A button title")
+        self.connectLabel.text = NSLocalizedString("Connect", comment: "A button title")
 //        }
 
     }
@@ -60,10 +60,9 @@ class LoginTableViewController: UITableViewController {
         return 0.0001
     }
 
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard indexPath.section == 1,
-            statusLabel.isEnabled,
+            connectLabel.isEnabled,
             var serverAddress = serverTextField.text,
             let username = usernameTextField.text,
             let password = passwordTextField.text else {
@@ -198,7 +197,6 @@ class LoginTableViewController: UITableViewController {
 }*/
     }
 
-
     @IBAction func onDone(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -253,7 +251,7 @@ extension LoginTableViewController: UITextFieldDelegate {
                 labelText = NSLocalizedString("Connect", comment: "A button title")
             }
         }
-        statusLabel.text = labelText;
+        connectLabel.text = labelText;
         return true
     }
 

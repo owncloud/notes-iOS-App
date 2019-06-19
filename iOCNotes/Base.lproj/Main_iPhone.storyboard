@@ -59,7 +59,7 @@
                         <barButtonItem key="leftBarButtonItem" image="gear" id="Ehu-4h-6IO">
                             <color key="tintColor" red="0.11764705882352941" green="0.1764705882352941" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="doSettings:" destination="DXe-Iw-CcD" id="Zn5-Pf-b2l"/>
+                                <action selector="onSettingsWithSender:" destination="DXe-Iw-CcD" id="cs1-YA-pRQ"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="MOs-yv-oce">
@@ -357,7 +357,7 @@
         <!--Login Information-->
         <scene sceneID="rL0-qf-sMY">
             <objects>
-                <tableViewController storyboardIdentifier="server" modalPresentationStyle="formSheet" id="luf-N8-Oc5" customClass="OCLoginController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="server" modalPresentationStyle="formSheet" id="luf-N8-Oc5" customClass="LoginTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Rz1-fV-wHH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -368,7 +368,7 @@
                             <color key="backgroundColor" red="0.96055269241333008" green="0.96052396297454834" blue="0.9605402946472168" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <sections>
-                            <tableViewSection headerTitle=" " footerTitle=" " id="GFD-er-5qc">
+                            <tableViewSection headerTitle="Server" footerTitle=" " id="GFD-er-5qc">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="GIW-jp-jcJ">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
@@ -377,8 +377,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Server" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JA-kC-iF4">
-                                                    <rect key="frame" x="16" y="13" width="45" height="18"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="URL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JA-kC-iF4">
+                                                    <rect key="frame" x="16" y="13" width="29" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -473,7 +473,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="w3G-i7-TTY">
                                                     <rect key="frame" x="304" y="6.5" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="onCertificateSwitch:" destination="luf-N8-Oc5" eventType="valueChanged" id="ux4-bq-Pej"/>
+                                                        <action selector="onCertificateSwitch:" destination="luf-N8-Oc5" eventType="valueChanged" id="nxR-Pr-xAV"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -533,18 +533,18 @@
                     <navigationItem key="navigationItem" title="Login Information" id="37p-J6-f3v">
                         <barButtonItem key="rightBarButtonItem" title="Close" style="done" id="Peh-Fd-TcO">
                             <connections>
-                                <action selector="doDone:" destination="luf-N8-Oc5" id="Oty-aF-mxZ"/>
+                                <action selector="onDone:" destination="luf-N8-Oc5" id="R6G-kE-Zw0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="certificateCell" destination="7Sa-Wy-f46" id="FqI-1j-FUB"/>
-                        <outlet property="certificateSwitch" destination="w3G-i7-TTY" id="0oc-Ab-6tl"/>
-                        <outlet property="connectLabel" destination="1nd-Wd-hwP" id="XkR-b9-Wep"/>
-                        <outlet property="connectionActivityIndicator" destination="rkC-At-2Rb" id="iGN-wG-CjE"/>
-                        <outlet property="passwordTextField" destination="TWC-3X-LgS" id="HEx-k9-WiQ"/>
-                        <outlet property="serverTextField" destination="POY-0l-xVn" id="khm-u0-lxc"/>
-                        <outlet property="usernameTextField" destination="PXx-Ke-abd" id="789-45-4FP"/>
+                        <outlet property="certificateCell" destination="7Sa-Wy-f46" id="B33-hZ-Tmr"/>
+                        <outlet property="certificateSwitch" destination="w3G-i7-TTY" id="qsN-wp-Q97"/>
+                        <outlet property="connectLabel" destination="1nd-Wd-hwP" id="Uh5-SD-nLe"/>
+                        <outlet property="connectionActivityIndicator" destination="rkC-At-2Rb" id="exX-JV-1bX"/>
+                        <outlet property="passwordTextField" destination="TWC-3X-LgS" id="Rf9-B1-Vcg"/>
+                        <outlet property="serverTextField" destination="POY-0l-xVn" id="gci-aA-fkN"/>
+                        <outlet property="usernameTextField" destination="PXx-Ke-abd" id="x7A-7d-1Xb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WZW-cQ-m4U" userLabel="First Responder" sceneMemberID="firstResponder"/>
