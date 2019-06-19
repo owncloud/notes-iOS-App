@@ -15,8 +15,6 @@ class LoginTableViewController: UITableViewController {
     @IBOutlet var serverTextField: UITextField!
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
-    @IBOutlet var certificateSwitch: UISwitch!
-    @IBOutlet var certificateCell: UITableViewCell!
     @IBOutlet var connectionActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var connectLabel: UILabel!
     
@@ -31,32 +29,22 @@ class LoginTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let server = KeychainHelper.server
-//        let version = KeychainHelper.version
         self.serverTextField.text = server
         self.usernameTextField.text = KeychainHelper.username
         self.passwordTextField.text = KeychainHelper.password
-//        if server == nil || server?.count == 0 {
-//            self.tabView.selectLastTabViewItem(nil)
-//        }
-//        if let version = version, version.count > 0 {
-//            self.infoLabel.text = "Notes version \(version) found on server"
-//        } else {
-//            self.infoLabel.text = "Not connected to Notes on a server"
-//        }
-//        self.usernameTextField.text = [[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecAttrAccount)];
-//        self.passwordTextField.text = [[PDKeychainBindings sharedKeychainBindings] objectForKey:(__bridge id)(kSecValueData)];
-//        self.certificateSwitch.on = [prefs boolForKey:@"AllowInvalidSSLCertificate"];
-//
-//        if ([OCAPIClient sharedClient].reachabilityManager.isReachable) {
-//            self.connectLabel.text = NSLocalizedString(@"Reconnect", @"A button title");
-//        } else {
-        self.connectLabel.text = NSLocalizedString("Connect", comment: "A button title")
-//        }
-
+        if NotesManager.isConnectedToInternet {
+            self.connectLabel.text = NSLocalizedString("Reconnect", comment: "A button title")
+        } else {
+            self.connectLabel.text = NSLocalizedString("Connect", comment: "A button title")
+        }
     }
+
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 44.0
+        }
         return 0.0001
     }
 
@@ -70,18 +58,14 @@ class LoginTableViewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
         connectionActivityIndicator.startAnimating()
-        //
-        //        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        //            [prefs setBool:self.certificateSwitch.on forKey:@"AllowInvalidSSLCertificate"];
-        //            [prefs synchronize];
-        
+
         serverAddress = serverAddress.trimmingCharacters(in: CharacterSet(charactersIn: "/ "))
         KeychainHelper.server = serverAddress
         KeychainHelper.username = username
         KeychainHelper.password = password
         let shouldRetry = !serverAddress.hasSuffix(".php")
         
-        let router = Router.allNotes(exclude: "content")
+        let router = Router.allNotes(exclude: "")
         NoteSessionManager.shared.request(router).responseDecodable { [weak self] (response: DataResponse<[NoteStruct]>) in
             if let _ = response.value {
                 //                CDNote.update(notes: notes)
@@ -201,17 +185,8 @@ class LoginTableViewController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func onCertificateSwitch(_ sender: Any) {
-//        BOOL textHasChanged = (self.certificateSwitch.on != [[NSUserDefaults standardUserDefaults] boolForKey:@"AllowInvalidSSLCertificate"]);
-//        if (textHasChanged) {
-//            self.connectLabel.text = NSLocalizedString(@"Connect", @"A button title");
-//        } else {
-//            self.connectLabel.text = NSLocalizedString(@"Reconnect", @"A button title");
-//        }
-
-    }
-
 }
+
 
 extension LoginTableViewController: UITextFieldDelegate {
 
@@ -244,9 +219,6 @@ extension LoginTableViewController: UITextFieldDelegate {
             } else if textField == passwordTextField {
                 textHasChanged = !(newString == KeychainHelper.password)
             }
-            //        if (!textHasChanged) {
-            //            textHasChanged = (self.certificateSwitch.on != [prefs boolForKey:@"AllowInvalidSSLCertificate"]);
-            //        }
             if (textHasChanged) {
                 labelText = NSLocalizedString("Connect", comment: "A button title")
             }

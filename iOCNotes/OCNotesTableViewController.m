@@ -10,7 +10,7 @@
 #import "OCEditorViewController.h"
 #import "OCAPIClient.h"
 #import "OCNotesHelper.h"
-#import "OCLoginController.h"
+//#import "OCLoginController.h"
 #import <float.h>
 #import "OCNote.h"
 #import <KVNProgressKit/KVNProgressKit.h>
@@ -428,16 +428,16 @@ static NSString *DetailSegueIdentifier = @"showDetail";
 }
 
 - (IBAction)doSettings:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-    UINavigationController *nav;
-    if ([sender isEqual:self.settingsBarButton]) {
-        nav = [storyboard instantiateViewControllerWithIdentifier:@"login"];
-    } else {
-        OCLoginController *lc = [storyboard instantiateViewControllerWithIdentifier:@"server"];
-        nav = [[UINavigationController alloc] initWithRootViewController:lc];
-        nav.modalPresentationStyle = UIModalPresentationFormSheet;
-    }
-    [self presentViewController:nav animated:YES completion:nil];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+//    UINavigationController *nav;
+//    if ([sender isEqual:self.settingsBarButton]) {
+//        nav = [storyboard instantiateViewControllerWithIdentifier:@"login"];
+//    } else {
+//        OCLoginController *lc = [storyboard instantiateViewControllerWithIdentifier:@"server"];
+//        nav = [[UINavigationController alloc] initWithRootViewController:lc];
+//        nav.modalPresentationStyle = UIModalPresentationFormSheet;
+//    }
+//    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)reachabilityChanged:(NSNotification *)n {

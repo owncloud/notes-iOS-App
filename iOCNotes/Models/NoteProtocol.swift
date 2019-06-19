@@ -11,7 +11,7 @@ import Foundation
 protocol NoteProtocol {
     
     var category: String? {get set}
-    var content: String {get set}
+    var content: String? {get set}
     var favorite: Bool {get set}
     var guid: String? {get set}
     var modified: TimeInterval {get set}
@@ -26,7 +26,7 @@ protocol NoteProtocol {
 struct NoteStruct: Codable, NoteProtocol {
     
     var category: String?
-    var content: String
+    var content: String?
     var favorite: Bool
     var guid: String?
     var modified: TimeInterval

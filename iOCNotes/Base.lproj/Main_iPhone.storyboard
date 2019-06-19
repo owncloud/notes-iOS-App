@@ -241,7 +241,7 @@
         <!--Settings-->
         <scene sceneID="pXH-1w-eJk">
             <objects>
-                <tableViewController modalPresentationStyle="formSheet" id="2t6-l8-Aa3" customClass="OCSettingsController" sceneMemberID="viewController">
+                <tableViewController modalPresentationStyle="formSheet" id="2t6-l8-Aa3" customClass="SettingsTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="TYE-VA-CV0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -296,7 +296,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9NT-Fj-IZn">
                                                     <rect key="frame" x="310" y="6" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="syncOnStartChanged:" destination="2t6-l8-Aa3" eventType="valueChanged" id="2Eq-Mu-hbP"/>
+                                                        <action selector="syncOnStartChanged:" destination="2t6-l8-Aa3" eventType="valueChanged" id="JQT-kz-azg"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -340,14 +340,13 @@
                     <navigationItem key="navigationItem" title="Settings" id="klT-al-UKS">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Xh9-la-fku">
                             <connections>
-                                <action selector="didTapDone:" destination="2t6-l8-Aa3" id="eih-rD-jPd"/>
+                                <action selector="didTapDone:" destination="2t6-l8-Aa3" id="ce9-o2-IVe"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="statusLabel" destination="KZg-EL-ffF" id="9vy-PS-NES"/>
-                        <outlet property="syncOnStartCell" destination="auj-MR-nGu" id="SVL-lQ-mxC"/>
-                        <outlet property="syncOnStartSwitch" destination="9NT-Fj-IZn" id="pMx-3f-Uo3"/>
+                        <outlet property="statusLabel" destination="KZg-EL-ffF" id="oSu-PK-h2j"/>
+                        <outlet property="syncOnStartSwitch" destination="9NT-Fj-IZn" id="r79-ip-Yrr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b48-8O-uau" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -363,7 +362,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="eFn-A5-4QO">
-                            <rect key="frame" x="0.0" y="345.5" width="375" height="251"/>
+                            <rect key="frame" x="0.0" y="301.5" width="375" height="251"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.96055269241333008" green="0.96052396297454834" blue="0.9605402946472168" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -454,44 +453,12 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="7Sa-Wy-f46">
-                                        <rect key="frame" x="0.0" y="187.5" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Sa-Wy-f46" id="rV6-rI-VDS">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="Allow Untrusted SSL Certificate" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="orC-1X-Xw7">
-                                                    <rect key="frame" x="16" y="13" width="273" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="216" id="d6f-3A-dTP"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="w3G-i7-TTY">
-                                                    <rect key="frame" x="304" y="6.5" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="onCertificateSwitch:" destination="luf-N8-Oc5" eventType="valueChanged" id="nxR-Pr-xAV"/>
-                                                    </connections>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="orC-1X-Xw7" firstAttribute="centerY" secondItem="rV6-rI-VDS" secondAttribute="centerY" id="BWW-OF-PFR"/>
-                                                <constraint firstItem="orC-1X-Xw7" firstAttribute="leading" secondItem="rV6-rI-VDS" secondAttribute="leadingMargin" id="WBv-TG-yiF"/>
-                                                <constraint firstAttribute="centerY" secondItem="w3G-i7-TTY" secondAttribute="centerY" id="bte-R8-tYx"/>
-                                                <constraint firstItem="w3G-i7-TTY" firstAttribute="leading" secondItem="orC-1X-Xw7" secondAttribute="trailing" constant="15" id="fEj-gv-XYw"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="w3G-i7-TTY" secondAttribute="trailing" constant="6" id="fa1-lE-hX0"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection footerTitle=" " id="DPD-gx-oOQ">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Yl7-O9-Fcp">
-                                        <rect key="frame" x="0.0" y="271.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="227.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yl7-O9-Fcp" id="SK7-Jj-1c2">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -538,8 +505,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="certificateCell" destination="7Sa-Wy-f46" id="B33-hZ-Tmr"/>
-                        <outlet property="certificateSwitch" destination="w3G-i7-TTY" id="qsN-wp-Q97"/>
                         <outlet property="connectLabel" destination="1nd-Wd-hwP" id="Uh5-SD-nLe"/>
                         <outlet property="connectionActivityIndicator" destination="rkC-At-2Rb" id="exX-JV-1bX"/>
                         <outlet property="passwordTextField" destination="TWC-3X-LgS" id="Rf9-B1-Vcg"/>

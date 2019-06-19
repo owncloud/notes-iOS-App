@@ -14,8 +14,8 @@
 /* Class = "IBUILabel"; text = "Server"; ObjectID = "6JA-kC-iF4"; */
 "6JA-kC-iF4.text" = "Server";
 
-/* Class = "IBUILabel"; text = "ownCloud Server"; ObjectID = "7lc-SH-cWC"; */
-"7lc-SH-cWC.text" = "ownCloud Server";
+/* Class = "IBUILabel"; text = "Server"; ObjectID = "7lc-SH-cWC"; */
+"7lc-SH-cWC.text" = "Server";
 
 /* Class = "IBUILabel"; text = "Username"; ObjectID = "DJL-8q-B7Y"; */
 "DJL-8q-B7Y.text" = "Username";
@@ -38,17 +38,17 @@
 /* Class = "IBUITextView"; text = "Select or create a note."; ObjectID = "LzS-Ob-leM"; */
 "LzS-Ob-leM.text" = "Select or create a note.";
 
-/* Class = "IBUITextField"; placeholder = "http://example.com/owncloud"; ObjectID = "POY-0l-xVn"; */
-"POY-0l-xVn.placeholder" = "http://example.com/owncloud";
+/* Class = "IBUITextField"; placeholder = "http://example.com/cloud"; ObjectID = "POY-0l-xVn"; */
+"POY-0l-xVn.placeholder" = "http://example.com/cloud";
 
-/* Class = "IBUITextField"; placeholder = "ownCloud Username"; ObjectID = "PXx-Ke-abd"; */
-"PXx-Ke-abd.placeholder" = "ownCloud Username";
+/* Class = "IBUITextField"; placeholder = "Username"; ObjectID = "PXx-Ke-abd"; */
+"PXx-Ke-abd.placeholder" = "Username";
 
 /* Class = "IBUIBarButtonItem"; title = "Close"; ObjectID = "Peh-Fd-TcO"; */
 "Peh-Fd-TcO.title" = "Close";
 
-/* Class = "IBUITextField"; placeholder = "ownCloud Password"; ObjectID = "TWC-3X-LgS"; */
-"TWC-3X-LgS.placeholder" = "ownCloud Password";
+/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "TWC-3X-LgS"; */
+"TWC-3X-LgS.placeholder" = "Password";
 
 /* Class = "IBUITableViewSection"; headerTitle = "SUPPORT"; ObjectID = "aJm-k3-Bdj"; */
 "aJm-k3-Bdj.headerTitle" = "SUPPORT";

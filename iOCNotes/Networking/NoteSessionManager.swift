@@ -26,6 +26,11 @@ class NotesManager: NSObject {
     
     static let shared = NotesManager()
 
+    class var isConnectedToInternet: Bool {
+        return NetworkReachabilityManager(host: KeychainHelper.server)?.isReachable ?? false
+    }
+
+
     func sync() {
         let router = Router.allNotes(exclude: "")
         NoteSessionManager.shared.request(router).responseDecodable { (response: DataResponse<[NoteStruct]>) in

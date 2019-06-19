@@ -23,8 +23,6 @@
 		D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D017D4231D3B03BE00B21443 /* WebKit.framework */; };
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256C9189599570038232A /* NSDictionary+HandleNull.m */; };
-		D02256F61895E2F10038232A /* OCSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256F31895E2F10038232A /* OCSettingsController.m */; };
-		D02256F71895E2F10038232A /* OCLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02256F51895E2F10038232A /* OCLoginController.m */; };
 		D02257061896E6650038232A /* OCNotesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D02257051896E6650038232A /* OCNotesHelper.m */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
 		D0225711189848060038232A /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0225710189848060038232A /* libc++.dylib */; };
@@ -142,10 +140,6 @@
 		D02256C61891FD7C0038232A /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = defaults.plist; sourceTree = "<group>"; };
 		D02256C8189599570038232A /* NSDictionary+HandleNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+HandleNull.h"; sourceTree = "<group>"; };
 		D02256C9189599570038232A /* NSDictionary+HandleNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+HandleNull.m"; sourceTree = "<group>"; };
-		D02256F21895E2F10038232A /* OCSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSettingsController.h; sourceTree = "<group>"; };
-		D02256F31895E2F10038232A /* OCSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSettingsController.m; sourceTree = "<group>"; };
-		D02256F41895E2F10038232A /* OCLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCLoginController.h; sourceTree = "<group>"; };
-		D02256F51895E2F10038232A /* OCLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCLoginController.m; sourceTree = "<group>"; };
 		D02257041896E6650038232A /* OCNotesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNotesHelper.h; sourceTree = "<group>"; };
 		D02257051896E6650038232A /* OCNotesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNotesHelper.m; sourceTree = "<group>"; };
 		D0225708189745C40038232A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -490,10 +484,6 @@
 				D0CFE59A188B5A6900165839 /* OCAPIClient.m */,
 				D02257041896E6650038232A /* OCNotesHelper.h */,
 				D02257051896E6650038232A /* OCNotesHelper.m */,
-				D02256F21895E2F10038232A /* OCSettingsController.h */,
-				D02256F31895E2F10038232A /* OCSettingsController.m */,
-				D02256F41895E2F10038232A /* OCLoginController.h */,
-				D02256F51895E2F10038232A /* OCLoginController.m */,
 				D0CFE5931888AE2D00165839 /* OCNotesTableViewController.h */,
 				D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */,
 				D0CFE54E1888A7BD00165839 /* OCEditorViewController.h */,
@@ -781,14 +771,12 @@
 				D059745E18CEA28E00867B02 /* OCNote.m in Sources */,
 				D0F263511D7B54F700F78B6D /* UIColor+Hex.swift in Sources */,
 				D0A6485A1B0F5BB1005C0981 /* OCNoteOperationUpdate.m in Sources */,
-				D02256F71895E2F10038232A /* OCLoginController.m in Sources */,
 				D0A669FC1C66B806001926D7 /* PDKeychainBindings.m in Sources */,
 				D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */,
 				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
 				D01067E22213BB5E0047E090 /* NoteProtocol.swift in Sources */,
 				D0CFE5501888A7BD00165839 /* OCEditorViewController.m in Sources */,
 				D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */,
-				D02256F61895E2F10038232A /* OCSettingsController.m in Sources */,
 				D0CB434E18D274C200C54D7C /* FCModel.m in Sources */,
 				D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */,
 				D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */,
