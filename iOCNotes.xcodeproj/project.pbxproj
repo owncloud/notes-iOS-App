@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BD0F26F020E9277D003D7D4A /* Marklight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0F26EF20E9277D003D7D4A /* Marklight.framework */; };
+		BD302B9022B8061A00067888 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD302B8F22B8061A00067888 /* LoginTableViewController.swift */; };
+		BD86DD8522B9CDD500115E5D /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
 		D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DA220BCA290047E090 /* ResponseSerializer.swift */; };
@@ -117,6 +119,8 @@
 
 /* Begin PBXFileReference section */
 		BD0F26EF20E9277D003D7D4A /* Marklight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Marklight.framework; path = Carthage/Build/iOS/Marklight.framework; sourceTree = "<group>"; };
+		BD302B8F22B8061A00067888 /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
+		BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		D00293D619F48B5300B2DA8F /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D00CDFBB194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFBC194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -476,7 +480,9 @@
 				D059745C18CEA28E00867B02 /* OCNote.h */,
 				D059745D18CEA28E00867B02 /* OCNote.m */,
 				D01067E32213BDF20047E090 /* AppDelegate.swift */,
+				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
 				D01067E52213C17D0047E090 /* NotesTableViewController.swift */,
+				BD302B8F22B8061A00067888 /* LoginTableViewController.swift */,
 				D0CFE599188B5A6900165839 /* OCAPIClient.h */,
 				D0CFE59A188B5A6900165839 /* OCAPIClient.m */,
 				D02257041896E6650038232A /* OCNotesHelper.h */,
@@ -783,7 +789,9 @@
 				D0A669FD1C66B806001926D7 /* PDKeychainBindingsController.m in Sources */,
 				D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */,
 				D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */,
+				BD86DD8522B9CDD500115E5D /* KeychainHelper.swift in Sources */,
 				D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */,
+				BD302B9022B8061A00067888 /* LoginTableViewController.swift in Sources */,
 				D0CFE59B188B5A6900165839 /* OCAPIClient.m in Sources */,
 				D02257061896E6650038232A /* OCNotesHelper.m in Sources */,
 			);

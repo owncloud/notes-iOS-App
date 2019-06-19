@@ -7,7 +7,6 @@
 //
 
 import Alamofire
-import KeychainAccess
 
 enum Router: URLRequestConvertible {
     case allNotes(exclude: String)
@@ -45,39 +44,42 @@ enum Router: URLRequestConvertible {
     }
     
     func asURLRequest() throws -> URLRequest {
-      //  let baseURLString = "\(UserDefaults.standard.string(forKey: "server") ?? "")/apps/notes/api/v0.2"
-        let baseURLString = "https://pbhcloud.site/nextcloud/apps/notes/api/v0.2"
+        if let server = UserDefaults.standard.string(forKey: "Server"), !server.isEmpty {
+              let baseURLString = "\(server)/apps/notes/api/v0.2"
+//            let baseURLString = "https://pbhcloud.site/nextcloud/apps/notes/api/v0.2"
 
-        let url = try baseURLString.asURL()
-        
-        var urlRequest = URLRequest(url: url.appendingPathComponent(self.path))
-        urlRequest.httpMethod = self.method.rawValue
-        let keychain = Keychain(service: "com.peterandlinda.CloudNotes")
-        let username = keychain["username"] ?? "peter"
-        let password = keychain["password"] ?? "sb269970"
-        if let authorizationHeader = Request.authorizationHeader(user: username, password: password) {
-            urlRequest.setValue(authorizationHeader.value, forHTTPHeaderField: authorizationHeader.key)
-        }
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-        
-        switch self {
-        case .allNotes(let exclude):
-            let parameters = ["exclude": exclude] as [String : Any]
-            urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
-        case .getNote(_, let exclude):
-            let parameters = ["exclude": exclude] as [String : Any]
-            urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+            let url = try baseURLString.asURL()
 
-        case .createNote(let parameters):
-            urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
-            
-        case .updateNote(_, let parameters):
-            urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
-            
-        default:
-            break
+            var urlRequest = URLRequest(url: url.appendingPathComponent(self.path))
+            urlRequest.httpMethod = self.method.rawValue
+            let username = KeychainHelper.username
+            let password = KeychainHelper.password
+            if let authorizationHeader = Request.authorizationHeader(user: username, password: password) {
+                urlRequest.setValue(authorizationHeader.value, forHTTPHeaderField: authorizationHeader.key)
+            }
+            urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+
+            switch self {
+            case .allNotes(let exclude):
+                let parameters = ["exclude": exclude] as [String : Any]
+                urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+            case .getNote(_, let exclude):
+                let parameters = ["exclude": exclude] as [String : Any]
+                urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+
+            case .createNote(let parameters):
+                urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+
+            case .updateNote(_, let parameters):
+                urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+
+            default:
+                break
+            }
+
+            return urlRequest
+        } else {
+            throw AFError.parameterEncodingFailed(reason: .missingURL)
         }
-        
-        return urlRequest
     }
 }
