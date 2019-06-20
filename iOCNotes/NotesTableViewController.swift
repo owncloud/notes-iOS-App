@@ -11,51 +11,27 @@ import CoreData
 
 class NotesTableViewController: UITableViewController {
 
-    /*
- @property (nonatomic, strong) OCEditorViewController *editorViewController;
- @property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;
- @property (strong, nonatomic) IBOutlet UIBarButtonItem *addBarButton;
-     @property (strong, nonatomic) UISearchController *searchController;
-     @property (nonatomic, copy) NSArray *ocNotes;
-
-     
-     NSArray *searchResults;
-
-    
- - (IBAction) doRefresh:(id)sender;
- - (IBAction)doAdd:(id)sender;
-*/
-
     @IBOutlet var addBarButton: UIBarButtonItem!
     @IBOutlet var settingsBarButton: UIBarButtonItem!
 
-    static var notesRefreshControl: UIRefreshControl {
-        let rControl = UIRefreshControl()
-        rControl.tintColor =  UIColor(red: 0.13, green: 0.145, blue: 0.16, alpha: 1.0)
-        rControl.addTarget(self, action: Selector(("onRefresh:")), for: .valueChanged)
-        return rControl
-    }
-
-    var networkHasBeenUnreachable = false
+    var notes: [CDNote]?
     var addingNote = false
+    var searchController: UISearchController?
+    var editorViewController: EditorViewController?
 
+    private var networkHasBeenUnreachable = false
+    private var searchResult: [CDNote]?
+    
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
 
-    var notes: [CDNote]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.clearsSelectionOnViewWillAppear = false
-        self.refreshControl = NotesTableViewController.notesRefreshControl
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+        clearsSelectionOnViewWillAppear = false
+        refreshControl?.tintColor = UIColor(red: 0.13, green: 0.145, blue: 0.16, alpha: 1.0)
         
 /*
- 
- 
          [[NSNotificationCenter defaultCenter] addObserver:self
          selector:@selector(reachabilityChanged:)
          name:AFNetworkingReachabilityDidChangeNotification
@@ -98,48 +74,31 @@ class NotesTableViewController: UITableViewController {
          
          [OCNotesHelper sharedHelper];
          [self reloadNotes:nil];
-         
-         //remove bottom line/shadow
-         for (UIView *view in self.navigationController.navigationBar.subviews) {
-         for (UIView *view2 in view.subviews) {
-         if ([view2 isKindOfClass:[UIImageView class]]) {
-         if (![view2.superview isKindOfClass:[UIButton class]]) {
-         [view2 removeFromSuperview];
-         }
-         }
-         }
-         }
-         self.navigationController.navigationBar.translucent = YES;
-         self.navigationController.toolbar.translucent = YES;
-         self.navigationController.toolbar.clipsToBounds = YES;
-         self.splitViewController.delegate = self;
-         self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-         self.searchController.searchResultsUpdater = self;
-         self.searchController.hidesNavigationBarDuringPresentation = YES;
-         self.searchController.dimsBackgroundDuringPresentation = NO;
-         self.searchController.searchBar.delegate = self;
-         [self.searchController.searchBar sizeToFit];
-         self.searchController.searchBar.tintColor = [UIColor colorWithRed:0.12 green:0.18 blue:0.26 alpha:1.0];
-         self.searchController.searchBar.barTintColor = [UIColor colorWithRed:0.957 green:0.957 blue:0.957 alpha:0.95];
-         self.searchController.searchBar.backgroundImage = [UIImage new];
-         self.tableView.tableHeaderView = self.searchController.searchBar;
-         
-         [self.tableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height + self.tableView.contentOffset.y)];
-         
-         if (@available(iOS 11.0, *)) {
-         self.tableView.dropDelegate = self;
-         }
-         self.definesPresentationContext = YES;
- 
 */
-        
-        
-        
-        
-        
-        
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.toolbar.isTranslucent = true
+        navigationController?.toolbar.clipsToBounds = true
+        splitViewController?.delegate = self;
+        searchController = UISearchController(searchResultsController: nil)
+        searchController?.searchResultsUpdater = self
+        searchController?.hidesNavigationBarDuringPresentation = true
+        searchController?.dimsBackgroundDuringPresentation = false
+        searchController?.searchBar.delegate = self
+        searchController?.searchBar.sizeToFit()
+        searchController?.searchBar.tintColor = UIColor(red:0.12, green:0.18, blue:0.26, alpha:1.0)
+        searchController?.searchBar.barTintColor = UIColor(red:0.957, green:0.957, blue:0.957, alpha:0.95)
+        searchController?.searchBar.backgroundImage = UIImage()
+        tableView.tableHeaderView = searchController?.searchBar
+        tableView.contentOffset = CGPoint(x: 0, y: searchController?.searchBar.frame.size.height ?? 0.0 + tableView.contentOffset.y)
+        tableView.dropDelegate = self
+        definesPresentationContext = true
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        didBecomeActive()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -225,7 +184,17 @@ class NotesTableViewController: UITableViewController {
     */
 
     @IBAction func onRefresh(sender: Any?) {
-        //
+        if let refreshControl = refreshControl, !refreshControl.isRefreshing {
+            refreshControl.beginRefreshing()
+            tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y - refreshControl.frame.size.height), animated: true)
+        }
+        addBarButton.isEnabled = false
+        settingsBarButton.isEnabled = false
+        NotesManager.shared.sync { [weak self] in
+            self?.addBarButton.isEnabled = true
+            self?.settingsBarButton.isEnabled = true
+            self?.refreshControl?.endRefreshing()
+        }
     }
 
     @IBAction func onSettings(sender: Any?) {
@@ -243,6 +212,12 @@ class NotesTableViewController: UITableViewController {
         }
     }
 
+    @IBAction func onAdd(sender: Any?) {
+//        self.addingNote = YES;
+//        self.editorViewController.addingNote = YES;
+//        [[OCNotesHelper sharedHelper] addNote:@""];
+    }
+    
     private func configureFRC() -> NSFetchedResultsController<CDNote> {
         let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
         request.fetchBatchSize = 288
@@ -255,8 +230,33 @@ class NotesTableViewController: UITableViewController {
         return frc
     }
 
+    
+    // MARK:  Notification Callbacks
+    
+    private func reachabilityChanged() {
+        //
+    }
+
+    private func didBecomeActive() {
+        if KeychainHelper.server.isEmpty {
+            onSettings(sender: nil)
+        } else if KeychainHelper.syncOnStart {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                NotesManager.shared.sync()
+            })
+        }
+    }
+
+    private func networkSuccess() {
+        //
+    }
+
+    private func networkError() {
+        //
+    }
 
 }
+
 
 extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     
@@ -289,12 +289,10 @@ extension NotesTableViewController: UISplitViewControllerDelegate {
     
 }
 
-@available(iOS 11.0, *)
 extension NotesTableViewController: UITableViewDropDelegate {
    
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         //
     }
-    
-    
+
 }

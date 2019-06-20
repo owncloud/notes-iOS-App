@@ -42,6 +42,7 @@
 		D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */; };
 		D059F7DD1D4AF6A200C252F2 /* export.html in Resources */ = {isa = PBXBuildFile; fileRef = D059F7DC1D4AF6A200C252F2 /* export.html */; };
 		D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */; };
+		D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882ED22BB146200CEBC1F /* EditorViewController.swift */; };
 		D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF120D60682009AF66B /* KVNProgressKit.framework */; };
 		D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF320D6EA4D009AF66B /* PureLayout.framework */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
@@ -168,6 +169,7 @@
 		D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHNoteExporter.swift; sourceTree = "<group>"; };
 		D059F7DC1D4AF6A200C252F2 /* export.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = export.html; sourceTree = "<group>"; };
 		D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		D06882ED22BB146200CEBC1F /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D0782BF120D60682009AF66B /* KVNProgressKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVNProgressKit.framework; path = Carthage/Build/iOS/KVNProgressKit.framework; sourceTree = "<group>"; };
 		D0782BF320D6EA4D009AF66B /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
@@ -454,13 +456,17 @@
 				D05110BE20CA1F9D00AFFDC7 /* CoreData */,
 				D017D41E1D3B010900B21443 /* Resources */,
 				D0A648571B0F582D005C0981 /* OCNoteOperation */,
-				D059745C18CEA28E00867B02 /* OCNote.h */,
-				D059745D18CEA28E00867B02 /* OCNote.m */,
 				D01067E32213BDF20047E090 /* AppDelegate.swift */,
-				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
-				D01067E52213C17D0047E090 /* NotesTableViewController.swift */,
 				BD302B8F22B8061A00067888 /* LoginTableViewController.swift */,
 				D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */,
+				D01067E52213C17D0047E090 /* NotesTableViewController.swift */,
+				D06882ED22BB146200CEBC1F /* EditorViewController.swift */,
+				D09538421D32A56A006BB78E /* PBHPreviewController.swift */,
+				D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */,
+				D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */,
+				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
+				D059745C18CEA28E00867B02 /* OCNote.h */,
+				D059745D18CEA28E00867B02 /* OCNote.m */,
 				D0CFE599188B5A6900165839 /* OCAPIClient.h */,
 				D0CFE59A188B5A6900165839 /* OCAPIClient.m */,
 				D02257041896E6650038232A /* OCNotesHelper.h */,
@@ -469,9 +475,6 @@
 				D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */,
 				D0CFE54E1888A7BD00165839 /* OCEditorViewController.h */,
 				D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */,
-				D09538421D32A56A006BB78E /* PBHPreviewController.swift */,
-				D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */,
-				D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */,
 				D08713EE1D18E2DF001EAF82 /* BridgingHeader.h */,
 				D0CFE5511888A7BD00165839 /* Images.xcassets */,
 				D02256C8189599570038232A /* NSDictionary+HandleNull.h */,
@@ -745,6 +748,7 @@
 				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
 				D02256CA189599570038232A /* NSDictionary+HandleNull.m in Sources */,
 				D01067E022110BF10047E090 /* CoreDataExtension.swift in Sources */,
+				D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */,
 				D0CB435018D274C200C54D7C /* FCModelCachedObject.m in Sources */,
 				D09538491D32A5AD006BB78E /* Markdown.swift in Sources */,
 				D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */,
@@ -952,6 +956,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOCNotes/iOCNotes-Prefix.pch";
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
@@ -984,6 +989,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOCNotes/iOCNotes-Prefix.pch";
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";

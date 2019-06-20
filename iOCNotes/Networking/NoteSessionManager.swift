@@ -31,12 +31,13 @@ class NotesManager: NSObject {
     }
 
 
-    func sync() {
+    func sync(completion: SyncCompletionBlock? = nil) {
         let router = Router.allNotes(exclude: "")
         NoteSessionManager.shared.request(router).responseDecodable { (response: DataResponse<[NoteStruct]>) in
             if let notes = response.value {
                 CDNote.update(notes: notes)
             }
+            completion?()
         }
     }
     

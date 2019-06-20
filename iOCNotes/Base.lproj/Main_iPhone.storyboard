@@ -69,6 +69,12 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="bhZ-9d-vIq">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="onRefreshWithSender:" destination="DXe-Iw-CcD" eventType="valueChanged" id="MxB-fy-AdS"/>
+                        </connections>
+                    </refreshControl>
                     <connections>
                         <outlet property="addBarButton" destination="MOs-yv-oce" id="KfS-dy-ASJ"/>
                         <outlet property="settingsBarButton" destination="Ehu-4h-6IO" id="qQP-ED-FEw"/>
@@ -94,7 +100,7 @@
         <!--Editor View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="OCEditorViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="EditorViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ate-YD-PfH"/>
                         <viewControllerLayoutGuide type="bottom" id="2tF-Ws-VkG"/>
@@ -107,58 +113,57 @@
                     <navigationItem key="navigationItem" id="dEj-4d-nDe"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="activityButton" destination="pXa-gb-ki1" id="uG9-It-RGV"/>
-                        <outlet property="addButton" destination="nY9-Vh-Cce" id="VpW-eb-f3M"/>
-                        <outlet property="deleteButton" destination="aql-su-dTG" id="v7n-sx-BDb"/>
-                        <outlet property="doneButton" destination="1qk-bQ-vnb" id="TsG-jk-zqg"/>
-                        <outlet property="fixedSpace" destination="thB-y7-Xbs" id="x5v-Bb-qap"/>
-                        <outlet property="previewButton" destination="3f2-rn-lgQ" id="GHO-JX-NU0"/>
-                        <outlet property="redoButton" destination="T7C-FW-CGQ" id="VHV-0J-Zw4"/>
-                        <outlet property="undoButton" destination="6bO-Ah-TJ8" id="dAI-LZ-8kW"/>
-                        <outlet property="view" destination="kh9-bI-dsS" id="9gq-u3-NHt"/>
+                        <outlet property="activityButton" destination="pXa-gb-ki1" id="fMm-Yj-DYc"/>
+                        <outlet property="addButton" destination="nY9-Vh-Cce" id="zDO-gf-ygq"/>
+                        <outlet property="deleteButton" destination="aql-su-dTG" id="aZw-En-uzG"/>
+                        <outlet property="doneButton" destination="1qk-bQ-vnb" id="t3C-JM-SAg"/>
+                        <outlet property="fixedSpace" destination="thB-y7-Xbs" id="6iI-ez-fg4"/>
+                        <outlet property="previewButton" destination="3f2-rn-lgQ" id="q8D-CE-LGd"/>
+                        <outlet property="redoButton" destination="T7C-FW-CGQ" id="FeB-EW-iqa"/>
+                        <outlet property="undoButton" destination="6bO-Ah-TJ8" id="jZs-pU-qIb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <barButtonItem systemItem="action" id="pXa-gb-ki1">
                     <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
-                        <action selector="doActivities:" destination="vXZ-lx-hvc" id="Nun-5m-zrt"/>
+                        <action selector="onActivities:" destination="vXZ-lx-hvc" id="oex-S6-Eng"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="trash" id="aql-su-dTG">
                     <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
-                        <action selector="onDelete:" destination="vXZ-lx-hvc" id="eLh-Ia-NNJ"/>
+                        <action selector="onDelete:" destination="vXZ-lx-hvc" id="UNY-4r-5qs"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="add" id="nY9-Vh-Cce">
                     <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
-                        <action selector="onAdd:" destination="vXZ-lx-hvc" id="hou-FV-ehq"/>
+                        <action selector="onAdd:" destination="vXZ-lx-hvc" id="gWr-mg-cqp"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem image="preview" id="3f2-rn-lgQ">
                     <connections>
-                        <action selector="onPreview:" destination="vXZ-lx-hvc" id="yyJ-sH-whJ"/>
+                        <action selector="onPreview:" destination="vXZ-lx-hvc" id="CRp-oT-RkW"/>
                         <segue destination="7xC-ZL-ULJ" kind="show" identifier="showPreview" id="2yM-1x-su8"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="undo" id="6bO-Ah-TJ8">
                     <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
-                        <action selector="onUndo:" destination="vXZ-lx-hvc" id="CKx-bI-TPQ"/>
+                        <action selector="onUndo:" destination="vXZ-lx-hvc" id="JwM-xg-ZsU"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="redo" id="T7C-FW-CGQ">
                     <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
-                        <action selector="onRedo:" destination="vXZ-lx-hvc" id="ujA-5q-Hco"/>
+                        <action selector="onRedo:" destination="vXZ-lx-hvc" id="dEX-CR-Yww"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="done" id="1qk-bQ-vnb">
                     <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
-                        <action selector="onDone:" destination="vXZ-lx-hvc" id="54B-WX-gp9"/>
+                        <action selector="onDone:" destination="vXZ-lx-hvc" id="ZSg-Vw-aPw"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="thB-y7-Xbs"/>
