@@ -21,61 +21,60 @@ class EditorViewController: UIViewController {
     
     var note: CDNote? {
         didSet {
-//            if (ocNote && [ocNote isKindOfClass:[OCNote class]]) {
-//                if (![ocNote isEqual:_ocNote]) {
-//                    _ocNote = ocNote;
-//                    self.noteView.text = _ocNote.content;
-//                    [self noteUpdated:nil];
-//                    [self.noteView.undoManager removeAllActions];
-//                    [self.noteView scrollRangeToVisible:NSMakeRange(0, 0)];
-//                }
-//            }
-
+            if note != oldValue {
+                noteView.text = note?.content
+                //                    [self noteUpdated:nil];
+                noteView.undoManager?.removeAllActions()
+                noteView.scrollRangeToVisible(NSRange(location: 0, length: 0))
+            }
         }
     }
-    var noteView: PBHHeaderTextView?
-    var addingNote: Bool = false
+   
+    var noteView: PBHHeaderTextView {
+        let result = PBHHeaderTextView(frame: .zero)
+        result.delegate = self
+        return result
+    }
+    
+    var addingNote = false
+    var updatedByEditing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(noteView)
 
-        // Do any additional setup after loading the view.
-/*
-         self.noteView = [[PBHHeaderTextView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-         self.noteView.delegate = self;
-         [self.view addSubview:self.noteView];
-         self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton, self.fixedSpace, self.previewButton];
-         self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
-         self.navigationItem.leftItemsSupplementBackButton = YES;
-         
-         if (self.ocNote) {
-         self.noteView.text = self.ocNote.content;
-         self.noteView.editable = YES;
-         self.noteView.selectable = YES;
-         self.activityButton.enabled = (self.noteView.text.length > 0);
-         self.addButton.enabled = (self.noteView.text.length > 0);
-         self.previewButton.enabled = (self.noteView.text.length > 0);
-         self.deleteButton.enabled = YES;
-         } else {
-         self.noteView.editable = NO;
-         self.noteView.selectable = NO;
-         self.noteView.text = @"";
-         //TODO self.noteView.headerLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
-         self.navigationItem.title = @"";
-         self.activityButton.enabled = NO;
-         self.addButton.enabled = YES;
-         self.deleteButton.enabled = NO;
-         self.previewButton.enabled = NO;
-         }
-         
-         self.navigationController.navigationBar.translucent = YES;
-         self.navigationController.delegate = self;
-         self.navigationController.toolbar.translucent = YES;
-         self.navigationController.toolbar.clipsToBounds = YES;
-         
-         self.addingNote = NO;
-         self.updatedByEditing = NO;
-         
+        navigationItem.rightBarButtonItems = [addButton, fixedSpace, activityButton, fixedSpace, deleteButton, fixedSpace, previewButton]
+        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        navigationItem.leftItemsSupplementBackButton = true
+        
+        if let note = note {
+            noteView.text = note.content;
+            noteView.isEditable = true
+            noteView.isSelectable = true
+            activityButton.isEnabled = !noteView.text.isEmpty
+            addButton.isEnabled = !noteView.text.isEmpty
+            previewButton.isEnabled = !noteView.text.isEmpty
+            deleteButton.isEnabled = true
+        } else {
+            noteView.isEditable = false
+            noteView.isSelectable = false
+            noteView.text = ""
+            noteView.headerLabel.text = NSLocalizedString("Select or create a note.", comment: "Placeholder text when no note is selected")
+            navigationItem.title = ""
+            activityButton.isEnabled = false
+            addButton.isEnabled = true
+            deleteButton.isEnabled = false
+            previewButton.isEnabled = false
+        }
+
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.delegate = self
+        navigationController?.toolbar.isTranslucent = true
+        navigationController?.toolbar.clipsToBounds = true
+        
+        addingNote = false
+        updatedByEditing = false
+        /*
          [[NSNotificationCenter defaultCenter] addObserver:self
          selector:@selector(keyboardWillShow:)
          name:UIKeyboardWillShowNotification
@@ -95,30 +94,27 @@ class EditorViewController: UIViewController {
          selector:@selector(noteUpdated:)
          name:FCModelChangeNotification
          object:OCNote.class];
-         
-         [self.view setNeedsUpdateConstraints];
-         [self viewWillTransitionToSize:[UIScreen mainScreen].bounds.size withTransitionCoordinator:self.transitionCoordinator];
  */
+        view.setNeedsUpdateConstraints()
+        if let transitionCoordinator = transitionCoordinator {
+            viewWillTransition(to: UIScreen.main.bounds.size, with: transitionCoordinator)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        [super viewWillAppear:animated];
-//        if (self.ocNote) {
-//            NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.ocNote.modified];
-//            if (date) {
-//                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-//                dateFormat.dateStyle = NSDateFormatterShortStyle;
-//                dateFormat.timeStyle = NSDateFormatterShortStyle;
-//                dateFormat.doesRelativeDateFormatting = NO;
-//                //TODO self.noteView.headerLabel.text = [dateFormat stringFromDate:date];
-//                //TODO self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-//            }
-//        }
-
+        super.viewWillAppear(animated)
+        if let note = note, let date = note.modified as Date? {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            formatter.timeStyle = .short
+            formatter.doesRelativeDateFormatting = false
+            noteView.headerLabel.text = formatter.string(from: date)
+            noteView.headerLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        [super viewDidAppear:animated];
+        super.viewDidAppear(animated)
 //        //TODO: This works around a Swift/Objective-C interaction issue. Verify that it is still needed.
 //        self.noteView.scrollEnabled = NO;
 //        self.noteView.scrollEnabled = YES;
@@ -126,32 +122,26 @@ class EditorViewController: UIViewController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-//        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
-//            if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-//                //TODO            if (size.width > size.height) {
-//                //                [self.noteView updateInsetsWithSize:178];
-//                //            } else {
-//                //                [self.noteView updateInsetsWithSize:50];
-//                //            }
-//            }
-//        }
-
+        super.viewWillTransition(to: size, with: coordinator)
+        if traitCollection.horizontalSizeClass == .regular, traitCollection.userInterfaceIdiom == .pad {
+            if size.width > size.height {
+                noteView.updateInsets(size: 178)
+            } else {
+                noteView.updateInsets(size: 50)
+            }
+        }
     }
     
-/*
-     - (void)updateViewConstraints {
-     if (!self.didSetupConstraints) {
-     self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
-     [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
-     [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:0];
-     [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:0];
-     self.didSetupConstraints = YES;
-     }
-     [super updateViewConstraints];
-     }
-
- */
+    override func updateViewConstraints() {
+//        if (!self.didSetupConstraints) {
+//            self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
+//            [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
+//            [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:0];
+//            [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:0];
+//            self.didSetupConstraints = YES;
+//        }
+        super.updateViewConstraints()
+    }
     
     /*
     // MARK: - Navigation
@@ -195,8 +185,8 @@ class EditorViewController: UIViewController {
     }
     
     @IBAction func onAdd(_ sender: Any?) {
-//        self.addingNote = YES;
-//        self.ocNote = [[OCNotesHelper sharedHelper] addNote:@""];
+        addingNote = true
+        //TODO self.ocNote = [[OCNotesHelper sharedHelper] addNote:@""];
     }
     
     @IBAction func onPreview(_ sender: Any?) {
@@ -204,21 +194,21 @@ class EditorViewController: UIViewController {
     }
     
     @IBAction func onUndo(_ sender: Any?) {
-//        if ([self.noteView.undoManager canUndo]) {
-//            [self.noteView.undoManager undo];
-//        }
+        if let _ = noteView.undoManager?.canUndo {
+            noteView.undoManager?.undo()
+        }
     }
     
     @IBAction func onRedo(_ sender: Any?) {
-//        if ([self.noteView.undoManager canRedo]) {
-//            [self.noteView.undoManager redo];
-//        }
+        if let _ = noteView.undoManager?.canRedo {
+            noteView.undoManager?.redo()
+        }
     }
     
     @IBAction func onDone(_ sender: Any?) {
-        //    [self.noteView endEditing:YES];
+        noteView.endEditing(true)
     }
-
+    
     /*
     - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == actionSheet.cancelButtonIndex) {
@@ -250,42 +240,6 @@ class EditorViewController: UIViewController {
      
      
      
-     - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
-     {
-     _activityPopover = nil;
-     }
-     
-     - (void)textViewDidChange:(UITextView *)textView {
-     self.activityButton.enabled = (textView.text.length > 0);
-     self.addButton.enabled = (textView.text.length > 0);
-     self.previewButton.enabled = (textView.text.length > 0);
-     self.deleteButton.enabled = YES;
-     if (editingTimer) {
-     [editingTimer invalidate];
-     editingTimer = nil;
-     }
-     editingTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(updateText:) userInfo:nil repeats:NO];
-     }
-     
-     - (BOOL)textView:(UITextView *)tView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-     CGRect textRect = [tView.layoutManager usedRectForTextContainer:tView.textContainer];
-     CGFloat sizeAdjustment = tView.font.lineHeight * [UIScreen mainScreen].scale;
-     
-     if (textRect.size.height >= tView.frame.size.height - tView.contentInset.bottom - sizeAdjustment) {
-     if ([text isEqualToString:@"\n"]) {
-     [UIView animateWithDuration:0.2 animations:^{
-     [tView setContentOffset:CGPointMake(tView.contentOffset.x, tView.contentOffset.y + sizeAdjustment)];
-     }];
-     }
-     }
-     
-     return YES;
-     }
-     
-     - (void)textViewDidChangeSelection:(UITextView *)textView {
-     [textView scrollRangeToVisible:textView.selectedRange];
-     }
-     
      - (void)updateText:(NSTimer*)timer {
      //    NSLog(@"Ready to update text");
      if (self.ocNote.existsInDatabase) {
@@ -294,6 +248,12 @@ class EditorViewController: UIViewController {
      }];
      [[OCNotesHelper sharedHelper] updateNote:self.ocNote];
      }
+     }
+
+     
+     - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+     {
+     _activityPopover = nil;
      }
      
      - (void)noteUpdated:(NSNotification *)notification {
@@ -389,20 +349,6 @@ class EditorViewController: UIViewController {
      //TODO self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
      }
      
-     - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-     if ([viewController isEqual:self]) {
-     BOOL showKeyboard = NO;
-     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-     if (self.ocNote && (self.ocNote.id == 0)) {
-     showKeyboard = YES;
-     }
-     }
-     if (showKeyboard) {
-     [self.view bringSubviewToFront:self.noteView];
-     [self.noteView becomeFirstResponder];
-     }
-     }
-     }
      
      - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
      if ([segue.identifier  isEqual: @"showPreview"]) {
@@ -430,5 +376,60 @@ class EditorViewController: UIViewController {
      
 */
     
+    
+}
+
+extension EditorViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+//        self.activityButton.enabled = (textView.text.length > 0);
+//        self.addButton.enabled = (textView.text.length > 0);
+//        self.previewButton.enabled = (textView.text.length > 0);
+//        self.deleteButton.enabled = YES;
+//        if (editingTimer) {
+//            [editingTimer invalidate];
+//            editingTimer = nil;
+//        }
+//        editingTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(updateText:) userInfo:nil repeats:NO];
+
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        CGRect textRect = [tView.layoutManager usedRectForTextContainer:tView.textContainer];
+//        CGFloat sizeAdjustment = tView.font.lineHeight * [UIScreen mainScreen].scale;
+//
+//        if (textRect.size.height >= tView.frame.size.height - tView.contentInset.bottom - sizeAdjustment) {
+//            if ([text isEqualToString:@"\n"]) {
+//                [UIView animateWithDuration:0.2 animations:^{
+//                    [tView setContentOffset:CGPointMake(tView.contentOffset.x, tView.contentOffset.y + sizeAdjustment)];
+//                    }];
+//            }
+//        }
+        
+        return true
+    }
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        textView.scrollRangeToVisible(textView.selectedRange)
+    }
+}
+
+extension EditorViewController: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+//        if ([viewController isEqual:self]) {
+//            BOOL showKeyboard = NO;
+//            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+//                if (self.ocNote && (self.ocNote.id == 0)) {
+//                    showKeyboard = YES;
+//                }
+//            }
+//            if (showKeyboard) {
+//                [self.view bringSubviewToFront:self.noteView];
+//                [self.noteView becomeFirstResponder];
+//            }
+//        }
+
+    }
     
 }
