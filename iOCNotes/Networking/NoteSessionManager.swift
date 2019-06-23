@@ -64,7 +64,7 @@ class NotesManager: NSObject {
     }
     
     func update(note: NoteProtocol) {
-        let parameters: Parameters = ["content": note.content,
+        let parameters: Parameters = ["content": note.content as Any,
                                       "category": note.category as Any,
                                       "modified": note.modified,
                                       "favorite": note.favorite]

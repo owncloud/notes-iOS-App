@@ -19,6 +19,10 @@ class EditorViewController: UIViewController {
     @IBOutlet var doneButton: UIBarButtonItem!
     @IBOutlet var fixedSpace: UIBarButtonItem!
     
+    var addingNote = false
+    var updatedByEditing = false
+    var noteExporter: PBHNoteExporter?
+    
     var note: CDNote? {
         didSet {
             if note != oldValue {
@@ -35,9 +39,6 @@ class EditorViewController: UIViewController {
         result.delegate = self
         return result
     }
-    
-    var addingNote = false
-    var updatedByEditing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,45 +144,74 @@ class EditorViewController: UIViewController {
         super.updateViewConstraints()
     }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showPreview" {
+            if let preview = segue.destination as? PBHPreviewController, let note = note {
+                preview.textAsMarkdown = noteView.text
+                preview.noteTitle = note.title
+            }
+        }
     }
-    */
+    
+    // MARK: - Actions
 
     @IBAction func onActivities(_ sender: Any?) {
-//        NSString *textToExport;
-//        UITextRange *selectedRange = [self.noteView selectedTextRange];
-//        NSString *selectedText = [self.noteView textInRange:selectedRange];
-//        if (selectedText.length > 0) {
-//            textToExport = selectedText;
-//        } else {
-//            textToExport = self.noteView.text;
-//        }
-        
-        //TODO    if (!noteExporter) {
-        //        noteExporter = [[PBHNoteExporter alloc] initWithViewController:self barButtonItem:self.activityButton text:textToExport title:self.ocNote.title];
-        //    }
-        //    [noteExporter showMenu];
+        var textToExport: String?
+        if let selectedRange = noteView.selectedTextRange, let selectedText = noteView.text(in: selectedRange), !selectedText.isEmpty  {
+            textToExport = selectedText
+        } else {
+            textToExport = noteView.text
+        }
+        if let text = textToExport {
+            noteExporter = PBHNoteExporter(viewController: self, barButtonItem: activityButton, text: text, title: note?.title ?? "Untitled")
+            noteExporter?.showMenu()
+        }
+    }
+    
+    lazy var deleteAlertController: UIAlertController = {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: NSLocalizedString("Delete Note", comment: "A menu action"), style: .destructive, handler: deleteNote(action:))
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "A menu action"), style: .cancel, handler: { (action) in
+            //
+        })
+        controller.addAction(deleteAction)
+        controller.addAction(cancelAction)
+        controller.popoverPresentationController?.barButtonItem = deleteButton
+        return controller
+    }()
+    
+    func deleteNote(action: UIAlertAction) {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"DeletingNote" object:nil];
+//
+//        __block UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.noteView.frame];
+//        imageView.image = [self screenshot];
+//        [self.noteView addSubview:imageView];
+//        [UIView animateWithDuration:0.3f
+//            delay:0.0f
+//            options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
+//            animations:^{
+//            CGRect targetFrame = CGRectMake(self.noteView.frame.size.width / 2,
+//            self.noteView.frame.size.height /2,
+//            0, 0);
+//            imageView.frame = targetFrame;
+//            imageView.alpha = 0.0f;
+//            }
+//            completion:^(BOOL finished){
+//            [imageView removeFromSuperview];
+//            [self.view.layer setNeedsDisplay];
+//            [self.view.layer displayIfNeeded];
+//            imageView = nil;
+//            }];
+//
     }
     
     @IBAction func onDelete(_ sender: Any?) {
-//        if (!deleteConfirmation) {
-//            deleteConfirmation = [[UIActionSheet alloc] initWithTitle:nil
-//                delegate:self
-//                cancelButtonTitle:NSLocalizedString(@"Cancel", @"A menu action")
-//                destructiveButtonTitle:NSLocalizedString(@"Delete Note", @"A menu action")
-//                otherButtonTitles:nil, nil];
-//        }
-//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-//            [deleteConfirmation showFromBarButtonItem:self.deleteButton animated:YES];
-//        } else {
-//            [deleteConfirmation showInView:self.view];
-//        }
+        present(deleteAlertController, animated: true) {
+            //
+        }
     }
     
     @IBAction func onAdd(_ sender: Any?) {
@@ -209,37 +239,7 @@ class EditorViewController: UIViewController {
         noteView.endEditing(true)
     }
     
-    /*
-    - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
-    return;
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DeletingNote" object:nil];
-    
-    __block UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.noteView.frame];
-    imageView.image = [self screenshot];
-    [self.noteView addSubview:imageView];
-    [UIView animateWithDuration:0.3f
-    delay:0.0f
-    options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
-    animations:^{
-    CGRect targetFrame = CGRectMake(self.noteView.frame.size.width / 2,
-    self.noteView.frame.size.height /2,
-    0, 0);
-    imageView.frame = targetFrame;
-    imageView.alpha = 0.0f;
-    }
-    completion:^(BOOL finished){
-    [imageView removeFromSuperview];
-    [self.view.layer setNeedsDisplay];
-    [self.view.layer displayIfNeeded];
-    imageView = nil;
-    }];
-    }
-     
-     
-     
+/*
      - (void)updateText:(NSTimer*)timer {
      //    NSLog(@"Ready to update text");
      if (self.ocNote.existsInDatabase) {
@@ -350,14 +350,6 @@ class EditorViewController: UIViewController {
      }
      
      
-     - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     if ([segue.identifier  isEqual: @"showPreview"]) {
-     PBHPreviewController *preview = (PBHPreviewController*)segue.destinationViewController;
-     preview.textAsMarkdown = self.noteView.text;
-     preview.noteTitle = self.ocNote.title;
-     }
-     }
-     
      - (UIImage*)screenshot {
      UIGraphicsBeginImageContextWithOptions(self.noteView.frame.size, NO, 0);
      CGContextRef context = UIGraphicsGetCurrentContext();
@@ -367,13 +359,6 @@ class EditorViewController: UIViewController {
      
      return capturedScreen;
      }
-
-     
-     
-     
-     
-     
-     
 */
     
     
