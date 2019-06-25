@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+let detailSegueIdentifier = "showDetail"
+
 class NotesTableViewController: UITableViewController {
 
     @IBOutlet var addBarButton: UIBarButtonItem!
@@ -24,7 +26,6 @@ class NotesTableViewController: UITableViewController {
     
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -91,6 +92,8 @@ class NotesTableViewController: UITableViewController {
         tableView.tableHeaderView = searchController?.searchBar
         tableView.contentOffset = CGPoint(x: 0, y: searchController?.searchBar.frame.size.height ?? 0.0 + tableView.contentOffset.y)
         tableView.dropDelegate = self
+        try? notesFrc.performFetch()
+        tableView.reloadData()
         definesPresentationContext = true
     }
     
@@ -173,15 +176,49 @@ class NotesTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        guard segue.identifier == detailSegueIdentifier else {
+            return
+        }
+
+//            NSUInteger noteCount;
+//            if (self.searchController.active) {
+//                noteCount = searchResults.count;
+//            } else {
+//                noteCount = self.ocNotes.count;
+//            }
+        if let row = tableView.indexPathForSelectedRow?.row,
+            let note = notesFrc.fetchedObjects?[row] {
+//                if (self.searchController.active) {
+//                    note = [searchResults objectAtIndex:indexPath.row];
+//                } else {
+//                    note = [self.ocNotes objectAtIndex:indexPath.row];
+//                }
+
+//            NotesManager.shared.get(note: note)
+
+
+            if let navigationController = segue.destination as? UINavigationController,
+                let editorController = navigationController.topViewController as? EditorViewController {
+                editorViewController = editorController
+                editorController.note = note
+                editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                editorController.navigationItem.leftItemsSupplementBackButton = true
+
+                if splitViewController?.displayMode == .allVisible || splitViewController?.displayMode == .primaryOverlay {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self.splitViewController?.preferredDisplayMode = .primaryHidden
+                    }, completion: nil)
+                }
+            }
+//                if ([OCAPIClient sharedClient].isOnline) {
+//                    [KVNProgress show];
+//                }
+        }
     }
-    */
 
     @IBAction func onRefresh(sender: Any?) {
         if let refreshControl = refreshControl, !refreshControl.isRefreshing {
@@ -224,9 +261,10 @@ class NotesTableViewController: UITableViewController {
         request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
         let frc = NSFetchedResultsController(fetchRequest: request,
                                              managedObjectContext: NotesData.mainThreadContext,
-                                             sectionNameKeyPath: nil, cacheName: nil)
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
         frc.delegate = self
-        try! frc.performFetch()
+        //try! frc.performFetch()
         return frc
     }
 
@@ -257,10 +295,10 @@ class NotesTableViewController: UITableViewController {
 
 }
 
-
 extension NotesTableViewController: NSFetchedResultsControllerDelegate {
-    
-    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.reloadData()
+    }
 }
 
 extension NotesTableViewController: UIActionSheetDelegate {

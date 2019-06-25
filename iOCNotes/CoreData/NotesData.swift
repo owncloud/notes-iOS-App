@@ -13,7 +13,8 @@ class NotesData {
     
     static var mainThreadContext: NSManagedObjectContext = {
         let persistentContainer = NSPersistentContainer(name: "Notes")
-        persistentContainer.loadPersistentStores(completionHandler: { (_, error) in
+        persistentContainer.loadPersistentStores(completionHandler: { store, error in
+            print(store.url)
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.

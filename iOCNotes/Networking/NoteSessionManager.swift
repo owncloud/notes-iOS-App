@@ -30,7 +30,6 @@ class NotesManager: NSObject {
         return NetworkReachabilityManager(host: KeychainHelper.server)?.isReachable ?? false
     }
 
-
     func sync(completion: SyncCompletionBlock? = nil) {
         let router = Router.allNotes(exclude: "")
         NoteSessionManager.shared.request(router).responseDecodable { (response: DataResponse<[NoteStruct]>) in
@@ -54,7 +53,7 @@ class NotesManager: NSObject {
         }
     }
     
-    func get(note: NoteProtocol) {
+    func get(note: CDNote) {
         let router = Router.getNote(id: Int(note.id), exclude: "")
         NoteSessionManager.shared.request(router).responseDecodable { (response: DataResponse<NoteStruct>) in
             if let note = response.value {
@@ -63,10 +62,10 @@ class NotesManager: NSObject {
         }
     }
     
-    func update(note: NoteProtocol) {
+    func update(note: CDNote) {
         let parameters: Parameters = ["content": note.content as Any,
                                       "category": note.category as Any,
-                                      "modified": note.modified,
+                                      "modified": note.modified as Any,
                                       "favorite": note.favorite]
         let router = Router.updateNote(id: Int(note.id), paramters: parameters)
         NoteSessionManager.shared.request(router).responseDecodable { (response: DataResponse<NoteStruct>) in

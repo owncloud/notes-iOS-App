@@ -54,9 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
  */
         
-        NotesManager.shared.sync()
-        
-        return true
+         return true
     }
     
 }
