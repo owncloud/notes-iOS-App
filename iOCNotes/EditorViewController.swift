@@ -22,7 +22,9 @@ class EditorViewController: UIViewController {
     var addingNote = false
     var updatedByEditing = false
     var noteExporter: PBHNoteExporter?
-    
+    var bottomLayoutConstraint: NSLayoutConstraint?
+    var editingTimer: Timer?
+
     var note: CDNote? {
         didSet {
             if note != oldValue {
@@ -34,16 +36,30 @@ class EditorViewController: UIViewController {
         }
     }
    
-    var noteView: PBHHeaderTextView {
-        let result = PBHHeaderTextView(frame: .zero)
-        result.delegate = self
-        return result
+    var noteView = PBHHeaderTextView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
+
+    private var observers = [NSObjectProtocol]()
+
+
+    deinit {
+        for observer in self.observers {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(noteView)
-
+        noteView.translatesAutoresizingMaskIntoConstraints = false
+        noteView.delegate = self
+        let bottomConstraint = noteView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        bottomLayoutConstraint = bottomConstraint
+        NSLayoutConstraint.activate([
+            noteView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            noteView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            noteView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            bottomConstraint,
+        ])
         navigationItem.rightBarButtonItems = [addButton, fixedSpace, activityButton, fixedSpace, deleteButton, fixedSpace, previewButton]
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true
@@ -75,28 +91,32 @@ class EditorViewController: UIViewController {
         
         addingNote = false
         updatedByEditing = false
+        self.observers.append(NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] notification in
+                                                                        self?.keyboardWillShow(notification: notification)
+        }))
+        self.observers.append(NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillHideNotification,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] notification in
+                                                                        self?.keyboardWillHide(notification: notification)
+        }))
+        self.observers.append(NotificationCenter.default.addObserver(forName: UIContentSizeCategory.didChangeNotification,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] notification in
+                                                                        self?.preferredContentSizeChanged()
+        }))
+
         /*
-         [[NSNotificationCenter defaultCenter] addObserver:self
-         selector:@selector(keyboardWillShow:)
-         name:UIKeyboardWillShowNotification
-         object:nil];
-         
-         [[NSNotificationCenter defaultCenter] addObserver:self
-         selector:@selector(keyboardWillHide:)
-         name:UIKeyboardWillHideNotification
-         object:nil];
-         
-         [[NSNotificationCenter defaultCenter] addObserver:self
-         selector:@selector(preferredContentSizeChanged:)
-         name:UIContentSizeCategoryDidChangeNotification
-         object:nil];
-         
          [NSNotificationCenter.defaultCenter addObserver:self
          selector:@selector(noteUpdated:)
          name:FCModelChangeNotification
          object:OCNote.class];
  */
-        view.setNeedsUpdateConstraints()
+//        view.setNeedsUpdateConstraints()
         if let transitionCoordinator = transitionCoordinator {
             viewWillTransition(to: UIScreen.main.bounds.size, with: transitionCoordinator)
         }
@@ -117,9 +137,8 @@ class EditorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        //TODO: This works around a Swift/Objective-C interaction issue. Verify that it is still needed.
-//        self.noteView.scrollEnabled = NO;
-//        self.noteView.scrollEnabled = YES;
-//
+        self.noteView.isScrollEnabled = false
+        self.noteView.isScrollEnabled = true
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -131,17 +150,6 @@ class EditorViewController: UIViewController {
                 noteView.updateInsets(size: 50)
             }
         }
-    }
-    
-    override func updateViewConstraints() {
-//        if (!self.didSetupConstraints) {
-//            self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
-//            [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
-//            [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:0];
-//            [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:0];
-//            self.didSetupConstraints = YES;
-//        }
-        super.updateViewConstraints()
     }
     
     // MARK: - Navigation
@@ -239,18 +247,8 @@ class EditorViewController: UIViewController {
         noteView.endEditing(true)
     }
     
-/*
-     - (void)updateText:(NSTimer*)timer {
-     //    NSLog(@"Ready to update text");
-     if (self.ocNote.existsInDatabase) {
-     [self.ocNote save:^{
-     self.ocNote.content = self.noteView.text;
-     }];
-     [[OCNotesHelper sharedHelper] updateNote:self.ocNote];
-     }
-     }
+    /*
 
-     
      - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
      {
      _activityPopover = nil;
@@ -296,59 +294,61 @@ class EditorViewController: UIViewController {
      self.noteView.text = self.ocNote.content;
      }
      }
-     
-     - (void)keyboardWillShow:(NSNotification *)notification {
-     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-     self.navigationItem.rightBarButtonItems = @[self.doneButton, self.fixedSpace, self.redoButton, self.fixedSpace, self.undoButton];
-     }
-     
-     NSDictionary* info = [notification userInfo];
-     CGRect r = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-     CGRect ar = [self.view convertRect:r fromView:nil];
-     
-     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 2;
-     int kbHeight = ar.size.height;
-     
-     UIEdgeInsets textInsets = self.noteView.textContainerInset;
-     textInsets.bottom = kbHeight;
-     
-     [self.bottomLayoutConstraint autoRemove];
-     [self updateViewConstraints];
-     self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kbHeight];
-     self.updatedByEditing = YES;
-     
-     [UIView animateWithDuration:animationDuration animations:^{
-     [self.view layoutIfNeeded];
-     }];
-     }
-     
-     - (void)keyboardWillHide:(NSNotification *)notification {
-     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-     self.navigationItem.rightBarButtonItems = @[self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton, self.fixedSpace, self.previewButton];
-     }
-     
-     NSDictionary *info = [notification userInfo];
-     NSTimeInterval animationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue] * 0.5;
-     
-     [self.bottomLayoutConstraint autoRemove];
-     self.bottomLayoutConstraint = [self.noteView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-     [self updateViewConstraints];
-     self.updatedByEditing = NO;
-     
-     [UIView animateWithDuration:animationDuration animations:^{
-     [self.view layoutIfNeeded];
-     }];
-     }
-     
+*/
+
+    func keyboardWillShow(notification: Notification) {
+        if self.traitCollection.userInterfaceIdiom == .phone {
+            self.navigationItem.rightBarButtonItems = [self.doneButton, self.fixedSpace, self.redoButton, self.fixedSpace, self.undoButton]
+        }
+
+        if let info = notification.userInfo,
+            let rect: CGRect = info[UIWindow.keyboardFrameEndUserInfoKey] as? CGRect,
+            let ar = self.view?.convert(rect, from: nil),
+            let animationDuration: TimeInterval = info[UIWindow.keyboardAnimationDurationUserInfoKey] as? TimeInterval {
+            let kbHeight = ar.size.height
+            var textInsets = self.noteView.textContainerInset
+            textInsets.bottom = kbHeight
+            self.bottomLayoutConstraint?.autoRemove()
+            self.bottomLayoutConstraint = noteView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -kbHeight)
+            self.bottomLayoutConstraint?.isActive = true
+            self.updatedByEditing = true
+            UIView.animate(withDuration: animationDuration) { [weak self] in
+                self?.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    func keyboardWillHide(notification: Notification) {
+        if self.traitCollection.userInterfaceIdiom == .phone {
+            self.navigationItem.rightBarButtonItems = [self.addButton, self.fixedSpace, self.activityButton, self.fixedSpace, self.deleteButton, self.fixedSpace, self.previewButton];
+        }
+        if let info = notification.userInfo,
+            let animationDuration: TimeInterval = info[UIWindow.keyboardAnimationDurationUserInfoKey] as? TimeInterval {
+
+            self.bottomLayoutConstraint?.autoRemove()
+            self.bottomLayoutConstraint = noteView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            self.bottomLayoutConstraint?.isActive = true
+            self.updateViewConstraints()
+            self.updatedByEditing = false
+            UIView.animate(withDuration: animationDuration) { [weak self] in
+                self?.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    func preferredContentSizeChanged() {
+        self.noteView.font = UIFont.preferredFont(forTextStyle: .body)
+        self.noteView.headerLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    }
+
+
+
+/*
      - (void)noteAdded:(NSNotification*)notification {
      [self noteUpdated:notification];
      }
      
-     - (void)preferredContentSizeChanged:(NSNotification *)notification {
-     self.noteView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-     //TODO self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-     }
-     
+
      
      - (UIImage*)screenshot {
      UIGraphicsBeginImageContextWithOptions(self.noteView.frame.size, NO, 0);
@@ -367,30 +367,33 @@ class EditorViewController: UIViewController {
 extension EditorViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-//        self.activityButton.enabled = (textView.text.length > 0);
-//        self.addButton.enabled = (textView.text.length > 0);
-//        self.previewButton.enabled = (textView.text.length > 0);
-//        self.deleteButton.enabled = YES;
-//        if (editingTimer) {
-//            [editingTimer invalidate];
-//            editingTimer = nil;
-//        }
-//        editingTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(updateText:) userInfo:nil repeats:NO];
-
+        self.activityButton.isEnabled = textView.text.count > 0
+        self.addButton.isEnabled = textView.text.count > 0
+        self.previewButton.isEnabled = textView.text.count > 0
+        self.deleteButton.isEnabled = true
+        if editingTimer != nil {
+            editingTimer?.invalidate()
+            editingTimer = nil
+        }
+        editingTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
+            self.note?.content = self.noteView.text;
+            if let note = self.note {
+                NotesManager.shared.update(note: note)
+            }
+        })
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        CGRect textRect = [tView.layoutManager usedRectForTextContainer:tView.textContainer];
-//        CGFloat sizeAdjustment = tView.font.lineHeight * [UIScreen mainScreen].scale;
-//
-//        if (textRect.size.height >= tView.frame.size.height - tView.contentInset.bottom - sizeAdjustment) {
-//            if ([text isEqualToString:@"\n"]) {
-//                [UIView animateWithDuration:0.2 animations:^{
-//                    [tView setContentOffset:CGPointMake(tView.contentOffset.x, tView.contentOffset.y + sizeAdjustment)];
-//                    }];
-//            }
-//        }
-        
+        let textRect = textView.layoutManager.usedRect(for: textView.textContainer)
+        let sizeAdjustment = textView.font?.lineHeight ?? 0.0 * UIScreen.main.scale
+
+        if textRect.size.height >= textView.frame.size.height - textView.contentInset.bottom - sizeAdjustment {
+            if text == "\n" {
+                UIView.animate(withDuration: 0.2) {
+                    textView.setContentOffset(CGPoint(x: textView.contentOffset.x, y: textView.contentOffset.y + sizeAdjustment), animated: true)
+                }
+            }
+        }
         return true
     }
     
@@ -402,19 +405,12 @@ extension EditorViewController: UITextViewDelegate {
 extension EditorViewController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-//        if ([viewController isEqual:self]) {
-//            BOOL showKeyboard = NO;
-//            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-//                if (self.ocNote && (self.ocNote.id == 0)) {
-//                    showKeyboard = YES;
-//                }
-//            }
-//            if (showKeyboard) {
-//                [self.view bringSubviewToFront:self.noteView];
-//                [self.noteView becomeFirstResponder];
-//            }
-//        }
-
+        if viewController == self {
+            if self.traitCollection.userInterfaceIdiom == .phone, let note = self.note, note.id == 0 {
+                self.view.bringSubviewToFront(self.noteView)
+                self.noteView.becomeFirstResponder()
+            }
+        }
     }
     
 }
