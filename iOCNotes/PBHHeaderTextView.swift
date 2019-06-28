@@ -10,48 +10,47 @@ import UIKit
 import Marklight
 
 @objc(PBHHeaderTextView)
-class PBHHeaderTextView: UITextView, UITextDropDelegate {
+class PBHHeaderTextView: UITextView {
 
-    let kSmallPadding: CGFloat = 20.0
+    let smallPadding: CGFloat = 20.0
 
     var leftHeaderLayoutConstraint = NSLayoutConstraint()
     var rightHeaderLayoutConstraint = NSLayoutConstraint()
     var didSetupConstraints = false
     
-    var myTextStorage = MarklightTextStorage()
-    
-    
+    var noteTextStorage = MarklightTextStorage()
+
     lazy var headerLabel: UILabel = {
-        var theHeaderLabel = UILabel.newAutoLayout()
-        theHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
-        theHeaderLabel.numberOfLines = 1;
+        var label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 1;
         if (self.traitCollection.horizontalSizeClass == .regular) {
-            theHeaderLabel.textAlignment = .left;
+            label.textAlignment = .left;
         } else {
-            theHeaderLabel.textAlignment = .center
+            label.textAlignment = .center
         }
-        theHeaderLabel.textColor = UIColor.lightGray
-        theHeaderLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        theHeaderLabel.text = NSLocalizedString("Select or create a note.", comment: "Placeholder text when no note is selected")
+        label.textColor = UIColor.lightGray
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.text = NSLocalizedString("Select or create a note.", comment: "Placeholder text when no note is selected")
     
-        return theHeaderLabel
+        return label
     }()
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
-        myTextStorage.marklightTextProcessor.codeColor = UIColor.green
-        myTextStorage.marklightTextProcessor.quoteColor = UIColor.darkGray
-        myTextStorage.marklightTextProcessor.syntaxColor = UIColor.blue
+        noteTextStorage.marklightTextProcessor.codeColor = UIColor.green
+        noteTextStorage.marklightTextProcessor.quoteColor = UIColor.darkGray
+        noteTextStorage.marklightTextProcessor.syntaxColor = UIColor.blue
         
         let attributedString = NSAttributedString(string: "")
-        myTextStorage.setAttributedString(attributedString)
+        noteTextStorage.setAttributedString(attributedString)
 
         let containerSize = CGSize(width: frame.size.width, height:CGFloat.greatestFiniteMagnitude)
-        let container = NSTextContainer.init(size: containerSize)
+        let container = NSTextContainer(size: containerSize)
         container.widthTracksTextView = true
 
         let layoutManager = NSLayoutManager()
         layoutManager.addTextContainer(container)
-        myTextStorage.addLayoutManager(layoutManager)
+        noteTextStorage.addLayoutManager(layoutManager)
 
         super.init(frame: frame, textContainer: container)
         self.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0);
@@ -73,12 +72,12 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerLabel)
         
-        myTextStorage.marklightTextProcessor.codeColor = UIColor.green
-        myTextStorage.marklightTextProcessor.quoteColor = UIColor.darkGray
-        myTextStorage.marklightTextProcessor.syntaxColor = UIColor.blue
+        noteTextStorage.marklightTextProcessor.codeColor = UIColor.green
+        noteTextStorage.marklightTextProcessor.quoteColor = UIColor.darkGray
+        noteTextStorage.marklightTextProcessor.syntaxColor = UIColor.blue
         
         let attributedString = NSAttributedString(string: "")
-        myTextStorage.setAttributedString(attributedString)
+        noteTextStorage.setAttributedString(attributedString)
         
         let textViewRect = self.frame;
         let layoutManager = NSLayoutManager()
@@ -88,7 +87,7 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
         container.widthTracksTextView = true
         
         layoutManager.addTextContainer(container)
-        myTextStorage.addLayoutManager(layoutManager)
+        noteTextStorage.addLayoutManager(layoutManager)
         
         self.setNeedsUpdateConstraints()
         self.traitCollectionDidChange(nil)
@@ -96,14 +95,15 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
     
     override func updateConstraints() {
         if (self.didSetupConstraints == false) {
-            
             self.headerLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-            self.headerLabel.autoMatch(.height, to: .height, of: self.headerLabel, withOffset:0)
-            self.headerLabel.autoPinEdge( toSuperviewEdge: .top, withInset:-kSmallPadding)
-            leftHeaderLayoutConstraint = self.headerLabel.autoPinEdge( .leading, to: .leading, of: self, withOffset:kSmallPadding)
-            rightHeaderLayoutConstraint = self.headerLabel.autoPinEdge( .trailing, to: .trailing, of: self, withOffset:kSmallPadding)
-            self.headerLabel.autoAlignAxis( .vertical, toSameAxisOf: self)
-            
+            leftHeaderLayoutConstraint = self.headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: smallPadding)
+            rightHeaderLayoutConstraint = self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -smallPadding)
+            NSLayoutConstraint.activate([
+                self.headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+                leftHeaderLayoutConstraint,
+                rightHeaderLayoutConstraint,
+                self.headerLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            ])
             self.didSetupConstraints = true
         }
         super.updateConstraints()
@@ -112,7 +112,7 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if (self.traitCollection.horizontalSizeClass == .regular) {
-            headerLabel.textAlignment = .left
+            self.headerLabel.textAlignment = .left
             if (self.traitCollection.userInterfaceIdiom == .pad) {
                 if (UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height) {
                     self.updateInsets(size: 178)
@@ -120,11 +120,11 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
                     self.updateInsets(size: 50)
                 }
             } else {
-                self.updateInsets(size: kSmallPadding)
+                self.updateInsets(size: smallPadding)
             }
         } else {
-            headerLabel.textAlignment = .center;
-            self.updateInsets(size: kSmallPadding)
+            self.headerLabel.textAlignment = .center;
+            self.updateInsets(size: smallPadding)
         }
         self.isScrollEnabled = false
         self.isScrollEnabled = true
@@ -135,36 +135,37 @@ class PBHHeaderTextView: UITextView, UITextDropDelegate {
             return self.attributedText.string
         }
         set {
-            myTextStorage.beginEditing()
-            let attributedString = newValue != nil ? NSAttributedString.init(string: newValue) : NSAttributedString()
-            myTextStorage.setAttributedString(attributedString)
-            myTextStorage.endEditing()
+            noteTextStorage.beginEditing()
+            let attributedString = newValue != nil ? NSAttributedString(string: newValue) : NSAttributedString()
+            noteTextStorage.setAttributedString(attributedString)
+            noteTextStorage.endEditing()
         }
     }
 
     override var attributedText: NSAttributedString! {
         get {
-            return myTextStorage.attributedString
+            return noteTextStorage.attributedString
         }
         set {
-            myTextStorage.beginEditing()
-            myTextStorage.setAttributedString(newValue)
-            myTextStorage.endEditing()
+            noteTextStorage.beginEditing()
+            noteTextStorage.setAttributedString(newValue)
+            noteTextStorage.endEditing()
         }
     }
     
-    open func updateInsets(size: CGFloat)
-    {
-        self.textContainerInset = UIEdgeInsets(top: kSmallPadding, left: size, bottom: kSmallPadding, right: size);
+    open func updateInsets(size: CGFloat) {
+        self.textContainerInset = UIEdgeInsets(top: smallPadding, left: size, bottom: smallPadding, right: size);
         leftHeaderLayoutConstraint.constant = size;
         rightHeaderLayoutConstraint.constant = size;
     }
-    
-    @available(iOS 11, *)
-    func textDroppableView(_ textDroppableView: UIView, proposalForDrop drop: UITextDropRequest) -> UITextDropProposal {
+
+}
+
+extension PBHHeaderTextView: UITextDropDelegate {
+
+    func textDroppableView(_ textDroppableView: UIView & UITextDroppable, proposalForDrop drop: UITextDropRequest) -> UITextDropProposal {
         if drop.isSameView {
             return UITextDropProposal(operation: .move)
-
         } else {
             return UITextDropProposal(operation: .copy)
         }
