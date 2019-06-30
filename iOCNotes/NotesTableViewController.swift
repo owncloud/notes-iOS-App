@@ -182,13 +182,21 @@ class NotesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-//            tableView.deleteRows(at: [indexPath], with: .fade)
 
             tableView.beginUpdates()
-        if let note = self.notesFrc.fetchedObjects?[indexPath.row] {
-
+            if let note = self.notesFrc.fetchedObjects?[indexPath.row] {
+                HUD.show(.progress)
+                if note == self.editorViewController?.note {
+                    self.editorViewController?.note = nil
+                }
+                NotesManager.shared.delete(note: note, completion: { [weak self] in
+                    self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                    self?.tableView.endUpdates()
+                    HUD.hide()
+                })
+            } else {
+                tableView.endUpdates()
             }
-            tableView.endUpdates()
 //            NSInteger currentNoteCount = self.ocNotes.count;
 //            OCNote *note = nil;
 //            if (self.searchController.active) {
@@ -429,6 +437,10 @@ extension NotesTableViewController: UISplitViewControllerDelegate {
 
     override func collapseSecondaryViewController(_ secondaryViewController: UIViewController, for splitViewController: UISplitViewController) {
         self.editorViewController?.note = nil
+    }
+
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
     }
 }
 
