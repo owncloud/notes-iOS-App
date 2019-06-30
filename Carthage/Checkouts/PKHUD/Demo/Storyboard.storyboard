@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="D2U-NN-2aL">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Demo View Controller-->
+        <scene sceneID="LWc-fX-oxb">
+            <objects>
+                <viewController id="D2U-NN-2aL" customClass="DemoViewController" customModule="PKHUD_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nJl-Qv-Vrd"/>
+                        <viewControllerLayoutGuide type="bottom" id="sKS-gL-TO9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="w4E-8X-Jzi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ZJp-P0-C2o" userLabel="Background">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rqP-5y-Qfl">
+                                <rect key="frame" x="36" y="291" width="303" height="356"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDX-YT-2be">
+                                        <rect key="frame" x="0.0" y="0.0" width="303" height="44"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.66000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="e4i-A7-lgx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Show/Hide Keyboard">
+                                            <color key="titleColor" red="0.25" green="0.25" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showHideKeyboard:" destination="D2U-NN-2aL" eventType="touchUpInside" id="dkr-Ml-4IT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZ4-Lx-cqz">
+                                        <rect key="frame" x="0.0" y="52" width="303" height="44"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.66000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="yyh-ba-2Q5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Animated Success HUD">
+                                            <color key="titleColor" red="0.25" green="0.25" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showAnimatedSuccessHUD:" destination="D2U-NN-2aL" eventType="touchUpInside" id="k9E-hd-08Z"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5z-e1-I63">
+                                        <rect key="frame" x="0.0" y="104" width="303" height="44"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.66000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="O2F-o7-Xsw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Animated Error HUD">
+                                            <color key="titleColor" red="0.25" green="0.25" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showAnimatedErrorHUD:" destination="D2U-NN-2aL" eventType="touchUpInside" id="Cyd-W9-1e2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rmq-Eh-KX3">
+                                        <rect key="frame" x="0.0" y="156" width="303" height="44"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.66000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="RY7-k4-4pQ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Animated Progress HUD">
+                                            <color key="titleColor" red="0.25" green="0.25" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showAnimatedProgressHUD:" destination="D2U-NN-2aL" eventType="touchUpInside" id="Vu1-gd-bzp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X4n-2l-pZk">
+                                        <rect key="frame" x="0.0" y="208" width="303" height="44"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.66000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="kcT-Ut-AmL"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Animated Status Progress HUD">
+                                            <color key="titleColor" red="0.25" green="0.25" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showAnimatedStatusProgressHUD:" destination="D2U-NN-2aL" eventType="touchUpInside" id="R2f-zr-F2H"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NfX-TV-8Iq">
+                                        <rect key="frame" x="0.0" y="260" width="303" height="44"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.66000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="hbA-LY-ItN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Custom Animated Progress HUD">
+                                            <color key="titleColor" red="0.25" green="0.25" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showCustomProgressHUD:" destination="D2U-NN-2aL" eventType="touchUpInside" id="g9n-80-Y6g"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1XL-mO-npD">
+                                        <rect key="frame" x="0.0" y="312" width="303" height="44"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.66000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="uLS-Fh-Fh5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Text HUD">
+                                            <color key="titleColor" red="0.25" green="0.25" blue="0.25" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showTextHUD:" destination="D2U-NN-2aL" eventType="touchUpInside" id="eJg-na-gUk"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="sKS-gL-TO9" firstAttribute="top" secondItem="rqP-5y-Qfl" secondAttribute="bottom" constant="20" id="0Xk-Fo-1a2"/>
+                            <constraint firstItem="rqP-5y-Qfl" firstAttribute="leading" secondItem="w4E-8X-Jzi" secondAttribute="leadingMargin" constant="20" id="6dE-Gf-0ue"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rqP-5y-Qfl" secondAttribute="trailing" constant="20" id="CEv-Z8-TkK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZJp-P0-C2o" secondAttribute="trailing" constant="-20" id="HIr-Pm-uyv"/>
+                            <constraint firstItem="ZJp-P0-C2o" firstAttribute="leading" secondItem="w4E-8X-Jzi" secondAttribute="leadingMargin" constant="-20" id="dLA-ao-gv8"/>
+                            <constraint firstItem="sKS-gL-TO9" firstAttribute="top" secondItem="ZJp-P0-C2o" secondAttribute="bottom" id="exR-Hm-7bW"/>
+                            <constraint firstItem="ZJp-P0-C2o" firstAttribute="top" secondItem="nJl-Qv-Vrd" secondAttribute="bottom" constant="-20" id="pv1-nX-vSn"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="TMt-nL-bhl"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y5D-FH-e5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-60" y="339"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="background" width="1024" height="1024"/>
+    </resources>
+</document>

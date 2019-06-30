@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 class EditorViewController: UIViewController {
 
@@ -27,11 +28,14 @@ class EditorViewController: UIViewController {
 
     var note: CDNote? {
         didSet {
-            if note != oldValue {
-                noteView.text = note?.content
-                //                    [self noteUpdated:nil];
-                noteView.undoManager?.removeAllActions()
-                noteView.scrollRangeToVisible(NSRange(location: 0, length: 0))
+            if note != oldValue, let note = note {
+                HUD.show(.progress)
+                NotesManager.shared.get(note: note, completion: { [weak self] in
+                    self?.noteView.text = note.content
+                    self?.noteView.undoManager?.removeAllActions()
+                    self?.noteView.scrollRangeToVisible(NSRange(location: 0, length: 0))
+                    HUD.hide()
+                })
             }
         }
     }
@@ -374,7 +378,7 @@ class EditorViewController: UIViewController {
 extension EditorViewController: UITextViewDelegate {
     
     fileprivate func updateNoteContent() {
-        if let note = self.note, let text = self.noteView.text {
+        if let note = self.note, let text = self.noteView.text, text != note.content {
             note.content = text
             NotesManager.shared.update(note: note, completion: { [weak self] in
                 self?.updateHeaderLabel()

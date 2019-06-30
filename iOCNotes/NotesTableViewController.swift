@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import PKHUD
 
 let detailSegueIdentifier = "showDetail"
 
@@ -112,7 +113,6 @@ class NotesTableViewController: UITableViewController {
         tableView.tableHeaderView = searchController?.searchBar
         tableView.contentOffset = CGPoint(x: 0, y: searchController?.searchBar.frame.size.height ?? 0.0 + tableView.contentOffset.y)
         tableView.dropDelegate = self
-        try? notesFrc.performFetch()
         tableView.reloadData()
         definesPresentationContext = true
     }
@@ -327,9 +327,11 @@ class NotesTableViewController: UITableViewController {
 //        self.addingNote = YES;
 //        self.editorViewController.addingNote = YES;
 //        [[OCNotesHelper sharedHelper] addNote:@""];
+        HUD.show(.progress)
         NotesManager.shared.add(content: "", category: nil, completion: { [weak self] in
             self?.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
             self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
+            HUD.hide()
         })
     }
     
@@ -343,7 +345,7 @@ class NotesTableViewController: UITableViewController {
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
         frc.delegate = self
-        //try! frc.performFetch()
+        try! frc.performFetch()
         return frc
     }
 
