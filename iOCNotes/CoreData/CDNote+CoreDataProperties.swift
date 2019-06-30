@@ -17,15 +17,138 @@ extension CDNote {
         return NSFetchRequest<CDNote>(entityName: "CDNote")
     }
 
-    @NSManaged public var category: String?
-    @NSManaged public var content: String?
-    @NSManaged public var favorite: Bool
-    @NSManaged public var guid: String?
-    @NSManaged public var modified: NSDate?
-    @NSManaged public var id: Int64
-    @NSManaged public var title: String?
-    @NSManaged public var errorMessage: String?
-    @NSManaged public var error: Bool
-    @NSManaged public var etag: String?
+    @NSManaged public var cdCategory: String?
+    @NSManaged public var cdContent: String?
+    @NSManaged public var cdFavorite: Bool
+    @NSManaged public var cdGuid: String?
+    @NSManaged public var cdModified: Double
+    @NSManaged public var cdId: Int64
+    @NSManaged public var cdTitle: String?
+    @NSManaged public var cdErrorMessage: String?
+    @NSManaged public var cdError: Bool
+    @NSManaged public var cdEtag: String?
+    @NSManaged public var cdAddNeeded: Bool
+    @NSManaged public var cdDeleteNeeded: Bool
+    @NSManaged public var cdUpdateNeeded: Bool
+}
+
+extension CDNote: NoteProtocol {
+    var category: String? {
+        get {
+            return self.cdCategory
+        }
+        set {
+            self.cdCategory = newValue
+        }
+    }
+
+    var content: String? {
+        get {
+            return self.cdContent
+        }
+        set {
+            self.cdContent = newValue
+        }
+    }
+
+    var favorite: Bool {
+        get {
+            return self.cdFavorite
+        }
+        set {
+            self.cdFavorite = newValue
+        }
+    }
+
+    var guid: String? {
+        get {
+            return self.cdGuid
+        }
+        set {
+            self.cdGuid = newValue
+        }
+    }
+
+    var modified: TimeInterval {
+        get {
+            return self.cdModified
+        }
+        set {
+            self.cdModified = newValue
+        }
+    }
+
+    var id: Int64 {
+        get {
+            return self.cdId
+        }
+        set {
+            self.cdId = newValue
+        }
+    }
+
+    var title: String {
+        get {
+            return self.cdTitle ?? NSLocalizedString("New note", comment: "The title of a new note")
+        }
+        set {
+            self.cdTitle = newValue
+        }
+    }
+
+    var errorMessage: String? {
+        get {
+            return self.cdErrorMessage
+        }
+        set {
+            self.cdErrorMessage = newValue
+        }
+    }
+
+    var error: Bool {
+        get {
+            return self.cdError
+        }
+        set {
+            self.cdError = newValue
+        }
+    }
+
+    var etag: String {
+        get {
+            return self.cdEtag ?? ""
+        }
+        set {
+            self.cdEtag = newValue
+        }
+    }
+
+    var addNeeded: Bool {
+        get {
+            return self.cdAddNeeded
+        }
+        set {
+            self.cdAddNeeded = newValue
+        }
+    }
+
+    var deleteNeeded: Bool {
+        get {
+            return self.cdDeleteNeeded
+        }
+        set {
+            self.cdDeleteNeeded = newValue
+        }
+    }
+
+    var updateNeeded: Bool {
+        get {
+            return self.cdUpdateNeeded
+        }
+        set {
+            self.cdUpdateNeeded = newValue
+        }
+    }
+
 
 }

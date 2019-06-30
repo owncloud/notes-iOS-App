@@ -20,6 +20,9 @@ protocol NoteProtocol {
     var errorMessage: String? {get set}
     var error: Bool {get set}
     var etag: String {get set}
+    var addNeeded: Bool {get set}
+    var deleteNeeded: Bool {get set}
+    var updateNeeded: Bool {get set}
 
 }
 
@@ -35,6 +38,9 @@ struct NoteStruct: Codable, NoteProtocol {
     var errorMessage: String?
     var error: Bool
     var etag: String
+    var addNeeded: Bool
+    var deleteNeeded: Bool
+    var updateNeeded: Bool
 
     enum CodingKeys: String, CodingKey {
         case category = "category"
@@ -52,7 +58,7 @@ struct NoteStruct: Codable, NoteProtocol {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         category = try values.decodeIfPresent(String.self, forKey: .category)
-        content = try values.decode(String.self, forKey: .content)
+        content = try values.decodeIfPresent(String.self, forKey: .content)
         favorite = try values.decode(Bool.self, forKey: .favorite)
         guid = try values.decodeIfPresent(String.self, forKey: .guid)
         modified = try values.decode(TimeInterval.self, forKey: .modified)
@@ -61,6 +67,23 @@ struct NoteStruct: Codable, NoteProtocol {
         errorMessage = try values.decode(String.self, forKey: .errorMessage)
         error = try values.decode(Bool.self, forKey: .error)
         etag = try values.decode(String.self, forKey: .etag)
+        addNeeded = false
+        deleteNeeded = false
+        updateNeeded = false
     }
-    
+
+    init(content: String, category: String?, favorite: Bool = false) {
+        self.content = content
+        title = NSLocalizedString("New note", comment: "The title of a new note")
+        self.category = category
+        self.favorite = favorite
+        guid = UUID().uuidString
+        modified = Date().timeIntervalSince1970
+        id = 0
+        etag = ""
+        error = false
+        addNeeded = true
+        deleteNeeded = false
+        updateNeeded = false
+    }
 }

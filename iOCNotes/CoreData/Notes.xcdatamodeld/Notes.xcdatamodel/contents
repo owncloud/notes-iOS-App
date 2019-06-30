@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDNote" representedClassName="CDNote" syncable="YES">
-        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="error" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="errorMessage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="etag" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="favorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="guid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="modified" attributeType="Date" defaultDateTimeInterval="414432000" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="title" attributeType="String" defaultValueString="New Note" syncable="YES"/>
+        <attribute name="cdAddNeeded" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="cdCategory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cdContent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cdDeleteNeeded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="cdError" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="cdErrorMessage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cdEtag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cdFavorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="cdGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cdId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="cdModified" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="cdTitle" attributeType="String" defaultValueString="New Note" syncable="YES"/>
+        <attribute name="cdUpdateNeeded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CDNote" positionX="-63" positionY="-18" width="128" height="195"/>
+        <element name="CDNote" positionX="-63" positionY="-18" width="128" height="240"/>
     </elements>
 </model>

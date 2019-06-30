@@ -40,7 +40,6 @@ class EditorViewController: UIViewController {
 
     private var observers = [NSObjectProtocol]()
 
-
     deinit {
         for observer in self.observers {
             NotificationCenter.default.removeObserver(observer)
@@ -122,9 +121,8 @@ class EditorViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if let note = note, let date = note.modified as Date? {
+    fileprivate func updateHeaderLabel() {
+        if let note = note, let date = Date(timeIntervalSince1970: note.modified) as Date? {
             let formatter = DateFormatter()
             formatter.dateStyle = .short
             formatter.timeStyle = .short
@@ -133,6 +131,11 @@ class EditorViewController: UIViewController {
             noteView.headerLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         }
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateHeaderLabel()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -140,7 +143,12 @@ class EditorViewController: UIViewController {
         self.noteView.isScrollEnabled = false
         self.noteView.isScrollEnabled = true
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.updateNoteContent()
+        super.viewWillDisappear(animated)
+    }
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         if traitCollection.horizontalSizeClass == .regular, traitCollection.userInterfaceIdiom == .pad {
@@ -300,7 +308,6 @@ class EditorViewController: UIViewController {
         if self.traitCollection.userInterfaceIdiom == .phone {
             self.navigationItem.rightBarButtonItems = [self.doneButton, self.fixedSpace, self.redoButton, self.fixedSpace, self.undoButton]
         }
-
         if let info = notification.userInfo,
             let rect: CGRect = info[UIWindow.keyboardFrameEndUserInfoKey] as? CGRect,
             let ar = self.view?.convert(rect, from: nil),
@@ -366,6 +373,15 @@ class EditorViewController: UIViewController {
 
 extension EditorViewController: UITextViewDelegate {
     
+    fileprivate func updateNoteContent() {
+        if let note = self.note, let text = self.noteView.text {
+            note.content = text
+            NotesManager.shared.update(note: note, completion: { [weak self] in
+                self?.updateHeaderLabel()
+            })
+        }
+    }
+
     func textViewDidChange(_ textView: UITextView) {
         self.activityButton.isEnabled = textView.text.count > 0
         self.addButton.isEnabled = textView.text.count > 0
@@ -375,11 +391,8 @@ extension EditorViewController: UITextViewDelegate {
             editingTimer?.invalidate()
             editingTimer = nil
         }
-        editingTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
-            self.note?.content = self.noteView.text;
-            if let note = self.note {
-                NotesManager.shared.update(note: note)
-            }
+        editingTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [weak self] _ in
+            self?.updateNoteContent()
         })
     }
     

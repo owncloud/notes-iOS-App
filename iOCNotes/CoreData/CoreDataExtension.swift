@@ -14,7 +14,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     @discardableResult
     public static func delete(ids: [Int32], in context: NSManagedObjectContext) -> NSBatchDeleteResult? {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Self.self))
-        let predicate = NSPredicate(format: "id IN %@", ids)
+        let predicate = NSPredicate(format: "cdId IN %@", ids)
         request.predicate = predicate
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
         deleteRequest.resultType = .resultTypeCount
@@ -31,7 +31,7 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     @discardableResult
     public static func deleteItemIds(itemIds: [Int32], in context: NSManagedObjectContext) -> NSBatchDeleteResult? {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Self.self))
-        let predicate = NSPredicate(format: "itemId IN %@", itemIds)
+        let predicate = NSPredicate(format: "cdId IN %@", itemIds)
         request.predicate = predicate
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
         deleteRequest.resultType = .resultTypeCount

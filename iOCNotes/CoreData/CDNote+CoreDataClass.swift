@@ -31,7 +31,7 @@ public class CDNote: NSManagedObject {
     
     static func note(id: Int32) -> CDNote? {
         let request: NSFetchRequest<CDNote> = self.fetchRequest()
-        let predicate = NSPredicate(format: "id == %d", id)
+        let predicate = NSPredicate(format: "cdId == %d", id)
         request.predicate = predicate
         request.fetchLimit = 1
         do {
@@ -80,7 +80,7 @@ public class CDNote: NSManagedObject {
             let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
             do {
                 for note in notes {
-                    let predicate = NSPredicate(format: "id == %d", note.id)
+                    let predicate = NSPredicate(format: "cdId == %d", note.id)
                     request.predicate = predicate
                     let records = try NotesData.mainThreadContext.fetch(request)
                     if let existingRecord = records.first {
@@ -90,7 +90,7 @@ public class CDNote: NSManagedObject {
                         existingRecord.content = note.content
                         existingRecord.title = note.title
                         existingRecord.favorite = note.favorite
-                        existingRecord.modified = Date(timeIntervalSince1970: note.modified) as NSDate
+                        existingRecord.modified = note.modified
                     } else {
                         let newRecord = NSEntityDescription.insertNewObject(forEntityName: CDNote.entityName, into: NotesData.mainThreadContext) as! CDNote
                         newRecord.guid = note.guid
@@ -99,7 +99,7 @@ public class CDNote: NSManagedObject {
                         newRecord.id = note.id
                         newRecord.title = note.title
                         newRecord.favorite = note.favorite
-                        newRecord.modified = Date(timeIntervalSince1970: note.modified) as NSDate
+                        newRecord.modified = note.modified
                     }
                 }
                 try NotesData.mainThreadContext.save()

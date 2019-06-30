@@ -65,7 +65,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="MOs-yv-oce">
                             <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="doAdd:" destination="DXe-Iw-CcD" id="ShC-BM-4YE"/>
+                                <action selector="onAddWithSender:" destination="DXe-Iw-CcD" id="8El-Gc-220"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

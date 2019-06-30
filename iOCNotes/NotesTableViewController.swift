@@ -25,13 +25,38 @@ class NotesTableViewController: UITableViewController {
     private var searchResult: [CDNote]?
     
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
+    private var observers = [NSObjectProtocol]()
+
+    deinit {
+        for observer in self.observers {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         clearsSelectionOnViewWillAppear = false
         refreshControl?.tintColor = UIColor(red: 0.13, green: 0.145, blue: 0.16, alpha: 1.0)
-        
+
+        self.observers.append(NotificationCenter.default.addObserver(forName: UIContentSizeCategory.didChangeNotification,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] notification in
+                                                                        self?.tableView.reloadData()
+        }))
+        self.observers.append(NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] notification in
+                                                                        if KeychainHelper.server.isEmpty {
+                                                                            self?.onSettings(sender: self)
+                                                                        } else {
+                                                                            if KeychainHelper.syncOnStart {
+                                                                                NotesManager.shared.sync()
+                                                                            }
+                                                                        }
+        }))
 /*
          [[NSNotificationCenter defaultCenter] addObserver:self
          selector:@selector(reachabilityChanged:)
@@ -57,12 +82,7 @@ class NotesTableViewController: UITableViewController {
          selector:@selector(doRefresh:)
          name:@"SyncNotes"
          object:nil];
-         
-         [[NSNotificationCenter defaultCenter] addObserver:self
-         selector:@selector(preferredContentSizeChanged:)
-         name:UIContentSizeCategoryDidChangeNotification
-         object:nil];
-         
+                  
          [NSNotificationCenter.defaultCenter addObserver:self
          selector:@selector(reloadNotes:)
          name:FCModelChangeNotification
@@ -112,6 +132,20 @@ class NotesTableViewController: UITableViewController {
         return self.notesFrc.fetchedObjects?.count ?? 0
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: Int.max, height: Int.max)))
+        label.text = "test"
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.sizeToFit()
+        let height1 = label.frame.size.height
+
+        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.sizeToFit()
+        let height2 = label.frame.size.height
+
+        return (height1 + height2) * 1.7
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath)
         
@@ -128,53 +162,93 @@ class NotesTableViewController: UITableViewController {
             cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
             cell.textLabel?.text = note.title
             cell.backgroundColor = .clear
-            if let date = note.modified {
-                let dateFormat = DateFormatter()
-                dateFormat.dateStyle = .short
-                dateFormat.timeStyle = .none;
-                dateFormat.doesRelativeDateFormatting = true
-                cell.detailTextLabel?.text = dateFormat.string(from: date as Date)
-                cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
-            }
+            let date = Date(timeIntervalSince1970: note.modified)
+            let dateFormat = DateFormatter()
+            dateFormat.dateStyle = .short
+            dateFormat.timeStyle = .none;
+            dateFormat.doesRelativeDateFormatting = true
+            cell.detailTextLabel?.text = dateFormat.string(from: date as Date)
+            cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
         }
         
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+//            tableView.deleteRows(at: [indexPath], with: .fade)
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+            tableView.beginUpdates()
+        if let note = self.notesFrc.fetchedObjects?[indexPath.row] {
 
-    }
-    */
+            }
+            tableView.endUpdates()
+//            NSInteger currentNoteCount = self.ocNotes.count;
+//            OCNote *note = nil;
+//            if (self.searchController.active) {
+//                if ((indexPath.row >= 0) && (indexPath.row < searchResults.count)) {
+//                    note = [searchResults objectAtIndex:indexPath.row];
+//                }
+//            } else {
+//                if ((indexPath.row >= 0) && (indexPath.row < self.ocNotes.count)) {
+//                    note = [self.ocNotes objectAtIndex:indexPath.row];
+//                }
+//            }
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+
+
+//
+//            if ([note isEqual:self.editorViewController.ocNote]) {
+//                self.editorViewController.ocNote = nil;
+//            }
+//            if (note) {
+//                [[OCNotesHelper sharedHelper] deleteNote:note];
+//            }
+//            self.ocNotes = [OCNote instancesWhere:@"deleteNeeded = 0 ORDER BY modified DESC"];
+//            NSInteger newCount = self.ocNotes.count;
+//            if (newCount + 1 == currentNoteCount) {
+//                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//            }
+//
+//            NSInteger newIndex = 0;
+//            if (indexPath.row >= 0) {
+//                newIndex = indexPath.row;
+//            }
+//            if (newIndex >= self.ocNotes.count) {
+//                newIndex = self.ocNotes.count - 1;
+//            }
+//            [tableView endUpdates];
+//
+//            if (newIndex >= 0 && newIndex < self.ocNotes.count) {
+//                OCNote *newNote = [self.ocNotes objectAtIndex:newIndex];
+//                self.editorViewController.ocNote = newNote;
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+//                    });
+//            } else {
+//                self.editorViewController.ocNote = nil;
+//            }
+//            if (self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryHidden) {
+//                //called while showing editor
+//                [self.tableView reloadData];
+//            }
+//
+//
+//
+//
+
+        }
     }
-    */
+
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
 
     // MARK: - Navigation
 
@@ -253,12 +327,17 @@ class NotesTableViewController: UITableViewController {
 //        self.addingNote = YES;
 //        self.editorViewController.addingNote = YES;
 //        [[OCNotesHelper sharedHelper] addNote:@""];
+        NotesManager.shared.add(content: "", category: nil, completion: { [weak self] in
+            self?.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
+            self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
+        })
     }
     
     private func configureFRC() -> NSFetchedResultsController<CDNote> {
         let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
         request.fetchBatchSize = 288
-        request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        request.predicate = NSPredicate(format: "cdDeleteNeeded == %@", NSNumber(value: false))
+        request.sortDescriptors = [NSSortDescriptor(key: "cdModified", ascending: false)]
         let frc = NSFetchedResultsController(fetchRequest: request,
                                              managedObjectContext: NotesData.mainThreadContext,
                                              sectionNameKeyPath: nil,
@@ -309,7 +388,10 @@ extension NotesTableViewController: UIActionSheetDelegate {
 extension NotesTableViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        //
+        //    NSString *searchString = searchController.searchBar.text;
+//        [self filterContentForSearchText:searchString scope:nil];
+//        [self.tableView reloadData];
+
     }
     
     
@@ -323,14 +405,60 @@ extension NotesTableViewController: UISearchBarDelegate {
 }
 
 extension NotesTableViewController: UISplitViewControllerDelegate {
-    
-    
+    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
+        guard svc == self.splitViewController else {
+            return
+        }
+        if displayMode == .allVisible || displayMode == .primaryOverlay {
+            self.editorViewController?.noteView.resignFirstResponder()
+        }
+    }
+
+    func targetDisplayModeForAction(in svc: UISplitViewController) -> UISplitViewController.DisplayMode {
+        if svc.displayMode == .primaryHidden {
+            if svc.traitCollection.horizontalSizeClass == .regular,
+            [.landscapeLeft, .landscapeRight].contains(UIDevice.current.orientation) {
+                return .allVisible
+            }
+            return .primaryOverlay
+        }
+        return .primaryHidden
+    }
+
+    override func collapseSecondaryViewController(_ secondaryViewController: UIViewController, for splitViewController: UISplitViewController) {
+        self.editorViewController?.note = nil
+    }
 }
 
 extension NotesTableViewController: UITableViewDropDelegate {
-   
+
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+//        if (session.items.count > 0) {
+//            if ([session hasItemsConformingToTypeIdentifiers:@[(NSString *)kUTTypeText, (NSString *)kUTTypeXML, (NSString *)kUTTypeHTML, (NSString *)kUTTypeJSON, (NSString *)kUTTypePlainText]]) {
+//                return YES;
+//            }
+//        }
+        return false
+    }
+
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+//        if (destinationIndexPath.row != 0) {
+//            return [[UITableViewDropProposal alloc] initWithDropOperation:UIDropOperationForbidden intent:UITableViewDropIntentAutomatic];
+//        } else {
+//            return [[UITableViewDropProposal alloc] initWithDropOperation:UIDropOperationCopy intent:UITableViewDropIntentInsertAtDestinationIndexPath];
+//        }
+        return UITableViewDropProposal(operation: .forbidden, intent: .automatic)
+    }
+
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         //
+//        for (UIDragItem *item in coordinator.session.items) {
+//            [item.itemProvider loadDataRepresentationForTypeIdentifier:(NSString *)kUTTypeText completionHandler:^(NSData * _Nullable data, NSError * _Nullable error) {
+//                NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//                [[OCNotesHelper sharedHelper] performSelectorOnMainThread:@selector(addNote:) withObject:content waitUntilDone:NO];
+//                }];
+//        }
+
     }
 
 }
