@@ -14,7 +14,12 @@ import CoreData
 public class CDNote: NSManagedObject {
 
     static private let entityName = "CDNote"
-    
+
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        self.content = ""
+    }
+
     static func all() -> [CDNote]? {
         let request: NSFetchRequest<CDNote> = self.fetchRequest()
         var noteList = [CDNote]()
@@ -107,6 +112,41 @@ public class CDNote: NSManagedObject {
                 print("Could not fetch \(error), \(error.userInfo)")
             }
         }
+    }
+
+    static func update(note: NoteProtocol) -> CDNote? {
+        var result: CDNote?
+        NotesData.mainThreadContext.performAndWait {
+            let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
+            do {
+                request.predicate = NSPredicate(format: "cdId == %d", note.id)
+                let records = try NotesData.mainThreadContext.fetch(request)
+                if let existingRecord = records.first {
+                    //                        existingRecord.id = note.id
+                    existingRecord.guid = note.guid
+                    existingRecord.category = note.category
+                    existingRecord.content = note.content
+                    existingRecord.title = note.title
+                    existingRecord.favorite = note.favorite
+                    existingRecord.modified = note.modified
+                    result = existingRecord
+                } else {
+                    let newRecord = NSEntityDescription.insertNewObject(forEntityName: CDNote.entityName, into: NotesData.mainThreadContext) as! CDNote
+                    newRecord.guid = note.guid
+                    newRecord.category = note.category
+                    newRecord.content = note.content
+                    newRecord.id = note.id
+                    newRecord.title = note.title
+                    newRecord.favorite = note.favorite
+                    newRecord.modified = note.modified
+                    result = newRecord
+                }
+                try NotesData.mainThreadContext.save()
+            } catch let error as NSError {
+                print("Could not fetch \(error), \(error.userInfo)")
+            }
+        }
+        return result
     }
 
 

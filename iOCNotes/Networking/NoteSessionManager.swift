@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 typealias SyncCompletionBlock = () -> Void
+typealias SyncCompletionBlockWithNote = (_ note: CDNote?) -> Void
 
 class NoteSessionManager: Alamofire.SessionManager {
     
@@ -40,19 +41,27 @@ class NotesManager: NSObject {
         }
     }
     
-    func add(content: String, category: String?, favorite: Bool? = false, completion: SyncCompletionBlock? = nil) {
+    func add(content: String, category: String?, favorite: Bool? = false, completion: SyncCompletionBlockWithNote? = nil) {
         let note = NoteStruct(content: content, category: category, favorite: favorite ?? false)
         let parameters: Parameters = ["content": note.content as Any,
                                       "category": note.category as Any,
                                       "modified": note.modified,
                                       "favorite": note.favorite]
-        CDNote.update(notes: [note])
+        let result = CDNote.update(note: note)
         let router = Router.createNote(paramters: parameters)
         NoteSessionManager.shared.request(router).responseDecodable { (response: DataResponse<NoteStruct>) in
-            if let note = response.value {
-                CDNote.update(notes: [note])
+            if let note = response.value, let newNote = result {
+                newNote.id = note.id
+                newNote.modified = note.modified
+                newNote.title = note.title
+                newNote.content = note.content
+                newNote.addNeeded = false
+                newNote.updateNeeded = false
+                let result = CDNote.update(note: newNote)
+                completion?(result)
+            } else {
+                completion?(result)
             }
-            completion?()
         }
     }
     
@@ -70,7 +79,7 @@ class NotesManager: NSObject {
         var incoming = note
         incoming.updateNeeded = true
         CDNote.update(notes: [incoming])
-        let parameters: Parameters = ["content": note.content ?? "" as Any,
+        let parameters: Parameters = ["content": note.content as Any,
                                       "category": note.category ?? "" as Any,
                                       "modified": Date().timeIntervalSince1970 as Any,
                                       "favorite": note.favorite]

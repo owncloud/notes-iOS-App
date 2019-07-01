@@ -18,7 +18,7 @@ extension CDNote {
     }
 
     @NSManaged public var cdCategory: String?
-    @NSManaged public var cdContent: String?
+    @NSManaged public var cdContent: String
     @NSManaged public var cdFavorite: Bool
     @NSManaged public var cdGuid: String?
     @NSManaged public var cdModified: Double
@@ -42,7 +42,7 @@ extension CDNote: NoteProtocol {
         }
     }
 
-    var content: String? {
+    var content: String {
         get {
             return self.cdContent
         }
@@ -149,6 +149,5 @@ extension CDNote: NoteProtocol {
             self.cdUpdateNeeded = newValue
         }
     }
-
 
 }

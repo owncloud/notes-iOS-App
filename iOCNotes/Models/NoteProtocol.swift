@@ -11,7 +11,7 @@ import Foundation
 protocol NoteProtocol {
     
     var category: String? {get set}
-    var content: String? {get set}
+    var content: String {get set}
     var favorite: Bool {get set}
     var guid: String? {get set}
     var modified: TimeInterval {get set}
@@ -29,7 +29,7 @@ protocol NoteProtocol {
 struct NoteStruct: Codable, NoteProtocol {
     
     var category: String?
-    var content: String?
+    var content: String
     var favorite: Bool
     var guid: String?
     var modified: TimeInterval
@@ -58,7 +58,7 @@ struct NoteStruct: Codable, NoteProtocol {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         category = try values.decodeIfPresent(String.self, forKey: .category)
-        content = try values.decodeIfPresent(String.self, forKey: .content)
+        content = try values.decode(String.self, forKey: .content)
         favorite = try values.decode(Bool.self, forKey: .favorite)
         guid = try values.decodeIfPresent(String.self, forKey: .guid)
         modified = try values.decode(TimeInterval.self, forKey: .modified)

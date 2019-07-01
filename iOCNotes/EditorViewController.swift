@@ -34,6 +34,7 @@ class EditorViewController: UIViewController {
                     self?.noteView.text = note.content
                     self?.noteView.undoManager?.removeAllActions()
                     self?.noteView.scrollRangeToVisible(NSRange(location: 0, length: 0))
+                    self?.updateHeaderLabel()
                     HUD.hide()
                 })
             }
@@ -236,7 +237,9 @@ class EditorViewController: UIViewController {
     
     @IBAction func onAdd(_ sender: Any?) {
         addingNote = true
-        //TODO self.ocNote = [[OCNotesHelper sharedHelper] addNote:@""];
+        NotesManager.shared.add(content: "", category: nil, favorite: false) { [weak self] note in
+            self?.note = note
+        }
     }
     
     @IBAction func onPreview(_ sender: Any?) {

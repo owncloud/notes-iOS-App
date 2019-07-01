@@ -3,7 +3,7 @@
     <entity name="CDNote" representedClassName="CDNote" syncable="YES">
         <attribute name="cdAddNeeded" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="cdCategory" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="cdContent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cdContent" attributeType="String" syncable="YES"/>
         <attribute name="cdDeleteNeeded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="cdError" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="cdErrorMessage" optional="YES" attributeType="String" syncable="YES"/>
@@ -16,6 +16,6 @@
         <attribute name="cdUpdateNeeded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CDNote" positionX="-63" positionY="-18" width="128" height="240"/>
+        <element name="CDNote" positionX="-63" positionY="-18" width="128" height="30"/>
     </elements>
 </model>
