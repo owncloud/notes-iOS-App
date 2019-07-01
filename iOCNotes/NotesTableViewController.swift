@@ -58,15 +58,19 @@ class NotesTableViewController: UITableViewController {
                                                                             }
                                                                         }
         }))
+        self.observers.append(NotificationCenter.default.addObserver(forName: .deletingNote,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] _ in
+                                                                        if let editor = self?.editorViewController, let note = editor.note, let currentIndex = self?.notesFrc.fetchedObjects?.index(of: note), let tableView = self?.tableView {
+                                                                                self?.tableView(tableView, commit: .delete, forRowAt: IndexPath(row: currentIndex, section: 0))
+                                                                                }
+        }))
+
 /*
          [[NSNotificationCenter defaultCenter] addObserver:self
          selector:@selector(reachabilityChanged:)
          name:AFNetworkingReachabilityDidChangeNotification
-         object:nil];
-         
-         [[NSNotificationCenter defaultCenter] addObserver:self
-         selector:@selector(didBecomeActive:)
-         name:UIApplicationDidBecomeActiveNotification
          object:nil];
          
          [[NSNotificationCenter defaultCenter] addObserver:self
@@ -88,14 +92,6 @@ class NotesTableViewController: UITableViewController {
          selector:@selector(reloadNotes:)
          name:FCModelChangeNotification
          object:OCNote.class];
-         
-         [NSNotificationCenter.defaultCenter addObserver:self
-         selector:@selector(noteDeleted:)
-         name:@"DeletingNote"
-         object:nil];
-         
-         [OCNotesHelper sharedHelper];
-         [self reloadNotes:nil];
 */
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.toolbar.isTranslucent = true
@@ -192,65 +188,33 @@ class NotesTableViewController: UITableViewController {
                 NotesManager.shared.delete(note: note, completion: { [weak self] in
                     self?.tableView.deleteRows(at: [indexPath], with: .fade)
                     self?.tableView.endUpdates()
+                    var newIndex = 0
+                    if indexPath.row >= 0 {
+                        newIndex = indexPath.row
+                    }
+                    let noteCount = self?.notesFrc.fetchedObjects?.count ?? 0
+                    if newIndex >= noteCount {
+                        newIndex = noteCount - 1
+                    }
+
+                    if newIndex >= 0 && newIndex < noteCount {
+                        let newNote = self?.notesFrc.fetchedObjects?[newIndex]
+                        self?.editorViewController?.note = newNote
+                        DispatchQueue.main.async {
+                            self?.tableView.selectRow(at: IndexPath(row: newIndex, section: 0), animated: false, scrollPosition: .none)
+                        }
+                    } else {
+                        self?.editorViewController?.note = nil
+                    }
+//                    if self?.splitViewController?.displayMode == .primaryHidden {
+//                        //called while showing editor
+//                        self?.tableView.reloadData()
+//                    }
                     HUD.hide()
                 })
             } else {
                 tableView.endUpdates()
             }
-//            NSInteger currentNoteCount = self.ocNotes.count;
-//            OCNote *note = nil;
-//            if (self.searchController.active) {
-//                if ((indexPath.row >= 0) && (indexPath.row < searchResults.count)) {
-//                    note = [searchResults objectAtIndex:indexPath.row];
-//                }
-//            } else {
-//                if ((indexPath.row >= 0) && (indexPath.row < self.ocNotes.count)) {
-//                    note = [self.ocNotes objectAtIndex:indexPath.row];
-//                }
-//            }
-
-
-
-//
-//            if ([note isEqual:self.editorViewController.ocNote]) {
-//                self.editorViewController.ocNote = nil;
-//            }
-//            if (note) {
-//                [[OCNotesHelper sharedHelper] deleteNote:note];
-//            }
-//            self.ocNotes = [OCNote instancesWhere:@"deleteNeeded = 0 ORDER BY modified DESC"];
-//            NSInteger newCount = self.ocNotes.count;
-//            if (newCount + 1 == currentNoteCount) {
-//                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//            }
-//
-//            NSInteger newIndex = 0;
-//            if (indexPath.row >= 0) {
-//                newIndex = indexPath.row;
-//            }
-//            if (newIndex >= self.ocNotes.count) {
-//                newIndex = self.ocNotes.count - 1;
-//            }
-//            [tableView endUpdates];
-//
-//            if (newIndex >= 0 && newIndex < self.ocNotes.count) {
-//                OCNote *newNote = [self.ocNotes objectAtIndex:newIndex];
-//                self.editorViewController.ocNote = newNote;
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-//                    });
-//            } else {
-//                self.editorViewController.ocNote = nil;
-//            }
-//            if (self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryHidden) {
-//                //called while showing editor
-//                [self.tableView reloadData];
-//            }
-//
-//
-//
-//
-
         }
     }
 

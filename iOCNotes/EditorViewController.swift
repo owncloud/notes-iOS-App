@@ -45,6 +45,17 @@ class EditorViewController: UIViewController {
 
     private var observers = [NSObjectProtocol]()
 
+    var screenShot: UIImage {
+        var capturedScreen: UIImage?
+        UIGraphicsBeginImageContextWithOptions(self.noteView.frame.size, false, 0)
+        if let context = UIGraphicsGetCurrentContext() {
+            self.noteView.layer.render(in: context)
+            capturedScreen = UIGraphicsGetImageFromCurrentImageContext()
+        }
+        UIGraphicsEndImageContext()
+        return capturedScreen ?? UIImage()
+    }
+
     deinit {
         for observer in self.observers {
             NotificationCenter.default.removeObserver(observer)
@@ -194,8 +205,12 @@ class EditorViewController: UIViewController {
     
     lazy var deleteAlertController: UIAlertController = {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: NSLocalizedString("Delete Note", comment: "A menu action"), style: .destructive, handler: deleteNote(action:))
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "A menu action"), style: .cancel, handler: { (action) in
+        let deleteAction = UIAlertAction(title: NSLocalizedString("Delete Note", comment: "A menu action"),
+                                         style: .destructive,
+                                         handler: { [weak self] action in
+                                            self?.deleteNote(action: action)
+        })
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "A menu action"), style: .cancel, handler: { _ in
             //
         })
         controller.addAction(deleteAction)
@@ -205,28 +220,22 @@ class EditorViewController: UIViewController {
     }()
     
     func deleteNote(action: UIAlertAction) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"DeletingNote" object:nil];
-//
-//        __block UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.noteView.frame];
-//        imageView.image = [self screenshot];
-//        [self.noteView addSubview:imageView];
-//        [UIView animateWithDuration:0.3f
-//            delay:0.0f
-//            options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
-//            animations:^{
-//            CGRect targetFrame = CGRectMake(self.noteView.frame.size.width / 2,
-//            self.noteView.frame.size.height /2,
-//            0, 0);
-//            imageView.frame = targetFrame;
-//            imageView.alpha = 0.0f;
-//            }
-//            completion:^(BOOL finished){
-//            [imageView removeFromSuperview];
-//            [self.view.layer setNeedsDisplay];
-//            [self.view.layer displayIfNeeded];
-//            imageView = nil;
-//            }];
-//
+        NotificationCenter.default.post(name: .deletingNote, object: self)
+        let imageView = UIImageView(frame: self.noteView.frame)
+        imageView.image = self.screenShot
+        self.noteView.addSubview(imageView)
+        UIView.animate(withDuration: 0.3,
+                       delay: 0.0,
+                       options: [.curveEaseInOut, .allowUserInteraction],
+                       animations: { [weak self] in
+                        let targetFrame = CGRect(x: self?.noteView.frame.size.width ?? 100 / 2, y: self?.noteView.frame.size.height ?? 100 / 2, width: 0, height: 0)
+                        imageView.frame = targetFrame
+                        imageView.alpha = 0.0
+        }) { (_) in
+            imageView.removeFromSuperview()
+            self.view.layer.setNeedsDisplay()
+            self.view.layer.displayIfNeeded()
+        }
     }
     
     @IBAction func onDelete(_ sender: Any?) {
@@ -361,21 +370,9 @@ class EditorViewController: UIViewController {
      - (void)noteAdded:(NSNotification*)notification {
      [self noteUpdated:notification];
      }
-     
 
-     
-     - (UIImage*)screenshot {
-     UIGraphicsBeginImageContextWithOptions(self.noteView.frame.size, NO, 0);
-     CGContextRef context = UIGraphicsGetCurrentContext();
-     [self.noteView.layer renderInContext:context];
-     UIImage *capturedScreen = UIGraphicsGetImageFromCurrentImageContext();
-     UIGraphicsEndImageContext();
-     
-     return capturedScreen;
-     }
 */
-    
-    
+
 }
 
 extension EditorViewController: UITextViewDelegate {
