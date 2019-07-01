@@ -9,8 +9,7 @@
 import CoreFoundation
 import UIKit
 
-@objc(PBHNoteExporter)
-class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
+class PBHNoteExporter: NSObject {
 
     var text: String?
     var title: String?
@@ -18,8 +17,7 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
     var barButtonItem: UIBarButtonItem?
     
     var alert: UIAlertController!
-    var activityPopover: UIPopoverController!
-    
+
     init(viewController: UIViewController, barButtonItem: UIBarButtonItem, text: String, title: String) {
         super.init()
         
@@ -43,8 +41,7 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
         self.alert.addAction(richTextAction)
         self.alert.addAction(cancelAction)
         
-        if let popover = alert.popoverPresentationController
-        {
+        if let popover = alert.popoverPresentationController {
             popover.delegate = self
             popover.barButtonItem = self.barButtonItem!
             popover.permittedArrowDirections = .any
@@ -66,11 +63,7 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
                     try fileManager.removeItem(at: fileURL!)
                     try fileManager.createDirectory(at: fileURL!, withIntermediateDirectories: true, attributes: nil)
                     fileURL = fileURL!.appendingPathComponent(self.title!).appendingPathExtension(type)
-                }
-                catch
-                {
-                    //
-                }
+                } catch { }
             }
             
             var activityItems: [AnyObject]?
@@ -80,33 +73,26 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
                 do {
                     try self.text?.write(to: fileURL!, atomically: true, encoding: String.Encoding.utf8)
                     activityItems = [self.text! as AnyObject, fileURL! as AnyObject]
-                }
-                catch {}
+                } catch {}
             case "html":
                 if let textToTransform = self.text {
                     var markdown = Markdown()
                     let outputHtml: String = markdown.transform(textToTransform)
                     let htmlTemplateURL = Bundle.main.url(forResource: "export", withExtension: "html")
-                    do
-                    {
+                    do {
                         let htmlTemplate = try String(contentsOf: htmlTemplateURL!)
                         var outputHtml = htmlTemplate.replacingOccurrences(of: "$Markdown$", with: outputHtml)
                         outputHtml = outputHtml.replacingOccurrences(of: "$Title$", with: self.title!)
                         try outputHtml.write(to: fileURL!, atomically: true, encoding: String.Encoding.utf8)
                         activityItems = [outputHtml as AnyObject, fileURL! as AnyObject]
-                    }
-                    catch
-                    {
-                        //
-                    }
+                    } catch { }
                 }
             case "rtf":
                 if let textToTransform = self.text {
                     var markdown = Markdown()
                     let outputHtml: String = markdown.transform(textToTransform)
                     let htmlTemplateURL = Bundle.main.url(forResource: "export", withExtension: "html")
-                    do
-                    {
+                    do {
                         let htmlTemplate = try String(contentsOf: htmlTemplateURL!)
                         var outputHtml = htmlTemplate.replacingOccurrences(of: "$Markdown$", with: outputHtml)
                         outputHtml = outputHtml.replacingOccurrences(of: "$Title$", with: self.title!)
@@ -115,11 +101,7 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
                         let rtfData = try attributedString.data(from: NSMakeRange(0, attributedString.length), documentAttributes: [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.rtf])
                         try rtfData.write(to: fileURL!, options: .atomicWrite)
                         activityItems = [attributedString as AnyObject, fileURL! as AnyObject]
-                    }
-                    catch
-                    {
-                        //
-                    }
+                    } catch { }
                 }
             default:
                 self.viewController?.dismiss(animated: true, completion: nil)
@@ -128,8 +110,7 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
                 let openInAppActivity = TTOpenInAppActivity.init(view: self.viewController?.view, andBarButtonItem: self.barButtonItem)
                 let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: [openInAppActivity] as? [UIActivity])
 //                openInAppActivity?.activityViewController = activityViewController
-                if let popover = activityViewController.popoverPresentationController
-                {
+                if let popover = activityViewController.popoverPresentationController {
                     let barbuttonItem = self.viewController?.navigationItem.rightBarButtonItems?.first
                     popover.delegate = self
                     popover.barButtonItem = barbuttonItem
@@ -139,9 +120,12 @@ class PBHNoteExporter: NSObject, UIPopoverPresentationControllerDelegate {
             }
         }
     }
-    
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
+}
+
+extension PBHNoteExporter: UIPopoverPresentationControllerDelegate {
+
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 
 }
