@@ -404,9 +404,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier  isEqual: @"showPreview"]) {
-        PBHPreviewController *preview = (PBHPreviewController*)segue.destinationViewController;
-        preview.textAsMarkdown = self.noteView.text;
-        preview.noteTitle = self.ocNote.title;
+//        PBHPreviewController *preview = (PBHPreviewController*)segue.destinationViewController;
+//        preview.textAsMarkdown = self.noteView.text;
+//        preview.noteTitle = self.ocNote.title;
     }
 }
 

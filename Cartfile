@@ -6,3 +6,4 @@ github "PureLayout/PureLayout"
 github "phedlund/Marklight" "master"
 github "kishikawakatsumi/KeychainAccess"
 github "pkluz/PKHUD" ~> 5.0
+github "iwasrobbed/Down"

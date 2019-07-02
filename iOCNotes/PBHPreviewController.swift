@@ -6,50 +6,32 @@
 //  Copyright © 2016 Peter Hedlund. All rights reserved.
 //
 
+import Down
 import UIKit
 
-@objc class PBHPreviewController: UIViewController {
+class PBHPreviewController: UIViewController {
 
-    @objc dynamic var textAsMarkdown: String?
-    @objc dynamic var noteTitle: String?
-
-    @IBOutlet var webView: UIWebView!
+    var textAsMarkdown: String?
+    var noteTitle: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let textToTransform = textAsMarkdown
-        {
-            var markdown = Markdown()
-            let outputHtml: String = markdown.transform(textToTransform)
-            loadPreview(html: outputHtml)
+        if let content = textAsMarkdown {
+            do {
+                let downView = try DownView(frame: view.bounds, markdownString: content, didLoadSuccessfully: {
+                    print("Markdown was rendered.")
+                })
+                downView.translatesAutoresizingMaskIntoConstraints = false
+                view.addSubview(downView)
+                NSLayoutConstraint.activate([
+                    downView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    downView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    downView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                    downView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+                ])
+            } catch { }
         }
         self.navigationItem.title = noteTitle
     }
 
-    func loadPreview(html: String) -> Void {
-        let cssTemplateURL = Bundle.main.url(forResource: "github-markdown", withExtension: "css")
-        let htmlTemplateURL = Bundle.main.url(forResource: "markdown", withExtension: "html")
-        do
-        {
-            let cssTemplate = try String(contentsOf: cssTemplateURL!)
-            let htmlTemplate = try String(contentsOf: htmlTemplateURL!)
-            var outputHtml = htmlTemplate.replacingOccurrences(of: "$Markdown$", with: html)
-            outputHtml = outputHtml.replacingOccurrences(of: "$Title$", with: noteTitle!)
-            
-            let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-            let cssOutputUrl = docDir?.appendingPathComponent("github-markdown").appendingPathExtension("css")
-            let htmlOutputUrl = docDir?.appendingPathComponent("markdown").appendingPathExtension("html")
-            try cssTemplate.write(to: cssOutputUrl!, atomically: true, encoding: String.Encoding.utf8)
-            try outputHtml.write(to: htmlOutputUrl!, atomically: true, encoding: String.Encoding.utf8)
-            let request = NSURLRequest(url: htmlOutputUrl!)
-            webView.loadRequest(request as URLRequest)
-        }
-        catch
-        {
-         //
-        }
-    }
-    
 }
-

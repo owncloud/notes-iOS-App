@@ -1,6 +1,7 @@
 github "AFNetworking/AFNetworking" "3.2.1"
 github "Alamofire/Alamofire" "4.8.2"
 github "PureLayout/PureLayout" "v3.1.4"
+github "iwasrobbed/Down" "v0.8.5"
 github "kishikawakatsumi/KeychainAccess" "v3.2.0"
 github "kstenerud/KSCrash" "1.15.21"
 github "phedlund/Marklight" "8a49cfb536a8f32fbe909ea7b66e18e4e7f12e76"
