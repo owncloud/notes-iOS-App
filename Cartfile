@@ -1,5 +1,6 @@
 github "AFNetworking/AFNetworking"
 github "Alamofire/Alamofire"
+github "Alamofire/AlamofireNetworkActivityIndicator" ~> 2.4.0
 github "kstenerud/KSCrash"
 github "rroy1590/KVNProgress"
 github "PureLayout/PureLayout"

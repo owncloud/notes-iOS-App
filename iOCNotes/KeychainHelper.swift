@@ -58,7 +58,3 @@ struct KeychainHelper {
     }
     
 }
-
-extension NSNotification.Name {
-    static let deletingNote = NSNotification.Name("DeletingNote")
-}

@@ -1,0 +1,11 @@
+framework module AlamofireNetworkActivityIndicator {
+  umbrella header "AlamofireNetworkActivityIndicator.h"
+
+  export *
+  module * { export * }
+}
+
+module AlamofireNetworkActivityIndicator.Swift {
+    header "AlamofireNetworkActivityIndicator-Swift.h"
+    requires objc
+}
