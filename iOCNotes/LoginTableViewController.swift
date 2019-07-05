@@ -9,6 +9,7 @@
 import UIKit
 import KeychainAccess
 import Alamofire
+import SwiftMessages
 
 class LoginTableViewController: UITableViewController {
 
@@ -40,7 +41,6 @@ class LoginTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 44.0
@@ -69,7 +69,26 @@ class LoginTableViewController: UITableViewController {
         NoteSessionManager.shared.request(router).responseDecodable { [weak self] (response: DataResponse<[NoteStruct]>) in
             if let _ = response.value {
                 //                CDNote.update(notes: notes)
-                //TODO: Handle success
+                var config = SwiftMessages.defaultConfig
+                config.duration = .forever
+                config.preferredStatusBarStyle = .default
+                SwiftMessages.show(config: config, viewProvider: {
+                    let view = MessageView.viewFromNib(layout: .cardView)
+                    view.configureTheme(.success, iconStyle: .default)
+                    view.configureDropShadow()
+                    view.configureContent(title: NSLocalizedString("Success", comment: "A message title"),
+                                          body: NSLocalizedString("You are now connected to Notes on your server", comment: "A message"),
+                                          iconImage: Icon.success.image,
+                                          iconText: nil,
+                                          buttonImage: nil,
+                                          buttonTitle: NSLocalizedString("Close & Sync", comment: "Title of a button allowing the user to close the login screen and sync with the server"),
+                                          buttonTapHandler: { [weak self] _ in
+                                            SwiftMessages.hide()
+                                            self?.dismiss(animated: true, completion: nil)
+                                            NotificationCenter.default.post(name: .syncNotes, object: nil)
+                    })
+                    return view
+                })
             } else {
                 if (shouldRetry) {
                     self?.serverTextField.text = "\(serverAddress)/index.php"
@@ -79,114 +98,51 @@ class LoginTableViewController: UITableViewController {
                 KeychainHelper.server = ""
                 KeychainHelper.username = ""
                 KeychainHelper.password = ""
-                //TODO: continue handling failure
+                if let urlResponse = response.response {
+                    var message = ""
+                    var title = ""
+                    switch urlResponse.statusCode {
+                    case 200:
+                        title = NSLocalizedString("Notes not found", comment: "An error message title")
+                        message = NSLocalizedString("Notes could not be found on your server. Make sure it is installed and enabled", comment: "An error message");
+                    case 401:
+                        title = NSLocalizedString("Unauthorized", comment: "An error message title")
+                        message = NSLocalizedString("Check username and password.", comment: "An error message")
+                    case 404:
+                        title = NSLocalizedString("Server not found", comment: "An error message title")
+                        message = NSLocalizedString("A server installation could not be found. Check the server address.", comment: "An error message")
+                    default:
+                        title = NSLocalizedString("Connection failure", comment: "An error message title")
+                        if let error = response.error {
+                            message = error.localizedDescription
+                        } else {
+                            message = NSLocalizedString("Failed to connect to a server. Check your settings.", comment: "An error message")
+                        }
+                    }
+                    var config = SwiftMessages.defaultConfig
+                    config.interactiveHide = true
+                    config.duration = .forever
+                    config.preferredStatusBarStyle = .default
+                    SwiftMessages.show(config: config, viewProvider: {
+                        let view = MessageView.viewFromNib(layout: .cardView)
+                        view.configureTheme(.error, iconStyle: .default)
+                        view.configureDropShadow()
+                        view.configureContent(title: title,
+                                              body: message,
+                                              iconImage: Icon.error.image,
+                                              iconText: nil,
+                                              buttonImage: nil,
+                                              buttonTitle: nil,
+                                              buttonTapHandler: nil
+                        )
+                        return view
+                    })
+                }
             }
             self?.connectionActivityIndicator.stopAnimating()
         }
-/*
-            OCAPIClient *client = [[OCAPIClient alloc] initWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", serverAddress, rootPath]]];
-            [client setRequestSerializer:[AFJSONRequestSerializer serializer]];
-            [client.requestSerializer setAuthorizationHeaderFieldWithUsername:self.usernameTextField.text password:self.passwordTextField.text];
-
-            BOOL allowInvalid = self.certificateSwitch.on;
-            client.securityPolicy.allowInvalidCertificates = allowInvalid;
-            NSDictionary *params = @{@"exclude": @"content"};
-
-            [client GET:@"notes" parameters:params progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-                //            NSLog(@"notes: %@", responseObject);
-                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-                [prefs setObject:serverAddress forKey:@"Server"];
-                [[PDKeychainBindings sharedKeychainBindings] setObject:self.usernameTextField.text forKey:(__bridge id)(kSecAttrAccount)];
-                [[PDKeychainBindings sharedKeychainBindings] setObject:self.passwordTextField.text forKey:(__bridge id)(kSecValueData)];
-                [prefs setBool:self.certificateSwitch.on forKey:@"AllowInvalidSSLCertificate"];
-                [prefs synchronize];
-                [OCAPIClient setSharedClient:nil];
-                #ifdef DEBUG
-                int status = [[OCAPIClient sharedClient].reachabilityManager networkReachabilityStatus];
-                NSLog(@"Server status: %i", status);
-#endif
-[self.connectionActivityIndicator stopAnimating];
-//            [[SWMessage sharedInstance] showNotificationInViewControllerWithViewController:self
-//                                                                   title:NSLocalizedString(@"Success", @"A message title")
-//                                                                subtitle:NSLocalizedString(@"You are now connected to Notes on your server", @"A message")
-//                                                                   image:nil
-//                                                                    type:SWMessageNotificationTypeSuccess
-//                                                                duration:SWMessageDurationAutomatic
-//                                                                callback:^{
-//                                                                    self.connectLabel.enabled = YES;
-//                                                                    __unused BOOL success = [[SWMessage sharedInstance] dismissActiveNotification];
-//                                                                }
-//                                                                buttonTitle:NSLocalizedString(@"Close & Sync", @"Title of a button allowing the user to close the login screen and sync with the server")
-//                                                          buttonCallback:^{
-//                                                              self.connectLabel.enabled = YES;
-//                                                              __unused BOOL success = [[SWMessage sharedInstance] dismissActiveNotification];
-//                                                              [self dismissViewControllerAnimated:YES completion:nil];
-//                                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"SyncNotes" object:self];
-//                                                          }
-//                                             atPosition:SWMessageNotificationPositionTop
-//                                   canBeDismissedByUser:YES];
-
-} failure:^(NSURLSessionDataTask *task, NSError *error) {
-    if (self->shouldRetry) {
-        self.serverTextField.text = [serverAddress stringByAppendingString:@"/index.php"];
-        [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
     }
-
-    NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-    NSString *message = @"";
-    NSString *title = @"";
-    //            NSLog(@"Status code: %ld", (long)response.statusCode);
-    switch (response.statusCode) {
-    case 200:
-        title = NSLocalizedString(@"Notes not found", @"An error message title");
-        message = NSLocalizedString(@"Notes could not be found on your server. Make sure it is installed and enabled", @"An error message");
-        break;
-    case 401:
-        title = NSLocalizedString(@"Unauthorized", @"An error message title");
-        message = NSLocalizedString(@"Check username and password.", @"An error message");
-        break;
-    case 404:
-        title = NSLocalizedString(@"Server not found", @"An error message title");
-        message = NSLocalizedString(@"A server installation could not be found. Check the server address.", @"An error message");
-        break;
-    default:
-        title = NSLocalizedString(@"Connection failure", @"An error message title");
-        if (error) {
-            message = error.localizedDescription;
-        } else {
-            message = NSLocalizedString(@"Failed to connect to a server. Check your settings.", @"An error message");
-        }
-        break;
-    }
-    //            NSLog(@"Error: %@, response: %ld", [error localizedDescription], (long)[response statusCode]);
-    //self.statusLabel.text = message;
-    [self.connectionActivityIndicator stopAnimating];
-    //            [[SWMessage sharedInstance] showNotificationInViewControllerWithViewController:self
-    //                                                                   title:title
-    //                                                                subtitle:message
-    //                                                                   image:nil
-    //                                                                    type:SWMessageNotificationTypeError
-    //                                                                duration:SWMessageDurationEndless
-    //                                                                callback:^{
-    //                                                                    self.connectLabel.enabled = YES;
-    //                                                                    __unused BOOL success = [[SWMessage sharedInstance] dismissActiveNotification];
-    //                                                                }
-    //                                                             buttonTitle:nil
-    //                                                          buttonCallback:^{
-    //                                                              //
-    //                                                          }
-    //                                                              atPosition:SWMessageNotificationPositionTop
-    //                                                    canBeDismissedByUser:YES];
-}];
-}*/
-    }
-
-    @IBAction func onDone(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-
 }
-
 
 extension LoginTableViewController: UITextFieldDelegate {
 

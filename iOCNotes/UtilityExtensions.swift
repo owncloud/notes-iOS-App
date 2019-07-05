@@ -10,6 +10,7 @@ import Foundation
 
 extension NSNotification.Name {
     static let deletingNote = NSNotification.Name("DeletingNote")
+    static let syncNotes = NSNotification.Name("SyncNotes")
 }
 
 extension UIImage {

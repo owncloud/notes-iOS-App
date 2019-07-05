@@ -66,6 +66,12 @@ class NotesTableViewController: UITableViewController {
                                                                                 self?.tableView(tableView, commit: .delete, forRowAt: IndexPath(row: currentIndex, section: 0))
                                                                                 }
         }))
+        self.observers.append(NotificationCenter.default.addObserver(forName: .syncNotes,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] _ in
+                                                                        self?.onRefresh(sender: nil)
+        }))
 
 /*
          [[NSNotificationCenter defaultCenter] addObserver:self
