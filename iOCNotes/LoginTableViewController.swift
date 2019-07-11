@@ -66,80 +66,69 @@ class LoginTableViewController: UITableViewController {
         let shouldRetry = !serverAddress.hasSuffix(".php")
         
         let router = Router.allNotes(exclude: "")
-        NoteSessionManager.shared.request(router).responseDecodable { [weak self] (response: DataResponse<[NoteStruct]>) in
-            if let _ = response.value {
-                //                CDNote.update(notes: notes)
-                var config = SwiftMessages.defaultConfig
-                config.duration = .forever
-                config.preferredStatusBarStyle = .default
-                SwiftMessages.show(config: config, viewProvider: {
-                    let view = MessageView.viewFromNib(layout: .cardView)
-                    view.configureTheme(.success, iconStyle: .default)
-                    view.configureDropShadow()
-                    view.configureContent(title: NSLocalizedString("Success", comment: "A message title"),
-                                          body: NSLocalizedString("You are now connected to Notes on your server", comment: "A message"),
-                                          iconImage: Icon.success.image,
-                                          iconText: nil,
-                                          buttonImage: nil,
-                                          buttonTitle: NSLocalizedString("Close & Sync", comment: "Title of a button allowing the user to close the login screen and sync with the server"),
-                                          buttonTapHandler: { [weak self] _ in
-                                            SwiftMessages.hide()
-                                            self?.dismiss(animated: true, completion: nil)
-                                            NotificationCenter.default.post(name: .syncNotes, object: nil)
-                    })
-                    return view
-                })
-            } else {
-                if (shouldRetry) {
-                    self?.serverTextField.text = "\(serverAddress)/index.php"
-                    self?.tableView(tableView, didSelectRowAt: indexPath)
-                    return
-                }
-                KeychainHelper.server = ""
-                KeychainHelper.username = ""
-                KeychainHelper.password = ""
-                if let urlResponse = response.response {
-                    var message = ""
-                    var title = ""
-                    switch urlResponse.statusCode {
-                    case 200:
-                        title = NSLocalizedString("Notes not found", comment: "An error message title")
-                        message = NSLocalizedString("Notes could not be found on your server. Make sure it is installed and enabled", comment: "An error message");
-                    case 401:
-                        title = NSLocalizedString("Unauthorized", comment: "An error message title")
-                        message = NSLocalizedString("Check username and password.", comment: "An error message")
-                    case 404:
-                        title = NSLocalizedString("Server not found", comment: "An error message title")
-                        message = NSLocalizedString("A server installation could not be found. Check the server address.", comment: "An error message")
-                    default:
-                        title = NSLocalizedString("Connection failure", comment: "An error message title")
-                        if let error = response.error {
-                            message = error.localizedDescription
-                        } else {
-                            message = NSLocalizedString("Failed to connect to a server. Check your settings.", comment: "An error message")
-                        }
-                    }
+        NoteSessionManager
+            .shared
+            .request(router)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseDecodable { [weak self] (response: DataResponse<[NoteStruct]>) in
+                var message: String?
+                var title: String?
+                switch response.result {
+                case .success:
                     var config = SwiftMessages.defaultConfig
-                    config.interactiveHide = true
                     config.duration = .forever
                     config.preferredStatusBarStyle = .default
                     SwiftMessages.show(config: config, viewProvider: {
                         let view = MessageView.viewFromNib(layout: .cardView)
-                        view.configureTheme(.error, iconStyle: .default)
+                        view.configureTheme(.success, iconStyle: .default)
                         view.configureDropShadow()
-                        view.configureContent(title: title,
-                                              body: message,
-                                              iconImage: Icon.error.image,
+                        view.configureContent(title: NSLocalizedString("Success", comment: "A message title"),
+                                              body: NSLocalizedString("You are now connected to Notes on your server", comment: "A message"),
+                                              iconImage: Icon.success.image,
                                               iconText: nil,
                                               buttonImage: nil,
-                                              buttonTitle: nil,
-                                              buttonTapHandler: nil
-                        )
+                                              buttonTitle: NSLocalizedString("Close & Sync", comment: "Title of a button allowing the user to close the login screen and sync with the server"),
+                                              buttonTapHandler: { [weak self] _ in
+                                                SwiftMessages.hide()
+                                                self?.dismiss(animated: true, completion: nil)
+                                                NotificationCenter.default.post(name: .syncNotes, object: nil)
+                        })
                         return view
                     })
+                case .failure(let error):
+                    if (shouldRetry) {
+                        self?.serverTextField.text = "\(serverAddress)/index.php"
+                        self?.tableView(tableView, didSelectRowAt: indexPath)
+                        return
+                    }
+                    KeychainHelper.server = ""
+                    KeychainHelper.username = ""
+                    KeychainHelper.password = ""
+                    if let urlResponse = response.response {
+                        switch urlResponse.statusCode {
+                        case 200:
+                            title = NSLocalizedString("Notes not found", comment: "An error message title")
+                            message = NSLocalizedString("Notes could not be found on your server. Make sure it is installed and enabled", comment: "An error message");
+                        case 401:
+                            title = NSLocalizedString("Unauthorized", comment: "An error message title")
+                            message = NSLocalizedString("Check username and password.", comment: "An error message")
+                        case 404:
+                            title = NSLocalizedString("Server not found", comment: "An error message title")
+                            message = NSLocalizedString("A server installation could not be found. Check the server address.", comment: "An error message")
+                        default:
+                            title = NSLocalizedString("Connection failure", comment: "An error message title")
+                            message = error.localizedDescription
+                        }
+                    } else {
+                        title = NSLocalizedString("Connection failure", comment: "An error message title")
+                        message = error.localizedDescription
+                    }
+                    if let title = title, let body = message {
+                        NotesManager.shared.showErrorMessage(message: ErrorMessage(title: title, body: body))
+                    }
                 }
-            }
-            self?.connectionActivityIndicator.stopAnimating()
+                self?.connectionActivityIndicator.stopAnimating()
         }
     }
 }

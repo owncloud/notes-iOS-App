@@ -12,7 +12,7 @@ import CoreData
 extension NSFetchRequestResult where Self: NSManagedObject {
 
     @discardableResult
-    public static func delete(ids: [Int32], in context: NSManagedObjectContext) -> NSBatchDeleteResult? {
+    public static func delete(ids: [Int64], in context: NSManagedObjectContext) -> NSBatchDeleteResult? {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Self.self))
         let predicate = NSPredicate(format: "cdId IN %@", ids)
         request.predicate = predicate

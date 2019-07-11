@@ -6,9 +6,10 @@
 //  Copyright © 2019 Peter Hedlund. All rights reserved.
 //
 
-import UIKit
 import CoreData
 import PKHUD
+import SwiftMessages
+import UIKit
 
 let detailSegueIdentifier = "showDetail"
 
@@ -72,32 +73,52 @@ class NotesTableViewController: UITableViewController {
                                                                      using: { [weak self] _ in
                                                                         self?.onRefresh(sender: nil)
         }))
-
+        self.observers.append(NotificationCenter.default.addObserver(forName: .networkSuccess,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] _ in
+                                                                        HUD.hide()
+                                                                        self?.refreshControl?.endRefreshing()
+                                                                        self?.addBarButton.isEnabled = true
+                                                                        self?.settingsBarButton.isEnabled = true
+        }))
+        self.observers.append(NotificationCenter.default.addObserver(forName: .networkError,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] notification in
+                                                                        HUD.hide()
+                                                                        self?.refreshControl?.endRefreshing()
+                                                                        self?.addBarButton.isEnabled = true
+                                                                        self?.settingsBarButton.isEnabled = true
+                                                                        if let title = notification.userInfo?["Title"] as? String,
+                                                                            let message = notification.userInfo?["Message"] as? String {
+                                                                            var config = SwiftMessages.defaultConfig
+                                                                            config.interactiveHide = true
+                                                                            config.duration = .forever
+                                                                            config.preferredStatusBarStyle = .default
+                                                                            SwiftMessages.show(config: config, viewProvider: {
+                                                                                let view = MessageView.viewFromNib(layout: .cardView)
+                                                                                view.configureTheme(.error, iconStyle: .default)
+                                                                                view.configureDropShadow()
+                                                                                view.configureContent(title: title,
+                                                                                                      body: message,
+                                                                                                      iconImage: Icon.error.image,
+                                                                                                      iconText: nil,
+                                                                                                      buttonImage: nil,
+                                                                                                      buttonTitle: nil,
+                                                                                                      buttonTapHandler: nil
+                                                                                )
+                                                                                return view
+                                                                            })
+                                                                        }
+        })
+        )
 /*
          [[NSNotificationCenter defaultCenter] addObserver:self
          selector:@selector(reachabilityChanged:)
          name:AFNetworkingReachabilityDidChangeNotification
          object:nil];
-         
-         [[NSNotificationCenter defaultCenter] addObserver:self
-         selector:@selector(networkSuccess:)
-         name:@"NetworkSuccess"
-         object:nil];
-         
-         [[NSNotificationCenter defaultCenter] addObserver:self
-         selector:@selector(networkError:)
-         name:@"NetworkError"
-         object:nil];
-         
-         [[NSNotificationCenter defaultCenter] addObserver:self
-         selector:@selector(doRefresh:)
-         name:@"SyncNotes"
-         object:nil];
-                  
-         [NSNotificationCenter.defaultCenter addObserver:self
-         selector:@selector(reloadNotes:)
-         name:FCModelChangeNotification
-         object:OCNote.class];
+
 */
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.toolbar.isTranslucent = true
@@ -306,7 +327,7 @@ class NotesTableViewController: UITableViewController {
 //        self.editorViewController.addingNote = YES;
 //        [[OCNotesHelper sharedHelper] addNote:@""];
         HUD.show(.progress)
-        NotesManager.shared.add(content: "", category: nil, completion: { [weak self] _ in
+        NotesManager.shared.add(content: "", category: nil, completion: { [weak self] note in
             self?.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
             self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
             HUD.hide()

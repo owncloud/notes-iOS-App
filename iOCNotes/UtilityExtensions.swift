@@ -11,6 +11,8 @@ import Foundation
 extension NSNotification.Name {
     static let deletingNote = NSNotification.Name("DeletingNote")
     static let syncNotes = NSNotification.Name("SyncNotes")
+    static let networkSuccess = NSNotification.Name("NetworkSucces")
+    static let networkError = NSNotification.Name("NetworkError")
 }
 
 extension UIImage {
