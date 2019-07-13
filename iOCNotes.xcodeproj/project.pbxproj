@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BD0F26F020E9277D003D7D4A /* Marklight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0F26EF20E9277D003D7D4A /* Marklight.framework */; };
 		BD302B9022B8061A00067888 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD302B8F22B8061A00067888 /* LoginTableViewController.swift */; };
 		BD86DD8522B9CDD500115E5D /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */; };
 		BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271622C92EBB004E2408 /* PKHUD.framework */; };
@@ -15,7 +14,7 @@
 		BD92271B22CD3743004E2408 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92271A22CD3743004E2408 /* UtilityExtensions.swift */; };
 		BD92271D22CE777F004E2408 /* AlamofireNetworkActivityIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271C22CE777E004E2408 /* AlamofireNetworkActivityIndicator.framework */; };
 		BD92271F22CF4EBE004E2408 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */; };
-		BD92272422CFD83D004E2408 /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92272222CFD83D004E2408 /* Markdown.swift */; };
+		BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92272622D7874E004E2408 /* Notepad.framework */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
 		D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DA220BCA290047E090 /* ResponseSerializer.swift */; };
@@ -92,7 +91,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BD0F26EF20E9277D003D7D4A /* Marklight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Marklight.framework; path = Carthage/Build/iOS/Marklight.framework; sourceTree = "<group>"; };
 		BD302B8F22B8061A00067888 /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		BD92271622C92EBB004E2408 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/iOS/PKHUD.framework; sourceTree = "<group>"; };
@@ -100,8 +98,7 @@
 		BD92271A22CD3743004E2408 /* UtilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityExtensions.swift; sourceTree = "<group>"; };
 		BD92271C22CE777E004E2408 /* AlamofireNetworkActivityIndicator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireNetworkActivityIndicator.framework; path = Carthage/Build/iOS/AlamofireNetworkActivityIndicator.framework; sourceTree = "<group>"; };
 		BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMessages.framework; path = Carthage/Build/iOS/SwiftMessages.framework; sourceTree = "<group>"; };
-		BD92272122CFD83D004E2408 /* Markingbird.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Markingbird.h; sourceTree = "<group>"; };
-		BD92272222CFD83D004E2408 /* Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
+		BD92272622D7874E004E2408 /* Notepad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Notepad.framework; path = Carthage/Build/iOS/Notepad.framework; sourceTree = "<group>"; };
 		D00293D619F48B5300B2DA8F /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D00CDFBB194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFBC194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -212,11 +209,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */,
 				BD92271F22CF4EBE004E2408 /* SwiftMessages.framework in Frameworks */,
 				BD92271D22CE777F004E2408 /* AlamofireNetworkActivityIndicator.framework in Frameworks */,
 				BD92271922CAD36E004E2408 /* Down.framework in Frameworks */,
 				BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */,
-				BD0F26F020E9277D003D7D4A /* Marklight.framework in Frameworks */,
 				D07F5E902207B81F00528E90 /* KeychainAccess.framework in Frameworks */,
 				D07F5E8B2207B61500528E90 /* Alamofire.framework in Frameworks */,
 				D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */,
@@ -246,16 +243,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BD92272022CFD83D004E2408 /* Markingbird */ = {
-			isa = PBXGroup;
-			children = (
-				BD92272122CFD83D004E2408 /* Markingbird.h */,
-				BD92272222CFD83D004E2408 /* Markdown.swift */,
-			);
-			name = Markingbird;
-			path = Markingbird/Markingbird;
-			sourceTree = "<group>";
-		};
 		D01067DC220BCAD60047E090 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,7 +338,6 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
-				BD92272022CFD83D004E2408 /* Markingbird */,
 				D03DA13D18DE435900178958 /* fmdb */,
 				D0791B0F18AD4E33005227AB /* TTOpenInAppActivity */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
@@ -373,11 +359,11 @@
 		D0CFE5351888A7BD00165839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BD92272622D7874E004E2408 /* Notepad.framework */,
 				BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */,
 				BD92271C22CE777E004E2408 /* AlamofireNetworkActivityIndicator.framework */,
 				BD92271822CAD36D004E2408 /* Down.framework */,
 				BD92271622C92EBB004E2408 /* PKHUD.framework */,
-				BD0F26EF20E9277D003D7D4A /* Marklight.framework */,
 				D07F5E8F2207B81F00528E90 /* KeychainAccess.framework */,
 				D07F5E8A2207B61500528E90 /* Alamofire.framework */,
 				D0782BF320D6EA4D009AF66B /* PureLayout.framework */,
@@ -605,19 +591,18 @@
 				"$(SRCROOT)/Carthage/Build/iOS/KSCrash.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KVNProgressKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PureLayout.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Marklight.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PKHUD.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Down.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AlamofireNetworkActivityIndicator.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftMessages.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Notepad.framework",
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KSCrash.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KVNProgressKit.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PureLayout.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Marklight.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KeychainAccess.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AFNetworking.framework",
@@ -625,6 +610,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Down.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AlamofireNetworkActivityIndicator.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftMessages.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Notepad.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -645,7 +631,6 @@
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
 				D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
-				BD92272422CFD83D004E2408 /* Markdown.swift in Sources */,
 				D03DA14D18DE435900178958 /* FMResultSet.m in Sources */,
 				D01067E42213BDF30047E090 /* AppDelegate.swift in Sources */,
 				D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */,

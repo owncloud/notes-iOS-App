@@ -7,11 +7,12 @@
 //
 
 import CoreFoundation
+import Down
 import UIKit
 
 class PBHNoteExporter: NSObject {
 
-    var text: String?
+    var text: String = ""
     var title: String?
     var viewController: UIViewController?
     var barButtonItem: UIBarButtonItem?
@@ -53,73 +54,89 @@ class PBHNoteExporter: NSObject {
     func beginExport(type: String) -> (_ action: UIAlertAction) -> Void {
         return { alertAction in
             print("Export type: \(type)")
-            
+            guard !self.text.isEmpty else {
+                return
+            }
             let fileManager = FileManager.default
             let docDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-            var fileURL = docDir?.appendingPathComponent("export")
-            var isDir : ObjCBool = true
-            if fileManager.fileExists(atPath: (fileURL?.path)!, isDirectory: &isDir) {
-                do {
-                    try fileManager.removeItem(at: fileURL!)
-                    try fileManager.createDirectory(at: fileURL!, withIntermediateDirectories: true, attributes: nil)
-                    fileURL = fileURL!.appendingPathComponent(self.title!).appendingPathExtension(type)
-                } catch { }
-            }
-            
-            var activityItems: [AnyObject]?
-            
-            switch type {
-            case "txt", "md":
-                do {
-                    try self.text?.write(to: fileURL!, atomically: true, encoding: String.Encoding.utf8)
-                    activityItems = [self.text! as AnyObject, fileURL! as AnyObject]
-                } catch {}
-            case "html":
-                if let textToTransform = self.text {
-                    var markdown = Markdown()
-                    let outputHtml: String = markdown.transform(textToTransform)
-                    let htmlTemplateURL = Bundle.main.url(forResource: "export", withExtension: "html")
+            if let outputDirectory = docDir?.appendingPathComponent("export") {
+                var isDir : ObjCBool = true
+                if fileManager.fileExists(atPath: outputDirectory.path, isDirectory: &isDir) {
                     do {
-                        let htmlTemplate = try String(contentsOf: htmlTemplateURL!)
-                        var outputHtml = htmlTemplate.replacingOccurrences(of: "$Markdown$", with: outputHtml)
-                        outputHtml = outputHtml.replacingOccurrences(of: "$Title$", with: self.title!)
-                        try outputHtml.write(to: fileURL!, atomically: true, encoding: String.Encoding.utf8)
-                        activityItems = [outputHtml as AnyObject, fileURL! as AnyObject]
+                        try fileManager.removeItem(at: outputDirectory)
+                        try fileManager.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
                     } catch { }
                 }
-            case "rtf":
-                if let textToTransform = self.text {
-                    var markdown = Markdown()
-                    let outputHtml: String = markdown.transform(textToTransform)
-                    let htmlTemplateURL = Bundle.main.url(forResource: "export", withExtension: "html")
+                let fileURL = outputDirectory.appendingPathComponent(self.title ?? "Untitled").appendingPathExtension(type)
+                var activityItems: [AnyObject]?
+
+                switch type {
+                case "txt":
                     do {
-                        let htmlTemplate = try String(contentsOf: htmlTemplateURL!)
-                        var outputHtml = htmlTemplate.replacingOccurrences(of: "$Markdown$", with: outputHtml)
-                        outputHtml = outputHtml.replacingOccurrences(of: "$Title$", with: self.title!)
-                        let data = outputHtml.data(using: String.Encoding.utf8)
-                        let attributedString = try NSAttributedString(data: data!, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-                        let rtfData = try attributedString.data(from: NSMakeRange(0, attributedString.length), documentAttributes: [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.rtf])
-                        try rtfData.write(to: fileURL!, options: .atomicWrite)
-                        activityItems = [attributedString as AnyObject, fileURL! as AnyObject]
-                    } catch { }
+                        try self.text.write(to: fileURL, atomically: true, encoding: .utf8)
+                        activityItems = [self.text as AnyObject, fileURL as AnyObject]
+                    } catch {}
+                case "md":
+                    do {
+                        let down = Down(markdownString: self.text)
+                        if let commonMark = try? down.toCommonMark() {
+                            try commonMark.write(to: fileURL, atomically: true, encoding: .utf8)
+                            activityItems = [self.text as AnyObject, fileURL as AnyObject]
+                        }
+                    } catch {}
+                case "html":
+                        do {
+                            let down = Down(markdownString: self.text)
+                            if let outputHtml = try? down.toHTML() {
+                                let htmlTemplate = """
+                                <?xml version="1.0" encoding="utf-8"?>
+                                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+                                <html xmlns="http://www.w3.org/1999/xhtml">
+                                    <head>
+                                        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+                                        <title>
+                                            \(self.title ?? "")
+                                        </title>
+                                    </head>
+                                    <body>
+                                        <article>
+                                            \(outputHtml)
+                                        </article>
+                                    </body>
+                                </html>
+                                """
+                                try htmlTemplate.write(to: fileURL, atomically: true, encoding: .utf8)
+                                activityItems = [htmlTemplate as AnyObject, fileURL as AnyObject]
+                            }
+                        } catch { }
+
+                case "rtf":
+                    do {
+                        let down = Down(markdownString: self.text)
+                        if let output = try? down.toAttributedString() {
+                            let rtfData = try output.data(from: NSMakeRange(0, output.length), documentAttributes: [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.rtf])
+                                try rtfData.write(to: fileURL, options: .atomicWrite)
+                                activityItems = [rtfData as AnyObject, fileURL as AnyObject]
+                            }
+                        } catch { }
+                default:
+                    self.viewController?.dismiss(animated: true, completion: nil)
                 }
-            default:
-                self.viewController?.dismiss(animated: true, completion: nil)
-            }
-            if let activityItems = activityItems {
-                let openInAppActivity = TTOpenInAppActivity.init(view: self.viewController?.view, andBarButtonItem: self.barButtonItem)
-                let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: [openInAppActivity] as? [UIActivity])
-//                openInAppActivity?.activityViewController = activityViewController
-                if let popover = activityViewController.popoverPresentationController {
-                    let barbuttonItem = self.viewController?.navigationItem.rightBarButtonItems?.first
-                    popover.delegate = self
-                    popover.barButtonItem = barbuttonItem
-                    popover.permittedArrowDirections = .any
+                if let activityItems = activityItems {
+                    let openInAppActivity = TTOpenInAppActivity.init(view: self.viewController?.view, andBarButtonItem: self.barButtonItem)
+                    let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: [openInAppActivity] as? [UIActivity])
+                    if let popover = activityViewController.popoverPresentationController {
+                        let barbuttonItem = self.viewController?.navigationItem.rightBarButtonItems?.first
+                        popover.delegate = self
+                        popover.barButtonItem = barbuttonItem
+                        popover.permittedArrowDirections = .any
+                    }
+                    self.viewController?.present(activityViewController, animated: true, completion: nil)
                 }
-                self.viewController?.present(activityViewController, animated: true, completion: nil)
             }
         }
     }
+
 }
 
 extension PBHNoteExporter: UIPopoverPresentationControllerDelegate {

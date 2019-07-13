@@ -3,7 +3,8 @@
   "iOS" : [
     {
       "name" : "PKHUD",
-      "hash" : "0323a41edc2fe319988736511a8430d841f06f2f94b1c5bfaecd2cb836e38239"
+      "hash" : "0583cb4ee59dee4c610ac5ec46a6d01f43249da0d88dcdd98a7d138b20a86e1f",
+      "swiftToolchainVersion" : "5.0.1 (swiftlang-1001.0.82.4 clang-1001.0.46.5)"
     }
   ]
 }

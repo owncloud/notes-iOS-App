@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Marklight
+import Notepad
 
 @objc(PBHHeaderTextView)
 class PBHHeaderTextView: UITextView {
@@ -18,7 +18,7 @@ class PBHHeaderTextView: UITextView {
     var rightHeaderLayoutConstraint = NSLayoutConstraint()
     var didSetupConstraints = false
     
-    var noteTextStorage = MarklightTextStorage()
+    var noteTextStorage = Storage()
 
     lazy var headerLabel: UILabel = {
         var label = UILabel(frame: .zero)
@@ -37,10 +37,6 @@ class PBHHeaderTextView: UITextView {
     }()
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
-        noteTextStorage.marklightTextProcessor.codeColor = UIColor.green
-        noteTextStorage.marklightTextProcessor.quoteColor = UIColor.darkGray
-        noteTextStorage.marklightTextProcessor.syntaxColor = UIColor.blue
-        
         let attributedString = NSAttributedString(string: "")
         noteTextStorage.setAttributedString(attributedString)
 
@@ -50,6 +46,8 @@ class PBHHeaderTextView: UITextView {
 
         let layoutManager = NSLayoutManager()
         layoutManager.addTextContainer(container)
+        let theme = Theme("system-minimal")
+        noteTextStorage.theme = theme
         noteTextStorage.addLayoutManager(layoutManager)
 
         super.init(frame: frame, textContainer: container)
@@ -57,6 +55,8 @@ class PBHHeaderTextView: UITextView {
         self.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20);
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerLabel)
+        self.backgroundColor = theme.backgroundColor
+        self.tintColor = theme.tintColor
         self.setNeedsUpdateConstraints()
         self.traitCollectionDidChange(nil)
     }
@@ -72,10 +72,6 @@ class PBHHeaderTextView: UITextView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerLabel)
         
-        noteTextStorage.marklightTextProcessor.codeColor = UIColor.green
-        noteTextStorage.marklightTextProcessor.quoteColor = UIColor.darkGray
-        noteTextStorage.marklightTextProcessor.syntaxColor = UIColor.blue
-        
         let attributedString = NSAttributedString(string: "")
         noteTextStorage.setAttributedString(attributedString)
         
@@ -88,7 +84,13 @@ class PBHHeaderTextView: UITextView {
         
         layoutManager.addTextContainer(container)
         noteTextStorage.addLayoutManager(layoutManager)
-        
+        layoutManager.addTextContainer(container)
+        let theme = Theme("one-dark")
+        noteTextStorage.theme = theme
+        noteTextStorage.addLayoutManager(layoutManager)
+
+        self.backgroundColor = theme.backgroundColor
+        self.tintColor = theme.tintColor
         self.setNeedsUpdateConstraints()
         self.traitCollectionDidChange(nil)
     }
@@ -132,7 +134,7 @@ class PBHHeaderTextView: UITextView {
 
     override var text: String! {
         get {
-            return self.attributedText.string
+            return noteTextStorage.string
         }
         set {
             noteTextStorage.beginEditing()
@@ -142,17 +144,17 @@ class PBHHeaderTextView: UITextView {
         }
     }
 
-    override var attributedText: NSAttributedString! {
-        get {
-            return noteTextStorage.attributedString
-        }
-        set {
-            noteTextStorage.beginEditing()
-            noteTextStorage.setAttributedString(newValue)
-            noteTextStorage.endEditing()
-        }
-    }
-    
+//    override var attributedText: NSAttributedString! {
+//        get {
+//            return noteTextStorage.attributedSubstring(from: NSRange(location: 0, length: noteTextStorage.string.count - 1))
+//        }
+//        set {
+//            noteTextStorage.beginEditing()
+//            noteTextStorage.setAttributedString(newValue)
+//            noteTextStorage.endEditing()
+//        }
+//    }
+
     open func updateInsets(size: CGFloat) {
         self.textContainerInset = UIEdgeInsets(top: smallPadding, left: size, bottom: smallPadding, right: size);
         leftHeaderLayoutConstraint.constant = size;

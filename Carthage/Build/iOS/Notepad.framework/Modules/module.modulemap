@@ -1,0 +1,11 @@
+framework module Notepad {
+  umbrella header "Notepad.h"
+
+  export *
+  module * { export * }
+}
+
+module Notepad.Swift {
+    header "Notepad-Swift.h"
+    requires objc
+}

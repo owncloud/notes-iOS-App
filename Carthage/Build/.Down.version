@@ -1,9 +1,10 @@
 {
-  "commitish" : "v0.8.5",
+  "commitish" : "v0.8.6",
   "iOS" : [
     {
       "name" : "Down",
-      "hash" : "05cc113220cf1b09213017509f7c9b5047a0fd84084848c7ce4fe2a6c8fba9fa"
+      "hash" : "9674c66a0ec592d15a33fd30afa2531f02497b1f6f8f94f60516a098d94f2016",
+      "swiftToolchainVersion" : "5.0.1 (swiftlang-1001.0.82.4 clang-1001.0.46.5)"
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "commitish" : "0.3.0",
+  "iOS" : [
+    {
+      "name" : "Notepad",
+      "hash" : "4287f00ae4e1968ad7adeaeff70f88c7bce3e5ad9003bff5aef384feeb02c6fe",
+      "swiftToolchainVersion" : "5.0.1 (swiftlang-1001.0.82.4 clang-1001.0.46.5)"
+    }
+  ]
+}
