@@ -33,7 +33,20 @@ public class CDNote: NSManagedObject {
         }
         return noteList
     }
-    
+
+
+    static func notes(property: String) -> [CDNote]? {
+        let request: NSFetchRequest<CDNote> = self.fetchRequest()
+        let predicate = NSPredicate(format: "%@ == true", property)
+        request.predicate = predicate
+        do {
+            return try NotesData.mainThreadContext.fetch(request)
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        return nil
+    }
+
     static func note(id: Int32) -> CDNote? {
         let request: NSFetchRequest<CDNote> = self.fetchRequest()
         let predicate = NSPredicate(format: "cdId == %d", id)

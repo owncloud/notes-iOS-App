@@ -169,14 +169,12 @@ class NotesTableViewController: UITableViewController {
         return (height1 + height2) * 1.7
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath)
-        
+    fileprivate func configureCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
         let selectedBackgroundView = UIView(frame: cell.frame)
         selectedBackgroundView.backgroundColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 1.0) // set color here
         cell.selectedBackgroundView = selectedBackgroundView
         cell.tag = indexPath.row
-        
+
         //        if (self.searchController.active) {
         //            note = [searchResults objectAtIndex:indexPath.row];
         //        } else {
@@ -193,7 +191,11 @@ class NotesTableViewController: UITableViewController {
             cell.detailTextLabel?.text = dateFormat.string(from: date as Date)
             cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
         }
-        
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath)
+        configureCell(cell, at: indexPath)
         return cell
     }
 
@@ -206,15 +208,15 @@ class NotesTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
 
-            tableView.beginUpdates()
+//            tableView.beginUpdates()
             if let note = self.notesFrc.fetchedObjects?[indexPath.row] {
                 HUD.show(.progress)
                 if note == self.editorViewController?.note {
                     self.editorViewController?.note = nil
                 }
                 NotesManager.shared.delete(note: note, completion: { [weak self] in
-                    self?.tableView.deleteRows(at: [indexPath], with: .fade)
-                    self?.tableView.endUpdates()
+//                    self?.tableView.deleteRows(at: [indexPath], with: .fade)
+//                    self?.tableView.endUpdates()
                     var newIndex = 0
                     if indexPath.row >= 0 {
                         newIndex = indexPath.row
@@ -293,6 +295,10 @@ class NotesTableViewController: UITableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
     @IBAction func onRefresh(sender: Any?) {
         if let refreshControl = refreshControl, !refreshControl.isRefreshing {
             refreshControl.beginRefreshing()
@@ -328,8 +334,10 @@ class NotesTableViewController: UITableViewController {
 //        [[OCNotesHelper sharedHelper] addNote:@""];
         HUD.show(.progress)
         NotesManager.shared.add(content: "", category: nil, completion: { [weak self] note in
-            self?.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
-            self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
+//            self?.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
+            if let note = note {
+                self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
+            }
             HUD.hide()
         })
     }
@@ -376,8 +384,41 @@ class NotesTableViewController: UITableViewController {
 }
 
 extension NotesTableViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch (type) {
+        case .insert:
+            if let indexPath = newIndexPath {
+                tableView.insertRows(at: [indexPath], with: .fade)
+            }
+            break;
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            break;
+        case .update:
+            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) {
+                configureCell(cell, at: indexPath)
+            }
+            break;
+        case .move:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .fade)
+            }
+            break;
+        }
+    }
+
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.reloadData()
+        tableView.endUpdates()
     }
 }
 

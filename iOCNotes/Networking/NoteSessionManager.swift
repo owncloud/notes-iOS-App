@@ -38,12 +38,80 @@ class NotesManager: NSObject {
     }
 
     func sync(completion: SyncCompletionBlock? = nil) {
-        let router = Router.allNotes(exclude: "")
-        NoteSessionManager.shared.request(router).responseDecodable { (response: DataResponse<[NoteStruct]>) in
-            if let notes = response.value {
-                CDNote.update(notes: notes)
+
+        func deleteOnServer(completion: @escaping SyncCompletionBlock) {
+            if let notesToDelete = CDNote.notes(property: "cdDeleteNeeded") {
+                let group = DispatchGroup()
+
+                for note in notesToDelete {
+                    group.enter()
+                    NotesManager.shared.delete(note: note, completion: {
+                        group.leave()
+                    })
+                }
+
+                group.notify(queue: .main) {
+                    print("Finished all requests.")
+                    completion()
+                }
             }
-            completion?()
+        }
+
+        func addOnServer(completion: @escaping SyncCompletionBlock) {
+            if let notesToAdd = CDNote.notes(property: "cdAddNeeded") {
+                let group = DispatchGroup()
+
+                for note in notesToAdd {
+                    group.enter()
+                    NotesManager.shared.add(content: note.content, category: note.category, favorite: note.favorite, completion: { _ in
+                        group.leave()
+                    })
+                }
+
+                group.notify(queue: .main) {
+                    print("Finished all requests.")
+                    completion()
+                }
+            }
+        }
+
+        func updateOnServer(completion: @escaping SyncCompletionBlock) {
+            if let notesToUpdate = CDNote.notes(property: "cdUpdateNeeded") {
+                let group = DispatchGroup()
+
+                for note in notesToUpdate {
+                    group.enter()
+                    NotesManager.shared.update(note: note, completion: {
+                        group.leave()
+                    })
+                }
+
+                group.notify(queue: .main) {
+                    print("Finished all requests.")
+                    completion()
+                }
+            }
+        }
+
+        deleteOnServer {
+            addOnServer {
+                updateOnServer {
+                    let router = Router.allNotes(exclude: "")
+                    NoteSessionManager.shared.request(router).responseDecodable { (response: DataResponse<[NoteStruct]>) in
+                        if let notes = response.value {
+                            let serverIds = notes.map( { $0.id } )
+                            if let knownIds = CDNote.all()?.map({ $0.id }) {
+                                let deletedOnServer = Set(knownIds).subtracting(Set(serverIds))
+                                if !deletedOnServer.isEmpty {
+                                    CDNote.delete(ids: Array(deletedOnServer), in: NotesData.mainThreadContext)
+                                }
+                            }
+                            CDNote.update(notes: notes)
+                        }
+                        completion?()
+                    }
+                }
+            }
         }
     }
     
@@ -53,12 +121,12 @@ class NotesManager: NSObject {
                                       "category": note.category as Any,
                                       "modified": note.modified,
                                       "favorite": note.favorite]
-        let result = CDNote.update(note: note)
+        var result = CDNote.update(note: note) //addNeeded defaults to true
         let router = Router.createNote(paramters: parameters)
         NoteSessionManager
             .shared
             .request(router)
-            .validate(statusCode: 201..<202)
+            .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseDecodable { (response: DataResponse<NoteStruct>) in
                 switch response.result {
@@ -70,8 +138,7 @@ class NotesManager: NSObject {
                         newNote.content = note.content
                         newNote.addNeeded = false
                         newNote.updateNeeded = false
-                        let result = CDNote.update(note: newNote)
-                        completion?(result)
+                        result = CDNote.update(note: newNote)
                     }
                 case .failure(let error):
                     let message = ErrorMessage(title: NSLocalizedString("Error Adding Note", comment: "The title of an error message"),
