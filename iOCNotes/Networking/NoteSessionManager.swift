@@ -103,7 +103,7 @@ class NotesManager: NSObject {
                             if let knownIds = CDNote.all()?.map({ $0.id }) {
                                 let deletedOnServer = Set(knownIds).subtracting(Set(serverIds))
                                 if !deletedOnServer.isEmpty {
-                                    CDNote.delete(ids: Array(deletedOnServer), in: NotesData.mainThreadContext)
+                                    _ = CDNote.delete(ids: Array(deletedOnServer))
                                 }
                             }
                             CDNote.update(notes: notes)
@@ -232,7 +232,7 @@ class NotesManager: NSObject {
             .responseData { (response) in
                 switch response.result {
                 case .success:
-                    CDNote.delete(ids: [note.id], in: NotesData.mainThreadContext)
+                    CDNote.delete(note: note)
                 case .failure(let error):
                     var message = ErrorMessage(title: NSLocalizedString("Error Deleting Note", comment: "The title of an error message"),
                                                body: "")
@@ -241,7 +241,7 @@ class NotesManager: NSObject {
                         case 404:
                             //Note doesn't exist on the server but we are obviously
                             //trying to delete it, so let's do that.
-                            CDNote.delete(ids: [note.id], in: NotesData.mainThreadContext)
+                            CDNote.delete(note: note)
                         default:
                             message.body = error.localizedDescription
                         }

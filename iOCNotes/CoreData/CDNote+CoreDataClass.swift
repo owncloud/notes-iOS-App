@@ -162,5 +162,39 @@ public class CDNote: NSManagedObject {
         return result
     }
 
+    static func delete(note: NoteProtocol) {
+        NotesData.mainThreadContext.performAndWait {
+            let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
+            do {
+                request.predicate = NSPredicate(format: "cdId == %d", note.id)
+                let records = try NotesData.mainThreadContext.fetch(request)
+                if let existingRecord = records.first {
+                    NotesData.mainThreadContext.delete(existingRecord)
+                    try NotesData.mainThreadContext.save()
+                }
+            } catch let error as NSError {
+                print("Could not perform deletion \(error), \(error.userInfo)")
+                return
+            }
+        }
+    }
+
+    static func delete(ids: [Int64]) {
+        NotesData.mainThreadContext.performAndWait {
+            let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
+            let predicate = NSPredicate(format: "cdId IN %@", ids)
+            request.predicate = predicate
+            do {
+                let result = try NotesData.mainThreadContext.fetch(request)
+                for note in result {
+                    NotesData.mainThreadContext.delete(note)
+                }
+                try NotesData.mainThreadContext.save()
+            } catch let error as NSError {
+                print("Could not perform deletion \(error), \(error.userInfo)")
+                return
+            }
+        }
+    }
 
 }

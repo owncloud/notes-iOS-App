@@ -335,7 +335,7 @@ class NotesTableViewController: UITableViewController {
         HUD.show(.progress)
         NotesManager.shared.add(content: "", category: nil, completion: { [weak self] note in
 //            self?.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
-            if let note = note {
+            if note != nil {
                 self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
             }
             HUD.hide()
@@ -394,17 +394,14 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .fade)
             }
-            break;
         case .delete:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
-            break;
         case .update:
             if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) {
                 configureCell(cell, at: indexPath)
             }
-            break;
         case .move:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
@@ -413,7 +410,6 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
             if let newIndexPath = newIndexPath {
                 tableView.insertRows(at: [newIndexPath], with: .fade)
             }
-            break;
         }
     }
 
