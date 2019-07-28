@@ -175,11 +175,7 @@ class NotesTableViewController: UITableViewController {
         cell.selectedBackgroundView = selectedBackgroundView
         cell.tag = indexPath.row
 
-        //        if (self.searchController.active) {
-        //            note = [searchResults objectAtIndex:indexPath.row];
-        //        } else {
         if let note = self.notesFrc.fetchedObjects?[indexPath.row] {
-            //        }
             cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
             cell.textLabel?.text = note.title
             cell.backgroundColor = .clear
@@ -206,17 +202,12 @@ class NotesTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-
-//            tableView.beginUpdates()
             if let note = self.notesFrc.fetchedObjects?[indexPath.row] {
                 HUD.show(.progress)
                 if note == self.editorViewController?.note {
                     self.editorViewController?.note = nil
                 }
                 NotesManager.shared.delete(note: note, completion: { [weak self] in
-//                    self?.tableView.deleteRows(at: [indexPath], with: .fade)
-//                    self?.tableView.endUpdates()
                     var newIndex = 0
                     if indexPath.row >= 0 {
                         newIndex = indexPath.row
@@ -259,39 +250,20 @@ class NotesTableViewController: UITableViewController {
             return
         }
 
-//            NSUInteger noteCount;
-//            if (self.searchController.active) {
-//                noteCount = searchResults.count;
-//            } else {
-//                noteCount = self.ocNotes.count;
-//            }
         if let row = tableView.indexPathForSelectedRow?.row,
-            let note = notesFrc.fetchedObjects?[row] {
-//                if (self.searchController.active) {
-//                    note = [searchResults objectAtIndex:indexPath.row];
-//                } else {
-//                    note = [self.ocNotes objectAtIndex:indexPath.row];
-//                }
+            let note = notesFrc.fetchedObjects?[row],
+            let navigationController = segue.destination as? UINavigationController,
+            let editorController = navigationController.topViewController as? EditorViewController {
+            editorViewController = editorController
+            editorController.note = note
+            editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            editorController.navigationItem.leftItemsSupplementBackButton = true
 
-//            NotesManager.shared.get(note: note)
-
-
-            if let navigationController = segue.destination as? UINavigationController,
-                let editorController = navigationController.topViewController as? EditorViewController {
-                editorViewController = editorController
-                editorController.note = note
-                editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                editorController.navigationItem.leftItemsSupplementBackButton = true
-
-                if splitViewController?.displayMode == .allVisible || splitViewController?.displayMode == .primaryOverlay {
-                    UIView.animate(withDuration: 0.3, animations: {
-                        self.splitViewController?.preferredDisplayMode = .primaryHidden
-                    }, completion: nil)
-                }
+            if splitViewController?.displayMode == .allVisible || splitViewController?.displayMode == .primaryOverlay {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.splitViewController?.preferredDisplayMode = .primaryHidden
+                }, completion: nil)
             }
-//                if ([OCAPIClient sharedClient].isOnline) {
-//                    [KVNProgress show];
-//                }
         }
     }
 
@@ -427,16 +399,18 @@ extension NotesTableViewController: UIActionSheetDelegate {
 extension NotesTableViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        //    NSString *searchString = searchController.searchBar.text;
-//        [self filterContentForSearchText:searchString scope:nil];
-//        [self.tableView reloadData];
-
+        var predicate: NSPredicate?
+        if let text = searchController.searchBar.text, !text.isEmpty {
+            predicate = NSPredicate(format: "(cdTitle contains[c] %@) || (cdContent contains[cd] %@)", text, text)
+        }
+        notesFrc.fetchRequest.predicate = predicate
+        do {
+            try notesFrc.performFetch()
+            tableView.reloadData()
+        } catch { }
     }
-    
-    
-    
-}
 
+}
 
 extension NotesTableViewController: UISearchBarDelegate {
     
