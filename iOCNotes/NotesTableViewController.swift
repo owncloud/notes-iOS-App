@@ -310,6 +310,7 @@ class NotesTableViewController: UITableViewController {
             self?.addBarButton.isEnabled = true
             self?.settingsBarButton.isEnabled = true
             self?.refreshControl?.endRefreshing()
+            self?.tableView.reloadData()
         }
     }
 
