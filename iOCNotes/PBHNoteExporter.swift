@@ -64,10 +64,12 @@ class PBHNoteExporter: NSObject {
                 if fileManager.fileExists(atPath: outputDirectory.path, isDirectory: &isDir) {
                     do {
                         try fileManager.removeItem(at: outputDirectory)
-                        try fileManager.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
                     } catch { }
                 }
-                let fileURL = outputDirectory.appendingPathComponent(self.title ?? "Untitled").appendingPathExtension(type)
+                do {
+                    try fileManager.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
+                } catch { }
+                let fileURL = outputDirectory.appendingPathComponent(self.title ?? "Untitled", isDirectory: false).appendingPathExtension(type)
                 var activityItems: [AnyObject]?
 
                 switch type {
