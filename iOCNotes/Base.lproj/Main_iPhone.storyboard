@@ -147,7 +147,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Mf7-Zc-R4g">
             <objects>
-                <navigationController id="xSS-OQ-fPd" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="formSheet" id="xSS-OQ-fPd" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qaa-DK-t9z">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
