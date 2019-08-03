@@ -119,26 +119,28 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Categories" id="fAi-OU-vKZ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="6LR-QA-d2b">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GIC-S8-T0g">
                             <connections>
-                                <action selector="onCancel:" destination="HS0-0b-fms" id="IH6-ee-drc"/>
+                                <action selector="onAdd:" destination="HS0-0b-fms" id="54P-ZY-Bvd"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="save" id="etU-wK-SaK">
-                                <connections>
-                                    <action selector="onSave:" destination="HS0-0b-fms" id="Wzn-An-m1Z"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="add" id="GIC-S8-T0g">
-                                <connections>
-                                    <action selector="onAdd:" destination="HS0-0b-fms" id="54P-ZY-Bvd"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cancelBarButton" destination="6LR-QA-d2b" id="o7O-0z-2eV"/>
+                        <outlet property="doneBarButton" destination="cpw-aA-Zuz" id="3fx-KJ-5NV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rgq-m5-7ba" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem style="plain" systemItem="cancel" id="6LR-QA-d2b">
+                    <connections>
+                        <action selector="onCancel:" destination="HS0-0b-fms" id="IH6-ee-drc"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem style="done" systemItem="done" id="cpw-aA-Zuz">
+                    <connections>
+                        <action selector="onCancel:" destination="HS0-0b-fms" id="0K7-9V-7Nf"/>
+                    </connections>
+                </barButtonItem>
             </objects>
             <point key="canvasLocation" x="3164" y="-1235"/>
         </scene>

@@ -285,12 +285,12 @@ class NotesTableViewController: UITableViewController {
             }
             
         case categorySegueIdentifier:
-            let categories = notesFrc.fetchedObjects?.map({ (note) -> String in
-                var currentCategory = note.category ?? "No Category"
-                if currentCategory.isEmpty {
-                    currentCategory = "No Category"
+            let categories = notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
+                if let currentCategory = note.category,
+                    !currentCategory.isEmpty {
+                    return currentCategory
                 }
-                return currentCategory
+                return nil
             })
             if let navigationController = segue.destination as? UINavigationController,
                 let categoryController = navigationController.topViewController as? CategoryTableViewController,
@@ -523,7 +523,6 @@ extension NotesTableViewController: UITableViewDropDelegate {
 extension NotesTableViewController: NoteCategoryDelegate {
     
     func selectCategory(_ indexPath: IndexPath) {
-        print("Help 4")
         indexPathForCategory = indexPath
         self.performSegue(withIdentifier: "SelectCategorySegue", sender: self)
     }
