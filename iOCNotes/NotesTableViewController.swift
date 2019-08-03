@@ -12,6 +12,11 @@ import SwiftMessages
 import UIKit
 
 let detailSegueIdentifier = "showDetail"
+let categorySegueIdentifier = "SelectCategorySegue"
+
+protocol NoteCategoryDelegate: class {
+    func selectCategory(_ indexPath: IndexPath) 
+}
 
 class NotesTableViewController: UITableViewController {
 
@@ -22,10 +27,11 @@ class NotesTableViewController: UITableViewController {
     var addingNote = false
     var searchController: UISearchController?
     var editorViewController: EditorViewController?
-
+    
     private var networkHasBeenUnreachable = false
     private var searchResult: [CDNote]?
-    
+    private var indexPathForCategory: IndexPath?
+
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
     private var observers = [NSObjectProtocol]()
 
@@ -144,7 +150,7 @@ class NotesTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         didBecomeActive()
     }
-    
+        
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -169,7 +175,7 @@ class NotesTableViewController: UITableViewController {
         return (height1 + height2) * 1.7
     }
 
-    fileprivate func configureCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
+    fileprivate func configureCell(_ cell: NoteTableViewCell, at indexPath: IndexPath) {
         let selectedBackgroundView = UIView(frame: cell.frame)
         selectedBackgroundView.backgroundColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 1.0) // set color here
         cell.selectedBackgroundView = selectedBackgroundView
@@ -186,11 +192,13 @@ class NotesTableViewController: UITableViewController {
             dateFormat.doesRelativeDateFormatting = true
             cell.detailTextLabel?.text = dateFormat.string(from: date as Date)
             cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+            cell.indexPath = indexPath
+            cell.categoryDelegate = self
         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
         configureCell(cell, at: indexPath)
         return cell
     }
@@ -242,28 +250,60 @@ class NotesTableViewController: UITableViewController {
         return .delete
     }
 
+    override func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return action == #selector(NoteTableViewCell.selectCategory(sender:))
+    }
+
+    override func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+       //
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == detailSegueIdentifier else {
-            return
-        }
-
-        if let row = tableView.indexPathForSelectedRow?.row,
-            let note = notesFrc.fetchedObjects?[row],
-            let navigationController = segue.destination as? UINavigationController,
-            let editorController = navigationController.topViewController as? EditorViewController {
-            editorViewController = editorController
-            editorController.note = note
-            editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-            editorController.navigationItem.leftItemsSupplementBackButton = true
-
-            if splitViewController?.displayMode == .allVisible || splitViewController?.displayMode == .primaryOverlay {
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.splitViewController?.preferredDisplayMode = .primaryHidden
-                }, completion: nil)
+        switch segue.identifier {
+        case detailSegueIdentifier:
+            if let row = tableView.indexPathForSelectedRow?.row,
+                let note = notesFrc.fetchedObjects?[row],
+                let navigationController = segue.destination as? UINavigationController,
+                let editorController = navigationController.topViewController as? EditorViewController {
+                editorViewController = editorController
+                editorController.note = note
+                editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                editorController.navigationItem.leftItemsSupplementBackButton = true
+                
+                if splitViewController?.displayMode == .allVisible || splitViewController?.displayMode == .primaryOverlay {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self.splitViewController?.preferredDisplayMode = .primaryHidden
+                    }, completion: nil)
+                }
             }
+            
+        case categorySegueIdentifier:
+            let categories = notesFrc.fetchedObjects?.map({ (note) -> String in
+                var currentCategory = note.category ?? "No Category"
+                if currentCategory.isEmpty {
+                    currentCategory = "No Category"
+                }
+                return currentCategory
+            })
+            if let navigationController = segue.destination as? UINavigationController,
+                let categoryController = navigationController.topViewController as? CategoryTableViewController,
+                let categories = categories,
+                let indexPath = indexPathForCategory,
+                let note = notesFrc.fetchedObjects?[indexPath.row]
+            {
+                categoryController.categories = categories.removingDuplicates()
+                categoryController.note = note
+            }
+            
+        default:
+            break
         }
     }
 
@@ -372,7 +412,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
         case .update:
-            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) {
+            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
                 configureCell(cell, at: indexPath)
             }
         case .move:
@@ -478,4 +518,24 @@ extension NotesTableViewController: UITableViewDropDelegate {
 
     }
 
+}
+
+extension NotesTableViewController: NoteCategoryDelegate {
+    
+    func selectCategory(_ indexPath: IndexPath) {
+        print("Help 4")
+        indexPathForCategory = indexPath
+        self.performSegue(withIdentifier: "SelectCategorySegue", sender: self)
+    }
+    
+}
+
+extension Array where Element: Equatable {
+    func removingDuplicates() -> Array {
+        return reduce(into: []) { result, element in
+            if !result.contains(element) {
+                result.append(element)
+            }
+        }
+    }
 }
