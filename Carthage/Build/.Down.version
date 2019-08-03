@@ -3,7 +3,8 @@
   "iOS" : [
     {
       "name" : "Down",
-      "hash" : "43474baef698525b926ec344deae7ec1223ea5d4eeae9ef4c0e80fec759bebf7"
+      "hash" : "2a179fa8aefdb91596817c211208b65edd0fdff289cb0839febe96cf7b196d15",
+      "swiftToolchainVersion" : "5.0.1 (swiftlang-1001.0.82.4 clang-1001.0.46.5)"
     }
   ]
 }
