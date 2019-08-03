@@ -1,7 +1,7 @@
 github "AFNetworking/AFNetworking" "3.2.1"
 github "Alamofire/Alamofire" "4.8.2"
 github "Alamofire/AlamofireNetworkActivityIndicator" "2.4.0"
-github "PureLayout/PureLayout" "v3.1.4"
+github "PureLayout/PureLayout" "3.1.5"
 github "SwiftKickMobile/SwiftMessages" "7.0.0"
 github "iwasrobbed/Down" "v0.8.6"
 github "kishikawakatsumi/KeychainAccess" "v3.2.0"

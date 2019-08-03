@@ -3,8 +3,7 @@
   "iOS" : [
     {
       "name" : "AlamofireNetworkActivityIndicator",
-      "hash" : "fc7acc62361feaeb9a3df4e68e13ff7ff37f5cff54070ebfde131986689bed65",
-      "swiftToolchainVersion" : "5.0.1 (swiftlang-1001.0.82.4 clang-1001.0.46.5)"
+      "hash" : "6c58d51fed2790d6a7bea695c5391208725a8db27641befc978d984e987d2d8e"
     }
   ]
 }

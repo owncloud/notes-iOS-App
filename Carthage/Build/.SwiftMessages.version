@@ -3,8 +3,7 @@
   "iOS" : [
     {
       "name" : "SwiftMessages",
-      "hash" : "63bea46565930c6ec258deeae94aeb484ea4c288a95a7ed7bb16d1bb137ecb35",
-      "swiftToolchainVersion" : "5.0.1 (swiftlang-1001.0.82.4 clang-1001.0.46.5)"
+      "hash" : "2d118423f564ad2c70ae6ca6f739cb47ea42fba0fe83da7e91c55f2ab971e885"
     }
   ]
 }
