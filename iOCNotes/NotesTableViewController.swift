@@ -69,8 +69,10 @@ class NotesTableViewController: UITableViewController {
                                                                      object: nil,
                                                                      queue: OperationQueue.main,
                                                                      using: { [weak self] _ in
-                                                                        if let editor = self?.editorViewController, let note = editor.note, let currentIndex = self?.notesFrc.fetchedObjects?.index(of: note), let tableView = self?.tableView {
-                                                                                self?.tableView(tableView, commit: .delete, forRowAt: IndexPath(row: currentIndex, section: 0))
+                                                                        if let editor = self?.editorViewController,
+                                                                            let note = editor.note,
+                                                                            let currentIndexPath = self?.notesFrc.indexPath(forObject: note), let tableView = self?.tableView {
+                                                                                self?.tableView(tableView, commit: .delete, forRowAt: currentIndexPath)
                                                                                 }
         }))
         self.observers.append(NotificationCenter.default.addObserver(forName: .syncNotes,
@@ -154,11 +156,30 @@ class NotesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if let sections = notesFrc.sections {
+            return sections.count
+        }
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let sections = notesFrc.sections {
+            let currentSection = sections[section]
+            return currentSection.numberOfObjects
+        }
         return self.notesFrc.fetchedObjects?.count ?? 0
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if let sections = notesFrc.sections {
+            let currentSection = sections[section]
+            if currentSection.name.isEmpty {
+                return "No Category"
+            } else {
+                return currentSection.name
+            }
+        }
+        return "No Category"
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -179,22 +200,20 @@ class NotesTableViewController: UITableViewController {
         let selectedBackgroundView = UIView(frame: cell.frame)
         selectedBackgroundView.backgroundColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 1.0) // set color here
         cell.selectedBackgroundView = selectedBackgroundView
-        cell.tag = indexPath.row
-
-        if let note = self.notesFrc.fetchedObjects?[indexPath.row] {
-            cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-            cell.textLabel?.text = note.title
-            cell.backgroundColor = .clear
-            let date = Date(timeIntervalSince1970: note.modified)
-            let dateFormat = DateFormatter()
-            dateFormat.dateStyle = .short
-            dateFormat.timeStyle = .none;
-            dateFormat.doesRelativeDateFormatting = true
-            cell.detailTextLabel?.text = dateFormat.string(from: date as Date)
-            cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
-            cell.indexPath = indexPath
-            cell.categoryDelegate = self
-        }
+//        cell.tag = indexPath.row
+        let note = self.notesFrc.object(at: indexPath)
+        cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+        cell.textLabel?.text = note.title
+        cell.backgroundColor = .clear
+        let date = Date(timeIntervalSince1970: note.modified)
+        let dateFormat = DateFormatter()
+        dateFormat.dateStyle = .short
+        dateFormat.timeStyle = .none;
+        dateFormat.doesRelativeDateFormatting = true
+        cell.detailTextLabel?.text = dateFormat.string(from: date as Date)
+        cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+        cell.indexPath = indexPath
+        cell.categoryDelegate = self
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -210,39 +229,37 @@ class NotesTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let note = self.notesFrc.fetchedObjects?[indexPath.row] {
-                HUD.show(.progress)
-                if note == self.editorViewController?.note {
-                    self.editorViewController?.note = nil
-                }
-                NotesManager.shared.delete(note: note, completion: { [weak self] in
-                    var newIndex = 0
-                    if indexPath.row >= 0 {
-                        newIndex = indexPath.row
-                    }
-                    let noteCount = self?.notesFrc.fetchedObjects?.count ?? 0
-                    if newIndex >= noteCount {
-                        newIndex = noteCount - 1
-                    }
-
-                    if newIndex >= 0 && newIndex < noteCount {
-                        let newNote = self?.notesFrc.fetchedObjects?[newIndex]
-                        self?.editorViewController?.note = newNote
-                        DispatchQueue.main.async {
-                            self?.tableView.selectRow(at: IndexPath(row: newIndex, section: 0), animated: false, scrollPosition: .none)
-                        }
-                    } else {
-                        self?.editorViewController?.note = nil
-                    }
-//                    if self?.splitViewController?.displayMode == .primaryHidden {
-//                        //called while showing editor
-//                        self?.tableView.reloadData()
-//                    }
-                    HUD.hide()
-                })
-            } else {
-                tableView.endUpdates()
+            let note = self.notesFrc.object(at: indexPath)
+            HUD.show(.progress)
+            if note == self.editorViewController?.note {
+                self.editorViewController?.note = nil
             }
+            NotesManager.shared.delete(note: note, completion: { [weak self] in
+//                var newIndex = 0
+//                if indexPath.row >= 0 {
+//                    newIndex = indexPath.row
+//                }
+//                let noteCount = self?.notesFrc.fetchedObjects?.count ?? 0
+//                if newIndex >= noteCount {
+//                    newIndex = noteCount - 1
+//                }
+//
+//                if newIndex >= 0 && newIndex < noteCount {
+//                    let newNote = self?.notesFrc.fetchedObjects?[newIndex]
+//                    self?.editorViewController?.note = newNote
+//                    DispatchQueue.main.async {
+//                        self?.tableView.selectRow(at: IndexPath(row: newIndex, section: 0), animated: false, scrollPosition: .none)
+//                    }
+//                } else {
+//                    self?.editorViewController?.note = nil
+//                }
+                //                    if self?.splitViewController?.displayMode == .primaryHidden {
+                //                        //called while showing editor
+                //                        self?.tableView.reloadData()
+                //                    }
+                HUD.hide()
+            })
+            tableView.endUpdates()
         }
     }
 
@@ -268,11 +285,11 @@ class NotesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case detailSegueIdentifier:
-            if let row = tableView.indexPathForSelectedRow?.row,
-                let note = notesFrc.fetchedObjects?[row],
+            if let indexPath = tableView.indexPathForSelectedRow,
                 let navigationController = segue.destination as? UINavigationController,
                 let editorController = navigationController.topViewController as? EditorViewController {
                 editorViewController = editorController
+                let note = notesFrc.object(at: indexPath)
                 editorController.note = note
                 editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 editorController.navigationItem.leftItemsSupplementBackButton = true
@@ -295,10 +312,10 @@ class NotesTableViewController: UITableViewController {
             if let navigationController = segue.destination as? UINavigationController,
                 let categoryController = navigationController.topViewController as? CategoryTableViewController,
                 let categories = categories,
-                let indexPath = indexPathForCategory,
-                let note = notesFrc.fetchedObjects?[indexPath.row]
+                let indexPath = indexPathForCategory
             {
                 categoryController.categories = categories.removingDuplicates()
+                let note = notesFrc.object(at: indexPath)
                 categoryController.note = note
             }
             
@@ -359,10 +376,11 @@ class NotesTableViewController: UITableViewController {
         let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
         request.fetchBatchSize = 288
         request.predicate = NSPredicate(format: "cdDeleteNeeded == %@", NSNumber(value: false))
-        request.sortDescriptors = [NSSortDescriptor(key: "cdModified", ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: "cdCategory", ascending: true),
+                                   NSSortDescriptor(key: "cdModified", ascending: false)]
         let frc = NSFetchedResultsController(fetchRequest: request,
                                              managedObjectContext: NotesData.mainThreadContext,
-                                             sectionNameKeyPath: nil,
+                                             sectionNameKeyPath: "cdCategory",
                                              cacheName: nil)
         frc.delegate = self
         try! frc.performFetch()
