@@ -29,12 +29,16 @@ class NoteSessionManager: Alamofire.SessionManager {
     
 }
 
-class NotesManager: NSObject {
+class NotesManager {
     
     static let shared = NotesManager()
 
     class var isConnectedToInternet: Bool {
         return NetworkReachabilityManager(host: KeychainHelper.server)?.isReachable ?? false
+    }
+
+    class var isOnline: Bool {
+        return NotesManager.isConnectedToInternet && !KeychainHelper.offlineMode
     }
 
     func sync(completion: SyncCompletionBlock? = nil) {
@@ -122,34 +126,42 @@ class NotesManager: NSObject {
                                       "modified": note.modified,
                                       "favorite": note.favorite]
         var result = CDNote.update(note: note) //addNeeded defaults to true
-        let router = Router.createNote(paramters: parameters)
-        NoteSessionManager
-            .shared
-            .request(router)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseDecodable { (response: DataResponse<NoteStruct>) in
-                switch response.result {
-                case .success:
-                    if let note = response.value, let newNote = result {
-                        newNote.id = note.id
-                        newNote.modified = note.modified
-                        newNote.title = note.title
-                        newNote.content = note.content
-                        newNote.addNeeded = false
-                        newNote.updateNeeded = false
-                        result = CDNote.update(note: newNote)
+        if NotesManager.isOnline {
+            let router = Router.createNote(paramters: parameters)
+            NoteSessionManager
+                .shared
+                .request(router)
+                .validate(statusCode: 200..<300)
+                .validate(contentType: ["application/json"])
+                .responseDecodable { (response: DataResponse<NoteStruct>) in
+                    switch response.result {
+                    case .success:
+                        if let note = response.value, let newNote = result {
+                            newNote.id = note.id
+                            newNote.modified = note.modified
+                            newNote.title = note.title
+                            newNote.content = note.content
+                            newNote.addNeeded = false
+                            newNote.updateNeeded = false
+                            result = CDNote.update(note: newNote)
+                        }
+                    case .failure(let error):
+                        let message = ErrorMessage(title: NSLocalizedString("Error Adding Note", comment: "The title of an error message"),
+                                                   body: error.localizedDescription)
+                        self.showErrorMessage(message: message)
                     }
-                case .failure(let error):
-                    let message = ErrorMessage(title: NSLocalizedString("Error Adding Note", comment: "The title of an error message"),
-                                               body: error.localizedDescription)
-                    self.showErrorMessage(message: message)
-                }
-                completion?(result)
+                    completion?(result)
+            }
+        } else {
+            completion?(result)
         }
     }
     
     func get(note: NoteProtocol, completion: SyncCompletionBlock? = nil) {
+        guard NotesManager.isOnline else {
+            completion?()
+            return
+        }
         let router = Router.getNote(id: Int(note.id), exclude: "")
         NoteSessionManager
             .shared
@@ -185,38 +197,42 @@ class NotesManager: NSObject {
         var incoming = note
         incoming.updateNeeded = true
         CDNote.update(notes: [incoming])
-        let parameters: Parameters = ["content": note.content as Any,
-                                      "category": note.category ?? "" as Any,
-                                      "modified": Date().timeIntervalSince1970 as Any,
-                                      "favorite": note.favorite]
-        let router = Router.updateNote(id: Int(note.id), paramters: parameters)
-        NoteSessionManager
-            .shared
-            .request(router)
-            .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
-            .responseDecodable { (response: DataResponse<NoteStruct>) in
-                switch response.result {
-                case .success:
-                    if let note = response.value {
-                        CDNote.update(notes: [note])
-                    }
-                case .failure(let error):
-                    var message = ErrorMessage(title: NSLocalizedString("Error Updating Note", comment: "The title of an error message"),
-                                               body: "")
-                    if let urlResponse = response.response {
-                        switch urlResponse.statusCode {
-                        case 404:
-                            message.body = NSLocalizedString("The note does not exist", comment: "An error message")
-                        default:
-                            message.body = error.localizedDescription
+        if NotesManager.isOnline {
+            let parameters: Parameters = ["content": note.content as Any,
+                                          "category": note.category ?? "" as Any,
+                                          "modified": Date().timeIntervalSince1970 as Any,
+                                          "favorite": note.favorite]
+            let router = Router.updateNote(id: Int(note.id), paramters: parameters)
+            NoteSessionManager
+                .shared
+                .request(router)
+                .validate(statusCode: 200..<300)
+                .validate(contentType: ["application/json"])
+                .responseDecodable { (response: DataResponse<NoteStruct>) in
+                    switch response.result {
+                    case .success:
+                        if let note = response.value {
+                            CDNote.update(notes: [note])
                         }
-                    } else {
-                        message.body = NSLocalizedString("The note does not exist", comment: "An error message")
+                    case .failure(let error):
+                        var message = ErrorMessage(title: NSLocalizedString("Error Updating Note", comment: "The title of an error message"),
+                                                   body: "")
+                        if let urlResponse = response.response {
+                            switch urlResponse.statusCode {
+                            case 404:
+                                message.body = NSLocalizedString("The note does not exist", comment: "An error message")
+                            default:
+                                message.body = error.localizedDescription
+                            }
+                        } else {
+                            message.body = NSLocalizedString("The note does not exist", comment: "An error message")
+                        }
+                        self.showErrorMessage(message: message)
                     }
-                    self.showErrorMessage(message: message)
-                }
-                completion?()
+                    completion?()
+            }
+        } else {
+            completion?()
         }
     }
     
@@ -224,33 +240,37 @@ class NotesManager: NSObject {
         var incoming = note
         incoming.deleteNeeded = true
         CDNote.update(notes: [incoming])
-        let router = Router.deleteNote(id: Int(note.id))
-        NoteSessionManager
-            .shared
-            .request(router)
-            .validate(statusCode: 200..<300)
-            .responseData { (response) in
-                switch response.result {
-                case .success:
-                    CDNote.delete(note: note)
-                case .failure(let error):
-                    var message = ErrorMessage(title: NSLocalizedString("Error Deleting Note", comment: "The title of an error message"),
-                                               body: "")
-                    if let urlResponse = response.response {
-                        switch urlResponse.statusCode {
-                        case 404:
-                            //Note doesn't exist on the server but we are obviously
-                            //trying to delete it, so let's do that.
-                            CDNote.delete(note: note)
-                        default:
-                            message.body = error.localizedDescription
+        if NotesManager.isOnline {
+            let router = Router.deleteNote(id: Int(note.id))
+            NoteSessionManager
+                .shared
+                .request(router)
+                .validate(statusCode: 200..<300)
+                .responseData { (response) in
+                    switch response.result {
+                    case .success:
+                        CDNote.delete(note: note)
+                    case .failure(let error):
+                        var message = ErrorMessage(title: NSLocalizedString("Error Deleting Note", comment: "The title of an error message"),
+                                                   body: "")
+                        if let urlResponse = response.response {
+                            switch urlResponse.statusCode {
+                            case 404:
+                                //Note doesn't exist on the server but we are obviously
+                                //trying to delete it, so let's do that.
+                                CDNote.delete(note: note)
+                            default:
+                                message.body = error.localizedDescription
+                            }
+                        }
+                        if !message.body.isEmpty {
+                            self.showErrorMessage(message: message)
                         }
                     }
-                    if !message.body.isEmpty {
-                        self.showErrorMessage(message: message)
-                    }
-                }
-                completion?()
+                    completion?()
+            }
+        } else {
+            completion?()
         }
     }
 

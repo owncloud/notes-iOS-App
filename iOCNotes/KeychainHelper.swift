@@ -56,5 +56,14 @@ struct KeychainHelper {
             UserDefaults.standard.set(newValue, forKey: "SyncOnStart")
         }
     }
-    
+
+    static var offlineMode: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "OfflineMode")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "OfflineMode")
+        }
+    }
+
 }

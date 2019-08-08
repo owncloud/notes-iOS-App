@@ -60,7 +60,8 @@ class NotesTableViewController: UITableViewController {
                                                                         if KeychainHelper.server.isEmpty {
                                                                             self?.onSettings(sender: self)
                                                                         } else {
-                                                                            if KeychainHelper.syncOnStart {
+                                                                            if KeychainHelper.syncOnStart,
+                                                                                NotesManager.isOnline {
                                                                                 NotesManager.shared.sync()
                                                                             }
                                                                         }
@@ -329,6 +330,10 @@ class NotesTableViewController: UITableViewController {
     }
 
     @IBAction func onRefresh(sender: Any?) {
+        guard NotesManager.isOnline else {
+            return
+        }
+        
         if let refreshControl = refreshControl, !refreshControl.isRefreshing {
             refreshControl.beginRefreshing()
             tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y - refreshControl.frame.size.height), animated: true)
@@ -397,7 +402,8 @@ class NotesTableViewController: UITableViewController {
     private func didBecomeActive() {
         if KeychainHelper.server.isEmpty {
             onSettings(sender: nil)
-        } else if KeychainHelper.syncOnStart {
+        } else if KeychainHelper.syncOnStart,
+            NotesManager.isOnline {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 NotesManager.shared.sync()
             })
