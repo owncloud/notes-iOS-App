@@ -55,10 +55,10 @@
             </subviews>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="vNF-Ja-XxC" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="3fq-27-PKL"/>
-                <constraint firstItem="vNF-Ja-XxC" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="NKv-83-8Hi"/>
-                <constraint firstItem="vNF-Ja-XxC" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="XGz-iP-sKK"/>
-                <constraint firstItem="vNF-Ja-XxC" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="XpG-Is-CGv"/>
+                <constraint firstItem="vNF-Ja-XxC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="0Ye-NM-5O8"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vNF-Ja-XxC" secondAttribute="trailing" priority="999" id="XnU-df-gEH"/>
+                <constraint firstItem="vNF-Ja-XxC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cZE-vo-NGK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vNF-Ja-XxC" secondAttribute="bottom" id="jMs-7t-fxo"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

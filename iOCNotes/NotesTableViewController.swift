@@ -593,7 +593,6 @@ extension NotesTableViewController: NoteCategoryDelegate {
 
 extension NotesTableViewController: CollapsibleTableViewHeaderViewDelegate {
     func toggleSection(_ header: CollapsibleTableViewHeaderView, section: Int) {
-        print("Collapse delegate called.")
         let index = header.section
         sectionExpandedInfo[index] = !sectionExpandedInfo[index]
         header.collapsed = sectionExpandedInfo[index]
