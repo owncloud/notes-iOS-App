@@ -34,7 +34,8 @@ class NotesTableViewController: UITableViewController {
 
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
     private var observers = [NSObjectProtocol]()
-
+    private var sectionExpandedInfo = [Bool]()
+    
     deinit {
         for observer in self.observers {
             NotificationCenter.default.removeObserver(observer)
@@ -128,6 +129,8 @@ class NotesTableViewController: UITableViewController {
          object:nil];
 
 */
+        let nib = UINib(nibName: "CollapsibleTableViewHeaderView", bundle: nil)
+        tableView.register(nib, forHeaderFooterViewReuseIdentifier: "HeaderView")
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.toolbar.isTranslucent = true
         navigationController?.toolbar.clipsToBounds = true
@@ -163,25 +166,41 @@ class NotesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = notesFrc.sections {
-            let currentSection = sections[section]
-            return currentSection.numberOfObjects
+        if sectionExpandedInfo[section] { // expanded
+            if let sections = notesFrc.sections {
+                let currentSection = sections[section]
+                return currentSection.numberOfObjects
+            }
+            return self.notesFrc.fetchedObjects?.count ?? 0
+        } else { // collapsed
+            return 0
         }
-        return self.notesFrc.fetchedObjects?.count ?? 0
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as! CollapsibleTableViewHeaderView
+        var title = "No Category"
         if let sections = notesFrc.sections {
             let currentSection = sections[section]
-            if currentSection.name.isEmpty {
-                return "No Category"
-            } else {
-                return currentSection.name
+            if !currentSection.name.isEmpty {
+                title = currentSection.name
             }
         }
-        return "No Category"
+        sectionHeaderView.section = section
+        sectionHeaderView.delegate = self
+        sectionHeaderView.titleLabel.text = title
+        sectionHeaderView.collapsed = sectionExpandedInfo[section]
+        return sectionHeaderView;
     }
 
+    override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: Int.max, height: Int.max)))
         label.text = "test"
@@ -363,7 +382,7 @@ class NotesTableViewController: UITableViewController {
 //        self.editorViewController.addingNote = YES;
 //        [[OCNotesHelper sharedHelper] addNote:@""];
         HUD.show(.progress)
-        NotesManager.shared.add(content: "", category: nil, completion: { [weak self] note in
+        NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
 //            self?.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
             if note != nil {
                 self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
@@ -384,6 +403,11 @@ class NotesTableViewController: UITableViewController {
                                              cacheName: nil)
         frc.delegate = self
         try! frc.performFetch()
+        if let sections = frc.sections {
+            for _ in sections {
+                sectionExpandedInfo.append(true)
+            }
+        }
         return frc
     }
 
@@ -447,6 +471,20 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            self.sectionExpandedInfo.insert(true, at: sectionIndex)
+//            self.tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+        case .delete:
+            self.sectionExpandedInfo.remove(at: sectionIndex)
+            self.tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+        default:
+            return
+        }
+    }
+    
 }
 
 extension NotesTableViewController: UIActionSheetDelegate {
@@ -545,6 +583,16 @@ extension NotesTableViewController: NoteCategoryDelegate {
         self.performSegue(withIdentifier: "SelectCategorySegue", sender: self)
     }
     
+}
+
+extension NotesTableViewController: CollapsibleTableViewHeaderViewDelegate {
+    func toggleSection(_ header: CollapsibleTableViewHeaderView, section: Int) {
+        print("Collapse delegate called.")
+        let index = header.section
+        sectionExpandedInfo[index] = !sectionExpandedInfo[index]
+        header.collapsed = sectionExpandedInfo[index]
+        self.tableView.reloadSections(NSIndexSet(index: index) as IndexSet, with: .automatic)
+    }
 }
 
 extension Array where Element: Equatable {
