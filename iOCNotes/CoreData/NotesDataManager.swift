@@ -1,5 +1,5 @@
 //
-//  NotesManager.swift
+//  NotesDataManager.swift
 //  iOCNotes
 //
 //  Created by Peter Hedlund on 6/7/18.

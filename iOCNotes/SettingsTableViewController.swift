@@ -12,6 +12,7 @@ import MessageUI
 class SettingsTableViewController: UITableViewController {
 
     @IBOutlet var syncOnStartSwitch: UISwitch!
+    @IBOutlet weak var offlineModeSwitch: UISwitch!
     @IBOutlet var statusLabel: UILabel!
     
     override func viewDidLoad() {
@@ -22,6 +23,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.syncOnStartSwitch.isOn = KeychainHelper.syncOnStart
+        offlineModeSwitch.isOn = KeychainHelper.offlineMode
         if NotesManager.isConnectedToInternet {
             self.statusLabel.text = NSLocalizedString("Logged In", comment:"A status label indicating that the user is logged in")
         } else {
@@ -63,6 +65,10 @@ class SettingsTableViewController: UITableViewController {
         KeychainHelper.syncOnStart = syncOnStartSwitch.isOn
     }
     
+    @IBAction func offlineModeChanged(_ sender: Any) {
+        KeychainHelper.offlineMode = offlineModeSwitch.isOn
+    }
+
     @IBAction func didTapDone(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
