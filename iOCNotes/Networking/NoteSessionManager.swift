@@ -141,6 +141,7 @@ class NotesManager {
                             newNote.modified = note.modified
                             newNote.title = note.title
                             newNote.content = note.content
+                            newNote.category = note.category
                             newNote.addNeeded = false
                             newNote.updateNeeded = false
                             result = CDNote.update(note: newNote)
@@ -176,16 +177,14 @@ class NotesManager {
                     }
                 case .failure(let error):
                     var message = ErrorMessage(title: NSLocalizedString("Error Getting Note", comment: "The title of an error message"),
-                                               body: "")
+                                               body: error.localizedDescription)
                     if let urlResponse = response.response {
                         switch urlResponse.statusCode {
                         case 404:
                             message.body = NSLocalizedString("The note does not exist", comment: "An error message")
                         default:
-                            message.body = error.localizedDescription
+                            break
                         }
-                    } else {
-                        message.body = NSLocalizedString("The note does not exist", comment: "An error message")
                     }
                     self.showErrorMessage(message: message)
                 }
@@ -216,16 +215,14 @@ class NotesManager {
                         }
                     case .failure(let error):
                         var message = ErrorMessage(title: NSLocalizedString("Error Updating Note", comment: "The title of an error message"),
-                                                   body: "")
+                                                   body: error.localizedDescription)
                         if let urlResponse = response.response {
                             switch urlResponse.statusCode {
                             case 404:
                                 message.body = NSLocalizedString("The note does not exist", comment: "An error message")
                             default:
-                                message.body = error.localizedDescription
+                                break
                             }
-                        } else {
-                            message.body = NSLocalizedString("The note does not exist", comment: "An error message")
                         }
                         self.showErrorMessage(message: message)
                     }
@@ -252,15 +249,16 @@ class NotesManager {
                         CDNote.delete(note: note)
                     case .failure(let error):
                         var message = ErrorMessage(title: NSLocalizedString("Error Deleting Note", comment: "The title of an error message"),
-                                                   body: "")
+                                                   body: error.localizedDescription)
                         if let urlResponse = response.response {
                             switch urlResponse.statusCode {
                             case 404:
                                 //Note doesn't exist on the server but we are obviously
                                 //trying to delete it, so let's do that.
                                 CDNote.delete(note: note)
+                                message.body = ""
                             default:
-                                message.body = error.localizedDescription
+                                break
                             }
                         }
                         if !message.body.isEmpty {
