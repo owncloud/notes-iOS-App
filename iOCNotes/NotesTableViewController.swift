@@ -323,11 +323,7 @@ class NotesTableViewController: UITableViewController {
             
         case categorySegueIdentifier:
             let categories = notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
-                if let currentCategory = note.category,
-                    !currentCategory.isEmpty {
-                    return currentCategory
-                }
-                return nil
+                return note.category
             })
             if let navigationController = segue.destination as? UINavigationController,
                 let categoryController = navigationController.topViewController as? CategoryTableViewController,
@@ -485,7 +481,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
 //            self.tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
         case .delete:
             self.sectionExpandedInfo.remove(at: sectionIndex)
-            self.tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+//            self.tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
         default:
             return
         }

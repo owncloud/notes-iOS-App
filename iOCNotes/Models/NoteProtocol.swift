@@ -10,7 +10,7 @@ import Foundation
 
 protocol NoteProtocol {
     
-    var category: String? {get set}
+    var category: String {get set}
     var content: String {get set}
     var favorite: Bool {get set}
     var guid: String? {get set}
@@ -28,7 +28,7 @@ protocol NoteProtocol {
 
 struct NoteStruct: Codable, NoteProtocol {
     
-    var category: String?
+    var category: String
     var content: String
     var favorite: Bool
     var guid: String?
@@ -57,7 +57,7 @@ struct NoteStruct: Codable, NoteProtocol {
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        category = try values.decodeIfPresent(String.self, forKey: .category)
+        category = try values.decodeIfPresent(String.self, forKey: .category) ?? ""
         content = try values.decode(String.self, forKey: .content)
         favorite = try values.decode(Bool.self, forKey: .favorite)
         guid = try values.decodeIfPresent(String.self, forKey: .guid)
@@ -72,7 +72,7 @@ struct NoteStruct: Codable, NoteProtocol {
         updateNeeded = false
     }
 
-    init(content: String, category: String?, favorite: Bool = false) {
+    init(content: String, category: String, favorite: Bool = false) {
         self.content = content
         title = NSLocalizedString("New note", comment: "The title of a new note")
         self.category = category

@@ -17,7 +17,7 @@ extension CDNote {
         return NSFetchRequest<CDNote>(entityName: "CDNote")
     }
 
-    @NSManaged public var cdCategory: String?
+    @NSManaged public var cdCategory: String
     @NSManaged public var cdContent: String
     @NSManaged public var cdFavorite: Bool
     @NSManaged public var cdGuid: String?
@@ -33,7 +33,7 @@ extension CDNote {
 }
 
 extension CDNote: NoteProtocol {
-    var category: String? {
+    var category: String {
         get {
             return self.cdCategory
         }

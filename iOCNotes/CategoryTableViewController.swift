@@ -63,8 +63,8 @@ class CategoryTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if let note = self.note {
             if currentCategory == CategoryTableViewController.noCategoryName {
-                self.note?.category = nil
-                note.category = nil
+                self.note?.category = ""
+                note.category = ""
             } else {
                 self.note?.category = currentCategory
                 note.category = currentCategory

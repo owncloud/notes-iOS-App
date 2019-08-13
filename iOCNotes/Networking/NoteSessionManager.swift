@@ -119,7 +119,7 @@ class NotesManager {
         }
     }
     
-    func add(content: String, category: String?, favorite: Bool? = false, completion: SyncCompletionBlockWithNote? = nil) {
+    func add(content: String, category: String, favorite: Bool? = false, completion: SyncCompletionBlockWithNote? = nil) {
         let note = NoteStruct(content: content, category: category, favorite: favorite ?? false)
         let parameters: Parameters = ["content": note.content as Any,
                                       "category": note.category as Any,

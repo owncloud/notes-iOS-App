@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18G87" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDNote" representedClassName="CDNote" syncable="YES">
         <attribute name="cdAddNeeded" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="cdCategory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cdCategory" attributeType="String" syncable="YES"/>
         <attribute name="cdContent" attributeType="String" syncable="YES"/>
         <attribute name="cdDeleteNeeded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="cdError" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -16,6 +16,6 @@
         <attribute name="cdUpdateNeeded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CDNote" positionX="-63" positionY="-18" width="128" height="30"/>
+        <element name="CDNote" positionX="-63" positionY="-18" width="128" height="240"/>
     </elements>
 </model>
