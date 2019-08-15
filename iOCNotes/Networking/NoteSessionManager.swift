@@ -195,10 +195,9 @@ class NotesManager {
     func update(note: NoteProtocol, completion: SyncCompletionBlock? = nil) {
         var incoming = note
         incoming.updateNeeded = true
-        CDNote.update(notes: [incoming])
         if NotesManager.isOnline {
             let parameters: Parameters = ["content": note.content as Any,
-                                          "category": note.category ?? "" as Any,
+                                          "category": note.category as Any,
                                           "modified": Date().timeIntervalSince1970 as Any,
                                           "favorite": note.favorite]
             let router = Router.updateNote(id: Int(note.id), paramters: parameters)
@@ -214,6 +213,7 @@ class NotesManager {
                             CDNote.update(notes: [note])
                         }
                     case .failure(let error):
+                        CDNote.update(notes: [incoming])
                         var message = ErrorMessage(title: NSLocalizedString("Error Updating Note", comment: "The title of an error message"),
                                                    body: error.localizedDescription)
                         if let urlResponse = response.response {
@@ -229,6 +229,7 @@ class NotesManager {
                     completion?()
             }
         } else {
+            CDNote.update(notes: [incoming])
             completion?()
         }
     }
@@ -236,7 +237,6 @@ class NotesManager {
     func delete(note: NoteProtocol, completion: SyncCompletionBlock? = nil) {
         var incoming = note
         incoming.deleteNeeded = true
-        CDNote.update(notes: [incoming])
         if NotesManager.isOnline {
             let router = Router.deleteNote(id: Int(note.id))
             NoteSessionManager
@@ -258,7 +258,7 @@ class NotesManager {
                                 CDNote.delete(note: note)
                                 message.body = ""
                             default:
-                                break
+                                CDNote.update(notes: [incoming])
                             }
                         }
                         if !message.body.isEmpty {
@@ -268,6 +268,7 @@ class NotesManager {
                     completion?()
             }
         } else {
+            CDNote.update(notes: [incoming])
             completion?()
         }
     }

@@ -31,10 +31,12 @@ class NotesTableViewController: UITableViewController {
     private var networkHasBeenUnreachable = false
     private var searchResult: [CDNote]?
     private var indexPathForCategory: IndexPath?
+    private var numberOfObjectsInCurrentSection = 0
 
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
     private var observers = [NSObjectProtocol]()
     private var sectionExpandedInfo = [Bool]()
+    private var sectionExpandedInfoCount = 1
     
     deinit {
         for observer in self.observers {
@@ -220,7 +222,6 @@ class NotesTableViewController: UITableViewController {
         let selectedBackgroundView = UIView(frame: cell.frame)
         selectedBackgroundView.backgroundColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 1.0) // set color here
         cell.selectedBackgroundView = selectedBackgroundView
-//        cell.tag = indexPath.row
         let note = self.notesFrc.object(at: indexPath)
         cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         cell.textLabel?.text = note.title
@@ -254,6 +255,11 @@ class NotesTableViewController: UITableViewController {
             if note == self.editorViewController?.note {
                 self.editorViewController?.note = nil
             }
+            
+            if let sections = notesFrc.sections {
+                numberOfObjectsInCurrentSection = sections[indexPath.section].numberOfObjects
+            }
+            
             NotesManager.shared.delete(note: note, completion: { [weak self] in
 //                var newIndex = 0
 //                if indexPath.row >= 0 {
@@ -328,8 +334,7 @@ class NotesTableViewController: UITableViewController {
             if let navigationController = segue.destination as? UINavigationController,
                 let categoryController = navigationController.topViewController as? CategoryTableViewController,
                 let categories = categories,
-                let indexPath = indexPathForCategory
-            {
+                let indexPath = indexPathForCategory {
                 categoryController.categories = categories.removingDuplicates()
                 let note = notesFrc.object(at: indexPath)
                 categoryController.note = note
@@ -442,6 +447,7 @@ class NotesTableViewController: UITableViewController {
 
 extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        sectionExpandedInfoCount = sectionExpandedInfo.count
         tableView.beginUpdates()
     }
 
@@ -453,19 +459,33 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
             }
         case .delete:
             if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                if numberOfObjectsInCurrentSection > 1 {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                } else {
+                    tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
+                }
             }
+
         case .update:
             if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
                 configureCell(cell, at: indexPath)
             }
+
         case .move:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                if sectionExpandedInfoCount > sectionExpandedInfo.count {
+                    print("A section was removed")
+                    tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
+                }
             }
 
             if let newIndexPath = newIndexPath {
                 tableView.insertRows(at: [newIndexPath], with: .fade)
+                if sectionExpandedInfoCount < sectionExpandedInfo.count {
+                    print("A section was added")
+                    tableView.insertSections(NSIndexSet(index: newIndexPath.section) as IndexSet, with: .fade)
+                }
             }
         }
     }
@@ -478,10 +498,8 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         switch type {
         case .insert:
             self.sectionExpandedInfo.insert(true, at: sectionIndex)
-//            self.tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
         case .delete:
             self.sectionExpandedInfo.remove(at: sectionIndex)
-//            self.tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
         default:
             return
         }
