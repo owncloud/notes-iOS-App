@@ -38,6 +38,14 @@ class NotesTableViewController: UITableViewController {
     private var sectionExpandedInfo = [Bool]()
     private var sectionExpandedInfoCount = 1
     
+    private var dateFormat: DateFormatter {
+        let df = DateFormatter()
+        df.dateStyle = .short
+        df.timeStyle = .none;
+        df.doesRelativeDateFormatting = true
+        return df
+    }
+
     deinit {
         for observer in self.observers {
             NotificationCenter.default.removeObserver(observer)
@@ -227,10 +235,6 @@ class NotesTableViewController: UITableViewController {
         cell.textLabel?.text = note.title
         cell.backgroundColor = .clear
         let date = Date(timeIntervalSince1970: note.modified)
-        let dateFormat = DateFormatter()
-        dateFormat.dateStyle = .short
-        dateFormat.timeStyle = .none;
-        dateFormat.doesRelativeDateFormatting = true
         cell.detailTextLabel?.text = dateFormat.string(from: date as Date)
         cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
         cell.indexPath = indexPath
