@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import MobileCoreServices
 import PKHUD
 import SwiftMessages
 import UIKit
@@ -570,32 +571,34 @@ extension NotesTableViewController: UISplitViewControllerDelegate {
 extension NotesTableViewController: UITableViewDropDelegate {
 
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
-//        if (session.items.count > 0) {
-//            if ([session hasItemsConformingToTypeIdentifiers:@[(NSString *)kUTTypeText, (NSString *)kUTTypeXML, (NSString *)kUTTypeHTML, (NSString *)kUTTypeJSON, (NSString *)kUTTypePlainText]]) {
-//                return YES;
-//            }
-//        }
+        if !session.items.isEmpty,
+            session.hasItemsConforming(toTypeIdentifiers: [kUTTypeText as String,
+                                                           kUTTypeXML as String,
+                                                           kUTTypeHTML as String,
+                                                           kUTTypeJSON as String,
+                                                           kUTTypePlainText as String]) {
+            return true
+        }
         return false
     }
 
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-//        if (destinationIndexPath.row != 0) {
-//            return [[UITableViewDropProposal alloc] initWithDropOperation:UIDropOperationForbidden intent:UITableViewDropIntentAutomatic];
-//        } else {
-//            return [[UITableViewDropProposal alloc] initWithDropOperation:UIDropOperationCopy intent:UITableViewDropIntentInsertAtDestinationIndexPath];
-//        }
-        return UITableViewDropProposal(operation: .forbidden, intent: .automatic)
+        if destinationIndexPath?.section != 0 {
+            return UITableViewDropProposal(operation: .forbidden, intent: .automatic)
+        } else {
+            return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+        }
     }
 
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        //
-//        for (UIDragItem *item in coordinator.session.items) {
-//            [item.itemProvider loadDataRepresentationForTypeIdentifier:(NSString *)kUTTypeText completionHandler:^(NSData * _Nullable data, NSError * _Nullable error) {
-//                NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//                [[OCNotesHelper sharedHelper] performSelectorOnMainThread:@selector(addNote:) withObject:content waitUntilDone:NO];
-//                }];
-//        }
-
+        for item in coordinator.session.items {
+            item.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypeText as String) { (data, _) in
+                if let contentData = data,
+                    let content = String(bytes: contentData, encoding: .utf8) {
+                        NotesManager.shared.add(content: content, category: "")
+                }
+            }
+        }
     }
 
 }
