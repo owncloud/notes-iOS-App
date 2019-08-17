@@ -266,24 +266,24 @@ class NotesTableViewController: UITableViewController {
             }
             
             NotesManager.shared.delete(note: note, completion: { [weak self] in
-//                var newIndex = 0
-//                if indexPath.row >= 0 {
-//                    newIndex = indexPath.row
-//                }
-//                let noteCount = self?.notesFrc.fetchedObjects?.count ?? 0
-//                if newIndex >= noteCount {
-//                    newIndex = noteCount - 1
-//                }
-//
-//                if newIndex >= 0 && newIndex < noteCount {
-//                    let newNote = self?.notesFrc.fetchedObjects?[newIndex]
-//                    self?.editorViewController?.note = newNote
-//                    DispatchQueue.main.async {
-//                        self?.tableView.selectRow(at: IndexPath(row: newIndex, section: 0), animated: false, scrollPosition: .none)
-//                    }
-//                } else {
-//                    self?.editorViewController?.note = nil
-//                }
+                var newIndex = 0
+                if indexPath.row >= 0 {
+                    newIndex = indexPath.row
+                }
+                let noteCount = self?.notesFrc.sections?[indexPath.section].numberOfObjects ?? 0
+                if newIndex >= noteCount {
+                    newIndex = noteCount - 1
+                }
+
+                if newIndex >= 0 && newIndex < noteCount,
+                    let newNote = self?.notesFrc.sections?[indexPath.section].objects?[newIndex] as? CDNote {
+                    self?.editorViewController?.note = newNote
+                    DispatchQueue.main.async {
+                        self?.tableView.selectRow(at: IndexPath(row: newIndex, section: indexPath.section), animated: false, scrollPosition: .none)
+                    }
+                } else {
+                    self?.editorViewController?.note = nil
+                }
                 //                    if self?.splitViewController?.displayMode == .primaryHidden {
                 //                        //called while showing editor
                 //                        self?.tableView.reloadData()
