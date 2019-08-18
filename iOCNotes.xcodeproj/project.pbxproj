@@ -22,29 +22,16 @@
 		D01067E22213BB5E0047E090 /* NoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E12213BB5E0047E090 /* NoteProtocol.swift */; };
 		D01067E42213BDF30047E090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E32213BDF20047E090 /* AppDelegate.swift */; };
 		D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E52213C17D0047E090 /* NotesTableViewController.swift */; };
-		D017D4201D3B010900B21443 /* markdown.html in Resources */ = {isa = PBXBuildFile; fileRef = D017D41F1D3B010900B21443 /* markdown.html */; };
-		D017D4221D3B027500B21443 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = D017D4211D3B027500B21443 /* github-markdown.css */; };
 		D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D017D4231D3B03BE00B21443 /* WebKit.framework */; };
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
-		D0225711189848060038232A /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0225710189848060038232A /* libc++.dylib */; };
-		D0225713189848120038232A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D0225712189848120038232A /* libz.dylib */; };
 		D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */; };
 		D03493B922F3CC5700E1A9B0 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B822F3CC5700E1A9B0 /* CategoryTableViewController.swift */; };
-		D03DA14918DE435900178958 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA13F18DE435900178958 /* FMDatabase.m */; };
-		D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14118DE435900178958 /* FMDatabaseAdditions.m */; };
-		D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14318DE435900178958 /* FMDatabasePool.m */; };
-		D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14518DE435900178958 /* FMDatabaseQueue.m */; };
-		D03DA14D18DE435900178958 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D03DA14818DE435900178958 /* FMResultSet.m */; };
 		D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */; };
 		D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */; };
-		D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */; };
 		D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */; };
-		D059F7DD1D4AF6A200C252F2 /* export.html in Resources */ = {isa = PBXBuildFile; fileRef = D059F7DC1D4AF6A200C252F2 /* export.html */; };
 		D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */; };
 		D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882ED22BB146200CEBC1F /* EditorViewController.swift */; };
-		D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF120D60682009AF66B /* KVNProgressKit.framework */; };
-		D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0782BF320D6EA4D009AF66B /* PureLayout.framework */; };
 		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
 		D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */; };
 		D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */; };
@@ -115,52 +102,25 @@
 		D01067E12213BB5E0047E090 /* NoteProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteProtocol.swift; sourceTree = "<group>"; };
 		D01067E32213BDF20047E090 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D01067E52213C17D0047E090 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
-		D017D41F1D3B010900B21443 /* markdown.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = markdown.html; sourceTree = "<group>"; };
-		D017D4211D3B027500B21443 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "github-markdown.css"; path = "github-markdown-css/github-markdown.css"; sourceTree = SOURCE_ROOT; };
 		D017D4231D3B03BE00B21443 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D02256C61891FD7C0038232A /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = defaults.plist; sourceTree = "<group>"; };
-		D02256C8189599570038232A /* NSDictionary+HandleNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+HandleNull.h"; sourceTree = "<group>"; };
-		D02256C9189599570038232A /* NSDictionary+HandleNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+HandleNull.m"; sourceTree = "<group>"; };
-		D02257041896E6650038232A /* OCNotesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNotesHelper.h; sourceTree = "<group>"; };
-		D02257051896E6650038232A /* OCNotesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNotesHelper.m; sourceTree = "<group>"; };
 		D0225708189745C40038232A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D0225710189848060038232A /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D0225712189848120038232A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D03493B822F3CC5700E1A9B0 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
-		D0362BAD190AC83800490D95 /* UIImage+ImageWithColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithColor.h"; sourceTree = "<group>"; };
-		D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithColor.m"; sourceTree = "<group>"; };
-		D03DA13E18DE435900178958 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		D03DA13F18DE435900178958 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		D03DA14018DE435900178958 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		D03DA14118DE435900178958 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		D03DA14218DE435900178958 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
-		D03DA14318DE435900178958 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
-		D03DA14418DE435900178958 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
-		D03DA14518DE435900178958 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
-		D03DA14618DE435900178958 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
-		D03DA14718DE435900178958 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		D03DA14818DE435900178958 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSCrash.framework; path = Carthage/Build/iOS/KSCrash.framework; sourceTree = "<group>"; };
-		D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
 		D05110C020CA1FE000AFFDC7 /* Notes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Notes.xcdatamodel; sourceTree = "<group>"; };
 		D05110C620CA245700AFFDC7 /* NotesDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotesDataManager.swift; path = CoreData/NotesDataManager.swift; sourceTree = "<group>"; };
-		D054E5F91AEF148E001C6FF1 /* OCNoteOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperation.h; sourceTree = "<group>"; };
-		D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperation.m; sourceTree = "<group>"; };
 		D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
-		D059745C18CEA28E00867B02 /* OCNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNote.h; sourceTree = "<group>"; };
-		D059745D18CEA28E00867B02 /* OCNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNote.m; sourceTree = "<group>"; };
 		D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHNoteExporter.swift; sourceTree = "<group>"; };
-		D059F7DC1D4AF6A200C252F2 /* export.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = export.html; sourceTree = "<group>"; };
 		D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D06882ED22BB146200CEBC1F /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
-		D0782BF120D60682009AF66B /* KVNProgressKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVNProgressKit.framework; path = Carthage/Build/iOS/KVNProgressKit.framework; sourceTree = "<group>"; };
-		D0782BF320D6EA4D009AF66B /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
 		D0782BF520D7422E009AF66B /* NoteOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperation.swift; path = Operations/NoteOperation.swift; sourceTree = "<group>"; };
 		D0782BF720D7487D009AF66B /* NoteOperationUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationUpdate.swift; path = Operations/NoteOperationUpdate.swift; sourceTree = "<group>"; };
 		D0782BF920D748FD009AF66B /* NoteOperationAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationAdd.swift; path = Operations/NoteOperationAdd.swift; sourceTree = "<group>"; };
-		D0782BFB20D74947009AF66B /* NoteOperationGet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteOperationGet.swift; sourceTree = "<group>"; };
+		D0782BFB20D74947009AF66B /* NoteOperationGet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationGet.swift; path = Operations/NoteOperationGet.swift; sourceTree = "<group>"; };
 		D0782BFD20D7496B009AF66B /* NoteOperationDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationDelete.swift; path = Operations/NoteOperationDelete.swift; sourceTree = "<group>"; };
 		D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpenInAppActivity.h; sourceTree = "<group>"; };
 		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
@@ -177,14 +137,6 @@
 		D09E430F1E2C469C0010E4B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E43101E2C469F0010E4B3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E43111E2C46A20010E4B3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
-		D0A648541B0F5584005C0981 /* OCNoteOperationAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationAdd.h; sourceTree = "<group>"; };
-		D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationAdd.m; sourceTree = "<group>"; };
-		D0A648581B0F5BB1005C0981 /* OCNoteOperationUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationUpdate.h; sourceTree = "<group>"; };
-		D0A648591B0F5BB1005C0981 /* OCNoteOperationUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationUpdate.m; sourceTree = "<group>"; };
-		D0A6485B1B0F5ED0005C0981 /* OCNoteOperationGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationGet.h; sourceTree = "<group>"; };
-		D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationGet.m; sourceTree = "<group>"; };
-		D0A6485E1B0F6F0B005C0981 /* OCNoteOperationDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNoteOperationDelete.h; sourceTree = "<group>"; };
-		D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNoteOperationDelete.m; sourceTree = "<group>"; };
 		D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTableViewHeaderView.swift; sourceTree = "<group>"; };
 		D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollapsibleTableViewHeaderView.xib; sourceTree = "<group>"; };
 		D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -194,19 +146,12 @@
 		D0CFE53A1888A7BD00165839 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D0CFE53E1888A7BD00165839 /* iOCNotes-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOCNotes-Info.plist"; sourceTree = "<group>"; };
 		D0CFE5401888A7BD00165839 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D0CFE5441888A7BD00165839 /* iOCNotes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOCNotes-Prefix.pch"; sourceTree = "<group>"; };
-		D0CFE54E1888A7BD00165839 /* OCEditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCEditorViewController.h; sourceTree = "<group>"; };
-		D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCEditorViewController.m; sourceTree = "<group>"; };
 		D0CFE5511888A7BD00165839 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D0CFE5571888A7BD00165839 /* iOCNotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOCNotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5581888A7BD00165839 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D0CFE5601888A7BD00165839 /* iOCNotesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOCNotesTests-Info.plist"; sourceTree = "<group>"; };
 		D0CFE5621888A7BD00165839 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D0CFE5641888A7BD00165839 /* iOCNotesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOCNotesTests.m; sourceTree = "<group>"; };
-		D0CFE5931888AE2D00165839 /* OCNotesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCNotesTableViewController.h; sourceTree = "<group>"; };
-		D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCNotesTableViewController.m; sourceTree = "<group>"; };
-		D0CFE599188B5A6900165839 /* OCAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAPIClient.h; sourceTree = "<group>"; };
-		D0CFE59A188B5A6900165839 /* OCAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAPIClient.m; sourceTree = "<group>"; };
 		D0CFE5AC1890659600165839 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -222,13 +167,8 @@
 				BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */,
 				D07F5E902207B81F00528E90 /* KeychainAccess.framework in Frameworks */,
 				D07F5E8B2207B61500528E90 /* Alamofire.framework in Frameworks */,
-				D0782BF420D6EA4D009AF66B /* PureLayout.framework in Frameworks */,
-				D0782BF220D60682009AF66B /* KVNProgressKit.framework in Frameworks */,
 				D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
-				D059745B18CE9E5A00867B02 /* libsqlite3.0.dylib in Frameworks */,
-				D0225713189848120038232A /* libz.dylib in Frameworks */,
-				D0225711189848060038232A /* libc++.dylib in Frameworks */,
 				D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */,
 				D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */,
 				D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */,
@@ -255,35 +195,6 @@
 				D01067E12213BB5E0047E090 /* NoteProtocol.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		D017D41E1D3B010900B21443 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				D017D4211D3B027500B21443 /* github-markdown.css */,
-				D017D41F1D3B010900B21443 /* markdown.html */,
-				D059F7DC1D4AF6A200C252F2 /* export.html */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		D03DA13D18DE435900178958 /* fmdb */ = {
-			isa = PBXGroup;
-			children = (
-				D03DA13E18DE435900178958 /* FMDatabase.h */,
-				D03DA13F18DE435900178958 /* FMDatabase.m */,
-				D03DA14018DE435900178958 /* FMDatabaseAdditions.h */,
-				D03DA14118DE435900178958 /* FMDatabaseAdditions.m */,
-				D03DA14218DE435900178958 /* FMDatabasePool.h */,
-				D03DA14318DE435900178958 /* FMDatabasePool.m */,
-				D03DA14418DE435900178958 /* FMDatabaseQueue.h */,
-				D03DA14518DE435900178958 /* FMDatabaseQueue.m */,
-				D03DA14618DE435900178958 /* FMDB.h */,
-				D03DA14718DE435900178958 /* FMResultSet.h */,
-				D03DA14818DE435900178958 /* FMResultSet.m */,
-			);
-			name = fmdb;
-			path = FMDB/src/fmdb;
 			sourceTree = "<group>";
 		};
 		D05110BE20CA1F9D00AFFDC7 /* CoreData */ = {
@@ -321,16 +232,6 @@
 		D0A648571B0F582D005C0981 /* OCNoteOperation */ = {
 			isa = PBXGroup;
 			children = (
-				D054E5F91AEF148E001C6FF1 /* OCNoteOperation.h */,
-				D054E5FA1AEF148E001C6FF1 /* OCNoteOperation.m */,
-				D0A648541B0F5584005C0981 /* OCNoteOperationAdd.h */,
-				D0A648551B0F5584005C0981 /* OCNoteOperationAdd.m */,
-				D0A648581B0F5BB1005C0981 /* OCNoteOperationUpdate.h */,
-				D0A648591B0F5BB1005C0981 /* OCNoteOperationUpdate.m */,
-				D0A6485B1B0F5ED0005C0981 /* OCNoteOperationGet.h */,
-				D0A6485C1B0F5ED0005C0981 /* OCNoteOperationGet.m */,
-				D0A6485E1B0F6F0B005C0981 /* OCNoteOperationDelete.h */,
-				D0A6485F1B0F6F0B005C0981 /* OCNoteOperationDelete.m */,
 				D0782BF520D7422E009AF66B /* NoteOperation.swift */,
 				D0782BF920D748FD009AF66B /* NoteOperationAdd.swift */,
 				D0782BF720D7487D009AF66B /* NoteOperationUpdate.swift */,
@@ -343,7 +244,6 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
-				D03DA13D18DE435900178958 /* fmdb */,
 				D0791B0F18AD4E33005227AB /* TTOpenInAppActivity */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
@@ -371,9 +271,6 @@
 				BD92271622C92EBB004E2408 /* PKHUD.framework */,
 				D07F5E8F2207B81F00528E90 /* KeychainAccess.framework */,
 				D07F5E8A2207B61500528E90 /* Alamofire.framework */,
-				D0782BF320D6EA4D009AF66B /* PureLayout.framework */,
-				D0782BF120D60682009AF66B /* KVNProgressKit.framework */,
-				D05110BA20C8C9FF00AFFDC7 /* AFNetworking.framework */,
 				D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */,
 				D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */,
 				D017D4231D3B03BE00B21443 /* WebKit.framework */,
@@ -395,7 +292,6 @@
 				D01067DC220BCAD60047E090 /* Models */,
 				D07F5E8C2207B6D700528E90 /* Networking */,
 				D05110BE20CA1F9D00AFFDC7 /* CoreData */,
-				D017D41E1D3B010900B21443 /* Resources */,
 				D0A648571B0F582D005C0981 /* OCNoteOperation */,
 				D01067E32213BDF20047E090 /* AppDelegate.swift */,
 				BD302B8F22B8061A00067888 /* LoginTableViewController.swift */,
@@ -411,22 +307,8 @@
 				D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */,
 				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
 				BD92271A22CD3743004E2408 /* UtilityExtensions.swift */,
-				D059745C18CEA28E00867B02 /* OCNote.h */,
-				D059745D18CEA28E00867B02 /* OCNote.m */,
-				D0CFE599188B5A6900165839 /* OCAPIClient.h */,
-				D0CFE59A188B5A6900165839 /* OCAPIClient.m */,
-				D02257041896E6650038232A /* OCNotesHelper.h */,
-				D02257051896E6650038232A /* OCNotesHelper.m */,
-				D0CFE5931888AE2D00165839 /* OCNotesTableViewController.h */,
-				D0CFE5941888AE2D00165839 /* OCNotesTableViewController.m */,
-				D0CFE54E1888A7BD00165839 /* OCEditorViewController.h */,
-				D0CFE54F1888A7BD00165839 /* OCEditorViewController.m */,
 				D08713EE1D18E2DF001EAF82 /* BridgingHeader.h */,
 				D0CFE5511888A7BD00165839 /* Images.xcassets */,
-				D02256C8189599570038232A /* NSDictionary+HandleNull.h */,
-				D02256C9189599570038232A /* NSDictionary+HandleNull.m */,
-				D0362BAD190AC83800490D95 /* UIImage+ImageWithColor.h */,
-				D0362BAE190AC83800490D95 /* UIImage+ImageWithColor.m */,
 				D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */,
 				D0CFE53D1888A7BD00165839 /* Supporting Files */,
 				D0225708189745C40038232A /* Settings.bundle */,
@@ -443,7 +325,6 @@
 				D0CFE53E1888A7BD00165839 /* iOCNotes-Info.plist */,
 				D0CFE53F1888A7BD00165839 /* InfoPlist.strings */,
 				D02256C61891FD7C0038232A /* defaults.plist */,
-				D0CFE5441888A7BD00165839 /* iOCNotes-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -553,7 +434,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D017D4201D3B010900B21443 /* markdown.html in Resources */,
 				D0CFE5521888A7BD00165839 /* Images.xcassets in Resources */,
 				D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */,
 				D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */,
@@ -561,9 +441,7 @@
 				D02256C71891FD7C0038232A /* defaults.plist in Resources */,
 				D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */,
 				D0225709189745C40038232A /* Settings.bundle in Resources */,
-				D017D4221D3B027500B21443 /* github-markdown.css in Resources */,
 				D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */,
-				D059F7DD1D4AF6A200C252F2 /* export.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,10 +477,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KSCrash.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/KVNProgressKit.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/PureLayout.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PKHUD.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Down.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AlamofireNetworkActivityIndicator.framework",
@@ -611,11 +486,8 @@
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KSCrash.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KVNProgressKit.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PureLayout.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KeychainAccess.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AFNetworking.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PKHUD.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Down.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AlamofireNetworkActivityIndicator.framework",
@@ -635,22 +507,17 @@
 			files = (
 				D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */,
 				D01067DE220BCE3C0047E090 /* NoteSessionManager.swift in Sources */,
-				D03DA14B18DE435900178958 /* FMDatabasePool.m in Sources */,
 				D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */,
 				D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */,
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
 				D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */,
 				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
-				D03DA14D18DE435900178958 /* FMResultSet.m in Sources */,
 				D01067E42213BDF30047E090 /* AppDelegate.swift in Sources */,
 				D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */,
 				D0B6D4AE22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift in Sources */,
-				D03DA14C18DE435900178958 /* FMDatabaseQueue.m in Sources */,
 				BD92271B22CD3743004E2408 /* UtilityExtensions.swift in Sources */,
 				D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */,
-				D03DA14A18DE435900178958 /* FMDatabaseAdditions.m in Sources */,
 				D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */,
-				D03DA14918DE435900178958 /* FMDatabase.m in Sources */,
 				D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */,
 				D01067E22213BB5E0047E090 /* NoteProtocol.swift in Sources */,
 				D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */,
@@ -845,7 +712,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOCNotes/iOCNotes-Prefix.pch";
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -878,7 +744,6 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOCNotes/iOCNotes-Prefix.pch";
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

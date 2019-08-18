@@ -1,6 +1,0 @@
-framework module KVNProgressKit {
-  umbrella header "KVNProgressKit.h"
-
-  export *
-  module * { export * }
-}
