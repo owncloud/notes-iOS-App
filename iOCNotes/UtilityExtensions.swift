@@ -6,7 +6,7 @@
 //  Copyright © 2019 Peter Hedlund. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension NSNotification.Name {
     static let deletingNote = NSNotification.Name("DeletingNote")
@@ -16,7 +16,7 @@ extension NSNotification.Name {
 }
 
 extension UIImage {
-    static func resizeableImage(color: UIColor) -> UIImage {
+    static func colorResizableImage(color: UIColor) -> UIImage {
         var image = UIImage()
         let rect = CGRect(x: 0, y: 0, width: 3, height: 3)
         UIGraphicsBeginImageContext(rect.size)

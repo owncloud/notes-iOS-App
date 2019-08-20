@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 76 76" width="76pt" height="76pt" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 44.4 28 L 58 28.068 L 58 68 L 18 68 L 18 28.068 L 31.6 28" style="fill: none; stroke-width: 3px; stroke: rgb(72, 72, 72);"/>
+  <path d="M 34.302 9.719 L 41.663 17.755 L 34.424 25.72" style="fill: none; stroke-width: 3px; stroke: rgb(72, 72, 72);" transform="matrix(-0.004879, -0.999988, 0.999988, -0.004879, 20.448526, 55.787999)"/>
+  <line style="stroke-width: 3px; stroke: rgb(72, 72, 72);" x1="38" y1="14" x2="38" y2="46"/>
+</svg>

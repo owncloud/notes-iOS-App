@@ -26,13 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NetworkActivityIndicatorManager.shared.isEnabled = true
 
         UINavigationBar.appearance().barTintColor = .clear
-        UINavigationBar.appearance().setBackgroundImage(UIImage.resizeableImage(color: UIColor(red: 0.957, green: 0.957, blue: 0.957, alpha: 0.95)), for: .default)
+        UINavigationBar.appearance().setBackgroundImage(UIImage.colorResizableImage(color: UIColor(red: 0.957, green: 0.957, blue: 0.957, alpha: 0.95)), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().tintColor = UIColor(red: 0.12, green: 0.18, blue: 0.26, alpha: 1.0)
 
         UIToolbar.appearance().barTintColor = .clear
         UIToolbar.appearance().tintColor = UIColor(red: 0.12, green: 0.18, blue: 0.26, alpha: 1.0)
-        UIToolbar.appearance().setBackgroundImage(UIImage.resizeableImage(color: UIColor(red: 0.957, green: 0.957, blue: 0.957, alpha: 0.95)), forToolbarPosition: .top, barMetrics: .default)
+        UIToolbar.appearance().setBackgroundImage(UIImage.colorResizableImage(color: UIColor(red: 0.957, green: 0.957, blue: 0.957, alpha: 0.95)), forToolbarPosition: .top, barMetrics: .default)
 
         if let splitViewController = self.window?.rootViewController as? UISplitViewController,
             let navigationController = splitViewController.viewControllers.last as? UINavigationController {

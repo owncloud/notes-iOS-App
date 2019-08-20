@@ -29,10 +29,10 @@
 		D03493B922F3CC5700E1A9B0 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B822F3CC5700E1A9B0 /* CategoryTableViewController.swift */; };
 		D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */; };
 		D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */; };
+		D0545F23230901D30001D165 /* PBHOpenInActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0545F22230901D30001D165 /* PBHOpenInActivity.swift */; };
 		D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */; };
 		D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */; };
 		D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882ED22BB146200CEBC1F /* EditorViewController.swift */; };
-		D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */; };
 		D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */; };
 		D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */; };
 		D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E882207B2CF00528E90 /* NotesData.swift */; };
@@ -112,6 +112,7 @@
 		D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSCrash.framework; path = Carthage/Build/iOS/KSCrash.framework; sourceTree = "<group>"; };
 		D05110C020CA1FE000AFFDC7 /* Notes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Notes.xcdatamodel; sourceTree = "<group>"; };
 		D05110C620CA245700AFFDC7 /* NotesDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotesDataManager.swift; path = CoreData/NotesDataManager.swift; sourceTree = "<group>"; };
+		D0545F22230901D30001D165 /* PBHOpenInActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBHOpenInActivity.swift; sourceTree = "<group>"; };
 		D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHNoteExporter.swift; sourceTree = "<group>"; };
 		D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -122,8 +123,6 @@
 		D0782BF920D748FD009AF66B /* NoteOperationAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationAdd.swift; path = Operations/NoteOperationAdd.swift; sourceTree = "<group>"; };
 		D0782BFB20D74947009AF66B /* NoteOperationGet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationGet.swift; path = Operations/NoteOperationGet.swift; sourceTree = "<group>"; };
 		D0782BFD20D7496B009AF66B /* NoteOperationDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationDelete.swift; path = Operations/NoteOperationDelete.swift; sourceTree = "<group>"; };
-		D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpenInAppActivity.h; sourceTree = "<group>"; };
-		D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOpenInAppActivity.m; sourceTree = "<group>"; };
 		D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataClass.swift"; path = "CoreData/CDNote+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataProperties.swift"; path = "CoreData/CDNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D07F5E882207B2CF00528E90 /* NotesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotesData.swift; path = CoreData/NotesData.swift; sourceTree = "<group>"; };
@@ -131,7 +130,6 @@
 		D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRouter.swift; sourceTree = "<group>"; };
 		D07F5E8F2207B81F00528E90 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
 		D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHHeaderTextView.swift; sourceTree = "<group>"; };
-		D08713EE1D18E2DF001EAF82 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		D09538421D32A56A006BB78E /* PBHPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHPreviewController.swift; sourceTree = "<group>"; };
 		D09E430D1E2C46930010E4B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D09E430F1E2C469C0010E4B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
@@ -209,16 +207,6 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
-		D0791B0F18AD4E33005227AB /* TTOpenInAppActivity */ = {
-			isa = PBXGroup;
-			children = (
-				D0791B1018AD4E33005227AB /* TTOpenInAppActivity.h */,
-				D0791B1118AD4E33005227AB /* TTOpenInAppActivity.m */,
-			);
-			name = TTOpenInAppActivity;
-			path = TTOpenInAppActivity/TTOpenInAppActivity;
-			sourceTree = "<group>";
-		};
 		D07F5E8C2207B6D700528E90 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,7 +232,6 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
-				D0791B0F18AD4E33005227AB /* TTOpenInAppActivity */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
 				D0CFE5351888A7BD00165839 /* Frameworks */,
@@ -305,9 +292,9 @@
 				D09538421D32A56A006BB78E /* PBHPreviewController.swift */,
 				D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */,
 				D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */,
+				D0545F22230901D30001D165 /* PBHOpenInActivity.swift */,
 				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
 				BD92271A22CD3743004E2408 /* UtilityExtensions.swift */,
-				D08713EE1D18E2DF001EAF82 /* BridgingHeader.h */,
 				D0CFE5511888A7BD00165839 /* Images.xcassets */,
 				D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */,
 				D0CFE53D1888A7BD00165839 /* Supporting Files */,
@@ -511,11 +498,11 @@
 				D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */,
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
 				D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */,
-				D0791B1618AD4E33005227AB /* TTOpenInAppActivity.m in Sources */,
 				D01067E42213BDF30047E090 /* AppDelegate.swift in Sources */,
 				D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */,
 				D0B6D4AE22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift in Sources */,
 				BD92271B22CD3743004E2408 /* UtilityExtensions.swift in Sources */,
+				D0545F23230901D30001D165 /* PBHOpenInActivity.swift in Sources */,
 				D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */,
 				D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */,
 				D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */,
@@ -721,7 +708,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/iOCNotes/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				WRAPPER_EXTENSION = app;
@@ -753,7 +739,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/iOCNotes/BridgingHeader.h";
 				SWIFT_VERSION = 4.2;
 				WRAPPER_EXTENSION = app;
 			};

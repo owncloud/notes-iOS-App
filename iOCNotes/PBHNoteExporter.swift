@@ -125,8 +125,8 @@ class PBHNoteExporter: NSObject {
                     self.viewController?.dismiss(animated: true, completion: nil)
                 }
                 if let activityItems = activityItems {
-                    let openInAppActivity = TTOpenInAppActivity.init(view: self.viewController?.view, andBarButtonItem: self.barButtonItem)
-                    let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: [openInAppActivity] as? [UIActivity])
+                    let openInAppActivity = PBHOpenInActivity(barButton: self.barButtonItem!)
+                    let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: [openInAppActivity])
                     if let popover = activityViewController.popoverPresentationController {
                         let barbuttonItem = self.viewController?.navigationItem.rightBarButtonItems?.first
                         popover.delegate = self
