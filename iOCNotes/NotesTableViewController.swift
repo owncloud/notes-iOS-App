@@ -38,6 +38,7 @@ class NotesTableViewController: UITableViewController {
     private var observers = [NSObjectProtocol]()
     private var sectionExpandedInfo = [Bool]()
     private var sectionExpandedInfoCount = 1
+    private var isSyncing = false
     
     private var dateFormat: DateFormatter {
         let df = DateFormatter()
@@ -68,15 +69,8 @@ class NotesTableViewController: UITableViewController {
         self.observers.append(NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification,
                                                                      object: nil,
                                                                      queue: OperationQueue.main,
-                                                                     using: { [weak self] notification in
-                                                                        if KeychainHelper.server.isEmpty {
-                                                                            self?.onSettings(sender: self)
-                                                                        } else {
-                                                                            if KeychainHelper.syncOnStart,
-                                                                                NotesManager.isOnline {
-                                                                                NotesManager.shared.sync()
-                                                                            }
-                                                                        }
+                                                                     using: { [weak self] _ in
+                                                                        self?.didBecomeActive()
         }))
         self.observers.append(NotificationCenter.default.addObserver(forName: .deletingNote,
                                                                      object: nil,
@@ -163,11 +157,11 @@ class NotesTableViewController: UITableViewController {
         definesPresentationContext = true
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        didBecomeActive()
-    }
-        
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        didBecomeActive()
+//    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -228,6 +222,9 @@ class NotesTableViewController: UITableViewController {
     }
 
     fileprivate func configureCell(_ cell: NoteTableViewCell, at indexPath: IndexPath) {
+        guard notesFrc.validate(indexPath: indexPath) else {
+            return
+        }
         let selectedBackgroundView = UIView(frame: cell.frame)
         selectedBackgroundView.backgroundColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 1.0) // set color here
         cell.selectedBackgroundView = selectedBackgroundView
@@ -365,11 +362,13 @@ class NotesTableViewController: UITableViewController {
         }
         addBarButton.isEnabled = false
         settingsBarButton.isEnabled = false
+        isSyncing = true
         NotesManager.shared.sync { [weak self] in
             self?.addBarButton.isEnabled = true
             self?.settingsBarButton.isEnabled = true
             self?.refreshControl?.endRefreshing()
             self?.tableView.reloadData()
+            self?.isSyncing = false
         }
     }
 
@@ -434,18 +433,13 @@ class NotesTableViewController: UITableViewController {
             onSettings(sender: nil)
         } else if KeychainHelper.syncOnStart,
             NotesManager.isOnline {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                NotesManager.shared.sync()
-            })
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            isSyncing = true
+            NotesManager.shared.sync { [weak self] in
+                self?.isSyncing = false
+            }
+//            })
         }
-    }
-
-    private func networkSuccess() {
-        //
-    }
-
-    private func networkError() {
-        //
     }
 
 }
@@ -502,8 +496,16 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
-            self.sectionExpandedInfo.insert(true, at: sectionIndex)
+            if isSyncing {
+                tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+                self.sectionExpandedInfo.insert(true, at: 0)
+            } else {
+                self.sectionExpandedInfo.insert(true, at: sectionIndex)
+            }
         case .delete:
+            if isSyncing {
+                tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            }
             self.sectionExpandedInfo.remove(at: sectionIndex)
         default:
             return
@@ -629,4 +631,21 @@ extension Array where Element: Equatable {
             }
         }
     }
+}
+
+extension NSFetchedResultsController {
+    
+    @objc func validate(indexPath: IndexPath) -> Bool {
+        if let sections = self.sections {
+            if indexPath.section >= sections.count {
+                return false
+            }
+            
+            if indexPath.row >= sections[indexPath.section].numberOfObjects {
+                return false
+            }
+        }
+        return true
+    }
+    
 }
