@@ -66,4 +66,13 @@ struct KeychainHelper {
         }
     }
 
+    static var sectionExpandedInfo: [ExpandableSectionType] {
+        get {
+            return UserDefaults.standard.object(forKey: "Sections") as! [ExpandableSectionType]
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "Sections")
+        }
+    }
+    
 }

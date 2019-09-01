@@ -19,6 +19,8 @@ protocol NoteCategoryDelegate: class {
     func selectCategory(_ indexPath: IndexPath) 
 }
 
+typealias ExpandableSectionType = (title: String, expanded: Bool)
+
 class NotesTableViewController: UITableViewController {
 
     @IBOutlet var addBarButton: UIBarButtonItem!
@@ -36,7 +38,8 @@ class NotesTableViewController: UITableViewController {
 
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
     private var observers = [NSObjectProtocol]()
-    private var sectionExpandedInfo = [Bool]()
+//    private var sectionExpandedInfo = [Bool]()
+    private var newSectionExpandedInfo = [ExpandableSectionType]()
     private var sectionExpandedInfoCount = 1
     private var isSyncing = false
     
@@ -150,6 +153,8 @@ class NotesTableViewController: UITableViewController {
         searchController?.searchBar.tintColor = UIColor(red:0.12, green:0.18, blue:0.26, alpha:1.0)
         searchController?.searchBar.barTintColor = UIColor(red:0.957, green:0.957, blue:0.957, alpha:0.95)
         searchController?.searchBar.backgroundImage = UIImage()
+        newSectionExpandedInfo = KeychainHelper.sectionExpandedInfo
+        
         tableView.tableHeaderView = searchController?.searchBar
         tableView.contentOffset = CGPoint(x: 0, y: searchController?.searchBar.frame.size.height ?? 0.0 + tableView.contentOffset.y)
         tableView.dropDelegate = self
@@ -413,14 +418,27 @@ class NotesTableViewController: UITableViewController {
                                              cacheName: nil)
         frc.delegate = self
         try! frc.performFetch()
-        if let sections = frc.sections {
-            for _ in sections {
-                sectionExpandedInfo.append(true)
-            }
-        }
+        updateSectionExpandedInfo()
+//        if let sections = frc.sections {
+//            for _ in sections {
+//                sectionExpandedInfo.append(true)
+//            }
+//        }
         return frc
     }
 
+    func updateSectionExpandedInfo() {
+        let knownSectionTitles = Set(newSectionExpandedInfo.map({ $0.title }))
+        if let sections = notesFrc.sections {
+            let newSectionTitles = Set(sections.map({ $0.name }))
+            let deleted = knownSectionTitles.subtracting(newSectionTitles)
+            let added = newSectionTitles.subtracting(knownSectionTitles)
+            newSectionExpandedInfo = newSectionExpandedInfo.filter({ !deleted.contains($0.title) })
+            for newSection in added {
+                newSectionExpandedInfo.append(ExpandableSectionType(title: newSection, expanded: true))
+            }
+        }
+    }
     
     // MARK:  Notification Callbacks
     
@@ -490,6 +508,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     }
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        updateSectionExpandedInfo()
         tableView.endUpdates()
     }
     
