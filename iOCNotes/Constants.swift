@@ -1,0 +1,13 @@
+//
+//  Constants.swift
+//  iOCNotes
+//
+//  Created by Peter Hedlund on 9/1/19.
+//  Copyright © 2019 Peter Hedlund. All rights reserved.
+//
+
+import Foundation
+
+struct Constants {
+    static let noCategory = NSLocalizedString("No Category", comment: "Text displayed for notes not assigned to a category")
+}

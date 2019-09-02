@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if url.isFileURL {
             do {
                 let content = try String(contentsOf: url, encoding: .utf8)
-                NotesManager.shared.add(content: content, category: "")
+                NotesManager.shared.add(content: content, category: Constants.noCategory)
                 try FileManager.default.removeItem(at: url)
             } catch { }
         }

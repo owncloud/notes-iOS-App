@@ -121,12 +121,13 @@ class NotesManager {
     
     func add(content: String, category: String, favorite: Bool? = false, completion: SyncCompletionBlockWithNote? = nil) {
         let note = NoteStruct(content: content, category: category, favorite: favorite ?? false)
-        let parameters: Parameters = ["content": note.content as Any,
-                                      "category": note.category as Any,
-                                      "modified": note.modified,
-                                      "favorite": note.favorite]
         var result = CDNote.update(note: note) //addNeeded defaults to true
         if NotesManager.isOnline {
+            let serverCategory = note.category == Constants.noCategory ? "" : note.category
+            let parameters: Parameters = ["content": note.content as Any,
+                                          "category": serverCategory as Any,
+                                          "modified": note.modified,
+                                          "favorite": note.favorite]
             let router = Router.createNote(paramters: parameters)
             NoteSessionManager
                 .shared

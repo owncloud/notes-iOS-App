@@ -14,15 +14,14 @@ class CategoryTableViewController: UITableViewController {
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
 
     let reuseIdentifier = "CategoryCell"
-    static let noCategoryName = NSLocalizedString("No Category", comment: "Text displayed for notes not assigned to a category")
 
     var categories = [String]()
-    var currentCategory = noCategoryName
+    var currentCategory = Constants.noCategory
     var note: CDNote? {
         didSet {
-            currentCategory = note?.category ?? CategoryTableViewController.noCategoryName
+            currentCategory = note?.category ?? Constants.noCategory
             if currentCategory.isEmpty {
-                currentCategory = CategoryTableViewController.noCategoryName
+                currentCategory = Constants.noCategory
             }
         }
     }
@@ -30,7 +29,7 @@ class CategoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = cancelBarButton
-        categories.insert(CategoryTableViewController.noCategoryName, at: 0)
+        categories.insert(Constants.noCategory, at: 0)
     }
 
     // MARK: - Table view data source
@@ -62,7 +61,7 @@ class CategoryTableViewController: UITableViewController {
         currentCategory = categories[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         if let note = self.note {
-            if currentCategory == CategoryTableViewController.noCategoryName {
+            if currentCategory == Constants.noCategory {
                 self.note?.category = ""
                 note.category = ""
             } else {

@@ -66,12 +66,18 @@ struct KeychainHelper {
         }
     }
 
-    static var sectionExpandedInfo: [ExpandableSectionType] {
+    static var sectionExpandedInfo: ExpandableSectionType {
         get {
-            return UserDefaults.standard.object(forKey: "Sections") as! [ExpandableSectionType]
+            if let data = UserDefaults.standard.value(forKey: "Sections") as? Data,
+                let result = try? JSONDecoder().decode(ExpandableSectionType.self, from: data) {
+                return result
+            }
+            return ExpandableSectionType()
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "Sections")
+            if let data = try? JSONEncoder().encode(newValue) {
+                UserDefaults.standard.set(data, forKey: "Sections")
+            }
         }
     }
     

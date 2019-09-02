@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CollapsibleTableViewHeaderViewDelegate {
-    func toggleSection(_ header: CollapsibleTableViewHeaderView, section: Int)
+    func toggleSection(_ header: CollapsibleTableViewHeaderView, sectionTitle: String, sectionIndex: Int)
 }
 
 class CollapsibleTableViewHeaderView: UITableViewHeaderFooterView {
@@ -18,7 +18,8 @@ class CollapsibleTableViewHeaderView: UITableViewHeaderFooterView {
     @IBOutlet var collapsedImageView: UIImageView!
     
     var delegate: CollapsibleTableViewHeaderViewDelegate?
-    var section: Int = 0
+    var sectionTitle = Constants.noCategory
+    var sectionIndex = 0
 
     var collapsed: Bool {
         didSet {
@@ -33,10 +34,10 @@ class CollapsibleTableViewHeaderView: UITableViewHeaderFooterView {
     }
     
     @objc func onTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        guard let cell = gestureRecognizer.view as? CollapsibleTableViewHeaderView else {
+        guard let _ = gestureRecognizer.view as? CollapsibleTableViewHeaderView else {
             return
         }
-        delegate?.toggleSection(self, section: cell.section)
+        delegate?.toggleSection(self, sectionTitle: sectionTitle, sectionIndex: sectionIndex)
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BD302B9022B8061A00067888 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD302B8F22B8061A00067888 /* LoginTableViewController.swift */; };
+		BD653F88231C43FA00D59A88 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653F87231C43FA00D59A88 /* Constants.swift */; };
 		BD86DD8522B9CDD500115E5D /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */; };
 		BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271622C92EBB004E2408 /* PKHUD.framework */; };
 		BD92271922CAD36E004E2408 /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271822CAD36D004E2408 /* Down.framework */; };
@@ -82,6 +83,7 @@
 
 /* Begin PBXFileReference section */
 		BD302B8F22B8061A00067888 /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
+		BD653F87231C43FA00D59A88 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		BD92271622C92EBB004E2408 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/iOS/PKHUD.framework; sourceTree = "<group>"; };
 		BD92271822CAD36D004E2408 /* Down.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Down.framework; path = Carthage/Build/iOS/Down.framework; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				D0545F22230901D30001D165 /* PBHOpenInActivity.swift */,
 				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
 				BD92271A22CD3743004E2408 /* UtilityExtensions.swift */,
+				BD653F87231C43FA00D59A88 /* Constants.swift */,
 				D0CFE5511888A7BD00165839 /* Images.xcassets */,
 				D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */,
 				D0CFE53D1888A7BD00165839 /* Supporting Files */,
@@ -498,6 +501,7 @@
 				D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */,
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
 				D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */,
+				BD653F88231C43FA00D59A88 /* Constants.swift in Sources */,
 				D01067E42213BDF30047E090 /* AppDelegate.swift in Sources */,
 				D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */,
 				D0B6D4AE22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift in Sources */,

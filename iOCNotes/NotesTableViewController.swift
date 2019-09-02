@@ -19,7 +19,12 @@ protocol NoteCategoryDelegate: class {
     func selectCategory(_ indexPath: IndexPath) 
 }
 
-typealias ExpandableSectionType = (title: String, expanded: Bool)
+struct ExpandableSection: Codable {
+    var title: String
+    var collapsed: Bool
+}
+
+typealias ExpandableSectionType = [ExpandableSection]
 
 class NotesTableViewController: UITableViewController {
 
@@ -37,9 +42,9 @@ class NotesTableViewController: UITableViewController {
     private var numberOfObjectsInCurrentSection = 0
 
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
+
     private var observers = [NSObjectProtocol]()
-//    private var sectionExpandedInfo = [Bool]()
-    private var newSectionExpandedInfo = [ExpandableSectionType]()
+    private var newSectionExpandedInfo = ExpandableSectionType()
     private var sectionExpandedInfoCount = 1
     private var isSyncing = false
     
@@ -158,6 +163,7 @@ class NotesTableViewController: UITableViewController {
         tableView.tableHeaderView = searchController?.searchBar
         tableView.contentOffset = CGPoint(x: 0, y: searchController?.searchBar.frame.size.height ?? 0.0 + tableView.contentOffset.y)
         tableView.dropDelegate = self
+        updateSectionExpandedInfo()
         tableView.reloadData()
         definesPresentationContext = true
     }
@@ -177,30 +183,36 @@ class NotesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if sectionExpandedInfo[section] { // expanded
-            if let sections = notesFrc.sections {
-                let currentSection = sections[section]
-                return currentSection.numberOfObjects
+        var title = ""
+        if let sections = notesFrc.sections {
+            let currentSection = sections[section]
+            if !currentSection.name.isEmpty {
+                title = currentSection.name
             }
-            return self.notesFrc.fetchedObjects?.count ?? 0
-        } else { // collapsed
-            return 0
+            let collapsed = newSectionExpandedInfo.first(where: { $0.title == title })?.collapsed ?? false
+            if !collapsed { // expanded
+                return currentSection.numberOfObjects
+            } else { // collapsed
+                return 0
+            }
         }
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as! CollapsibleTableViewHeaderView
-        var title = "No Category"
+        var title = Constants.noCategory
         if let sections = notesFrc.sections {
             let currentSection = sections[section]
             if !currentSection.name.isEmpty {
                 title = currentSection.name
             }
         }
-        sectionHeaderView.section = section
+        sectionHeaderView.sectionTitle = title
+        sectionHeaderView.sectionIndex = section
         sectionHeaderView.delegate = self
         sectionHeaderView.titleLabel.text = title
-        sectionHeaderView.collapsed = sectionExpandedInfo[section]
+        sectionHeaderView.collapsed = newSectionExpandedInfo.first(where: { $0.title == title })?.collapsed ?? false
         return sectionHeaderView;
     }
 
@@ -397,7 +409,7 @@ class NotesTableViewController: UITableViewController {
 //        self.editorViewController.addingNote = YES;
 //        [[OCNotesHelper sharedHelper] addNote:@""];
         HUD.show(.progress)
-        NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
+        NotesManager.shared.add(content: "", category: Constants.noCategory, completion: { [weak self] note in
 //            self?.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
             if note != nil {
                 self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
@@ -418,7 +430,6 @@ class NotesTableViewController: UITableViewController {
                                              cacheName: nil)
         frc.delegate = self
         try! frc.performFetch()
-        updateSectionExpandedInfo()
 //        if let sections = frc.sections {
 //            for _ in sections {
 //                sectionExpandedInfo.append(true)
@@ -435,8 +446,9 @@ class NotesTableViewController: UITableViewController {
             let added = newSectionTitles.subtracting(knownSectionTitles)
             newSectionExpandedInfo = newSectionExpandedInfo.filter({ !deleted.contains($0.title) })
             for newSection in added {
-                newSectionExpandedInfo.append(ExpandableSectionType(title: newSection, expanded: true))
+                newSectionExpandedInfo.append(ExpandableSection(title: newSection, collapsed: false))
             }
+            KeychainHelper.sectionExpandedInfo = newSectionExpandedInfo
         }
     }
     
@@ -464,7 +476,7 @@ class NotesTableViewController: UITableViewController {
 
 extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        sectionExpandedInfoCount = sectionExpandedInfo.count
+        sectionExpandedInfoCount = newSectionExpandedInfo.count
         tableView.beginUpdates()
     }
 
@@ -491,7 +503,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         case .move:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                if sectionExpandedInfoCount > sectionExpandedInfo.count {
+                if sectionExpandedInfoCount > newSectionExpandedInfo.count {
                     print("A section was removed")
                     tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
                 }
@@ -499,7 +511,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
 
             if let newIndexPath = newIndexPath {
                 tableView.insertRows(at: [newIndexPath], with: .fade)
-                if sectionExpandedInfoCount < sectionExpandedInfo.count {
+                if sectionExpandedInfoCount < newSectionExpandedInfo.count {
                     print("A section was added")
                     tableView.insertSections(NSIndexSet(index: newIndexPath.section) as IndexSet, with: .fade)
                 }
@@ -507,30 +519,26 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         }
     }
 
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        updateSectionExpandedInfo()
-        tableView.endUpdates()
-    }
-    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
             if isSyncing {
                 tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-                self.sectionExpandedInfo.insert(true, at: 0)
-            } else {
-                self.sectionExpandedInfo.insert(true, at: sectionIndex)
             }
         case .delete:
             if isSyncing {
                 tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
             }
-            self.sectionExpandedInfo.remove(at: sectionIndex)
         default:
             return
         }
     }
-    
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        updateSectionExpandedInfo()
+        tableView.endUpdates()
+    }
+
 }
 
 extension NotesTableViewController: UIActionSheetDelegate {
@@ -616,7 +624,7 @@ extension NotesTableViewController: UITableViewDropDelegate {
             item.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypeText as String) { (data, _) in
                 if let contentData = data,
                     let content = String(bytes: contentData, encoding: .utf8) {
-                        NotesManager.shared.add(content: content, category: "")
+                        NotesManager.shared.add(content: content, category: Constants.noCategory)
                 }
             }
         }
@@ -634,11 +642,20 @@ extension NotesTableViewController: NoteCategoryDelegate {
 }
 
 extension NotesTableViewController: CollapsibleTableViewHeaderViewDelegate {
-    func toggleSection(_ header: CollapsibleTableViewHeaderView, section: Int) {
-        let index = header.section
-        sectionExpandedInfo[index] = !sectionExpandedInfo[index]
-        header.collapsed = sectionExpandedInfo[index]
-        self.tableView.reloadSections(NSIndexSet(index: index) as IndexSet, with: .automatic)
+    func toggleSection(_ header: CollapsibleTableViewHeaderView, sectionTitle: String, sectionIndex: Int) {
+        var incomingTitle = sectionTitle
+        if sectionTitle == Constants.noCategory {
+            incomingTitle = ""
+        }
+        if  let info = newSectionExpandedInfo.first(where: { $0.title == incomingTitle }),
+            let index = newSectionExpandedInfo.firstIndex(where: { $0.title == incomingTitle }) {
+            let collapsed = info.collapsed
+            newSectionExpandedInfo.remove(at: index)
+            newSectionExpandedInfo.insert(ExpandableSection(title: info.title, collapsed: !collapsed), at: index)
+            KeychainHelper.sectionExpandedInfo = newSectionExpandedInfo
+            header.collapsed = !collapsed
+            self.tableView.reloadSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
+        }
     }
 }
 
