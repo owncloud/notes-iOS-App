@@ -44,7 +44,7 @@ class NotesTableViewController: UITableViewController {
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
 
     private var observers = [NSObjectProtocol]()
-    private var newSectionExpandedInfo = ExpandableSectionType()
+    private var sectionCollapsedInfo = ExpandableSectionType()
     private var sectionExpandedInfoCount = 1
     private var isSyncing = false
     
@@ -158,7 +158,7 @@ class NotesTableViewController: UITableViewController {
         searchController?.searchBar.tintColor = UIColor(red:0.12, green:0.18, blue:0.26, alpha:1.0)
         searchController?.searchBar.barTintColor = UIColor(red:0.957, green:0.957, blue:0.957, alpha:0.95)
         searchController?.searchBar.backgroundImage = UIImage()
-        newSectionExpandedInfo = KeychainHelper.sectionExpandedInfo
+        sectionCollapsedInfo = KeychainHelper.sectionExpandedInfo
         
         tableView.tableHeaderView = searchController?.searchBar
         tableView.contentOffset = CGPoint(x: 0, y: searchController?.searchBar.frame.size.height ?? 0.0 + tableView.contentOffset.y)
@@ -189,7 +189,7 @@ class NotesTableViewController: UITableViewController {
             if !currentSection.name.isEmpty {
                 title = currentSection.name
             }
-            let collapsed = newSectionExpandedInfo.first(where: { $0.title == title })?.collapsed ?? false
+            let collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
             if !collapsed { // expanded
                 return currentSection.numberOfObjects
             } else { // collapsed
@@ -201,18 +201,20 @@ class NotesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as! CollapsibleTableViewHeaderView
-        var title = Constants.noCategory
+        var displayTitle = Constants.noCategory
+        var title = ""
         if let sections = notesFrc.sections {
             let currentSection = sections[section]
             if !currentSection.name.isEmpty {
-                title = currentSection.name
+                displayTitle = currentSection.name
             }
+            title = currentSection.name
         }
         sectionHeaderView.sectionTitle = title
         sectionHeaderView.sectionIndex = section
         sectionHeaderView.delegate = self
-        sectionHeaderView.titleLabel.text = title
-        sectionHeaderView.collapsed = newSectionExpandedInfo.first(where: { $0.title == title })?.collapsed ?? false
+        sectionHeaderView.titleLabel.text = displayTitle
+        sectionHeaderView.collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
         return sectionHeaderView;
     }
 
@@ -439,16 +441,16 @@ class NotesTableViewController: UITableViewController {
     }
 
     func updateSectionExpandedInfo() {
-        let knownSectionTitles = Set(newSectionExpandedInfo.map({ $0.title }))
+        let knownSectionTitles = Set(sectionCollapsedInfo.map({ $0.title }))
         if let sections = notesFrc.sections {
             let newSectionTitles = Set(sections.map({ $0.name }))
             let deleted = knownSectionTitles.subtracting(newSectionTitles)
             let added = newSectionTitles.subtracting(knownSectionTitles)
-            newSectionExpandedInfo = newSectionExpandedInfo.filter({ !deleted.contains($0.title) })
+            sectionCollapsedInfo = sectionCollapsedInfo.filter({ !deleted.contains($0.title) })
             for newSection in added {
-                newSectionExpandedInfo.append(ExpandableSection(title: newSection, collapsed: false))
+                sectionCollapsedInfo.append(ExpandableSection(title: newSection, collapsed: false))
             }
-            KeychainHelper.sectionExpandedInfo = newSectionExpandedInfo
+            KeychainHelper.sectionExpandedInfo = sectionCollapsedInfo
         }
     }
     
@@ -476,7 +478,7 @@ class NotesTableViewController: UITableViewController {
 
 extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        sectionExpandedInfoCount = newSectionExpandedInfo.count
+        sectionExpandedInfoCount = sectionCollapsedInfo.count
         tableView.beginUpdates()
     }
 
@@ -503,7 +505,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         case .move:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                if sectionExpandedInfoCount > newSectionExpandedInfo.count {
+                if sectionExpandedInfoCount > sectionCollapsedInfo.count {
                     print("A section was removed")
                     tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
                 }
@@ -511,7 +513,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
 
             if let newIndexPath = newIndexPath {
                 tableView.insertRows(at: [newIndexPath], with: .fade)
-                if sectionExpandedInfoCount < newSectionExpandedInfo.count {
+                if sectionExpandedInfoCount < sectionCollapsedInfo.count {
                     print("A section was added")
                     tableView.insertSections(NSIndexSet(index: newIndexPath.section) as IndexSet, with: .fade)
                 }
@@ -643,16 +645,12 @@ extension NotesTableViewController: NoteCategoryDelegate {
 
 extension NotesTableViewController: CollapsibleTableViewHeaderViewDelegate {
     func toggleSection(_ header: CollapsibleTableViewHeaderView, sectionTitle: String, sectionIndex: Int) {
-        var incomingTitle = sectionTitle
-        if sectionTitle == Constants.noCategory {
-            incomingTitle = ""
-        }
-        if  let info = newSectionExpandedInfo.first(where: { $0.title == incomingTitle }),
-            let index = newSectionExpandedInfo.firstIndex(where: { $0.title == incomingTitle }) {
+        if  let info = sectionCollapsedInfo.first(where: { $0.title == sectionTitle }),
+            let index = sectionCollapsedInfo.firstIndex(where: { $0.title == sectionTitle }) {
             let collapsed = info.collapsed
-            newSectionExpandedInfo.remove(at: index)
-            newSectionExpandedInfo.insert(ExpandableSection(title: info.title, collapsed: !collapsed), at: index)
-            KeychainHelper.sectionExpandedInfo = newSectionExpandedInfo
+            sectionCollapsedInfo.remove(at: index)
+            sectionCollapsedInfo.insert(ExpandableSection(title: info.title, collapsed: !collapsed), at: index)
+            KeychainHelper.sectionExpandedInfo = sectionCollapsedInfo
             header.collapsed = !collapsed
             self.tableView.reloadSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
         }

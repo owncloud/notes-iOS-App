@@ -23,7 +23,7 @@ class CollapsibleTableViewHeaderView: UITableViewHeaderFooterView {
 
     var collapsed: Bool {
         didSet {
-            collapsedImageView.rotate(collapsed ? 0.0 : -(.pi / 2))
+            collapsedImageView.rotate(collapsed ? -(.pi / 2) : 0.0)
         }
     }
 
