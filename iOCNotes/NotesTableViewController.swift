@@ -358,6 +358,9 @@ class NotesTableViewController: UITableViewController {
                 let indexPath = indexPathForCategory {
                 categoryController.categories = categories.removingDuplicates()
                 let note = notesFrc.object(at: indexPath)
+                if let section = notesFrc.sections?.first(where: { $0.name == note.category }) {
+                    numberOfObjectsInCurrentSection = section.numberOfObjects
+                }
                 categoryController.note = note
             }
             
@@ -504,6 +507,9 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
 
         case .move:
             if let indexPath = indexPath {
+                if numberOfObjectsInCurrentSection == 1 {
+                    tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
+                }
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 if sectionExpandedInfoCount > sectionCollapsedInfo.count {
                     print("A section was removed")
