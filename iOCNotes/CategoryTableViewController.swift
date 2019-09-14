@@ -16,12 +16,11 @@ class CategoryTableViewController: UITableViewController {
     let reuseIdentifier = "CategoryCell"
 
     var categories = [String]()
-    var currentCategory = Constants.noCategory
+    var currentCategory = ""
     var note: CDNote? {
         didSet {
-            currentCategory = note?.category ?? Constants.noCategory
-            if currentCategory.isEmpty {
-                currentCategory = Constants.noCategory
+            if let category = note?.category {
+                currentCategory = category
             }
         }
     }
@@ -29,7 +28,6 @@ class CategoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = cancelBarButton
-        categories.insert(Constants.noCategory, at: 0)
     }
 
     // MARK: - Table view data source
@@ -44,7 +42,11 @@ class CategoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = categories[indexPath.row]
+        var categoryName = categories[indexPath.row]
+        if categoryName.isEmpty {
+            categoryName = Constants.noCategory
+        }
+        cell.textLabel?.text = categoryName
         cell.accessoryType = .none
         let index = categories.index(of: currentCategory)
         if indexPath.row == index {
