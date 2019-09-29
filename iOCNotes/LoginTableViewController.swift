@@ -131,6 +131,11 @@ class LoginTableViewController: UITableViewController {
                 self?.connectionActivityIndicator.stopAnimating()
         }
     }
+    
+    @IBAction func onClose(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
 }
 
 extension LoginTableViewController: UITextFieldDelegate {
