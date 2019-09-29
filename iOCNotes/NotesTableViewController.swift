@@ -414,7 +414,7 @@ class NotesTableViewController: UITableViewController {
 //        self.editorViewController.addingNote = YES;
 //        [[OCNotesHelper sharedHelper] addNote:@""];
         HUD.show(.progress)
-        NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
+        NotesManager.shared.add(content: "", category: Constants.noCategory, completion: { [weak self] note in
             if note != nil {
                 self?.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
                 self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)

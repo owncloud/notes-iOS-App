@@ -17,7 +17,12 @@ public class CDNote: NSManagedObject {
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()
+        self.guid = UUID().uuidString
         self.content = ""
+        self.category = Constants.noCategory
+        self.addNeeded = true
+        self.updateNeeded = false
+        self.deleteNeeded = false
     }
 
     static func all() -> [CDNote]? {
@@ -37,7 +42,17 @@ public class CDNote: NSManagedObject {
 
     static func notes(property: String) -> [CDNote]? {
         let request: NSFetchRequest<CDNote> = self.fetchRequest()
-        let predicate = NSPredicate(format: "%@ == true", property)
+        var predicate: NSPredicate?
+        switch property {
+        case "cdAddNeeded":
+            predicate = NSPredicate(format: "cdAddNeeded == %@", NSNumber(value: true))
+        case "cdUpdateNeeded":
+            predicate = NSPredicate(format: "cdUpdateNeeded == %@", NSNumber(value: true))
+        case "cdDeleteNeeded":
+            predicate = NSPredicate(format: "cdDeleteNeeded == %@", NSNumber(value: true))
+        default:
+            break
+        }
         request.predicate = predicate
         do {
             return try NotesData.mainThreadContext.fetch(request)
@@ -61,36 +76,18 @@ public class CDNote: NSManagedObject {
         return nil
     }
     
-    static func withoutCategory() -> [CDNote]? {
+    static func note(guid: String) -> CDNote? {
         let request: NSFetchRequest<CDNote> = self.fetchRequest()
-        let predicate = NSPredicate(format: "category == ''")
+        let predicate = NSPredicate(format: "cdGuid == %@", guid)
         request.predicate = predicate
-        var noteList = [CDNote]()
+        request.fetchLimit = 1
         do {
             let results  = try NotesData.mainThreadContext.fetch(request)
-            for record in results {
-                noteList.append(record)
-            }
+            return results.first
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
-        return noteList
-    }
-
-    static func inCategory(category: String) -> [CDNote]? {
-        let request: NSFetchRequest<CDNote> = self.fetchRequest()
-        let predicate = NSPredicate(format: "category == %@", category)
-        request.predicate = predicate
-        var noteList = [CDNote]()
-        do {
-            let results  = try NotesData.mainThreadContext.fetch(request)
-            for record in results {
-                noteList.append(record)
-            }
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
-        return noteList
+        return nil
     }
 
     static func update(notes: [NoteProtocol]) {
@@ -104,7 +101,7 @@ public class CDNote: NSManagedObject {
                     if let existingRecord = records.first {
 //                        existingRecord.id = note.id
                         existingRecord.guid = note.guid
-                        existingRecord.category = note.category
+                        existingRecord.category = note.category == "" ? Constants.noCategory : note.category
                         existingRecord.content = note.content
                         existingRecord.title = note.title
                         existingRecord.favorite = note.favorite
@@ -112,7 +109,7 @@ public class CDNote: NSManagedObject {
                     } else {
                         let newRecord = NSEntityDescription.insertNewObject(forEntityName: CDNote.entityName, into: NotesData.mainThreadContext) as! CDNote
                         newRecord.guid = note.guid
-                        newRecord.category = note.category
+                        newRecord.category = note.category == "" ? Constants.noCategory : note.category
                         newRecord.content = note.content
                         newRecord.id = note.id
                         newRecord.title = note.title
@@ -137,7 +134,7 @@ public class CDNote: NSManagedObject {
                 if let existingRecord = records.first {
                     //                        existingRecord.id = note.id
                     existingRecord.guid = note.guid
-                    existingRecord.category = note.category
+                    existingRecord.category = note.category == "" ? Constants.noCategory : note.category
                     existingRecord.content = note.content
                     existingRecord.title = note.title
                     existingRecord.favorite = note.favorite
@@ -146,7 +143,7 @@ public class CDNote: NSManagedObject {
                 } else {
                     let newRecord = NSEntityDescription.insertNewObject(forEntityName: CDNote.entityName, into: NotesData.mainThreadContext) as! CDNote
                     newRecord.guid = note.guid
-                    newRecord.category = note.category
+                    newRecord.category = note.category == "" ? Constants.noCategory : note.category
                     newRecord.content = note.content
                     newRecord.id = note.id
                     newRecord.title = note.title

@@ -67,9 +67,9 @@ class NotesManager {
 
                 for note in notesToAdd {
                     group.enter()
-                    NotesManager.shared.add(content: note.content, category: note.category, favorite: note.favorite, completion: { _ in
+                    self.addToServer(note: note) { _ in
                         group.leave()
-                    })
+                    }
                 }
 
                 group.notify(queue: .main) {
@@ -104,7 +104,7 @@ class NotesManager {
                     NoteSessionManager.shared.request(router).responseDecodable { (response: DataResponse<[NoteStruct]>) in
                         if let notes = response.value {
                             let serverIds = notes.map( { $0.id } )
-                            if let knownIds = CDNote.all()?.map({ $0.id }) {
+                            if let knownIds = CDNote.all()?.map({ $0.id }).filter({ $0 > 0 }) {
                                 let deletedOnServer = Set(knownIds).subtracting(Set(serverIds))
                                 if !deletedOnServer.isEmpty {
                                     _ = CDNote.delete(ids: Array(deletedOnServer))
@@ -121,44 +121,53 @@ class NotesManager {
     
     func add(content: String, category: String, favorite: Bool? = false, completion: SyncCompletionBlockWithNote? = nil) {
         let note = NoteStruct(content: content, category: category, favorite: favorite ?? false)
-        var result = CDNote.update(note: note) //addNeeded defaults to true
-        if NotesManager.isOnline {
-            let serverCategory = note.category == Constants.noCategory ? "" : note.category
-            let parameters: Parameters = ["content": note.content as Any,
-                                          "category": serverCategory as Any,
-                                          "modified": note.modified,
-                                          "favorite": note.favorite]
-            let router = Router.createNote(paramters: parameters)
-            NoteSessionManager
-                .shared
-                .request(router)
-                .validate(statusCode: 200..<300)
-                .validate(contentType: ["application/json"])
-                .responseDecodable { (response: DataResponse<NoteStruct>) in
-                    switch response.result {
-                    case .success:
-                        if let note = response.value, let newNote = result {
-                            newNote.id = note.id
-                            newNote.modified = note.modified
-                            newNote.title = note.title
-                            newNote.content = note.content
-                            newNote.category = note.category
-                            newNote.addNeeded = false
-                            newNote.updateNeeded = false
-                            result = CDNote.update(note: newNote)
-                        }
-                    case .failure(let error):
-                        let message = ErrorMessage(title: NSLocalizedString("Error Adding Note", comment: "The title of an error message"),
-                                                   body: error.localizedDescription)
-                        self.showErrorMessage(message: message)
-                    }
-                    completion?(result)
+        let result = CDNote.update(note: note) //addNeeded defaults to true
+        if NotesManager.isOnline, let note = result {
+            addToServer(note: note) { (serverNote) in
+                completion?(serverNote)
             }
         } else {
             completion?(result)
         }
     }
-    
+
+    func addToServer(note: CDNote, completion: @escaping SyncCompletionBlockWithNote) {
+        let newNote = note
+        var result: CDNote?
+        let serverCategory = note.category == Constants.noCategory ? "" : note.category
+        let parameters: Parameters = ["content": note.content as Any,
+                                      "category": serverCategory as Any,
+                                      "modified": note.modified,
+                                      "favorite": note.favorite]
+        let router = Router.createNote(paramters: parameters)
+        NoteSessionManager
+            .shared
+            .request(router)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: ["application/json"])
+            .responseDecodable { (response: DataResponse<NoteStruct>) in
+                switch response.result {
+                case .success:
+                    if let note = response.value {
+                        newNote.id = note.id
+                        newNote.modified = note.modified
+                        newNote.title = note.title
+                        newNote.content = note.content
+                        newNote.category = note.category == "" ? Constants.noCategory : note.category
+                        newNote.addNeeded = false
+                        newNote.updateNeeded = false
+                        result = CDNote.update(note: newNote)
+                    }
+                case .failure(let error):
+                    let message = ErrorMessage(title: NSLocalizedString("Error Adding Note", comment: "The title of an error message"),
+                                               body: error.localizedDescription)
+                    self.showErrorMessage(message: message)
+                    result = newNote
+                }
+                completion(result)
+        }
+    }
+
     func get(note: NoteProtocol, completion: SyncCompletionBlock? = nil) {
         guard NotesManager.isOnline else {
             completion?()
@@ -177,22 +186,25 @@ class NotesManager {
                         CDNote.update(notes: [note])
                     }
                 case .failure(let error):
-                    var message = ErrorMessage(title: NSLocalizedString("Error Getting Note", comment: "The title of an error message"),
-                                               body: error.localizedDescription)
                     if let urlResponse = response.response {
                         switch urlResponse.statusCode {
                         case 404:
-                            message.body = NSLocalizedString("The note does not exist", comment: "An error message")
+                            if let guid = note.guid,
+                                let dbNote = CDNote.note(guid: guid) {
+                                self.addToServer(note: dbNote, completion: { _ in })
+                            }
                         default:
-                            break
+                            let message = ErrorMessage(title: NSLocalizedString("Error Getting Note", comment: "The title of an error message"),
+                                                       body: error.localizedDescription)
+                            self.showErrorMessage(message: message)
                         }
+                        
                     }
-                    self.showErrorMessage(message: message)
                 }
                 completion?()
         }
     }
-    
+
     func update(note: NoteProtocol, completion: SyncCompletionBlock? = nil) {
         var incoming = note
         incoming.updateNeeded = true
@@ -215,17 +227,19 @@ class NotesManager {
                         }
                     case .failure(let error):
                         CDNote.update(notes: [incoming])
-                        var message = ErrorMessage(title: NSLocalizedString("Error Updating Note", comment: "The title of an error message"),
-                                                   body: error.localizedDescription)
                         if let urlResponse = response.response {
                             switch urlResponse.statusCode {
                             case 404:
-                                message.body = NSLocalizedString("The note does not exist", comment: "An error message")
+                                if let guid = incoming.guid,
+                                let dbNote = CDNote.note(guid: guid) {
+                                    self.addToServer(note: dbNote, completion: { _ in })
+                                }
                             default:
-                                break
+                                let message = ErrorMessage(title: NSLocalizedString("Error Updating Note", comment: "The title of an error message"),
+                                                           body: error.localizedDescription)
+                                self.showErrorMessage(message: message)
                             }
                         }
-                        self.showErrorMessage(message: message)
                     }
                     completion?()
             }
