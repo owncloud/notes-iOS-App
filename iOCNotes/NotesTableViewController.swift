@@ -513,6 +513,8 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
                     tableView.insertSections(NSIndexSet(index: newIndexPath.section) as IndexSet, with: .fade)
                 }
             }
+        @unknown default:
+            fatalError()
         }
     }
 
