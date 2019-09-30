@@ -563,10 +563,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Connect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1nd-Wd-hwP">
-                                                    <rect key="frame" x="77" y="12" width="260" height="21"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IFf-6O-RA5">
+                                                    <rect key="frame" x="32" y="12" width="20" height="20"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="260" id="QcO-aE-7Aw"/>
+                                                        <constraint firstAttribute="height" constant="20" id="EOo-c1-KKG"/>
+                                                        <constraint firstAttribute="width" constant="20" id="WbG-rt-Atc"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Connect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1nd-Wd-hwP">
+                                                    <rect key="frame" x="62" y="12" width="290" height="21"/>
+                                                    <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Xju-Kk-UFE"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -574,12 +581,16 @@
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="rkC-At-2Rb">
-                                                    <rect key="frame" x="354" y="12" width="20" height="20"/>
+                                                    <rect key="frame" x="362" y="12" width="12" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="1nd-Wd-hwP" firstAttribute="leading" secondItem="IFf-6O-RA5" secondAttribute="trailing" priority="999" constant="10" id="Ktv-ED-sJ4"/>
+                                                <constraint firstItem="rkC-At-2Rb" firstAttribute="leading" secondItem="1nd-Wd-hwP" secondAttribute="trailing" constant="10" id="N6h-kq-0Zy"/>
                                                 <constraint firstItem="1nd-Wd-hwP" firstAttribute="centerX" secondItem="SK7-Jj-1c2" secondAttribute="centerX" id="gwu-x7-qPe"/>
                                                 <constraint firstItem="rkC-At-2Rb" firstAttribute="top" secondItem="1nd-Wd-hwP" secondAttribute="top" id="npZ-pc-rCQ"/>
+                                                <constraint firstItem="IFf-6O-RA5" firstAttribute="centerY" secondItem="SK7-Jj-1c2" secondAttribute="centerY" id="szt-7y-Bep"/>
+                                                <constraint firstItem="IFf-6O-RA5" firstAttribute="leadingMargin" secondItem="SK7-Jj-1c2" secondAttribute="leadingMargin" constant="20" id="uZe-Q6-V5b"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="rkC-At-2Rb" secondAttribute="trailing" constant="20" id="v7s-AK-KMG"/>
                                             </constraints>
                                         </tableViewCellContentView>
