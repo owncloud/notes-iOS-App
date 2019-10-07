@@ -42,18 +42,7 @@ public class CDNote: NSManagedObject {
 
     static func notes(property: String) -> [CDNote]? {
         let request: NSFetchRequest<CDNote> = self.fetchRequest()
-        var predicate: NSPredicate?
-        switch property {
-        case "cdAddNeeded":
-            predicate = NSPredicate(format: "cdAddNeeded == %@", NSNumber(value: true))
-        case "cdUpdateNeeded":
-            predicate = NSPredicate(format: "cdUpdateNeeded == %@", NSNumber(value: true))
-        case "cdDeleteNeeded":
-            predicate = NSPredicate(format: "cdDeleteNeeded == %@", NSNumber(value: true))
-        default:
-            break
-        }
-        request.predicate = predicate
+        request.predicate = NSPredicate(format: "%K == %@", property, NSNumber(value: true))
         do {
             return try NotesData.mainThreadContext.fetch(request)
         } catch let error as NSError {
@@ -99,7 +88,6 @@ public class CDNote: NSManagedObject {
                     request.predicate = predicate
                     let records = try NotesData.mainThreadContext.fetch(request)
                     if let existingRecord = records.first {
-//                        existingRecord.id = note.id
                         existingRecord.guid = note.guid
                         existingRecord.category = note.category == "" ? Constants.noCategory : note.category
                         existingRecord.content = note.content
@@ -111,7 +99,10 @@ public class CDNote: NSManagedObject {
                         newRecord.guid = note.guid
                         newRecord.category = note.category == "" ? Constants.noCategory : note.category
                         newRecord.content = note.content
-                        newRecord.id = note.id
+                        if note.id > 0 {
+                            newRecord.id = note.id
+                            newRecord.addNeeded = false
+                        }
                         newRecord.title = note.title
                         newRecord.favorite = note.favorite
                         newRecord.modified = note.modified
