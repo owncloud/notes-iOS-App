@@ -48,7 +48,7 @@ class CategoryTableViewController: UITableViewController {
         }
         cell.textLabel?.text = categoryName
         cell.accessoryType = .none
-        let index = categories.index(of: currentCategory)
+        let index = categories.firstIndex(of: currentCategory)
         if indexPath.row == index {
             cell.accessoryType = .checkmark
         }

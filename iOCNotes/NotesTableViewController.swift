@@ -136,13 +136,7 @@ class NotesTableViewController: UITableViewController {
                                                                         }
         })
         )
-/*
-         [[NSNotificationCenter defaultCenter] addObserver:self
-         selector:@selector(reachabilityChanged:)
-         name:AFNetworkingReachabilityDidChangeNotification
-         object:nil];
 
-*/
         let nib = UINib(nibName: "CollapsibleTableViewHeaderView", bundle: nil)
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: "HeaderView")
         navigationController?.navigationBar.isTranslucent = true
@@ -167,12 +161,7 @@ class NotesTableViewController: UITableViewController {
         tableView.reloadData()
         definesPresentationContext = true
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        didBecomeActive()
-//    }
-    
+        
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -524,6 +513,8 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
                     tableView.insertSections(NSIndexSet(index: newIndexPath.section) as IndexSet, with: .fade)
                 }
             }
+        @unknown default:
+            fatalError()
         }
     }
 

@@ -69,7 +69,7 @@ class SettingsTableViewController: UITableViewController {
         KeychainHelper.offlineMode = offlineModeSwitch.isOn
     }
 
-    @IBAction func didTapDone(_ sender: Any) {
+    @IBAction func onDone(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
