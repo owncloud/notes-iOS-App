@@ -63,6 +63,7 @@ struct KeychainHelper {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "OfflineMode")
+            NotificationCenter.default.post(name: .offlineModeChanged, object: nil)
         }
     }
 

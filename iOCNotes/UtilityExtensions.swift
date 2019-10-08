@@ -13,6 +13,7 @@ extension NSNotification.Name {
     static let syncNotes = NSNotification.Name("SyncNotes")
     static let networkSuccess = NSNotification.Name("NetworkSucces")
     static let networkError = NSNotification.Name("NetworkError")
+    static let offlineModeChanged = NSNotification.Name("OfflineModeChanged")
 }
 
 extension UIImage {

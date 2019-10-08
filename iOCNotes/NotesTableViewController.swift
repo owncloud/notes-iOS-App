@@ -29,6 +29,7 @@ typealias ExpandableSectionType = [ExpandableSection]
 class NotesTableViewController: UITableViewController {
 
     @IBOutlet var addBarButton: UIBarButtonItem!
+    @IBOutlet weak var refreshBarButton: UIBarButtonItem!
     @IBOutlet var settingsBarButton: UIBarButtonItem!
 
     var notes: [CDNote]?
@@ -66,7 +67,6 @@ class NotesTableViewController: UITableViewController {
         super.viewDidLoad()
 
         clearsSelectionOnViewWillAppear = false
-        refreshControl?.tintColor = UIColor(red: 0.13, green: 0.145, blue: 0.16, alpha: 1.0)
 
         self.observers.append(NotificationCenter.default.addObserver(forName: UIContentSizeCategory.didChangeNotification,
                                                                      object: nil,
@@ -79,6 +79,12 @@ class NotesTableViewController: UITableViewController {
                                                                      queue: OperationQueue.main,
                                                                      using: { [weak self] _ in
                                                                         self?.didBecomeActive()
+        }))
+        self.observers.append(NotificationCenter.default.addObserver(forName: .offlineModeChanged,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] _ in
+                                                                        self?.refreshBarButton.isEnabled = NotesManager.isOnline
         }))
         self.observers.append(NotificationCenter.default.addObserver(forName: .deletingNote,
                                                                      object: nil,
@@ -101,7 +107,7 @@ class NotesTableViewController: UITableViewController {
                                                                      queue: OperationQueue.main,
                                                                      using: { [weak self] _ in
                                                                         HUD.hide()
-                                                                        self?.refreshControl?.endRefreshing()
+                                                                        self?.refreshBarButton.isEnabled = NotesManager.isOnline
                                                                         self?.addBarButton.isEnabled = true
                                                                         self?.settingsBarButton.isEnabled = true
         }))
@@ -110,7 +116,7 @@ class NotesTableViewController: UITableViewController {
                                                                      queue: OperationQueue.main,
                                                                      using: { [weak self] notification in
                                                                         HUD.hide()
-                                                                        self?.refreshControl?.endRefreshing()
+                                                                        self?.refreshBarButton.isEnabled = NotesManager.isOnline
                                                                         self?.addBarButton.isEnabled = true
                                                                         self?.settingsBarButton.isEnabled = true
                                                                         if let title = notification.userInfo?["Title"] as? String,
@@ -160,8 +166,9 @@ class NotesTableViewController: UITableViewController {
         updateSectionExpandedInfo()
         tableView.reloadData()
         definesPresentationContext = true
+        refreshBarButton.isEnabled = NotesManager.isOnline
     }
-        
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -366,18 +373,15 @@ class NotesTableViewController: UITableViewController {
         guard NotesManager.isOnline else {
             return
         }
-        
-        if let refreshControl = refreshControl, !refreshControl.isRefreshing {
-            refreshControl.beginRefreshing()
-            tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y - refreshControl.frame.size.height), animated: true)
-        }
+
+        refreshBarButton.isEnabled = false
         addBarButton.isEnabled = false
         settingsBarButton.isEnabled = false
         isSyncing = true
         NotesManager.shared.sync { [weak self] in
             self?.addBarButton.isEnabled = true
             self?.settingsBarButton.isEnabled = true
-            self?.refreshControl?.endRefreshing()
+            self?.refreshBarButton.isEnabled = NotesManager.isOnline
             self?.tableView.reloadData()
             self?.isSyncing = false
         }
@@ -455,14 +459,8 @@ class NotesTableViewController: UITableViewController {
     private func didBecomeActive() {
         if KeychainHelper.server.isEmpty {
             onSettings(sender: nil)
-        } else if KeychainHelper.syncOnStart,
-            NotesManager.isOnline {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-            isSyncing = true
-            NotesManager.shared.sync { [weak self] in
-                self?.isSyncing = false
-            }
-//            })
+        } else if KeychainHelper.syncOnStart {
+            onRefresh(sender: nil)
         }
     }
 

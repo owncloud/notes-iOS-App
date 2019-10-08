@@ -60,22 +60,24 @@
                                 <action selector="onSettingsWithSender:" destination="DXe-Iw-CcD" id="cs1-YA-pRQ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="MOs-yv-oce">
-                            <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="onAddWithSender:" destination="DXe-Iw-CcD" id="8El-Gc-220"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="MOs-yv-oce">
+                                <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="onAddWithSender:" destination="DXe-Iw-CcD" id="8El-Gc-220"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="Vq9-nq-q23">
+                                <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="onRefreshWithSender:" destination="DXe-Iw-CcD" id="2sU-BA-2fZ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="bhZ-9d-vIq">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <action selector="onRefreshWithSender:" destination="DXe-Iw-CcD" eventType="valueChanged" id="MxB-fy-AdS"/>
-                        </connections>
-                    </refreshControl>
                     <connections>
                         <outlet property="addBarButton" destination="MOs-yv-oce" id="KfS-dy-ASJ"/>
+                        <outlet property="refreshBarButton" destination="Vq9-nq-q23" id="MIf-rO-5SM"/>
                         <outlet property="settingsBarButton" destination="Ehu-4h-6IO" id="qQP-ED-FEw"/>
                         <segue destination="xSS-OQ-fPd" kind="presentation" identifier="SelectCategorySegue" id="Cuz-Wm-m3f"/>
                     </connections>
