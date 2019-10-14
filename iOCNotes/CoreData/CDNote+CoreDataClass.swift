@@ -185,4 +185,20 @@ public class CDNote: NSManagedObject {
         }
     }
 
+    static func reset() {
+        NotesData.mainThreadContext.performAndWait {
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: request )
+            deleteRequest.resultType = .resultTypeCount
+            do {
+                let deleteResult = try NotesData.mainThreadContext.execute(deleteRequest) as! NSBatchDeleteResult
+                print("The batch delete request has deleted \(deleteResult.result ?? 0) records.")
+                NotesData.mainThreadContext.reset()
+            } catch {
+                let updateError = error as NSError
+                print("\(updateError), \(updateError.userInfo)")
+            }
+        }
+    }
+
 }

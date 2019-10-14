@@ -67,6 +67,15 @@ struct KeychainHelper {
         }
     }
 
+    static var dbReset: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "dbReset")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "dbReset")
+        }
+    }
+
     static var sectionExpandedInfo: ExpandableSectionType {
         get {
             if let data = UserDefaults.standard.value(forKey: "Sections") as? Data,

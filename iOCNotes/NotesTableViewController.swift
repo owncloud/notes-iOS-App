@@ -459,6 +459,10 @@ class NotesTableViewController: UITableViewController {
             onSettings(sender: nil)
         } else if KeychainHelper.syncOnStart {
             onRefresh(sender: nil)
+        } else if KeychainHelper.dbReset {
+            CDNote.reset()
+            KeychainHelper.dbReset = false
+            tableView.reloadData()
         }
     }
 
