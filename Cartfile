@@ -5,4 +5,4 @@ github "kishikawakatsumi/KeychainAccess"
 github "pkluz/PKHUD" ~> 5.0
 github "iwasrobbed/Down"
 github "SwiftKickMobile/SwiftMessages"
-github "ruddfawcett/Notepad"
+github "ruddfawcett/Notepad" "master"

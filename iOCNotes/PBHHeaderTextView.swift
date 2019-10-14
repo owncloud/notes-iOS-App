@@ -14,11 +14,14 @@ class PBHHeaderTextView: UITextView {
 
     let smallPadding: CGFloat = 20.0
 
-    var leftHeaderLayoutConstraint = NSLayoutConstraint()
-    var rightHeaderLayoutConstraint = NSLayoutConstraint()
-    var didSetupConstraints = false
+    private var leftHeaderLayoutConstraint = NSLayoutConstraint()
+    private var rightHeaderLayoutConstraint = NSLayoutConstraint()
+    private var didSetupConstraints = false
     
-    var noteTextStorage = Storage()
+    private var noteTextStorage = Storage()
+
+    private var textInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0);
+    private var containerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20);
 
     lazy var headerLabel: UILabel = {
         var label = UILabel(frame: .zero)
@@ -29,8 +32,8 @@ class PBHHeaderTextView: UITextView {
         } else {
             label.textAlignment = .center
         }
-        label.textColor = UIColor.lightGray
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.textColor = .lightGray
+        label.font = .preferredFont(forTextStyle: .subheadline)
         label.text = NSLocalizedString("Select or create a note.", comment: "Placeholder text when no note is selected")
     
         return label
@@ -51,8 +54,8 @@ class PBHHeaderTextView: UITextView {
         noteTextStorage.addLayoutManager(layoutManager)
 
         super.init(frame: frame, textContainer: container)
-        self.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0);
-        self.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20);
+        self.contentInset = textInset
+        self.textContainerInset = containerInset
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerLabel)
         self.backgroundColor = theme.backgroundColor
@@ -67,8 +70,8 @@ class PBHHeaderTextView: UITextView {
     }
     
     func setup() {
-        self.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0);
-        self.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20);
+        self.contentInset = textInset
+        self.textContainerInset = containerInset
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerLabel)
         
@@ -78,14 +81,14 @@ class PBHHeaderTextView: UITextView {
         let textViewRect = self.frame;
         let layoutManager = NSLayoutManager()
         
-        let containerSize = CGSize(width:textViewRect.size.width,  height:CGFloat.greatestFiniteMagnitude)
+        let containerSize = CGSize(width:textViewRect.size.width, height:CGFloat.greatestFiniteMagnitude)
         let container = NSTextContainer.init(size: containerSize)
         container.widthTracksTextView = true
         
         layoutManager.addTextContainer(container)
         noteTextStorage.addLayoutManager(layoutManager)
         layoutManager.addTextContainer(container)
-        let theme = Theme("one-dark")
+        let theme = Theme("system-minimal")
         noteTextStorage.theme = theme
         noteTextStorage.addLayoutManager(layoutManager)
 
@@ -144,19 +147,8 @@ class PBHHeaderTextView: UITextView {
         }
     }
 
-//    override var attributedText: NSAttributedString! {
-//        get {
-//            return noteTextStorage.attributedSubstring(from: NSRange(location: 0, length: noteTextStorage.string.count - 1))
-//        }
-//        set {
-//            noteTextStorage.beginEditing()
-//            noteTextStorage.setAttributedString(newValue)
-//            noteTextStorage.endEditing()
-//        }
-//    }
-
     open func updateInsets(size: CGFloat) {
-        self.textContainerInset = UIEdgeInsets(top: smallPadding, left: size, bottom: smallPadding, right: size);
+        self.textContainerInset = UIEdgeInsets(top: 2 * smallPadding, left: size, bottom: smallPadding, right: size);
         leftHeaderLayoutConstraint.constant = size;
         rightHeaderLayoutConstraint.constant = size;
     }

@@ -24,7 +24,6 @@ class LoginTableViewController: UITableViewController {
         self.serverTextField.delegate = self
         self.usernameTextField.delegate = self
         self.passwordTextField.delegate = self
-        self.tableView.backgroundColor = UIColor(red: 0.957, green: 0.957, blue: 0.957, alpha:1.0)
     }
 
     override func viewWillAppear(_ animated: Bool) {

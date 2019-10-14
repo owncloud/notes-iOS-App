@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,8 +15,13 @@
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="K35-HQ-LQQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="separatorColor" red="0.83514857292175293" green="0.83512353897094727" blue="0.83513772487640381" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="PHWhiteBackground"/>
+                        <color key="separatorColor" name="PHWhiteIcon"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="PUY-jA-gLM">
+                            <rect key="frame" x="0.0" y="100" width="414" height="1"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoteCell" textLabel="1Q3-he-nuB" detailTextLabel="x61-QN-GPh" style="IBUITableViewCellStyleSubtitle" id="kka-p9-Iaq" customClass="NoteTableViewCell" customModule="iOCNotes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
@@ -28,7 +34,7 @@
                                             <rect key="frame" x="20" y="4" width="35.5" height="21.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" name="PHWhiteText"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x61-QN-GPh">
@@ -39,9 +45,9 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" name="PHWhiteCellBackground"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="PHWhiteCellBackground"/>
                                 <connections>
                                     <segue destination="R1o-2G-Lxf" kind="showDetail" identifier="showDetail" id="RCf-VZ-GG6"/>
                                 </connections>
@@ -55,20 +61,20 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Notes" id="qfr-a2-foZ">
                         <barButtonItem key="leftBarButtonItem" image="gear" id="Ehu-4h-6IO">
-                            <color key="tintColor" red="0.11764705882352941" green="0.1764705882352941" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="PHWhiteIcon"/>
                             <connections>
                                 <action selector="onSettingsWithSender:" destination="DXe-Iw-CcD" id="cs1-YA-pRQ"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="MOs-yv-oce">
-                                <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" name="PHWhiteIcon"/>
                                 <connections>
                                     <action selector="onAddWithSender:" destination="DXe-Iw-CcD" id="8El-Gc-220"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="refresh" id="Vq9-nq-q23">
-                                <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" name="PHWhiteIcon"/>
                                 <connections>
                                     <action selector="onRefreshWithSender:" destination="DXe-Iw-CcD" id="2sU-BA-2fZ"/>
                                 </connections>
@@ -111,6 +117,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="PHWhiteCellBackground"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -184,7 +191,7 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="PHWhiteBackground"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="dEj-4d-nDe"/>
@@ -202,44 +209,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <barButtonItem systemItem="action" id="pXa-gb-ki1">
-                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="tintColor" name="PHWhiteIcon"/>
                     <connections>
                         <action selector="onActivities:" destination="vXZ-lx-hvc" id="oex-S6-Eng"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="trash" id="aql-su-dTG">
-                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="tintColor" name="PHWhiteIcon"/>
                     <connections>
                         <action selector="onDelete:" destination="vXZ-lx-hvc" id="UNY-4r-5qs"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="add" id="nY9-Vh-Cce">
-                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="tintColor" name="PHWhiteIcon"/>
                     <connections>
                         <action selector="onAdd:" destination="vXZ-lx-hvc" id="gWr-mg-cqp"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem image="preview" id="3f2-rn-lgQ">
-                    <color key="tintColor" red="0.11764705882352941" green="0.1764705882352941" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="tintColor" name="PHWhiteIcon"/>
                     <connections>
                         <action selector="onPreview:" destination="vXZ-lx-hvc" id="CRp-oT-RkW"/>
                         <segue destination="7xC-ZL-ULJ" kind="show" identifier="showPreview" id="2yM-1x-su8"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="undo" id="6bO-Ah-TJ8">
-                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="tintColor" name="PHWhiteIcon"/>
                     <connections>
                         <action selector="onUndo:" destination="vXZ-lx-hvc" id="JwM-xg-ZsU"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="redo" id="T7C-FW-CGQ">
-                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="tintColor" name="PHWhiteIcon"/>
                     <connections>
                         <action selector="onRedo:" destination="vXZ-lx-hvc" id="dEX-CR-Yww"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem systemItem="done" id="1qk-bQ-vnb">
-                    <color key="tintColor" red="0.1176470588" green="0.1764705882" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="tintColor" name="PHWhiteIcon"/>
                     <connections>
                         <action selector="onDone:" destination="vXZ-lx-hvc" id="ZSg-Vw-aPw"/>
                     </connections>
@@ -275,6 +282,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fRT-Hm-h30">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="PHWhiteIcon"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="p4w-cm-yXR">
@@ -297,6 +307,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GgM-p9-4jJ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="PHWhiteIcon"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="2t6-l8-Aa3" kind="relationship" relationship="rootViewController" id="kzu-GZ-yQG"/>
@@ -310,10 +323,11 @@
         <scene sceneID="pXH-1w-eJk">
             <objects>
                 <tableViewController modalPresentationStyle="formSheet" id="2t6-l8-Aa3" customClass="SettingsTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="TYE-VA-CV0">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="TYE-VA-CV0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="PHWhiteBackground"/>
+                        <color key="separatorColor" name="PHWhiteIcon"/>
                         <sections>
                             <tableViewSection headerTitle="SYNCING" footerTitle="     " id="kzL-XI-1Cq">
                                 <cells>
@@ -439,6 +453,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="klT-al-UKS">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Xh9-la-fku">
+                            <color key="tintColor" name="PHWhiteIcon"/>
                             <connections>
                                 <action selector="onDone:" destination="2t6-l8-Aa3" id="ce9-o2-IVe"/>
                             </connections>
@@ -461,11 +476,12 @@
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Rz1-fV-wHH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="PHWhiteBackground"/>
+                        <color key="separatorColor" name="PHWhiteIcon"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="eFn-A5-4QO">
                             <rect key="frame" x="0.0" y="301.5" width="414" height="251"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.96055269241333008" green="0.96052396297454834" blue="0.9605402946472168" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" name="PHWhiteBackground"/>
                         </view>
                         <sections>
                             <tableViewSection headerTitle="Server" footerTitle=" " id="GFD-er-5qc">
@@ -579,7 +595,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="Xju-Kk-UFE"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" name="PHWhiteIcon"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="rkC-At-2Rb">
@@ -611,6 +627,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Login Information" id="37p-J6-f3v">
                         <barButtonItem key="rightBarButtonItem" title="Close" style="done" id="Peh-Fd-TcO">
+                            <color key="tintColor" name="PHWhiteIcon"/>
                             <connections>
                                 <action selector="onClose:" destination="luf-N8-Oc5" id="WrW-Bc-YHy"/>
                             </connections>
@@ -652,6 +669,21 @@
     <resources>
         <image name="gear" width="24" height="44"/>
         <image name="preview" width="24" height="44"/>
+        <namedColor name="PHWhiteBackground">
+            <color red="0.97000002861022949" green="0.97000002861022949" blue="0.97000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="PHWhiteCellBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="PHWhiteIcon">
+            <color red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="PHWhiteIcon">
+            <color red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="PHWhiteText">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RCf-VZ-GG6"/>

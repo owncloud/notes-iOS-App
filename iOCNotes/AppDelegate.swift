@@ -25,14 +25,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         NetworkActivityIndicatorManager.shared.isEnabled = true
 
-        UINavigationBar.appearance().barTintColor = .clear
-        UINavigationBar.appearance().setBackgroundImage(UIImage.colorResizableImage(color: UIColor(red: 0.957, green: 0.957, blue: 0.957, alpha: 0.95)), for: .default)
-        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().tintColor = UIColor(red: 0.12, green: 0.18, blue: 0.26, alpha: 1.0)
+        window?.tintColor = .ph_iconColor
 
-        UIToolbar.appearance().barTintColor = .clear
-        UIToolbar.appearance().tintColor = UIColor(red: 0.12, green: 0.18, blue: 0.26, alpha: 1.0)
-        UIToolbar.appearance().setBackgroundImage(UIImage.colorResizableImage(color: UIColor(red: 0.957, green: 0.957, blue: 0.957, alpha: 0.95)), forToolbarPosition: .top, barMetrics: .default)
+        UINavigationBar.appearance().barTintColor = .ph_popoverButtonColor
+        UINavigationBar.appearance().setBackgroundImage(UIImage.colorResizableImage(color: .ph_popoverButtonColor), for: .default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().tintColor = .ph_iconColor
+
+        UIToolbar.appearance().barTintColor = .ph_popoverButtonColor
+        UIToolbar.appearance().tintColor = .ph_iconColor
+        UIToolbar.appearance().setBackgroundImage(UIImage.colorResizableImage(color: .ph_popoverButtonColor), forToolbarPosition: .top, barMetrics: .default)
+
+        UIBarButtonItem.appearance().tintColor = .ph_textColor
+
+        UITableViewCell.appearance().backgroundColor = .ph_cellBackgroundColor
+
+        UIScrollView.appearance().backgroundColor = .ph_cellBackgroundColor
+        UIScrollView.appearance(whenContainedInInstancesOf: [NotesTableViewController.self]).backgroundColor = .ph_cellBackgroundColor
+
+        UISwitch.appearance().onTintColor = .ph_switchTintColor
+        UISwitch.appearance().tintColor = .ph_switchTintColor
+
+        UILabel.appearance().themeColor = .ph_textColor
 
         if let splitViewController = self.window?.rootViewController as? UISplitViewController,
             let navigationController = splitViewController.viewControllers.last as? UINavigationController {

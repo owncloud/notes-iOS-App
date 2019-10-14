@@ -15,11 +15,6 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var offlineModeSwitch: UISwitch!
     @IBOutlet var statusLabel: UILabel!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.tableView.backgroundColor = UIColor(red: 0.957, green: 0.957, blue: 0.957, alpha:1.0)
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.syncOnStartSwitch.isOn = KeychainHelper.syncOnStart

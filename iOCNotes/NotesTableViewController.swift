@@ -155,13 +155,12 @@ class NotesTableViewController: UITableViewController {
         searchController?.dimsBackgroundDuringPresentation = false
         searchController?.searchBar.delegate = self
         searchController?.searchBar.sizeToFit()
-        searchController?.searchBar.tintColor = UIColor(red:0.12, green:0.18, blue:0.26, alpha:1.0)
-        searchController?.searchBar.barTintColor = UIColor(red:0.957, green:0.957, blue:0.957, alpha:0.95)
-        searchController?.searchBar.backgroundImage = UIImage()
+
         sectionCollapsedInfo = KeychainHelper.sectionExpandedInfo
         
         tableView.tableHeaderView = searchController?.searchBar
         tableView.contentOffset = CGPoint(x: 0, y: searchController?.searchBar.frame.size.height ?? 0.0 + tableView.contentOffset.y)
+        tableView.backgroundView = UIView()
         tableView.dropDelegate = self
         updateSectionExpandedInfo()
         tableView.reloadData()
@@ -241,7 +240,7 @@ class NotesTableViewController: UITableViewController {
             return
         }
         let selectedBackgroundView = UIView(frame: cell.frame)
-        selectedBackgroundView.backgroundColor = UIColor(red: 0.87, green: 0.87, blue: 0.87, alpha: 1.0) // set color here
+        selectedBackgroundView.backgroundColor = UIColor.ph_cellSelectionColor
         cell.selectedBackgroundView = selectedBackgroundView
         let note = self.notesFrc.object(at: indexPath)
         cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
