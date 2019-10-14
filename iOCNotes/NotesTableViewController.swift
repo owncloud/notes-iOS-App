@@ -148,7 +148,6 @@ class NotesTableViewController: UITableViewController {
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.toolbar.isTranslucent = true
         navigationController?.toolbar.clipsToBounds = true
-        splitViewController?.delegate = self;
         searchController = UISearchController(searchResultsController: nil)
         searchController?.searchResultsUpdater = self
         searchController?.hidesNavigationBarDuringPresentation = true
@@ -561,36 +560,6 @@ extension NotesTableViewController: UISearchResultsUpdating {
 extension NotesTableViewController: UISearchBarDelegate {
     
     
-}
-
-extension NotesTableViewController: UISplitViewControllerDelegate {
-    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
-        guard svc == self.splitViewController else {
-            return
-        }
-        if displayMode == .allVisible || displayMode == .primaryOverlay {
-            self.editorViewController?.noteView.resignFirstResponder()
-        }
-    }
-
-    func targetDisplayModeForAction(in svc: UISplitViewController) -> UISplitViewController.DisplayMode {
-        if svc.displayMode == .primaryHidden {
-            if svc.traitCollection.horizontalSizeClass == .regular,
-            [.landscapeLeft, .landscapeRight].contains(UIDevice.current.orientation) {
-                return .allVisible
-            }
-            return .primaryOverlay
-        }
-        return .primaryHidden
-    }
-
-    override func collapseSecondaryViewController(_ secondaryViewController: UIViewController, for splitViewController: UISplitViewController) {
-        self.editorViewController?.note = nil
-    }
-
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        return true
-    }
 }
 
 extension NotesTableViewController: UITableViewDropDelegate {

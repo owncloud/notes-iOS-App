@@ -170,7 +170,7 @@
         <!--Split View Controller-->
         <scene sceneID="T5b-rp-L4S">
             <objects>
-                <splitViewController id="Hnc-wc-q9I" sceneMemberID="viewController">
+                <splitViewController id="Hnc-wc-q9I" customClass="PBHSplitViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="RQg-o0-i6F" kind="relationship" relationship="masterViewController" id="kQb-cu-1IE"/>
                         <segue destination="R1o-2G-Lxf" kind="relationship" relationship="detailViewController" id="2gj-xK-JEy"/>
@@ -686,6 +686,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RCf-VZ-GG6"/>
+        <segue reference="2gj-xK-JEy"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -17,6 +17,7 @@
 		BD92271F22CF4EBE004E2408 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */; };
 		BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92272622D7874E004E2408 /* Notepad.framework */; };
 		BDD015A1234CF551000BA001 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD015A0234CEF86000BA001 /* Colors.xcassets */; };
+		BDD015A32353F7D4000BA001 /* PBHSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
 		D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DA220BCA290047E090 /* ResponseSerializer.swift */; };
@@ -93,6 +94,7 @@
 		BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMessages.framework; path = Carthage/Build/iOS/SwiftMessages.framework; sourceTree = "<group>"; };
 		BD92272622D7874E004E2408 /* Notepad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Notepad.framework; path = Carthage/Build/iOS/Notepad.framework; sourceTree = "<group>"; };
 		BDD015A0234CEF86000BA001 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBHSplitViewController.swift; sourceTree = "<group>"; };
 		D00293D619F48B5300B2DA8F /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D00CDFBB194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFBC194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */,
 				D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */,
 				D0545F22230901D30001D165 /* PBHOpenInActivity.swift */,
+				BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */,
 				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
 				BD92271A22CD3743004E2408 /* UtilityExtensions.swift */,
 				BD653F87231C43FA00D59A88 /* Constants.swift */,
@@ -502,6 +505,7 @@
 				D01067DE220BCE3C0047E090 /* NoteSessionManager.swift in Sources */,
 				D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */,
 				D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */,
+				BDD015A32353F7D4000BA001 /* PBHSplitViewController.swift in Sources */,
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
 				D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */,
 				BD653F88231C43FA00D59A88 /* Constants.swift in Sources */,

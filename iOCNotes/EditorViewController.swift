@@ -103,7 +103,10 @@ class EditorViewController: UIViewController {
         navigationController?.delegate = self
         navigationController?.toolbar.isTranslucent = true
         navigationController?.toolbar.clipsToBounds = true
-        
+
+        if let splitVC = splitViewController as? PBHSplitViewController {
+            splitVC.editorViewController = self
+        }
         addingNote = false
         updatedByEditing = false
         self.observers.append(NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification,
@@ -125,13 +128,6 @@ class EditorViewController: UIViewController {
                                                                         self?.preferredContentSizeChanged()
         }))
 
-        /*
-         [NSNotificationCenter.defaultCenter addObserver:self
-         selector:@selector(noteUpdated:)
-         name:FCModelChangeNotification
-         object:OCNote.class];
- */
-//        view.setNeedsUpdateConstraints()
         if let transitionCoordinator = transitionCoordinator {
             viewWillTransition(to: UIScreen.main.bounds.size, with: transitionCoordinator)
         }
@@ -270,55 +266,6 @@ class EditorViewController: UIViewController {
     @IBAction func onDone(_ sender: Any?) {
         noteView.endEditing(true)
     }
-    
-    /*
-
-     - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
-     {
-     _activityPopover = nil;
-     }
-     
-     - (void)noteUpdated:(NSNotification *)notification {
-     //    NSLog(@"Informed about note update");
-     if (self.ocNote && !self.ocNote.deleteNeeded) {
-     self.noteView.editable = YES;
-     self.noteView.selectable = YES;
-     self.activityButton.enabled = (self.noteView.text.length > 0);
-     self.addButton.enabled = (self.noteView.text.length > 0);
-     self.previewButton.enabled = (self.noteView.text.length > 0);
-     self.deleteButton.enabled = YES;
-     NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.ocNote.modified];
-     if (date) {
-     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-     dateFormat.dateStyle = NSDateFormatterShortStyle;
-     dateFormat.timeStyle = NSDateFormatterShortStyle;
-     dateFormat.doesRelativeDateFormatting = NO;
-     //TODO self.noteView.headerLabel.text = [dateFormat stringFromDate:date];
-     //TODO self.noteView.headerLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-     }
-     } else {
-     self.noteView.editable = NO;
-     self.noteView.selectable = NO;
-     //TODO self.noteView.headerLabel.text = NSLocalizedString(@"Select or create a note.", @"Placeholder text when no note is selected");
-     self.navigationItem.title = @"";
-     }
-     if (self.addingNote) {
-     [self.view bringSubviewToFront:self.noteView];
-     [self.noteView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.3];
-     if (self.splitViewController.displayMode == UISplitViewControllerDisplayModeAllVisible || self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryOverlay) {
-     [UIView animateWithDuration:0.3 animations:^{
-     self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
-     } completion:^(BOOL finished){
-     //
-     }];
-     }
-     self.addingNote = NO;
-     }
-     if (!self.updatedByEditing) {
-     self.noteView.text = self.ocNote.content;
-     }
-     }
-*/
 
     func keyboardWillShow(notification: Notification) {
         if self.traitCollection.userInterfaceIdiom == .phone {
