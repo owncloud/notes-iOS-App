@@ -124,11 +124,6 @@
 		D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D06882ED22BB146200CEBC1F /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
-		D0782BF520D7422E009AF66B /* NoteOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperation.swift; path = Operations/NoteOperation.swift; sourceTree = "<group>"; };
-		D0782BF720D7487D009AF66B /* NoteOperationUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationUpdate.swift; path = Operations/NoteOperationUpdate.swift; sourceTree = "<group>"; };
-		D0782BF920D748FD009AF66B /* NoteOperationAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationAdd.swift; path = Operations/NoteOperationAdd.swift; sourceTree = "<group>"; };
-		D0782BFB20D74947009AF66B /* NoteOperationGet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationGet.swift; path = Operations/NoteOperationGet.swift; sourceTree = "<group>"; };
-		D0782BFD20D7496B009AF66B /* NoteOperationDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteOperationDelete.swift; path = Operations/NoteOperationDelete.swift; sourceTree = "<group>"; };
 		D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataClass.swift"; path = "CoreData/CDNote+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataProperties.swift"; path = "CoreData/CDNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D07F5E882207B2CF00528E90 /* NotesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotesData.swift; path = CoreData/NotesData.swift; sourceTree = "<group>"; };
@@ -223,18 +218,6 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		D0A648571B0F582D005C0981 /* OCNoteOperation */ = {
-			isa = PBXGroup;
-			children = (
-				D0782BF520D7422E009AF66B /* NoteOperation.swift */,
-				D0782BF920D748FD009AF66B /* NoteOperationAdd.swift */,
-				D0782BF720D7487D009AF66B /* NoteOperationUpdate.swift */,
-				D0782BFB20D74947009AF66B /* NoteOperationGet.swift */,
-				D0782BFD20D7496B009AF66B /* NoteOperationDelete.swift */,
-			);
-			name = OCNoteOperation;
-			sourceTree = "<group>";
-		};
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
@@ -285,7 +268,6 @@
 				D01067DC220BCAD60047E090 /* Models */,
 				D07F5E8C2207B6D700528E90 /* Networking */,
 				D05110BE20CA1F9D00AFFDC7 /* CoreData */,
-				D0A648571B0F582D005C0981 /* OCNoteOperation */,
 				D01067E32213BDF20047E090 /* AppDelegate.swift */,
 				BD302B8F22B8061A00067888 /* LoginTableViewController.swift */,
 				D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */,
