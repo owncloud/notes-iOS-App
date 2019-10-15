@@ -1,9 +1,0 @@
-{
-  "commitish" : "2.4.0",
-  "iOS" : [
-    {
-      "name" : "AlamofireNetworkActivityIndicator",
-      "hash" : "80d1bb1b99f8dd963efc3c4d1b99e907db5284d5de3fce96755220eeb838d910"
-    }
-  ]
-}

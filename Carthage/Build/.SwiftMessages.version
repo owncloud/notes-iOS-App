@@ -1,9 +1,0 @@
-{
-  "commitish" : "7.0.0",
-  "iOS" : [
-    {
-      "name" : "SwiftMessages",
-      "hash" : "b2ecf645f3a07e3fb3fb4cdecb449306119e880df16f936c9ee7c997e7bd4a26"
-    }
-  ]
-}
