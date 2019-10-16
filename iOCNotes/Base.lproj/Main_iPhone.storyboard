@@ -583,7 +583,7 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IFf-6O-RA5">
                                                     <rect key="frame" x="32" y="12" width="20" height="20"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="EOo-c1-KKG"/>
                                                         <constraint firstAttribute="width" constant="20" id="WbG-rt-Atc"/>
