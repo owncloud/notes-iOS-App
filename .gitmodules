@@ -1,0 +1,3 @@
+[submodule "LicenseGenerator"]
+	path = LicenseGenerator
+	url = https://github.com/carloe/LicenseGenerator-iOS.git

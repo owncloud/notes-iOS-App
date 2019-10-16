@@ -136,6 +136,7 @@
 		D09E430F1E2C469C0010E4B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E43101E2C469F0010E4B3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E43111E2C46A20010E4B3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D0A00D462356A7EB0054E3A3 /* credits.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = credits.py; sourceTree = "<group>"; };
 		D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTableViewHeaderView.swift; sourceTree = "<group>"; };
 		D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollapsibleTableViewHeaderView.xib; sourceTree = "<group>"; };
 		D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -221,6 +222,7 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
+				D0A00D462356A7EB0054E3A3 /* credits.py */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
 				D0CFE5351888A7BD00165839 /* Frameworks */,
@@ -338,6 +340,7 @@
 				D022570C189749920038232A /* ShellScript */,
 				D0A3E9DF1CD5759700857A46 /* Embed Frameworks */,
 				D05110BD20C8CA2A00AFFDC7 /* ShellScript */,
+				D0A00D472356A7F80054E3A3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -475,6 +478,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		D0A00D472356A7F80054E3A3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n./LicenseGenerator/credits.py -s \"$SRCROOT/Carthage/Checkouts\" -o \"$SRCROOT/iOCNotes/Settings.bundle/licenses.plist\" -e \"AlamofireNetworkActivityIndicator/Carthage,CrashProbe,KSCrash/Source/KSCrash/llvm,swift\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -694,6 +714,7 @@
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 3.0.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
@@ -724,6 +745,7 @@
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 3.0.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
