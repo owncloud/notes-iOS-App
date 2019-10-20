@@ -1,9 +1,0 @@
-{
-  "commitish" : "0.3.0",
-  "iOS" : [
-    {
-      "name" : "Notepad",
-      "hash" : "d1ac518f0eff178257e6a6ad0e3ec63b060c6c4afa7a6ccfa7c294a24427ca16"
-    }
-  ]
-}

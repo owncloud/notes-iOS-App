@@ -47,7 +47,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UISwitch.appearance().tintColor = .ph_switchTintColor
 
         UILabel.appearance().themeColor = .ph_textColor
-
+        UILabel.appearance(whenContainedInInstancesOf: [UITextField.self]).themeColor = .ph_readTextColor
+        
+        UITextField.appearance().textColor = .ph_textColor
+        
         if let splitViewController = self.window?.rootViewController as? UISplitViewController,
             let navigationController = splitViewController.viewControllers.last as? UINavigationController {
             navigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem

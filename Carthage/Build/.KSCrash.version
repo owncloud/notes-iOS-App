@@ -1,9 +1,0 @@
-{
-  "commitish" : "1.15.21",
-  "iOS" : [
-    {
-      "name" : "KSCrash",
-      "hash" : "fe773779d28d67221c5f8305d89175c16a3bcc25f98fca3bf7c444ad358ee99e"
-    }
-  ]
-}
