@@ -18,6 +18,7 @@
 		BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92272622D7874E004E2408 /* Notepad.framework */; };
 		BDD015A1234CF551000BA001 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD015A0234CEF86000BA001 /* Colors.xcassets */; };
 		BDD015A32353F7D4000BA001 /* PBHSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */; };
+		BDDD77A9235CDF130053DAEC /* NotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDD77A8235CDF130053DAEC /* NotesTests.swift */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
 		D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DA220BCA290047E090 /* ResponseSerializer.swift */; };
@@ -56,7 +57,6 @@
 		D0CFE55A1888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE55B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5631888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE5611888A7BD00165839 /* InfoPlist.strings */; };
-		D0CFE5651888A7BD00165839 /* iOCNotesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFE5641888A7BD00165839 /* iOCNotesTests.m */; };
 		D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5AC1890659600165839 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +95,7 @@
 		BD92272622D7874E004E2408 /* Notepad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Notepad.framework; path = Carthage/Build/iOS/Notepad.framework; sourceTree = "<group>"; };
 		BDD015A0234CEF86000BA001 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBHSplitViewController.swift; sourceTree = "<group>"; };
+		BDDD77A8235CDF130053DAEC /* NotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTests.swift; sourceTree = "<group>"; };
 		D00293D619F48B5300B2DA8F /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D00CDFBB194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFBC194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -150,7 +151,6 @@
 		D0CFE5581888A7BD00165839 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D0CFE5601888A7BD00165839 /* iOCNotesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOCNotesTests-Info.plist"; sourceTree = "<group>"; };
 		D0CFE5621888A7BD00165839 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D0CFE5641888A7BD00165839 /* iOCNotesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOCNotesTests.m; sourceTree = "<group>"; };
 		D0CFE5AC1890659600165839 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -310,7 +310,7 @@
 		D0CFE55E1888A7BD00165839 /* iOCNotesTests */ = {
 			isa = PBXGroup;
 			children = (
-				D0CFE5641888A7BD00165839 /* iOCNotesTests.m */,
+				BDDD77A8235CDF130053DAEC /* NotesTests.swift */,
 				D0CFE55F1888A7BD00165839 /* Supporting Files */,
 			);
 			path = iOCNotesTests;
@@ -381,6 +381,7 @@
 						LastSwiftMigration = 0810;
 					};
 					D0CFE5561888A7BD00165839 = {
+						LastSwiftMigration = 1110;
 						TestTargetID = D0CFE5321888A7BD00165839;
 					};
 				};
@@ -514,7 +515,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0CFE5651888A7BD00165839 /* iOCNotesTests.m in Sources */,
+				BDDD77A9235CDF130053DAEC /* NotesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,6 +740,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOCNotes.app/iOCNotes";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -751,8 +753,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "iOCNotesTests/iOCNotesTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -762,6 +767,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOCNotes.app/iOCNotes";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -770,8 +776,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOCNotes/iOCNotes-Prefix.pch";
 				INFOPLIST_FILE = "iOCNotesTests/iOCNotesTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
