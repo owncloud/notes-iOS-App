@@ -20,8 +20,6 @@ class NotesTests: XCTestCase {
     }
 
     func testAddNote() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
         let expectation = XCTestExpectation(description: "Note Expectation")
         let content = "Note added during test"
         NotesManager.shared.add(content: content, category: Constants.noCategory, completion: { note in
@@ -33,10 +31,8 @@ class NotesTests: XCTestCase {
     }
 
     func testAddNoteWithCategory() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
         let expectation = XCTestExpectation(description: "Note Expectation")
-        let content = "Note with categorty added during test"
+        let content = "Note with category added during test"
         let category = "Test Category"
         NotesManager.shared.add(content: content, category: category, completion: { note in
             XCTAssertNotNil(note, "Expected note to not be nil")
