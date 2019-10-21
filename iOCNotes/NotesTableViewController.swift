@@ -479,6 +479,10 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         case .insert:
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .fade)
+                if sectionExpandedInfoCount < sectionCollapsedInfo.count {
+                    print("A section was added")
+                    tableView.insertSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
+                }
             }
         case .delete:
             if let indexPath = indexPath {
