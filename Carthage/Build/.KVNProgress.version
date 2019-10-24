@@ -1,9 +1,0 @@
-{
-  "commitish" : "2.2.3",
-  "iOS" : [
-    {
-      "name" : "KVNProgressKit",
-      "hash" : "b9523055a76959b26116f9d37b3f5fd699dfe385227f3c43146b9d67f9a2ae04"
-    }
-  ]
-}
