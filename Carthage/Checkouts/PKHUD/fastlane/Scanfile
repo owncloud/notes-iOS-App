@@ -1,5 +1,0 @@
-clean true
-output_types "html"
-devices ["iPhone 5s", "iPhone 6s", "iPhone 7", "iPad Air"]
-scheme "PKHUD Demo"
-open_report true

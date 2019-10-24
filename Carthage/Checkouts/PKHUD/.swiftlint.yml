@@ -1,4 +1,0 @@
-excluded: # paths to ignore during linting. overridden byincluded.
-- Pods
-line_length: 200
-cyclomatic_complexity: 15
