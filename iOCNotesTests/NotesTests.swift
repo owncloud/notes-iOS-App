@@ -75,4 +75,23 @@ class NotesTests: XCTestCase {
         wait(for: [expectation], timeout: 15.0)
     }
 
+    func testAddOffline() {
+        let expectation = XCTestExpectation(description: "Note Expectation")
+        KeychainHelper.offlineMode = true
+        let content = "Note added during offline test"
+        NotesManager.shared.add(content: content, category: "", completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            XCTAssertTrue(note?.addNeeded == true, "Expected addNeeded to be true")
+            KeychainHelper.offlineMode = false
+            NotesManager.shared.sync() {
+                if CDNote.all()?.filter( { $0.addNeeded == true }).count ?? 0 > 0 {
+                    XCTFail("Expected addNeeded count to be 0")
+                }
+                expectation.fulfill()
+            }
+        })
+        wait(for: [expectation], timeout: 15.0)
+    }
+
+
 }
