@@ -43,11 +43,36 @@ class NotesTests: XCTestCase {
         wait(for: [expectation], timeout: 10.0)
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testAddAndDeleteNote() {
+        let expectation = XCTestExpectation(description: "Note Expectation")
+        let content = "Note added and deleted during test"
+        NotesManager.shared.add(content: content, category: Constants.noCategory, completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            XCTAssertTrue(note?.addNeeded == false, "Expected addNeeded to be false")
+            if let note = note {
+                NotesManager.shared.delete(note: note) {
+                    expectation.fulfill()
+                }
+            }
+        })
+        wait(for: [expectation], timeout: 15.0)
+    }
+
+    func testAddAndDeleteNoteWithCategory() {
+        let expectation = XCTestExpectation(description: "Note Expectation")
+        let content = "Note added and deleted during test"
+        let category = "Test Category"
+        NotesManager.shared.add(content: content, category: category, completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            XCTAssertTrue(note?.addNeeded == false, "Expected addNeeded to be false")
+            XCTAssertEqual(note?.category, "Test Category", "Expected the category to be Test Category")
+            if let note = note {
+                NotesManager.shared.delete(note: note) {
+                    expectation.fulfill()
+                }
+            }
+        })
+        wait(for: [expectation], timeout: 15.0)
     }
 
 }
