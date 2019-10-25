@@ -77,6 +77,7 @@ class CategoryTableViewController: UITableViewController {
     }
     
     @IBAction func onCancel(_ sender: Any) {
+        NotificationCenter.default.post(name: .doneSelectingCategory, object: nil)
         dismiss(animated: true, completion: nil)
     }
 

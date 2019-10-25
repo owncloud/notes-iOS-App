@@ -14,6 +14,7 @@ extension NSNotification.Name {
     static let networkSuccess = NSNotification.Name("NetworkSucces")
     static let networkError = NSNotification.Name("NetworkError")
     static let offlineModeChanged = NSNotification.Name("OfflineModeChanged")
+    static let doneSelectingCategory = NSNotification.Name("DoneSelectingCategory")
 }
 
 extension UIImage {

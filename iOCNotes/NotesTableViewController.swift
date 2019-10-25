@@ -102,6 +102,12 @@ class NotesTableViewController: UITableViewController {
                                                                      using: { [weak self] _ in
                                                                         self?.onRefresh(sender: nil)
         }))
+        self.observers.append(NotificationCenter.default.addObserver(forName: .doneSelectingCategory,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] _ in
+                                                                        self?.isSyncing = false
+        }))
         self.observers.append(NotificationCenter.default.addObserver(forName: .networkSuccess,
                                                                      object: nil,
                                                                      queue: OperationQueue.main,
@@ -461,9 +467,11 @@ class NotesTableViewController: UITableViewController {
         } else if KeychainHelper.syncOnStart {
             onRefresh(sender: nil)
         } else if KeychainHelper.dbReset {
+            isSyncing = true
             CDNote.reset()
             KeychainHelper.dbReset = false
             tableView.reloadData()
+            isSyncing = false
         }
     }
 
@@ -610,6 +618,7 @@ extension NotesTableViewController: NoteCategoryDelegate {
     
     func selectCategory(_ indexPath: IndexPath) {
         indexPathForCategory = indexPath
+        isSyncing = true
         self.performSegue(withIdentifier: "SelectCategorySegue", sender: self)
     }
     
