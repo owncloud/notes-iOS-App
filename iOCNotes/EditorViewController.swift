@@ -242,7 +242,7 @@ class EditorViewController: UIViewController {
     
     @IBAction func onAdd(_ sender: Any?) {
         addingNote = true
-        NotesManager.shared.add(content: "", category: Constants.noCategory, favorite: false) { [weak self] note in
+        NotesManager.shared.add(content: "", category: "", favorite: false) { [weak self] note in
             self?.note = note
         }
     }

@@ -63,13 +63,8 @@ class CategoryTableViewController: UITableViewController {
         currentCategory = categories[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         if let note = self.note {
-            if currentCategory == Constants.noCategory {
-                self.note?.category = ""
-                note.category = ""
-            } else {
-                self.note?.category = currentCategory
-                note.category = currentCategory
-            }
+            self.note?.category = currentCategory
+            note.category = currentCategory
             tableView.reloadData()
             navigationItem.leftBarButtonItem = doneBarButton
             NotesManager.shared.update(note: note)

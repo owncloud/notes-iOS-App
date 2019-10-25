@@ -134,9 +134,8 @@ class NotesManager {
     func addToServer(note: CDNote, completion: @escaping SyncCompletionBlockWithNote) {
         let newNote = note
         var result: CDNote?
-        let serverCategory = note.category == Constants.noCategory ? "" : note.category
         let parameters: Parameters = ["content": note.content as Any,
-                                      "category": serverCategory as Any,
+                                      "category": note.category as Any,
                                       "modified": note.modified,
                                       "favorite": note.favorite]
         let router = Router.createNote(paramters: parameters)
@@ -153,7 +152,7 @@ class NotesManager {
                         newNote.modified = note.modified
                         newNote.title = note.title
                         newNote.content = note.content
-                        newNote.category = note.category == "" ? Constants.noCategory : note.category
+                        newNote.category = note.category
                         newNote.addNeeded = false
                         newNote.updateNeeded = false
                         result = CDNote.update(note: newNote)

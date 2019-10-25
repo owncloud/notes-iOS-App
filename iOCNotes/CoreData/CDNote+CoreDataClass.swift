@@ -19,10 +19,18 @@ public class CDNote: NSManagedObject {
         super.awakeFromInsert()
         self.guid = UUID().uuidString
         self.content = ""
-        self.category = Constants.noCategory
+        self.category = ""
         self.addNeeded = true
         self.updateNeeded = false
         self.deleteNeeded = false
+    }
+
+    @objc var sectionName: String {
+        if self.cdCategory.isEmpty {
+            return Constants.noCategory
+        } else {
+            return self.cdCategory
+        }
     }
 
     static func all() -> [CDNote]? {
@@ -89,7 +97,7 @@ public class CDNote: NSManagedObject {
                     let records = try NotesData.mainThreadContext.fetch(request)
                     if let existingRecord = records.first {
                         existingRecord.guid = note.guid
-                        existingRecord.category = note.category == "" ? Constants.noCategory : note.category
+                        existingRecord.category = note.category
                         existingRecord.content = note.content
                         existingRecord.title = note.title
                         existingRecord.favorite = note.favorite
@@ -97,7 +105,7 @@ public class CDNote: NSManagedObject {
                     } else {
                         let newRecord = NSEntityDescription.insertNewObject(forEntityName: CDNote.entityName, into: NotesData.mainThreadContext) as! CDNote
                         newRecord.guid = note.guid
-                        newRecord.category = note.category == "" ? Constants.noCategory : note.category
+                        newRecord.category = note.category
                         newRecord.content = note.content
                         if note.id > 0 {
                             newRecord.id = note.id
@@ -125,7 +133,7 @@ public class CDNote: NSManagedObject {
                 if let existingRecord = records.first {
                     //                        existingRecord.id = note.id
                     existingRecord.guid = note.guid
-                    existingRecord.category = note.category == "" ? Constants.noCategory : note.category
+                    existingRecord.category = note.category
                     existingRecord.content = note.content
                     existingRecord.title = note.title
                     existingRecord.favorite = note.favorite
@@ -134,7 +142,7 @@ public class CDNote: NSManagedObject {
                 } else {
                     let newRecord = NSEntityDescription.insertNewObject(forEntityName: CDNote.entityName, into: NotesData.mainThreadContext) as! CDNote
                     newRecord.guid = note.guid
-                    newRecord.category = note.category == "" ? Constants.noCategory : note.category
+                    newRecord.category = note.category
                     newRecord.content = note.content
                     newRecord.id = note.id
                     newRecord.title = note.title

@@ -201,7 +201,7 @@ class NotesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as! CollapsibleTableViewHeaderView
-        var displayTitle = Constants.noCategory
+        var displayTitle = ""
         var title = ""
         if let sections = notesFrc.sections {
             let currentSection = sections[section]
@@ -411,7 +411,7 @@ class NotesTableViewController: UITableViewController {
             isSyncing = true
         }
         HUD.show(.progress)
-        NotesManager.shared.add(content: "", category: Constants.noCategory, completion: { [weak self] note in
+        NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
             if note != nil {
                 self?.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
                 self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
@@ -429,15 +429,10 @@ class NotesTableViewController: UITableViewController {
                                    NSSortDescriptor(key: "cdModified", ascending: false)]
         let frc = NSFetchedResultsController(fetchRequest: request,
                                              managedObjectContext: NotesData.mainThreadContext,
-                                             sectionNameKeyPath: "cdCategory",
+                                             sectionNameKeyPath: "sectionName",
                                              cacheName: nil)
         frc.delegate = self
-        try! frc.performFetch()
-//        if let sections = frc.sections {
-//            for _ in sections {
-//                sectionExpandedInfo.append(true)
-//            }
-//        }
+        try? frc.performFetch()
         return frc
     }
 
@@ -606,7 +601,7 @@ extension NotesTableViewController: UITableViewDropDelegate {
             item.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypeText as String) { (data, _) in
                 if let contentData = data,
                     let content = String(bytes: contentData, encoding: .utf8) {
-                        NotesManager.shared.add(content: content, category: Constants.noCategory)
+                        NotesManager.shared.add(content: content, category: "")
                 }
             }
         }
