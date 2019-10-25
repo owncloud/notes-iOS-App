@@ -401,9 +401,9 @@ class NotesTableViewController: UITableViewController {
     }
 
     @IBAction func onAdd(sender: Any?) {
-//        self.addingNote = YES;
-//        self.editorViewController.addingNote = YES;
-//        [[OCNotesHelper sharedHelper] addNote:@""];
+        if sectionCollapsedInfo.count == 0 {
+            isSyncing = true
+        }
         HUD.show(.progress)
         NotesManager.shared.add(content: "", category: Constants.noCategory, completion: { [weak self] note in
             if note != nil {
@@ -411,6 +411,7 @@ class NotesTableViewController: UITableViewController {
                 self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
             }
             HUD.hide()
+            self?.isSyncing = false
         })
     }
     
