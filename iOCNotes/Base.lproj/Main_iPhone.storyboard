@@ -501,7 +501,7 @@
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="https://example.com/cloud" adjustsFontSizeToFit="NO" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="POY-0l-xVn">
-                                                    <rect key="frame" x="103" y="14" width="291" height="19"/>
+                                                    <rect key="frame" x="130" y="14" width="264" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="next"/>
                                                 </textField>
@@ -509,7 +509,7 @@
                                             <constraints>
                                                 <constraint firstItem="6JA-kC-iF4" firstAttribute="leading" secondItem="IJS-jg-0wW" secondAttribute="leadingMargin" id="5iW-zv-hU1"/>
                                                 <constraint firstAttribute="trailing" secondItem="POY-0l-xVn" secondAttribute="trailing" constant="20" id="Erz-M2-3pR"/>
-                                                <constraint firstItem="POY-0l-xVn" firstAttribute="leading" secondItem="IJS-jg-0wW" secondAttribute="leading" constant="103" id="Oz9-cm-zsN"/>
+                                                <constraint firstItem="POY-0l-xVn" firstAttribute="leading" secondItem="IJS-jg-0wW" secondAttribute="leading" constant="130" id="Oz9-cm-zsN"/>
                                                 <constraint firstItem="6JA-kC-iF4" firstAttribute="centerY" secondItem="IJS-jg-0wW" secondAttribute="centerY" id="caS-gt-S7X"/>
                                                 <constraint firstAttribute="centerY" secondItem="POY-0l-xVn" secondAttribute="centerY" constant="-1.5" id="zWf-S5-tWG"/>
                                             </constraints>
@@ -529,7 +529,7 @@
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Server Username" adjustsFontSizeToFit="NO" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PXx-Ke-abd">
-                                                    <rect key="frame" x="103" y="13" width="291" height="19"/>
+                                                    <rect key="frame" x="130" y="13" width="264" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                 </textField>
@@ -539,7 +539,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="PXx-Ke-abd" secondAttribute="trailing" constant="20" id="bZt-ga-Xs2"/>
                                                 <constraint firstItem="DJL-8q-B7Y" firstAttribute="leading" secondItem="FS5-qB-3Y4" secondAttribute="leadingMargin" id="boX-Ce-JSr"/>
                                                 <constraint firstAttribute="centerY" secondItem="PXx-Ke-abd" secondAttribute="centerY" constant="-0.5" id="ufj-cw-Bdt"/>
-                                                <constraint firstItem="PXx-Ke-abd" firstAttribute="leading" secondItem="FS5-qB-3Y4" secondAttribute="leading" constant="103" id="yBW-Vg-e94"/>
+                                                <constraint firstItem="PXx-Ke-abd" firstAttribute="leading" secondItem="FS5-qB-3Y4" secondAttribute="leading" constant="130" id="yBW-Vg-e94"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -557,14 +557,14 @@
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Server Password" adjustsFontSizeToFit="NO" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="TWC-3X-LgS">
-                                                    <rect key="frame" x="103" y="14" width="291" height="19"/>
+                                                    <rect key="frame" x="130" y="14" width="264" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="TWC-3X-LgS" secondAttribute="trailing" constant="20" id="7Wn-9P-SQz"/>
-                                                <constraint firstItem="TWC-3X-LgS" firstAttribute="leading" secondItem="Wtt-0T-xMp" secondAttribute="leading" constant="103" id="Cf9-to-cAe"/>
+                                                <constraint firstItem="TWC-3X-LgS" firstAttribute="leading" secondItem="Wtt-0T-xMp" secondAttribute="leading" constant="130" id="Cf9-to-cAe"/>
                                                 <constraint firstAttribute="centerY" secondItem="TWC-3X-LgS" secondAttribute="centerY" constant="-1.5" id="DaQ-vd-1Ri"/>
                                                 <constraint firstItem="fDE-jW-f9T" firstAttribute="leading" secondItem="Wtt-0T-xMp" secondAttribute="leadingMargin" id="GyP-qy-yG7"/>
                                                 <constraint firstItem="fDE-jW-f9T" firstAttribute="centerY" secondItem="Wtt-0T-xMp" secondAttribute="centerY" id="cYr-Tg-nZs"/>
