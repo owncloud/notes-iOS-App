@@ -286,7 +286,10 @@ class NotesTableViewController: UITableViewController {
                 if indexPath.row >= 0 {
                     newIndex = indexPath.row
                 }
-                let noteCount = self?.notesFrc.sections?[indexPath.section].numberOfObjects ?? 0
+                var noteCount = 0
+                if let sections = self?.notesFrc.sections, sections.count > 0 {
+                    noteCount = sections[indexPath.section].numberOfObjects
+                }
                 if newIndex >= noteCount {
                     newIndex = noteCount - 1
                 }
