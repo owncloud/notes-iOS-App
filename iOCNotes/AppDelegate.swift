@@ -13,7 +13,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let categoryMenu = UIMenuItem(title: "Category", action: #selector(NoteTableViewCell.selectCategory(sender:)))
+    let categoryMenu = UIMenuItem(title: NSLocalizedString("Category", comment: "'Category' menu item"), action: #selector(NoteTableViewCell.selectCategory(sender:)))
 
     var window: UIWindow?
 
