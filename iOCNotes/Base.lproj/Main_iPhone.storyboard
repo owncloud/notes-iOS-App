@@ -503,7 +503,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="https://example.com/cloud" adjustsFontSizeToFit="NO" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="POY-0l-xVn">
                                                     <rect key="frame" x="130" y="14" width="264" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="next" textContentType="url"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -531,7 +531,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Server Username" adjustsFontSizeToFit="NO" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PXx-Ke-abd">
                                                     <rect key="frame" x="130" y="13" width="264" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" textContentType="username"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -559,7 +559,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Server Password" adjustsFontSizeToFit="NO" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="TWC-3X-LgS">
                                                     <rect key="frame" x="130" y="14" width="264" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
