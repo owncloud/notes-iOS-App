@@ -41,13 +41,13 @@ class NotesTableViewController: UITableViewController {
     private var searchResult: [CDNote]?
     private var indexPathForCategory: IndexPath?
     private var numberOfObjectsInCurrentSection = 0
+    private var rowAlreadyInserted = false
 
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
 
     private var observers = [NSObjectProtocol]()
     private var sectionCollapsedInfo = ExpandableSectionType()
     private var sectionExpandedInfoCount = 1
-    private var isSyncing = false
     
     private var dateFormat: DateFormatter {
         let df = DateFormatter()
@@ -101,12 +101,6 @@ class NotesTableViewController: UITableViewController {
                                                                      queue: OperationQueue.main,
                                                                      using: { [weak self] _ in
                                                                         self?.onRefresh(sender: nil)
-        }))
-        self.observers.append(NotificationCenter.default.addObserver(forName: .doneSelectingCategory,
-                                                                     object: nil,
-                                                                     queue: OperationQueue.main,
-                                                                     using: { [weak self] _ in
-                                                                        self?.isSyncing = false
         }))
         self.observers.append(NotificationCenter.default.addObserver(forName: .networkSuccess,
                                                                      object: nil,
@@ -282,31 +276,30 @@ class NotesTableViewController: UITableViewController {
             }
             
             NotesManager.shared.delete(note: note, completion: { [weak self] in
-                var newIndex = 0
-                if indexPath.row >= 0 {
-                    newIndex = indexPath.row
-                }
-                var noteCount = 0
-                if let sections = self?.notesFrc.sections, sections.count > 0 {
-                    noteCount = sections[indexPath.section].numberOfObjects
-                }
-                if newIndex >= noteCount {
-                    newIndex = noteCount - 1
-                }
-
-                if newIndex >= 0 && newIndex < noteCount,
-                    let newNote = self?.notesFrc.sections?[indexPath.section].objects?[newIndex] as? CDNote {
-                    self?.editorViewController?.note = newNote
-                    DispatchQueue.main.async {
-                        self?.tableView.selectRow(at: IndexPath(row: newIndex, section: indexPath.section), animated: false, scrollPosition: .none)
+                if self?.notesFrc.validate(indexPath: indexPath) ?? false {
+                    var newIndex = 0
+                    if indexPath.row >= 0 {
+                        newIndex = indexPath.row
                     }
-                } else {
-                    self?.editorViewController?.note = nil
+                    var noteCount = 0
+                    if let sections = self?.notesFrc.sections,
+                        sections.count >= indexPath.section {
+                        noteCount = sections[indexPath.section].numberOfObjects
+                    }
+                    if newIndex >= noteCount {
+                        newIndex = noteCount - 1
+                    }
+
+                    if newIndex >= 0 && newIndex < noteCount,
+                        let newNote = self?.notesFrc.sections?[indexPath.section].objects?[newIndex] as? CDNote {
+                        self?.editorViewController?.note = newNote
+                        DispatchQueue.main.async {
+                            self?.tableView.selectRow(at: IndexPath(row: newIndex, section: indexPath.section), animated: false, scrollPosition: .none)
+                        }
+                    } else {
+                        self?.editorViewController?.note = nil
+                    }
                 }
-                //                    if self?.splitViewController?.displayMode == .primaryHidden {
-                //                        //called while showing editor
-                //                        self?.tableView.reloadData()
-                //                    }
                 HUD.hide()
             })
             tableView.endUpdates()
@@ -384,13 +377,11 @@ class NotesTableViewController: UITableViewController {
         refreshBarButton.isEnabled = false
         addBarButton.isEnabled = false
         settingsBarButton.isEnabled = false
-        isSyncing = true
         NotesManager.shared.sync { [weak self] in
             self?.addBarButton.isEnabled = true
             self?.settingsBarButton.isEnabled = true
             self?.refreshBarButton.isEnabled = NotesManager.isOnline
             self?.tableView.reloadData()
-            self?.isSyncing = false
         }
     }
 
@@ -410,9 +401,6 @@ class NotesTableViewController: UITableViewController {
     }
 
     @IBAction func onAdd(sender: Any?) {
-        if sectionCollapsedInfo.count == 0 {
-            isSyncing = true
-        }
         HUD.show(.progress)
         NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
             if note != nil {
@@ -420,7 +408,6 @@ class NotesTableViewController: UITableViewController {
                 self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
             }
             HUD.hide()
-            self?.isSyncing = false
         })
     }
     
@@ -442,12 +429,16 @@ class NotesTableViewController: UITableViewController {
     func updateSectionExpandedInfo() {
         let knownSectionTitles = Set(sectionCollapsedInfo.map({ $0.title }))
         if let sections = notesFrc.sections {
-            let newSectionTitles = Set(sections.map({ $0.name }))
-            let deleted = knownSectionTitles.subtracting(newSectionTitles)
-            let added = newSectionTitles.subtracting(knownSectionTitles)
-            sectionCollapsedInfo = sectionCollapsedInfo.filter({ !deleted.contains($0.title) })
-            for newSection in added {
-                sectionCollapsedInfo.append(ExpandableSection(title: newSection, collapsed: false))
+            if sections.count > 0 {
+                let newSectionTitles = Set(sections.map({ $0.name }))
+                let deleted = knownSectionTitles.subtracting(newSectionTitles)
+                let added = newSectionTitles.subtracting(knownSectionTitles)
+                sectionCollapsedInfo = sectionCollapsedInfo.filter({ !deleted.contains($0.title) })
+                for newSection in added {
+                    sectionCollapsedInfo.append(ExpandableSection(title: newSection, collapsed: false))
+                }
+            } else {
+                sectionCollapsedInfo.removeAll()
             }
             KeychainHelper.sectionExpandedInfo = sectionCollapsedInfo
         }
@@ -465,11 +456,9 @@ class NotesTableViewController: UITableViewController {
         } else if KeychainHelper.syncOnStart {
             onRefresh(sender: nil)
         } else if KeychainHelper.dbReset {
-            isSyncing = true
             CDNote.reset()
             KeychainHelper.dbReset = false
             tableView.reloadData()
-            isSyncing = false
         }
     }
 
@@ -485,7 +474,10 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         switch (type) {
         case .insert:
             if let indexPath = newIndexPath {
-                tableView.insertRows(at: [indexPath], with: .fade)
+                if !rowAlreadyInserted {
+                    tableView.insertRows(at: [indexPath], with: .fade)
+                }
+                rowAlreadyInserted = false
                 if sectionExpandedInfoCount < sectionCollapsedInfo.count {
                     print("A section was added")
                     tableView.insertSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
@@ -495,8 +487,6 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
             if let indexPath = indexPath {
                 if numberOfObjectsInCurrentSection > 1 {
                     tableView.deleteRows(at: [indexPath], with: .fade)
-                } else {
-                    tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
                 }
             }
 
@@ -506,19 +496,28 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
             }
 
         case .move:
-            if let indexPath = indexPath {
-                if numberOfObjectsInCurrentSection == 1 {
+            print("IndexPath \(indexPath) newIndexPath \(newIndexPath)")
+            if let indexPath = indexPath, let newIndexPath = newIndexPath {
+                if indexPath.row == newIndexPath.row, indexPath.section == newIndexPath.section {
+                    return
+                }
+                var rowWasDeleted = false
+                if numberOfObjectsInCurrentSection == 1,
+                    sectionExpandedInfoCount > 1 {
                     tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
                 }
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                if sectionExpandedInfoCount >= 1 {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    rowWasDeleted = true
+                }
                 if sectionExpandedInfoCount > sectionCollapsedInfo.count {
                     print("A section was removed")
                     tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
                 }
-            }
 
-            if let newIndexPath = newIndexPath {
-                tableView.insertRows(at: [newIndexPath], with: .fade)
+                if rowWasDeleted {
+                    tableView.insertRows(at: [newIndexPath], with: .fade)
+                }
                 if sectionExpandedInfoCount < sectionCollapsedInfo.count {
                     print("A section was added")
                     tableView.insertSections(NSIndexSet(index: newIndexPath.section) as IndexSet, with: .fade)
@@ -532,13 +531,10 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
-            if isSyncing {
-                tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-            }
+            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            rowAlreadyInserted = true
         case .delete:
-            if isSyncing {
-                tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-            }
+            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
         default:
             return
         }
@@ -547,6 +543,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         updateSectionExpandedInfo()
         tableView.endUpdates()
+        rowAlreadyInserted = false
     }
 
 }
@@ -616,7 +613,6 @@ extension NotesTableViewController: NoteCategoryDelegate {
     
     func selectCategory(_ indexPath: IndexPath) {
         indexPathForCategory = indexPath
-        isSyncing = true
         self.performSegue(withIdentifier: "SelectCategorySegue", sender: self)
     }
     
