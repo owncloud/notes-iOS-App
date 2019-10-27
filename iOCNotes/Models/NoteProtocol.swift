@@ -79,7 +79,7 @@ struct NoteStruct: Codable, NoteProtocol {
         self.favorite = favorite
         guid = UUID().uuidString
         modified = Date().timeIntervalSince1970
-        id = 0
+        id = -1
         etag = ""
         error = false
         addNeeded = true

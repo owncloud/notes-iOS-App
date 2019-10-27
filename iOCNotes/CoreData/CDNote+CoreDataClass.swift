@@ -17,6 +17,7 @@ public class CDNote: NSManagedObject {
 
     public override func awakeFromInsert() {
         super.awakeFromInsert()
+        self.id = -1
         self.guid = UUID().uuidString
         self.content = ""
         self.category = ""
@@ -92,7 +93,12 @@ public class CDNote: NSManagedObject {
             let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
             do {
                 for note in notes {
-                    let predicate = NSPredicate(format: "cdId == %d", note.id)
+                    let predicate: NSPredicate
+                    if note.id >= 0 {
+                        predicate = NSPredicate(format: "cdId == %d", note.id)
+                    } else {
+                        predicate = NSPredicate(format: "cdGuid == %@", note.guid ?? "")
+                    }
                     request.predicate = predicate
                     let records = try NotesData.mainThreadContext.fetch(request)
                     if let existingRecord = records.first {
@@ -128,10 +134,15 @@ public class CDNote: NSManagedObject {
         NotesData.mainThreadContext.performAndWait {
             let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
             do {
-                request.predicate = NSPredicate(format: "cdId == %d", note.id)
+                let predicate: NSPredicate
+                if note.id >= 0 {
+                    predicate = NSPredicate(format: "cdId == %d", note.id)
+                } else {
+                    predicate = NSPredicate(format: "cdGuid == %@", note.guid ?? "")
+                }
+                request.predicate = predicate
                 let records = try NotesData.mainThreadContext.fetch(request)
                 if let existingRecord = records.first {
-                    //                        existingRecord.id = note.id
                     existingRecord.guid = note.guid
                     existingRecord.category = note.category
                     existingRecord.content = note.content
