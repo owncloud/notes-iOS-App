@@ -102,6 +102,12 @@ class NotesTableViewController: UITableViewController {
                                                                      using: { [weak self] _ in
                                                                         self?.onRefresh(sender: nil)
         }))
+        self.observers.append(NotificationCenter.default.addObserver(forName: .doneSelectingCategory,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] _ in
+                                                                        self?.tableView.reloadData()
+        }))
         self.observers.append(NotificationCenter.default.addObserver(forName: .networkSuccess,
                                                                      object: nil,
                                                                      queue: OperationQueue.main,

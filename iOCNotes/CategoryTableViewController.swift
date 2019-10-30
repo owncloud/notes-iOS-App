@@ -15,8 +15,14 @@ class CategoryTableViewController: UITableViewController {
 
     let reuseIdentifier = "CategoryCell"
 
-    var categories = [String]()
-    var currentCategory = ""
+    var categories: [String]? {
+        didSet {
+            if !(categories?.contains("") ?? false) {
+                categories?.insert("", at: 0)
+            }
+        }
+    }
+    
     var note: CDNote? {
         didSet {
             if let category = note?.category {
@@ -24,7 +30,9 @@ class CategoryTableViewController: UITableViewController {
             }
         }
     }
-    
+
+    private var currentCategory = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = cancelBarButton
@@ -37,18 +45,20 @@ class CategoryTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return categories?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        var categoryName = categories[indexPath.row]
-        if categoryName.isEmpty {
+        let categoryName: String
+        if let name = categories?[indexPath.row], !name.isEmpty {
+            categoryName = name
+        } else {
             categoryName = Constants.noCategory
         }
         cell.textLabel?.text = categoryName
         cell.accessoryType = .none
-        let index = categories.firstIndex(of: currentCategory)
+        let index = categories?.firstIndex(of: currentCategory)
         if indexPath.row == index {
             cell.accessoryType = .checkmark
         }
@@ -60,7 +70,7 @@ class CategoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currentCategory = categories[indexPath.row]
+        currentCategory = categories?[indexPath.row] ?? ""
         tableView.deselectRow(at: indexPath, animated: true)
         if let note = self.note {
             self.note?.category = currentCategory
@@ -84,7 +94,7 @@ class CategoryTableViewController: UITableViewController {
                 let text = textField.text,
                 !text.isEmpty {
                 if let note = self?.note {
-                    self?.categories.append(text)
+                    self?.categories?.append(text)
                     self?.currentCategory = text
                     self?.note?.category = text
                     self?.tableView.reloadData()
