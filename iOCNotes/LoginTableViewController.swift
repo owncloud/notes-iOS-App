@@ -59,6 +59,10 @@ class LoginTableViewController: UITableViewController {
         connectionActivityIndicator.startAnimating()
 
         serverAddress = serverAddress.trimmingCharacters(in: CharacterSet(charactersIn: "/ "))
+        if !serverAddress.contains("://"),
+            !serverAddress.hasPrefix("http") {
+            serverAddress = "https://\(serverAddress)"
+        }
         KeychainHelper.server = serverAddress
         KeychainHelper.username = username
         KeychainHelper.password = password
