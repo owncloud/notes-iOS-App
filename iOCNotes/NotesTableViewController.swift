@@ -464,6 +464,7 @@ class NotesTableViewController: UITableViewController {
         } else if KeychainHelper.dbReset {
             CDNote.reset()
             KeychainHelper.dbReset = false
+            try? notesFrc.performFetch()
             tableView.reloadData()
         }
     }
@@ -473,6 +474,7 @@ class NotesTableViewController: UITableViewController {
 extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         sectionExpandedInfoCount = sectionCollapsedInfo.count
+        print("Starting update")
         tableView.beginUpdates()
     }
 
@@ -481,17 +483,19 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         case .insert:
             if let indexPath = newIndexPath {
                 if !rowAlreadyInserted {
+                    print("Inserting row")
                     tableView.insertRows(at: [indexPath], with: .fade)
                 }
                 rowAlreadyInserted = false
                 if sectionExpandedInfoCount < sectionCollapsedInfo.count {
-                    print("A section was added")
+                    print("Inserting section during insert")
                     tableView.insertSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
                 }
             }
         case .delete:
             if let indexPath = indexPath {
                 if numberOfObjectsInCurrentSection > 1 {
+                    print("Deleting row")
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }
@@ -510,22 +514,25 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
                 var rowWasDeleted = false
                 if numberOfObjectsInCurrentSection == 1,
                     sectionExpandedInfoCount > 1 {
+                    print("Deleting section during move")
                     tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
                 }
                 if sectionExpandedInfoCount >= 1 {
+                    print("Deleting row during move")
                     tableView.deleteRows(at: [indexPath], with: .fade)
                     rowWasDeleted = true
                 }
                 if sectionExpandedInfoCount > sectionCollapsedInfo.count {
-                    print("A section was removed")
+                    print("Deleting section 2 during move")
                     tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
                 }
 
                 if rowWasDeleted {
+                    print("Inserting row during move")
                     tableView.insertRows(at: [newIndexPath], with: .fade)
                 }
                 if sectionExpandedInfoCount < sectionCollapsedInfo.count {
-                    print("A section was added")
+                    print("Inserting section during move")
                     tableView.insertSections(NSIndexSet(index: newIndexPath.section) as IndexSet, with: .fade)
                 }
             }
@@ -537,9 +544,11 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
+            print("Inserting section")
             tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
             rowAlreadyInserted = true
         case .delete:
+            print("Deleting section")
             tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
         default:
             return
@@ -550,6 +559,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         updateSectionExpandedInfo()
         tableView.endUpdates()
         rowAlreadyInserted = false
+        print("Ending update")
     }
 
 }

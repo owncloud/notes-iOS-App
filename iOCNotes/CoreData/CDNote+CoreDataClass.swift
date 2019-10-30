@@ -212,7 +212,6 @@ public class CDNote: NSManagedObject {
             do {
                 let deleteResult = try NotesData.mainThreadContext.execute(deleteRequest) as! NSBatchDeleteResult
                 print("The batch delete request has deleted \(deleteResult.result ?? 0) records.")
-                NotesData.mainThreadContext.reset()
             } catch {
                 let updateError = error as NSError
                 print("\(updateError), \(updateError.userInfo)")

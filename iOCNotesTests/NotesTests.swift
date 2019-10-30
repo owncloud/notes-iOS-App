@@ -112,5 +112,64 @@ class NotesTests: XCTestCase {
         wait(for: [expectation], timeout: 25.0)
     }
 
+    func testAddAndReset() {
+        let expectation = XCTestExpectation(description: "Note Expectation")
+        expectation.expectedFulfillmentCount = 4
+        var content = "Note 1 added during reset test"
+        NotesManager.shared.add(content: content, category: "", completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            expectation.fulfill()
+        })
+        content = "Note 2 added during reset test"
+        NotesManager.shared.add(content: content, category: "", completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            expectation.fulfill()
+        })
+        content = "Note 3 added during reset test"
+        NotesManager.shared.add(content: content, category: "", completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            expectation.fulfill()
+        })
+        content = "Note 4 added during reset test"
+        NotesManager.shared.add(content: content, category: "", completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            expectation.fulfill()
+        })
+        wait(for: [expectation], timeout: 35.0)
+        CDNote.reset()
+        if CDNote.all()?.count ?? 0 > 0 {
+            XCTFail("Expected note count to be 0")
+        }
+    }
+
+    func testAddAndResetWithCategories() {
+        let expectation = XCTestExpectation(description: "Note Expectation")
+        expectation.expectedFulfillmentCount = 4
+        var content = "Note 1 added during reset test"
+        NotesManager.shared.add(content: content, category: "", completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            expectation.fulfill()
+        })
+        content = "Note 2 added during reset test"
+        NotesManager.shared.add(content: content, category: "", completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            expectation.fulfill()
+        })
+        content = "Note 3 added during reset test"
+        NotesManager.shared.add(content: content, category: "A Category", completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            expectation.fulfill()
+        })
+        content = "Note 4 added during reset test"
+        NotesManager.shared.add(content: content, category: "A Category", completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            expectation.fulfill()
+        })
+        wait(for: [expectation], timeout: 35.0)
+        CDNote.reset()
+        if CDNote.all()?.count ?? 0 > 0 {
+            XCTFail("Expected note count to be 0")
+        }
+    }
 
 }
