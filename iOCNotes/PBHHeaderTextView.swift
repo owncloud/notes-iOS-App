@@ -17,6 +17,7 @@ class PBHHeaderTextView: UITextView {
     private var leftHeaderLayoutConstraint = NSLayoutConstraint()
     private var rightHeaderLayoutConstraint = NSLayoutConstraint()
     private var didSetupConstraints = false
+    private var headerLabelConstraintConstant: CGFloat = 20.0
     
     private var noteTextStorage = Storage()
 
@@ -101,8 +102,8 @@ class PBHHeaderTextView: UITextView {
     override func updateConstraints() {
         if (self.didSetupConstraints == false) {
             self.headerLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-            leftHeaderLayoutConstraint = self.headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: smallPadding)
-            rightHeaderLayoutConstraint = self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -smallPadding)
+            leftHeaderLayoutConstraint = self.headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: headerLabelConstraintConstant)
+            rightHeaderLayoutConstraint = self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -headerLabelConstraintConstant)
             NSLayoutConstraint.activate([
                 self.headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
                 leftHeaderLayoutConstraint,
@@ -149,6 +150,7 @@ class PBHHeaderTextView: UITextView {
 
     open func updateInsets(size: CGFloat) {
         self.textContainerInset = UIEdgeInsets(top: 2 * smallPadding, left: size, bottom: smallPadding, right: size);
+        headerLabelConstraintConstant = size
         leftHeaderLayoutConstraint.constant = size;
         rightHeaderLayoutConstraint.constant = size;
     }
