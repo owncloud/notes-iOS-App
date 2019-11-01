@@ -14,6 +14,8 @@ class PBHHeaderTextView: UITextView {
 
     let smallPadding: CGFloat = 20.0
 
+    var themeBackgroundColor = UIColor.ph_backgroundColor
+    
     private var leftHeaderLayoutConstraint = NSLayoutConstraint()
     private var rightHeaderLayoutConstraint = NSLayoutConstraint()
     private var didSetupConstraints = false
@@ -60,6 +62,7 @@ class PBHHeaderTextView: UITextView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerLabel)
         self.backgroundColor = theme.backgroundColor
+        self.themeBackgroundColor = theme.backgroundColor
         self.tintColor = theme.tintColor
         self.setNeedsUpdateConstraints()
         self.traitCollectionDidChange(nil)
