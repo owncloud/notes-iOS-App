@@ -15,10 +15,6 @@ import UIKit
 let detailSegueIdentifier = "showDetail"
 let categorySegueIdentifier = "SelectCategorySegue"
 
-protocol NoteCategoryDelegate: class {
-    func selectCategory(_ indexPath: IndexPath) 
-}
-
 struct ExpandableSection: Codable {
     var title: String
     var collapsed: Bool
@@ -39,7 +35,6 @@ class NotesTableViewController: UITableViewController {
     
     private var networkHasBeenUnreachable = false
     private var searchResult: [CDNote]?
-    private var indexPathForCategory: IndexPath?
     private var numberOfObjectsInCurrentSection = 0
     private var rowAlreadyInserted = false
 
@@ -254,14 +249,39 @@ class NotesTableViewController: UITableViewController {
         let date = Date(timeIntervalSince1970: note.modified)
         cell.detailTextLabel?.text = dateFormat.string(from: date as Date)
         cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
-        cell.indexPath = indexPath
-        cell.categoryDelegate = self
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteTableViewCell
         configureCell(cell, at: indexPath)
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) ->   UISwipeActionsConfiguration? {
+      let title = NSLocalizedString("Category", comment: "Name of cell category action")
+      let action = UIContextualAction(style: .normal,
+                                      title: title,
+                                      handler: { [weak self] (action, view, completionHandler) in
+        let categories = self?.notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
+            return note.category
+        })
+        if let storyboard = self?.storyboard,
+            let navController = storyboard.instantiateViewController(withIdentifier: "CategoryTableViewControllerNavController") as? UINavigationController,
+            let categoryController = navController.topViewController as? CategoryTableViewController,
+            let categories = categories,
+            let note = self?.notesFrc.object(at: indexPath) {
+            categoryController.categories = categories.removingDuplicates()
+            if let section = self?.notesFrc.sections?.first(where: { $0.name == note.category }) {
+                self?.numberOfObjectsInCurrentSection = section.numberOfObjects
+            }
+            categoryController.note = note
+            self?.present(navController, animated: true, completion: nil)
+        }
+        completionHandler(true)
+      })
+
+      let configuration = UISwipeActionsConfiguration(actions: [action])
+      return configuration
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -316,18 +336,6 @@ class NotesTableViewController: UITableViewController {
         return .delete
     }
 
-    override func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    override func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return action == #selector(NoteTableViewCell.selectCategory(sender:))
-    }
-
-    override func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
-       //
-    }
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -348,22 +356,6 @@ class NotesTableViewController: UITableViewController {
                         self.splitViewController?.preferredDisplayMode = .primaryHidden
                     }, completion: nil)
                 }
-            }
-            
-        case categorySegueIdentifier:
-            let categories = notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
-                return note.category
-            })
-            if let navigationController = segue.destination as? UINavigationController,
-                let categoryController = navigationController.topViewController as? CategoryTableViewController,
-                let categories = categories,
-                let indexPath = indexPathForCategory {
-                categoryController.categories = categories.removingDuplicates()
-                let note = notesFrc.object(at: indexPath)
-                if let section = notesFrc.sections?.first(where: { $0.name == note.category }) {
-                    numberOfObjectsInCurrentSection = section.numberOfObjects
-                }
-                categoryController.note = note
             }
             
         default:
@@ -490,6 +482,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
                 if sectionExpandedInfoCount < sectionCollapsedInfo.count {
                     print("Inserting section during insert")
                     tableView.insertSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
+                    sectionExpandedInfoCount += 1
                 }
             }
         case .delete:
@@ -514,8 +507,9 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
                 var rowWasDeleted = false
                 if numberOfObjectsInCurrentSection == 1,
                     sectionExpandedInfoCount > 1 {
-                    print("Deleting section during move")
+                    print("Deleting section at index \(indexPath.section) during move")
                     tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
+                    sectionExpandedInfoCount -= 1
                 }
                 if sectionExpandedInfoCount >= 1 {
                     print("Deleting row during move")
@@ -523,8 +517,9 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
                     rowWasDeleted = true
                 }
                 if sectionExpandedInfoCount > sectionCollapsedInfo.count {
-                    print("Deleting section 2 during move")
+                    print("Deleting section 2 at index \(indexPath.section) during move")
                     tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
+                    sectionExpandedInfoCount -= 1
                 }
 
                 if rowWasDeleted {
@@ -532,8 +527,9 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
                     tableView.insertRows(at: [newIndexPath], with: .fade)
                 }
                 if sectionExpandedInfoCount < sectionCollapsedInfo.count {
-                    print("Inserting section during move")
+                    print("Inserting section at index \(indexPath.section) during move")
                     tableView.insertSections(NSIndexSet(index: newIndexPath.section) as IndexSet, with: .fade)
+                    sectionExpandedInfoCount += 1
                 }
             }
         @unknown default:
@@ -544,12 +540,13 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
-            print("Inserting section")
+            print("Inserting section at index \(sectionIndex)")
             tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
             rowAlreadyInserted = true
         case .delete:
-            print("Deleting section")
+            print("Deleting section at index \(sectionIndex)")
             tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            numberOfObjectsInCurrentSection = 0
         default:
             return
         }
@@ -623,15 +620,6 @@ extension NotesTableViewController: UITableViewDropDelegate {
         }
     }
 
-}
-
-extension NotesTableViewController: NoteCategoryDelegate {
-    
-    func selectCategory(_ indexPath: IndexPath) {
-        indexPathForCategory = indexPath
-        self.performSegue(withIdentifier: "SelectCategorySegue", sender: self)
-    }
-    
 }
 
 extension NotesTableViewController: CollapsibleTableViewHeaderViewDelegate {

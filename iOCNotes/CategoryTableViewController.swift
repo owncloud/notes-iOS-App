@@ -32,6 +32,7 @@ class CategoryTableViewController: UITableViewController {
     }
 
     private var currentCategory = ""
+    private var isDirty = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,19 +71,23 @@ class CategoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currentCategory = categories?[indexPath.row] ?? ""
         tableView.deselectRow(at: indexPath, animated: true)
-        if let note = self.note {
-            self.note?.category = currentCategory
-            note.category = currentCategory
+        let selectedCategory = categories?[indexPath.row] ?? ""
+        if selectedCategory != currentCategory {
+            currentCategory = selectedCategory
             tableView.reloadData()
             navigationItem.leftBarButtonItem = doneBarButton
-            NotesManager.shared.update(note: note)
+            isDirty = true
         }
     }
     
     @IBAction func onCancel(_ sender: Any) {
-        NotificationCenter.default.post(name: .doneSelectingCategory, object: nil)
+        if isDirty,
+            let note = self.note {
+            note.category = currentCategory
+            NotesManager.shared.update(note: note)
+            NotificationCenter.default.post(name: .doneSelectingCategory, object: nil)
+        }
         dismiss(animated: true, completion: nil)
     }
 
@@ -93,15 +98,11 @@ class CategoryTableViewController: UITableViewController {
             if let textField = alert?.textFields?[0],
                 let text = textField.text,
                 !text.isEmpty {
-                if let note = self?.note {
-                    self?.categories?.append(text)
-                    self?.currentCategory = text
-                    self?.note?.category = text
-                    self?.tableView.reloadData()
-                    self?.navigationItem.leftBarButtonItem = self?.doneBarButton
-                    note.category = text
-                    NotesManager.shared.update(note: note)
-                }
+                self?.categories?.append(text)
+                self?.currentCategory = text
+                self?.tableView.reloadData()
+                self?.navigationItem.leftBarButtonItem = self?.doneBarButton
+                self?.isDirty = true
             }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

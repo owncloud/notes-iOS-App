@@ -10,12 +10,4 @@ import UIKit
 
 class NoteTableViewCell: UITableViewCell {
 
-    weak var categoryDelegate: NoteCategoryDelegate?
-    var indexPath: IndexPath?
-    
-    @objc func selectCategory(sender: UIMenuController) {
-        if let indexPath = indexPath {
-            self.categoryDelegate?.selectCategory(indexPath)
-        }
-    }
 }

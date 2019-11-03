@@ -95,7 +95,7 @@
         <!--Categories-->
         <scene sceneID="5VN-0d-QVH">
             <objects>
-                <tableViewController id="HS0-0b-fms" customClass="CategoryTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CategoryTableViewController" id="HS0-0b-fms" customClass="CategoryTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Aga-NB-hq8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -155,7 +155,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Mf7-Zc-R4g">
             <objects>
-                <navigationController modalPresentationStyle="formSheet" id="xSS-OQ-fPd" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CategoryTableViewControllerNavController" modalPresentationStyle="formSheet" id="xSS-OQ-fPd" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qaa-DK-t9z">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>

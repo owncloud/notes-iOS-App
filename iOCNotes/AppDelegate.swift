@@ -13,8 +13,6 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let categoryMenu = UIMenuItem(title: NSLocalizedString("Category", comment: "'Category' menu item"), action: #selector(NoteTableViewCell.selectCategory(sender:)))
-
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -55,9 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navigationController = splitViewController.viewControllers.last as? UINavigationController {
             navigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         }
-
-        UIMenuController.shared.menuItems = [categoryMenu]
-        UIMenuController.shared.update()
 
         #if !targetEnvironment(simulator)
         installation?.sendAllReports { (reports, completed, error) -> Void in
