@@ -26,13 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.tintColor = .ph_iconColor
 
         UINavigationBar.appearance().barTintColor = .ph_popoverButtonColor
-        UINavigationBar.appearance().setBackgroundImage(UIImage.colorResizableImage(color: .ph_popoverButtonColor), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().tintColor = .ph_iconColor
 
         UIToolbar.appearance().barTintColor = .ph_popoverButtonColor
         UIToolbar.appearance().tintColor = .ph_iconColor
-        UIToolbar.appearance().setBackgroundImage(UIImage.colorResizableImage(color: .ph_popoverButtonColor), forToolbarPosition: .top, barMetrics: .default)
 
         UIBarButtonItem.appearance().tintColor = .ph_textColor
 
