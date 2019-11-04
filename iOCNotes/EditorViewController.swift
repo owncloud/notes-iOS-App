@@ -69,7 +69,7 @@ class EditorViewController: UIViewController {
         noteView.delegate = self
         let bottomConstraint = noteView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         bottomLayoutConstraint = bottomConstraint
-        self.view.backgroundColor = noteView.themeBackgroundColor
+        self.view.backgroundColor = .ph_cellBackgroundColor
         NSLayoutConstraint.activate([
             noteView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             noteView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
