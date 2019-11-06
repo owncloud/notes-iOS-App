@@ -36,13 +36,11 @@ class NotesTableViewController: UITableViewController {
     private var networkHasBeenUnreachable = false
     private var searchResult: [CDNote]?
     private var numberOfObjectsInCurrentSection = 0
-    private var rowAlreadyInsertedCount = 0
 
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
 
     private var observers = [NSObjectProtocol]()
     private var sectionCollapsedInfo = ExpandableSectionType()
-    private var sectionExpandedInfoCount = 1
     
     private var dateFormat: DateFormatter {
         let df = DateFormatter()
@@ -168,6 +166,12 @@ class NotesTableViewController: UITableViewController {
         refreshBarButton.isEnabled = NotesManager.isOnline
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addBarButton.isEnabled = true
+        settingsBarButton.isEnabled = true
+        refreshBarButton.isEnabled = NotesManager.isOnline
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -465,7 +469,6 @@ class NotesTableViewController: UITableViewController {
 
 extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        sectionExpandedInfoCount = sectionCollapsedInfo.count
         print("Starting update")
         tableView.beginUpdates()
     }
@@ -474,17 +477,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         switch (type) {
         case .insert:
             if let indexPath = newIndexPath {
-                if rowAlreadyInsertedCount == 0 {
-                    print("Inserting row")
-                    tableView.insertRows(at: [indexPath], with: .fade)
-                } else {
-                    rowAlreadyInsertedCount -= 1
-                }
-                if sectionExpandedInfoCount < sectionCollapsedInfo.count {
-                    print("Inserting section during insert")
-                    tableView.insertSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
-                    sectionExpandedInfoCount += 1
-                }
+                tableView.insertRows(at: [indexPath], with: .fade)
             }
         case .delete:
             if let indexPath = indexPath {
@@ -503,33 +496,7 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
                 if indexPath.row == newIndexPath.row, indexPath.section == newIndexPath.section {
                     return
                 }
-                var rowWasDeleted = false
-                if numberOfObjectsInCurrentSection == 1,
-                    sectionExpandedInfoCount > 1 {
-                    print("Deleting section at index \(indexPath.section) during move")
-                    tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
-                    sectionExpandedInfoCount -= 1
-                }
-                if sectionExpandedInfoCount >= 1 {
-                    print("Deleting row during move")
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                    rowWasDeleted = true
-                }
-                if sectionExpandedInfoCount > sectionCollapsedInfo.count {
-                    print("Deleting section 2 at index \(indexPath.section) during move")
-                    tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
-                    sectionExpandedInfoCount -= 1
-                }
-
-                if rowWasDeleted {
-                    print("Inserting row during move")
-                    tableView.insertRows(at: [newIndexPath], with: .fade)
-                }
-                if sectionExpandedInfoCount < sectionCollapsedInfo.count {
-                    print("Inserting section at index \(indexPath.section) during move")
-                    tableView.insertSections(NSIndexSet(index: newIndexPath.section) as IndexSet, with: .fade)
-                    sectionExpandedInfoCount += 1
-                }
+                tableView.moveRow(at: indexPath, to: newIndexPath)
             }
         @unknown default:
             fatalError()
@@ -541,7 +508,6 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         case .insert:
             print("Inserting section at index \(sectionIndex)")
             tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-            rowAlreadyInsertedCount += 1
         case .delete:
             print("Deleting section at index \(sectionIndex)")
             tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
@@ -554,7 +520,6 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         updateSectionExpandedInfo()
         tableView.endUpdates()
-        rowAlreadyInsertedCount = 0
         print("Ending update")
     }
 
