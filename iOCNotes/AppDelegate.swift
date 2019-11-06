@@ -36,15 +36,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UITableViewCell.appearance().backgroundColor = .ph_cellBackgroundColor
 
-        UIScrollView.appearance().backgroundColor = .ph_cellBackgroundColor
-        UIScrollView.appearance(whenContainedInInstancesOf: [NotesTableViewController.self]).backgroundColor = .ph_cellBackgroundColor
+        let scrollViewArray = [
+            NotesTableViewController.self,
+            CategoryTableViewController.self,
+            EditorViewController.self,
+            PBHPreviewController.self,
+            SettingsTableViewController.self,
+            LoginTableViewController.self
+        ]
+        UIScrollView.appearance(whenContainedInInstancesOf: scrollViewArray).backgroundColor = .ph_cellBackgroundColor
 
         UISwitch.appearance().onTintColor = .ph_switchTintColor
         UISwitch.appearance().tintColor = .ph_switchTintColor
 
         UILabel.appearance().themeColor = .ph_textColor
         UILabel.appearance(whenContainedInInstancesOf: [UITextField.self]).themeColor = .ph_readTextColor
-        
+
         UITextField.appearance().textColor = .ph_textColor
         
         if let splitViewController = self.window?.rootViewController as? UISplitViewController,
