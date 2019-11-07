@@ -493,9 +493,6 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         case .move:
             print("IndexPath \(String(describing: indexPath)) newIndexPath \(String(describing: newIndexPath))")
             if let indexPath = indexPath, let newIndexPath = newIndexPath {
-                if indexPath.row == newIndexPath.row, indexPath.section == newIndexPath.section {
-                    return
-                }
                 tableView.moveRow(at: indexPath, to: newIndexPath)
             }
         @unknown default:

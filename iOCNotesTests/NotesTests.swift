@@ -221,4 +221,56 @@ class NotesTests: XCTestCase {
             XCTFail("Expected category count to be 2")
         }
     }
+
+    func testAddAndMoveOut() {
+        let category = "Test Category Out"
+        //        var note1: CDNote?
+        var note2: CDNote?
+        //        var note3: CDNote?
+        var note4: CDNote?
+        let expectation = XCTestExpectation(description: "Note Expectation")
+        expectation.expectedFulfillmentCount = 4
+        var content = "Note 1 added during add and move test"
+        NotesManager.shared.add(content: content, category: category, completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            //            note1 = note
+            expectation.fulfill()
+        })
+        content = "Note 2 added during add and move test"
+        NotesManager.shared.add(content: content, category: category, completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            note2 = note
+            expectation.fulfill()
+        })
+        content = "Note 3 added during add and move test"
+        NotesManager.shared.add(content: content, category: category, completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            //            note3 = note
+            expectation.fulfill()
+        })
+        content = "Note 4 added during add and move test"
+        NotesManager.shared.add(content: content, category: category, completion: { note in
+            XCTAssertNotNil(note, "Expected note to not be nil")
+            note4 = note
+            expectation.fulfill()
+        })
+        wait(for: [expectation], timeout: 35.0)
+
+        let expectation2 = XCTestExpectation(description: "Note Expectation 2")
+        expectation2.expectedFulfillmentCount = 2
+
+        note2?.category = ""
+        NotesManager.shared.update(note: note2!) {
+            expectation2.fulfill()
+        }
+        note4?.category = ""
+        NotesManager.shared.update(note: note4!) {
+            expectation2.fulfill()
+        }
+        wait(for: [expectation2], timeout: 15.0)
+        if CDNote.all()?.filter( { $0.category == "" }).count ?? 0 != 2 {
+            XCTFail("Expected category count to be 2")
+        }
+    }
+
 }
