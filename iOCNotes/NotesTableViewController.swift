@@ -41,6 +41,7 @@ class NotesTableViewController: UITableViewController {
 
     private var observers = [NSObjectProtocol]()
     private var sectionCollapsedInfo = ExpandableSectionType()
+    private var isSyncing = false
     
     private var dateFormat: DateFormatter {
         let df = DateFormatter()
@@ -379,10 +380,14 @@ class NotesTableViewController: UITableViewController {
         refreshBarButton.isEnabled = false
         addBarButton.isEnabled = false
         settingsBarButton.isEnabled = false
+        isSyncing = true
+        tableView.beginUpdates()
         NotesManager.shared.sync { [weak self] in
             self?.addBarButton.isEnabled = true
             self?.settingsBarButton.isEnabled = true
             self?.refreshBarButton.isEnabled = NotesManager.isOnline
+            self?.tableView.endUpdates()
+            self?.isSyncing = false
             self?.tableView.reloadData()
         }
     }
@@ -473,7 +478,9 @@ class NotesTableViewController: UITableViewController {
 extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("Starting update")
-        tableView.beginUpdates()
+        if !isSyncing {
+            tableView.beginUpdates()
+        }
     }
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
@@ -519,7 +526,9 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         updateSectionExpandedInfo()
-        tableView.endUpdates()
+        if !isSyncing {
+            tableView.endUpdates()
+        }
         print("Ending update")
     }
 
