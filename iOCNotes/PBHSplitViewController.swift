@@ -23,14 +23,28 @@ class PBHSplitViewController: UISplitViewController {
 extension PBHSplitViewController: UISplitViewControllerDelegate {
 
     func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
-        guard svc == self.splitViewController else {
+        guard svc == self else {
             return
         }
         if displayMode == .allVisible || displayMode == .primaryOverlay {
             self.editorViewController?.noteView.resignFirstResponder()
         }
+        if traitCollection.horizontalSizeClass == .regular,
+            traitCollection.userInterfaceIdiom == .pad {
+            if displayMode == .allVisible {
+                editorViewController?.noteView.updateInsets(size: 50)
+            } else {
+                if (UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height) {
+                    editorViewController?.noteView.updateInsets(size: 178)
+                } else {
+                    editorViewController?.noteView.updateInsets(size: 50)
+                }
+            }
+        } else {
+            editorViewController?.noteView.updateInsets(size: 20)
+        }
     }
-
+    
     func targetDisplayModeForAction(in svc: UISplitViewController) -> UISplitViewController.DisplayMode {
         if svc.displayMode == .primaryHidden {
             if svc.traitCollection.horizontalSizeClass == .regular,

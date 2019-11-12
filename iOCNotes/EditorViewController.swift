@@ -164,11 +164,16 @@ class EditorViewController: UIViewController {
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        if traitCollection.horizontalSizeClass == .regular, traitCollection.userInterfaceIdiom == .pad {
-            if size.width > size.height {
-                noteView.updateInsets(size: 178)
-            } else {
+        if traitCollection.horizontalSizeClass == .regular,
+            traitCollection.userInterfaceIdiom == .pad {
+            if splitViewController?.displayMode == .allVisible {
                 noteView.updateInsets(size: 50)
+            } else {
+                if (UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height) {
+                    noteView.updateInsets(size: 178)
+                } else {
+                    noteView.updateInsets(size: 50)
+                }
             }
         }
     }
