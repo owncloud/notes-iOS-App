@@ -284,7 +284,7 @@ class EditorViewController: UIViewController {
             let kbHeight = ar.size.height
             var textInsets = self.noteView.textContainerInset
             textInsets.bottom = kbHeight
-            self.bottomLayoutConstraint = nil
+            self.bottomLayoutConstraint?.isActive = false
             self.bottomLayoutConstraint = noteView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -kbHeight)
             self.bottomLayoutConstraint?.isActive = true
             self.updatedByEditing = true
@@ -301,7 +301,7 @@ class EditorViewController: UIViewController {
         if let info = notification.userInfo,
             let animationDuration: TimeInterval = info[UIWindow.keyboardAnimationDurationUserInfoKey] as? TimeInterval {
 
-            self.bottomLayoutConstraint = nil
+            self.bottomLayoutConstraint?.isActive = false
             self.bottomLayoutConstraint = noteView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
             self.bottomLayoutConstraint?.isActive = true
             self.updateViewConstraints()
