@@ -108,6 +108,9 @@ public class CDNote: NSManagedObject {
                         existingRecord.title = note.title
                         existingRecord.favorite = note.favorite
                         existingRecord.modified = note.modified
+                        existingRecord.addNeeded = note.addNeeded
+                        existingRecord.updateNeeded = note.updateNeeded
+                        existingRecord.deleteNeeded = note.deleteNeeded
                     } else {
                         let newRecord = NSEntityDescription.insertNewObject(forEntityName: CDNote.entityName, into: NotesData.mainThreadContext) as! CDNote
                         newRecord.guid = note.guid
@@ -120,6 +123,9 @@ public class CDNote: NSManagedObject {
                         newRecord.title = note.title
                         newRecord.favorite = note.favorite
                         newRecord.modified = note.modified
+                        newRecord.addNeeded = note.addNeeded
+                        newRecord.updateNeeded = note.updateNeeded
+                        newRecord.deleteNeeded = note.deleteNeeded
                     }
                 }
                 try NotesData.mainThreadContext.save()
@@ -149,6 +155,9 @@ public class CDNote: NSManagedObject {
                     existingRecord.title = note.title
                     existingRecord.favorite = note.favorite
                     existingRecord.modified = note.modified
+                    existingRecord.addNeeded = note.addNeeded
+                    existingRecord.updateNeeded = note.updateNeeded
+                    existingRecord.deleteNeeded = note.deleteNeeded
                     result = existingRecord
                 } else {
                     let newRecord = NSEntityDescription.insertNewObject(forEntityName: CDNote.entityName, into: NotesData.mainThreadContext) as! CDNote
@@ -159,6 +168,9 @@ public class CDNote: NSManagedObject {
                     newRecord.title = note.title
                     newRecord.favorite = note.favorite
                     newRecord.modified = note.modified
+                    newRecord.addNeeded = note.addNeeded
+                    newRecord.updateNeeded = note.updateNeeded
+                    newRecord.deleteNeeded = note.deleteNeeded
                     result = newRecord
                 }
                 try NotesData.mainThreadContext.save()

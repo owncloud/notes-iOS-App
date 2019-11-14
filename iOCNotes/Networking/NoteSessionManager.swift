@@ -44,43 +44,50 @@ class NotesManager {
     func sync(completion: SyncCompletionBlock? = nil) {
 
         func deleteOnServer(completion: @escaping SyncCompletionBlock) {
-            if let notesToDelete = CDNote.notes(property: "cdDeleteNeeded") {
+            if let notesToDelete = CDNote.notes(property: "cdDeleteNeeded"),
+                !notesToDelete.isEmpty {
                 let group = DispatchGroup()
-
+                
                 for note in notesToDelete {
                     group.enter()
                     NotesManager.shared.delete(note: note, completion: {
                         group.leave()
                     })
                 }
-
+                
                 group.notify(queue: .main) {
                     print("Finished all requests.")
                     completion()
                 }
+            } else {
+                completion()
             }
         }
 
         func addOnServer(completion: @escaping SyncCompletionBlock) {
-            if let notesToAdd = CDNote.notes(property: "cdAddNeeded") {
+            if let notesToAdd = CDNote.notes(property: "cdAddNeeded"),
+                !notesToAdd.isEmpty {
                 let group = DispatchGroup()
-
+                
                 for note in notesToAdd {
                     group.enter()
                     self.addToServer(note: note) { _ in
                         group.leave()
                     }
                 }
-
+                
                 group.notify(queue: .main) {
                     print("Finished all requests.")
                     completion()
                 }
+            } else {
+                completion()
             }
         }
 
         func updateOnServer(completion: @escaping SyncCompletionBlock) {
-            if let notesToUpdate = CDNote.notes(property: "cdUpdateNeeded") {
+            if let notesToUpdate = CDNote.notes(property: "cdUpdateNeeded"),
+                !notesToUpdate.isEmpty {
                 let group = DispatchGroup()
 
                 for note in notesToUpdate {
@@ -94,6 +101,8 @@ class NotesManager {
                     print("Finished all requests.")
                     completion()
                 }
+            } else {
+                completion()
             }
         }
 
