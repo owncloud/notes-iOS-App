@@ -24,6 +24,7 @@ public class CDNote: NSManagedObject {
         self.addNeeded = true
         self.updateNeeded = false
         self.deleteNeeded = false
+        self.modified = Date().timeIntervalSince1970
     }
 
     @objc var sectionName: String {
@@ -119,11 +120,12 @@ public class CDNote: NSManagedObject {
                         if note.id > 0 {
                             newRecord.id = note.id
                             newRecord.addNeeded = false
+                        } else {
+                            newRecord.addNeeded = true
                         }
                         newRecord.title = note.title
                         newRecord.favorite = note.favorite
                         newRecord.modified = note.modified
-                        newRecord.addNeeded = note.addNeeded
                         newRecord.updateNeeded = note.updateNeeded
                         newRecord.deleteNeeded = note.deleteNeeded
                     }
@@ -164,11 +166,15 @@ public class CDNote: NSManagedObject {
                     newRecord.guid = note.guid
                     newRecord.category = note.category
                     newRecord.content = note.content
-                    newRecord.id = note.id
+                    if note.id > 0 {
+                        newRecord.id = note.id
+                        newRecord.addNeeded = false
+                    } else {
+                        newRecord.addNeeded = true
+                    }
                     newRecord.title = note.title
                     newRecord.favorite = note.favorite
                     newRecord.modified = note.modified
-                    newRecord.addNeeded = note.addNeeded
                     newRecord.updateNeeded = note.updateNeeded
                     newRecord.deleteNeeded = note.deleteNeeded
                     result = newRecord
