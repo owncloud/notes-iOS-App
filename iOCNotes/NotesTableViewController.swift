@@ -178,7 +178,7 @@ class NotesTableViewController: UITableViewController {
         if let sections = notesFrc.sections {
             return sections.count
         }
-        return 1
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
