@@ -41,7 +41,8 @@ class NotesTableViewController: UITableViewController {
 
     private var observers = [NSObjectProtocol]()
     private var sectionCollapsedInfo = ExpandableSectionType()
-    
+    private var isSyncing = false
+
     private var dateFormat: DateFormatter {
         let df = DateFormatter()
         df.dateStyle = .short
@@ -332,7 +333,6 @@ class NotesTableViewController: UITableViewController {
                 }
                 HUD.hide()
             })
-            tableView.endUpdates()
         }
     }
 
@@ -379,7 +379,9 @@ class NotesTableViewController: UITableViewController {
         refreshBarButton.isEnabled = false
         addBarButton.isEnabled = false
         settingsBarButton.isEnabled = false
+        isSyncing = true
         NotesManager.shared.sync { [weak self] in
+            self?.isSyncing = false
             self?.addBarButton.isEnabled = true
             self?.settingsBarButton.isEnabled = true
             self?.refreshBarButton.isEnabled = NotesManager.isOnline
@@ -484,7 +486,9 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
             }
         case .delete:
             if let indexPath = indexPath {
-                if numberOfObjectsInCurrentSection > 1 {
+                if isSyncing {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                } else if numberOfObjectsInCurrentSection > 1 {
                     print("Deleting row")
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 }
@@ -518,8 +522,8 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     }
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        updateSectionExpandedInfo()
         tableView.endUpdates()
+        updateSectionExpandedInfo()
         print("Ending update")
     }
 
