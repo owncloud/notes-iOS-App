@@ -1,3 +1,4 @@
+
 /* Crash report email body placeholder */
 "<Please provide as much details as possible about what you were doing when the crash occurred.>" = "<Bitte beschreiben Sie in Detail was Sie getan haben als sich der Absturz erreignete.>";
 
@@ -80,6 +81,9 @@
 /* An error message title */
 "Notes not found" = "Notizen nicht gefunden";
 
+/* Title for Open In activity */
+"Open In..." = "Öffnen in...";
+
 /* A menu option for sharing in plain text format */
 "Plain Text" = "Einfacher Text";
 
@@ -121,8 +125,14 @@
 /* An error message title */
 "Unauthorized" = "Nicht authorisiert";
 
+/* Text displayed for notes not assigned to a category */
+"Uncategorized" = "Ohne Kategorie";
+
 /* No comment provided by engineer. */
 "Yes, please!" = "Ja, bitte!";
 
 /* A message */
 "You are now connected to Notes on your server" = "Sie sind jetzt mit Notes auf Ihrem Server verbunden";
+
+/* 'Category' menu item */
+"Category" = "Kategorie";

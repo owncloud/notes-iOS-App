@@ -1,75 +1,78 @@
 
-/* Class = "IBUILabel"; text = "Contact"; ObjectID = "0lJ-iq-Nto"; */
+/* Class = "UILabel"; text = "Contact"; ObjectID = "0lJ-iq-Nto"; */
 "0lJ-iq-Nto.text" = "Contact";
 
-/* Class = "IBUILabel"; text = "Title"; ObjectID = "1Q3-he-nuB"; */
-"1Q3-he-nuB.text" = "Title";
-
-/* Class = "IBUILabel"; text = "Connect"; ObjectID = "1nd-Wd-hwP"; */
+/* Class = "UILabel"; text = "Connect"; ObjectID = "1nd-Wd-hwP"; */
 "1nd-Wd-hwP.text" = "Connect";
 
-/* Class = "IBUINavigationItem"; title = "Login Information"; ObjectID = "37p-J6-f3v"; */
+/* Class = "UILabel"; text = "Title"; ObjectID = "1Q3-he-nuB"; */
+"1Q3-he-nuB.text" = "Title";
+
+/* Class = "UINavigationItem"; title = "Login Information"; ObjectID = "37p-J6-f3v"; */
 "37p-J6-f3v.title" = "Login Information";
 
-/* Class = "IBUILabel"; text = "Server"; ObjectID = "6JA-kC-iF4"; */
-"6JA-kC-iF4.text" = "Server";
+/* Class = "UILabel"; text = "URL"; ObjectID = "6JA-kC-iF4"; */
+"6JA-kC-iF4.text" = "URL";
 
-/* Class = "IBUILabel"; text = "ownCloud Server"; ObjectID = "7lc-SH-cWC"; */
-"7lc-SH-cWC.text" = "ownCloud Server";
+/* Class = "UILabel"; text = "Server"; ObjectID = "7lc-SH-cWC"; */
+"7lc-SH-cWC.text" = "Server";
 
-/* Class = "IBUILabel"; text = "Username"; ObjectID = "DJL-8q-B7Y"; */
-"DJL-8q-B7Y.text" = "Username";
+/* Class = "UILabel"; text = "Title"; ObjectID = "7NV-vt-ak3"; */
+"7NV-vt-ak3.text" = "Title";
 
-/* Class = "IBUITableViewSection"; footerTitle = " "; ObjectID = "DPD-gx-oOQ"; */
-"DPD-gx-oOQ.footerTitle" = " ";
-
-/* Class = "IBUITableViewSection"; footerTitle = " "; ObjectID = "GFD-er-5qc"; */
-"GFD-er-5qc.footerTitle" = " ";
-
-/* Class = "IBUITableViewSection"; headerTitle = " "; ObjectID = "GFD-er-5qc"; */
-"GFD-er-5qc.headerTitle" = " ";
-
-/* Class = "IBUILabel"; text = "Not Logged On"; ObjectID = "KZg-EL-ffF"; */
-"KZg-EL-ffF.text" = "Not Logged On";
-
-/* Class = "IBUILabel"; text = "Sync on Start"; ObjectID = "KpL-LB-iJc"; */
-"KpL-LB-iJc.text" = "Sync on Start";
-
-/* Class = "IBUITextView"; text = "Select or create a note."; ObjectID = "LzS-Ob-leM"; */
-"LzS-Ob-leM.text" = "Select or create a note.";
-
-/* Class = "IBUITextField"; placeholder = "http://example.com/owncloud"; ObjectID = "POY-0l-xVn"; */
-"POY-0l-xVn.placeholder" = "http://example.com/owncloud";
-
-/* Class = "IBUITextField"; placeholder = "ownCloud Username"; ObjectID = "PXx-Ke-abd"; */
-"PXx-Ke-abd.placeholder" = "ownCloud Username";
-
-/* Class = "IBUIBarButtonItem"; title = "Close"; ObjectID = "Peh-Fd-TcO"; */
-"Peh-Fd-TcO.title" = "Close";
-
-/* Class = "IBUITextField"; placeholder = "ownCloud Password"; ObjectID = "TWC-3X-LgS"; */
-"TWC-3X-LgS.placeholder" = "ownCloud Password";
-
-/* Class = "IBUITableViewSection"; headerTitle = "SUPPORT"; ObjectID = "aJm-k3-Bdj"; */
+/* Class = "UITableViewSection"; headerTitle = "SUPPORT"; ObjectID = "aJm-k3-Bdj"; */
 "aJm-k3-Bdj.headerTitle" = "SUPPORT";
 
-/* Class = "IBUILabel"; text = "Password"; ObjectID = "fDE-jW-f9T"; */
+/* Class = "UILabel"; text = "Username"; ObjectID = "DJL-8q-B7Y"; */
+"DJL-8q-B7Y.text" = "Username";
+
+/* Class = "UITableViewSection"; footerTitle = " "; ObjectID = "DPD-gx-oOQ"; */
+"DPD-gx-oOQ.footerTitle" = " ";
+
+/* Class = "UILabel"; text = "Offline Mode"; ObjectID = "ejj-IH-M0X"; */
+"ejj-IH-M0X.text" = "Offline Mode";
+
+/* Class = "UINavigationItem"; title = "Categories"; ObjectID = "fAi-OU-vKZ"; */
+"fAi-OU-vKZ.title" = "Categories";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "fDE-jW-f9T"; */
 "fDE-jW-f9T.text" = "Password";
 
-/* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "klT-al-UKS"; */
+/* Class = "UITableViewSection"; footerTitle = " "; ObjectID = "GFD-er-5qc"; */
+"GFD-er-5qc.footerTitle" = " ";
+
+/* Class = "UITableViewSection"; headerTitle = "Server"; ObjectID = "GFD-er-5qc"; */
+"GFD-er-5qc.headerTitle" = "Server";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "klT-al-UKS"; */
 "klT-al-UKS.title" = "Settings";
 
-/* Class = "IBUITableViewSection"; footerTitle = "     "; ObjectID = "kzL-XI-1Cq"; */
+/* Class = "UILabel"; text = "Sync on Start"; ObjectID = "KpL-LB-iJc"; */
+"KpL-LB-iJc.text" = "Sync on Start";
+
+/* Class = "UILabel"; text = "Not Logged In"; ObjectID = "KZg-EL-ffF"; */
+"KZg-EL-ffF.text" = "Not Logged In";
+
+/* Class = "UITableViewSection"; footerTitle = "     "; ObjectID = "kzL-XI-1Cq"; */
 "kzL-XI-1Cq.footerTitle" = "     ";
 
-/* Class = "IBUITableViewSection"; headerTitle = "SYNCING"; ObjectID = "kzL-XI-1Cq"; */
+/* Class = "UITableViewSection"; headerTitle = "SYNCING"; ObjectID = "kzL-XI-1Cq"; */
 "kzL-XI-1Cq.headerTitle" = "SYNCING";
 
-/* Class = "IBUILabel"; text = "Allow Untrusted SSL Certificate"; ObjectID = "orC-1X-Xw7"; */
-"orC-1X-Xw7.text" = "Allow Untrusted SSL Certificate";
+/* Class = "UIBarButtonItem"; title = "Close"; ObjectID = "Peh-Fd-TcO"; */
+"Peh-Fd-TcO.title" = "Close";
 
-/* Class = "IBUINavigationItem"; title = "Notes"; ObjectID = "qfr-a2-foZ"; */
+/* Class = "UITextField"; placeholder = "https://example.com/cloud"; ObjectID = "POY-0l-xVn"; */
+"POY-0l-xVn.placeholder" = "https://example.com/cloud";
+
+/* Class = "UITextField"; placeholder = "Server Username"; ObjectID = "PXx-Ke-abd"; */
+"PXx-Ke-abd.placeholder" = "Server Username";
+
+/* Class = "UINavigationItem"; title = "Notes"; ObjectID = "qfr-a2-foZ"; */
 "qfr-a2-foZ.title" = "Notes";
 
-/* Class = "IBUILabel"; text = "Subtitle"; ObjectID = "x61-QN-GPh"; */
+/* Class = "UITextField"; placeholder = "Server Password"; ObjectID = "TWC-3X-LgS"; */
+"TWC-3X-LgS.placeholder" = "Server Password";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "x61-QN-GPh"; */
 "x61-QN-GPh.text" = "Subtitle";
