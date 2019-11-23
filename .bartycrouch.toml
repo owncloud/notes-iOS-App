@@ -1,0 +1,35 @@
+[update]
+#tasks = ["interfaces", "code", "transform", "normalize"]
+tasks = ["interfaces", "code", "normalize"]
+
+[update.interfaces]
+path = "iOCNotes"
+defaultToBase = true
+ignoreEmptyStrings = false
+unstripped = false
+
+[update.code]
+codePath = "iOCNotes"
+localizablePath = "."
+defaultToKeys = false
+additive = true
+unstripped = false
+
+[update.transform]
+codePath = "."
+localizablePath = "."
+transformer = "foundation"
+supportedLanguageEnumPath = "."
+typeName = "BartyCrouch"
+translateMethodName = "translate"
+
+[update.normalize]
+path = "iOCNotes"
+sourceLocale = "en"
+harmonizeWithSource = true
+sortByKeys = true
+
+[lint]
+path = "iOCNotes"
+duplicateKeys = true
+emptyValues = true

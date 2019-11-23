@@ -1,24 +1,3 @@
-[submodule "TTOpenInAppActivity"]
-	path = TTOpenInAppActivity
-	url = https://github.com/honkmaster/TTOpenInAppActivity.git
-[submodule "FMDB"]
-	path = FMDB
-	url = https://github.com/ccgus/fmdb.git
-[submodule "FCModel"]
-	path = FCModel
-	url = https://github.com/marcoarment/FCModel.git
-[submodule "PDKeychainBindingsController"]
-	path = PDKeychainBindingsController
-	url = https://github.com/carlbrown/PDKeychainBindingsController.git
-[submodule "Marklight"]
-	path = Marklight
-	url = https://github.com/macteo/Marklight.git
-[submodule "Markingbird"]
-	path = Markingbird
-	url = https://github.com/kristopherjohnson/Markingbird.git
-[submodule "github-markdown-css"]
-	path = github-markdown-css
-	url = https://github.com/sindresorhus/github-markdown-css.git
-[submodule "SWMessages"]
-	path = SWMessages
-	url = git@github.com:phedlund/SWMessages.git
+[submodule "LicenseGenerator"]
+	path = LicenseGenerator
+	url = https://github.com/carloe/LicenseGenerator-iOS.git
