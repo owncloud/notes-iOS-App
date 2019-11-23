@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,7 +11,6 @@
 		BD653F88231C43FA00D59A88 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653F87231C43FA00D59A88 /* Constants.swift */; };
 		BD86DD8522B9CDD500115E5D /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */; };
 		BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271622C92EBB004E2408 /* PKHUD.framework */; };
-		BD92271922CAD36E004E2408 /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271822CAD36D004E2408 /* Down.framework */; };
 		BD92271B22CD3743004E2408 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92271A22CD3743004E2408 /* UtilityExtensions.swift */; };
 		BD92271D22CE777F004E2408 /* AlamofireNetworkActivityIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271C22CE777E004E2408 /* AlamofireNetworkActivityIndicator.framework */; };
 		BD92271F22CF4EBE004E2408 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */; };
@@ -34,6 +33,7 @@
 		D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */; };
 		D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */; };
 		D0545F23230901D30001D165 /* PBHOpenInActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0545F22230901D30001D165 /* PBHOpenInActivity.swift */; };
+		D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D0595C7B238632610004C4E8 /* KeychainAccess */; };
 		D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */; };
 		D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */; };
 		D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882ED22BB146200CEBC1F /* EditorViewController.swift */; };
@@ -42,7 +42,6 @@
 		D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E882207B2CF00528E90 /* NotesData.swift */; };
 		D07F5E8B2207B61500528E90 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07F5E8A2207B61500528E90 /* Alamofire.framework */; };
 		D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */; };
-		D07F5E902207B81F00528E90 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07F5E8F2207B81F00528E90 /* KeychainAccess.framework */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
 		D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */; };
@@ -162,10 +161,9 @@
 			files = (
 				BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */,
 				BD92271F22CF4EBE004E2408 /* SwiftMessages.framework in Frameworks */,
+				D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */,
 				BD92271D22CE777F004E2408 /* AlamofireNetworkActivityIndicator.framework in Frameworks */,
-				BD92271922CAD36E004E2408 /* Down.framework in Frameworks */,
 				BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */,
-				D07F5E902207B81F00528E90 /* KeychainAccess.framework in Frameworks */,
 				D07F5E8B2207B61500528E90 /* Alamofire.framework in Frameworks */,
 				D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
@@ -347,6 +345,9 @@
 			dependencies = (
 			);
 			name = iOCNotes;
+			packageProductDependencies = (
+				D0595C7B238632610004C4E8 /* KeychainAccess */,
+			);
 			productName = iOCNotes;
 			productReference = D0CFE5331888A7BD00165839 /* iOCNotes.app */;
 			productType = "com.apple.product-type.application";
@@ -400,6 +401,9 @@
 				de,
 			);
 			mainGroup = D0CFE52A1888A7BD00165839;
+			packageReferences = (
+				D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
 			productRefGroup = D0CFE5341888A7BD00165839 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -459,22 +463,20 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KSCrash.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PKHUD.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Down.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AlamofireNetworkActivityIndicator.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftMessages.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Notepad.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Down.framework",
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KSCrash.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KeychainAccess.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PKHUD.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Down.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AlamofireNetworkActivityIndicator.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftMessages.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Notepad.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Down.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -691,7 +693,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -700,7 +703,6 @@
 		D0CFE5691888A7BD00165839 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -714,7 +716,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 3.0.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
@@ -731,7 +736,6 @@
 		D0CFE56A1888A7BD00165839 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -745,7 +749,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 3.0.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
@@ -775,7 +782,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "iOCNotesTests/iOCNotesTests-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -798,7 +809,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOCNotes/iOCNotes-Prefix.pch";
 				INFOPLIST_FILE = "iOCNotesTests/iOCNotesTests-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -838,6 +853,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D0595C7B238632610004C4E8 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */ = {
