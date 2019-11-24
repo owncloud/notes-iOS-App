@@ -479,18 +479,30 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     }
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        guard let note = anObject as? CDNote else {
+            return
+        }
+        let sectionName = note.category == "" ? Constants.noCategory : note.category
         switch (type) {
         case .insert:
-            if let indexPath = newIndexPath {
-                tableView.insertRows(at: [indexPath], with: .fade)
+            if let newIndexPath = newIndexPath {
+                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
+                    if !collapsedInfo.collapsed {
+                        tableView.insertRows(at: [newIndexPath], with: .fade)
+                    }
+                }
             }
         case .delete:
             if let indexPath = indexPath {
-                if isSyncing {
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                } else if numberOfObjectsInCurrentSection > 1 {
-                    print("Deleting row")
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
+                    if !collapsedInfo.collapsed {
+                        if isSyncing {
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                        } else if numberOfObjectsInCurrentSection > 1 {
+                            print("Deleting row")
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                        }
+                    }
                 }
             }
         case .update:
@@ -499,8 +511,19 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
             }
         case .move:
             print("IndexPath \(String(describing: indexPath)) newIndexPath \(String(describing: newIndexPath))")
-            if let indexPath = indexPath, let newIndexPath = newIndexPath {
-                tableView.moveRow(at: indexPath, to: newIndexPath)
+            if let indexPath = indexPath {
+                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
+                    if !collapsedInfo.collapsed {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
+                }
+            }
+            if let newIndexPath = newIndexPath {
+                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
+                    if !collapsedInfo.collapsed {
+                        tableView.insertRows(at: [newIndexPath], with: .fade)
+                    }
+                }
             }
         @unknown default:
             fatalError()
@@ -512,9 +535,11 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         case .insert:
             print("Inserting section at index \(sectionIndex)")
             tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            sectionCollapsedInfo.append(ExpandableSection(title: sectionInfo.name, collapsed: false))
         case .delete:
             print("Deleting section at index \(sectionIndex)")
             tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            sectionCollapsedInfo = sectionCollapsedInfo.filter({ $0.title != sectionInfo.name })
             numberOfObjectsInCurrentSection = 0
         default:
             return
