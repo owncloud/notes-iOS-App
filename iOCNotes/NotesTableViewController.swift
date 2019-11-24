@@ -517,9 +517,12 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         case .move:
             print("IndexPath \(String(describing: indexPath)) newIndexPath \(String(describing: newIndexPath))")
             if let indexPath = indexPath {
-                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
-                    if !collapsedInfo.collapsed {
-                        tableView.deleteRows(at: [indexPath], with: .fade)
+                if let oldSection = controller.sections?[indexPath.section] {
+                    let oldSectionName = oldSection.name
+                    if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == oldSectionName }) {
+                        if !collapsedInfo.collapsed {
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                        }
                     }
                 }
             }
