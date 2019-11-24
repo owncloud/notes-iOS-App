@@ -35,19 +35,18 @@ class PBHNoteExporter: NSObject {
         let richTextAction = UIAlertAction.init(title: NSLocalizedString("Rich Text", comment: "A menu option for sharing in rich text format"), style: .default, handler: beginExport(type: "rtf"))
         let cancelAction = UIAlertAction.init(title: NSLocalizedString("Cancel", comment: "A menu option for cancelling"), style: .cancel, handler: beginExport(type: ""))
         
-        self.alert.addAction(plainTextAction)
-        self.alert.addAction(markdownAction)
-        self.alert.addAction(htmlAction)
-        self.alert.addAction(richTextAction)
-        self.alert.addAction(cancelAction)
+        alert.addAction(plainTextAction)
+        alert.addAction(markdownAction)
+        alert.addAction(htmlAction)
+        alert.addAction(richTextAction)
+        alert.addAction(cancelAction)
         
         if let popover = alert.popoverPresentationController {
             popover.delegate = self
             popover.barButtonItem = self.barButtonItem
             popover.permittedArrowDirections = .any
+            viewController.present(alert, animated: true, completion: nil)
         }
-        
-        self.viewController.present(self.alert, animated: true, completion: nil)
     }
     
     func beginExport(type: String) -> (_ action: UIAlertAction) -> Void {
