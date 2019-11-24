@@ -54,6 +54,9 @@
 /* The title of an error message */
 "Error Updating Notes" = "Error Updating Notes";
 
+/* The title of an error message */
+"Error Syncing Notes" = "Error Syncing Notes";
+
 /* An error message */
 "Failed to connect to a server. Check your settings." = "Failed to connect to a server. Check your settings.";
 

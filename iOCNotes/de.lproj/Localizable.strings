@@ -54,6 +54,9 @@
 /* The title of an error message */
 "Error Updating Notes" = "Fehler beim Notizen aktualisieren";
 
+/* The title of an error message */
+"Error Syncing Notes" = "Fehler beim Notizen synchronisieren";
+
 /* An error message */
 "Failed to connect to a server. Check your settings." = "Fehler beim Verbinden mit dem Server. Bitte prüfen Sie die Einstellungen";
 
