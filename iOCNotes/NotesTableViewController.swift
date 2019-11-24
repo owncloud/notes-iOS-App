@@ -346,11 +346,14 @@ class NotesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case detailSegueIdentifier:
-            if let indexPath = tableView.indexPathForSelectedRow,
-                let navigationController = segue.destination as? UINavigationController,
+            var selectedIndexPath = IndexPath(row: 0, section: 0)
+            if let cell = sender as? UITableViewCell, let cellIndexPath = tableView.indexPath(for: cell) {
+                selectedIndexPath = cellIndexPath
+            }
+            if let navigationController = segue.destination as? UINavigationController,
                 let editorController = navigationController.topViewController as? EditorViewController {
                 editorViewController = editorController
-                let note = notesFrc.object(at: indexPath)
+                let note = notesFrc.object(at: selectedIndexPath)
                 editorController.note = note
                 editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 editorController.navigationItem.leftItemsSupplementBackButton = true
@@ -409,7 +412,9 @@ class NotesTableViewController: UITableViewController {
         NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
             if note != nil {
                 let indexPath = IndexPath(row: 0, section: 0)
-                if self?.notesFrc.validate(indexPath: indexPath) ?? false {
+                if self?.notesFrc.validate(indexPath: indexPath) ?? false,
+                    let collapsedInfo = self?.sectionCollapsedInfo.first(where: { $0.title == Constants.noCategory }),
+                    !collapsedInfo.collapsed {
                     self?.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .top)
                 }
                 self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
