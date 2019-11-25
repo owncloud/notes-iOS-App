@@ -12,6 +12,9 @@
    A menu option for cancelling */
 "Cancel" = "Abbrechen";
 
+/* 'Category' menu item */
+"Category" = "Kategorie";
+
 /* An error message */
 "Check username and password." = "Benutzername und Passwort prüfen.";
 
@@ -49,13 +52,13 @@
 "Error Getting Note" = "Fehler beim Notiz laden";
 
 /* The title of an error message */
+"Error Syncing Notes" = "Fehler beim Notizen synchronisieren";
+
+/* The title of an error message */
 "Error Updating Note" = "Fehler beim Notiz aktualisieren";
 
 /* The title of an error message */
 "Error Updating Notes" = "Fehler beim Notizen aktualisieren";
-
-/* The title of an error message */
-"Error Syncing Notes" = "Fehler beim Notizen synchronisieren";
 
 /* An error message */
 "Failed to connect to a server. Check your settings." = "Fehler beim Verbinden mit dem Server. Bitte prüfen Sie die Einstellungen";
@@ -136,6 +139,3 @@
 
 /* A message */
 "You are now connected to Notes on your server" = "Sie sind jetzt mit Notes auf Ihrem Server verbunden";
-
-/* 'Category' menu item */
-"Category" = "Kategorie";

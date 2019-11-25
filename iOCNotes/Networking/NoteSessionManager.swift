@@ -30,12 +30,11 @@ class NoteSessionManager: Alamofire.SessionManager {
     
     func challengeHandler(session: URLSession, task: URLSessionTask, challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) -> Void {
         let server = KeychainHelper.server
-        if !server.isEmpty, let host = URLComponents(string: server)?.host {
-            if challenge.protectionSpace.host == host {
-                completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
-            } else {
-                completionHandler(.performDefaultHandling, nil)
-            }
+        if KeychainHelper.allowUntrustedCertificate,
+            !server.isEmpty,
+            let host = URLComponents(string: server)?.host,
+            challenge.protectionSpace.host == host {
+            completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
         } else {
             completionHandler(.performDefaultHandling, nil)
         }

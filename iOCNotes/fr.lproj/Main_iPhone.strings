@@ -23,6 +23,9 @@
 /* Class = "UITableViewSection"; headerTitle = "SUPPORT"; ObjectID = "aJm-k3-Bdj"; */
 "aJm-k3-Bdj.headerTitle" = "SUPPORT";
 
+/* Class = "UILabel"; text = "Allow Untrusted SSL Certificate"; ObjectID = "c6c-Oz-QsA"; */
+"c6c-Oz-QsA.text" = "Allow Untrusted SSL Certificate";
+
 /* Class = "UILabel"; text = "Username"; ObjectID = "DJL-8q-B7Y"; */
 "DJL-8q-B7Y.text" = "Username";
 

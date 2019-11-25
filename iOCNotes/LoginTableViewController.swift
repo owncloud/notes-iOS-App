@@ -18,7 +18,8 @@ class LoginTableViewController: UITableViewController {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var connectionActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var connectLabel: UILabel!
-    
+    @IBOutlet weak var certificateSwitch: UISwitch!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.serverTextField.delegate = self
@@ -32,6 +33,7 @@ class LoginTableViewController: UITableViewController {
         self.serverTextField.text = server
         self.usernameTextField.text = KeychainHelper.username
         self.passwordTextField.text = KeychainHelper.password
+        certificateSwitch.isOn = KeychainHelper.allowUntrustedCertificate
         if NotesManager.isConnectedToInternet {
             self.connectLabel.text = NSLocalizedString("Reconnect", comment: "A button title")
         } else {
@@ -137,6 +139,10 @@ class LoginTableViewController: UITableViewController {
     
     @IBAction func onClose(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+
+    @IBAction func onCertificateSwitch(_ sender: Any) {
+        KeychainHelper.allowUntrustedCertificate = certificateSwitch.isOn
     }
 
 }
