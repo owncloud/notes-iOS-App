@@ -44,12 +44,11 @@ enum Router: URLRequestConvertible {
     }
     
     func asURLRequest() throws -> URLRequest {
-        if let server = UserDefaults.standard.string(forKey: "Server"), !server.isEmpty {
-              let baseURLString = "\(server)/apps/notes/api/v0.2"
-//            let baseURLString = "https://pbhcloud.site/nextcloud/apps/notes/api/v0.2"
-
+        let server = KeychainHelper.server
+        if !server.isEmpty {
+            let baseURLString = "\(server)/apps/notes/api/v0.2"
             let url = try baseURLString.asURL()
-
+            
             var urlRequest = URLRequest(url: url.appendingPathComponent(self.path))
             urlRequest.httpMethod = self.method.rawValue
             let username = KeychainHelper.username

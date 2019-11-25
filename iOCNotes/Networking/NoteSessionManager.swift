@@ -25,8 +25,21 @@ class NoteSessionManager: Alamofire.SessionManager {
     init() {
         let configuration = URLSessionConfiguration.background(withIdentifier: "com.peterandlinda.CloudNotes.background")
         super.init(configuration: configuration)
+        self.delegate.taskDidReceiveChallengeWithCompletion = challengeHandler(session:task:challenge:completionHandler:)
     }
     
+    func challengeHandler(session: URLSession, task: URLSessionTask, challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) -> Void {
+        let server = KeychainHelper.server
+        if !server.isEmpty, let host = URLComponents(string: server)?.host {
+            if challenge.protectionSpace.host == host {
+                completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+            } else {
+                completionHandler(.performDefaultHandling, nil)
+            }
+        } else {
+            completionHandler(.performDefaultHandling, nil)
+        }
+    }
 }
 
 class NotesManager {
