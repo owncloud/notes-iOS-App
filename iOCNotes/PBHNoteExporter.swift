@@ -40,13 +40,14 @@ class PBHNoteExporter: NSObject {
         alert.addAction(htmlAction)
         alert.addAction(richTextAction)
         alert.addAction(cancelAction)
+        alert.modalPresentationStyle = .popover
         
         if let popover = alert.popoverPresentationController {
             popover.delegate = self
             popover.barButtonItem = self.barButtonItem
             popover.permittedArrowDirections = .any
-            viewController.present(alert, animated: true, completion: nil)
         }
+        viewController.present(alert, animated: true, completion: nil)
     }
     
     func beginExport(type: String) -> (_ action: UIAlertAction) -> Void {
