@@ -40,7 +40,7 @@ class SettingsTableViewController: UITableViewController {
             if MFMailComposeViewController.canSendMail() {
                 let mailViewController = MFMailComposeViewController()
                 mailViewController.mailComposeDelegate = self
-                mailViewController.setToRecipients(["support@peterandlinda.com"])
+                mailViewController.setToRecipients(["support@pbh.dev"])
                 mailViewController.setSubject(NSLocalizedString("CloudNotes Support Request", comment: "Support email subject"))
                 mailViewController.setMessageBody(NSLocalizedString("<Please state your question or problem here>", comment: "Support email body placeholder"), isHTML: false)
                 mailViewController.modalPresentationStyle = .formSheet;
