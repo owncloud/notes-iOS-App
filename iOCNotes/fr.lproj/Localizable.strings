@@ -139,3 +139,9 @@
 
 /* 'Category' menu item */
 "Category" = "";
+
+/* Alert title for selecting server brand */
+"Server" = "Server";
+
+/* Alert message for selecting server brand */
+"Unable to automatically detect type of server.\nPlease select:" = "Unable to automatically detect type of server.\nPlease select:";

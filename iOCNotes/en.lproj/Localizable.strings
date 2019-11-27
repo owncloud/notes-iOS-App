@@ -139,3 +139,9 @@
 
 /* A message */
 "You are now connected to Notes on your server" = "You are now connected to Notes on your server";
+
+/* Alert title for selecting server brand */
+"Server" = "Server";
+
+/* Alert message for selecting server brand */
+"Unable to automatically detect type of server.\nPlease select:" = "Unable to automatically detect type of server.\nPlease select:";

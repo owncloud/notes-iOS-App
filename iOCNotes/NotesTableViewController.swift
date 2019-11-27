@@ -262,33 +262,37 @@ class NotesTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) ->   UISwipeActionsConfiguration? {
-      let title = NSLocalizedString("Category", comment: "Name of cell category action")
-      let action = UIContextualAction(style: .normal,
-                                      title: title,
-                                      handler: { [weak self] (action, view, completionHandler) in
-        let categories = self?.notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
-            return note.category
-        })
-        if let storyboard = self?.storyboard,
-            let navController = storyboard.instantiateViewController(withIdentifier: "CategoryTableViewControllerNavController") as? UINavigationController,
-            let categoryController = navController.topViewController as? CategoryTableViewController,
-            let categories = categories,
-            let note = self?.notesFrc.object(at: indexPath) {
-            categoryController.categories = categories.removingDuplicates()
-            if let section = self?.notesFrc.sections?.first(where: { $0.name == note.category }) {
-                self?.numberOfObjectsInCurrentSection = section.numberOfObjects
-            }
-            categoryController.note = note
-            self?.present(navController, animated: true, completion: nil)
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // Currently only NextCloud supports categories
+        if !KeychainHelper.isNextCloud {
+            return nil
         }
-        completionHandler(true)
-      })
-
-      let configuration = UISwipeActionsConfiguration(actions: [action])
-      return configuration
+        let title = NSLocalizedString("Category", comment: "Name of cell category action")
+        let action = UIContextualAction(style: .normal,
+                                        title: title,
+                                        handler: { [weak self] (action, view, completionHandler) in
+                                            let categories = self?.notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
+                                                return note.category
+                                            })
+                                            if let storyboard = self?.storyboard,
+                                                let navController = storyboard.instantiateViewController(withIdentifier: "CategoryTableViewControllerNavController") as? UINavigationController,
+                                                let categoryController = navController.topViewController as? CategoryTableViewController,
+                                                let categories = categories,
+                                                let note = self?.notesFrc.object(at: indexPath) {
+                                                categoryController.categories = categories.removingDuplicates()
+                                                if let section = self?.notesFrc.sections?.first(where: { $0.name == note.category }) {
+                                                    self?.numberOfObjectsInCurrentSection = section.numberOfObjects
+                                                }
+                                                categoryController.note = note
+                                                self?.present(navController, animated: true, completion: nil)
+                                            }
+                                            completionHandler(true)
+        })
+        
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        return configuration
     }
-
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
