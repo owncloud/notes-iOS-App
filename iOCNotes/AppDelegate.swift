@@ -6,7 +6,7 @@
 //  Copyright © 2019 Peter Hedlund. All rights reserved.
 //
 
-import AlamofireNetworkActivityIndicator
+//import AlamofireNetworkActivityIndicator
 import KSCrash
 import UIKit
 
@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             installation?.install()
         #endif
 
-        NetworkActivityIndicatorManager.shared.isEnabled = true
+//        NetworkActivityIndicatorManager.shared.isEnabled = true
 
         window?.tintColor = .ph_iconColor
 

@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import Foundation
 
 enum Router: URLRequestConvertible {
     case allNotes(exclude: String)

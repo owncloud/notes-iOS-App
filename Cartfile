@@ -1,5 +1,3 @@
-github "Alamofire/Alamofire"
-github "Alamofire/AlamofireNetworkActivityIndicator" ~> 2.4.0
 github "kstenerud/KSCrash"
 github "pkluz/PKHUD" ~> 5.0
 github "iwasrobbed/Down"
