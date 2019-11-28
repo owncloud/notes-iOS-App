@@ -64,9 +64,9 @@ struct NoteStruct: Codable, NoteProtocol {
         modified = try values.decode(TimeInterval.self, forKey: .modified)
         id = try values.decode(Int64.self, forKey: .id)
         title = try values.decode(String.self, forKey: .title)
-        errorMessage = try values.decode(String.self, forKey: .errorMessage)
-        error = try values.decode(Bool.self, forKey: .error)
-        etag = try values.decode(String.self, forKey: .etag)
+        errorMessage = try values.decodeIfPresent(String.self, forKey: .errorMessage)
+        error = try values.decodeIfPresent(Bool.self, forKey: .error) ?? false
+        etag = try values.decodeIfPresent(String.self, forKey: .etag) ?? ""
         addNeeded = false
         deleteNeeded = false
         updateNeeded = false

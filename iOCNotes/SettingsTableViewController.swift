@@ -27,20 +27,12 @@ class SettingsTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if section == 0 {
-//            return 44.0
-//        }
-//        return 0.0001
-//    }
-//
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             if MFMailComposeViewController.canSendMail() {
                 let mailViewController = MFMailComposeViewController()
                 mailViewController.mailComposeDelegate = self
-                mailViewController.setToRecipients(["support@peterandlinda.com"])
+                mailViewController.setToRecipients(["support@pbh.dev"])
                 mailViewController.setSubject(NSLocalizedString("CloudNotes Support Request", comment: "Support email subject"))
                 mailViewController.setMessageBody(NSLocalizedString("<Please state your question or problem here>", comment: "Support email body placeholder"), isHTML: false)
                 mailViewController.modalPresentationStyle = .formSheet;
@@ -55,7 +47,6 @@ class SettingsTableViewController: UITableViewController {
         vc.navigationItem.rightBarButtonItem = nil
     }
 
-
     @IBAction func syncOnStartChanged(_ sender: Any) {
         KeychainHelper.syncOnStart = syncOnStartSwitch.isOn
     }
@@ -69,7 +60,6 @@ class SettingsTableViewController: UITableViewController {
     }
     
 }
-
 
 extension SettingsTableViewController: MFMailComposeViewControllerDelegate {
 

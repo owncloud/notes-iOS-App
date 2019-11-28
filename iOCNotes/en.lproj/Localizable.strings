@@ -12,6 +12,9 @@
    A menu option for cancelling */
 "Cancel" = "Cancel";
 
+/* 'Category' menu item */
+"Category" = "Category";
+
 /* An error message */
 "Check username and password." = "Check username and password.";
 
@@ -47,6 +50,9 @@
 
 /* The title of an error message */
 "Error Getting Note" = "Error Getting Note";
+
+/* The title of an error message */
+"Error Syncing Notes" = "Error Syncing Notes";
 
 /* The title of an error message */
 "Error Updating Note" = "Error Updating Note";
@@ -134,5 +140,8 @@
 /* A message */
 "You are now connected to Notes on your server" = "You are now connected to Notes on your server";
 
-/* 'Category' menu item */
-"Category" = "Category";
+/* Alert title for selecting server brand */
+"Server" = "Server";
+
+/* Alert message for selecting server brand */
+"Unable to automatically detect type of server.\nPlease select:" = "Unable to automatically detect type of server.\nPlease select:";

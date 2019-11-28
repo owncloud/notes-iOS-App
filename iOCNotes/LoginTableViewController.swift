@@ -18,7 +18,8 @@ class LoginTableViewController: UITableViewController {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var connectionActivityIndicator: UIActivityIndicatorView!
     @IBOutlet var connectLabel: UILabel!
-    
+    @IBOutlet weak var certificateSwitch: UISwitch!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.serverTextField.delegate = self
@@ -32,6 +33,7 @@ class LoginTableViewController: UITableViewController {
         self.serverTextField.text = server
         self.usernameTextField.text = KeychainHelper.username
         self.passwordTextField.text = KeychainHelper.password
+        certificateSwitch.isOn = KeychainHelper.allowUntrustedCertificate
         if NotesManager.isConnectedToInternet {
             self.connectLabel.text = NSLocalizedString("Reconnect", comment: "A button title")
         } else {
@@ -79,26 +81,16 @@ class LoginTableViewController: UITableViewController {
                 var title: String?
                 switch response.result {
                 case .success:
-                    var config = SwiftMessages.defaultConfig
-                    config.duration = .forever
-                    config.preferredStatusBarStyle = .default
-                    SwiftMessages.show(config: config, viewProvider: {
-                        let view = MessageView.viewFromNib(layout: .cardView)
-                        view.configureTheme(.success, iconStyle: .default)
-                        view.configureDropShadow()
-                        view.configureContent(title: NSLocalizedString("Success", comment: "A message title"),
-                                              body: NSLocalizedString("You are now connected to Notes on your server", comment: "A message"),
-                                              iconImage: Icon.success.image,
-                                              iconText: nil,
-                                              buttonImage: nil,
-                                              buttonTitle: NSLocalizedString("Close & Sync", comment: "Title of a button allowing the user to close the login screen and sync with the server"),
-                                              buttonTapHandler: { [weak self] _ in
-                                                SwiftMessages.hide()
-                                                self?.dismiss(animated: true, completion: nil)
-                                                NotificationCenter.default.post(name: .syncNotes, object: nil)
-                        })
-                        return view
-                    })
+                    if let notes = response.value, !notes.isEmpty {
+                        if let firstNote = notes.first, !firstNote.etag.isEmpty {
+                            KeychainHelper.isNextCloud = true
+                        } else {
+                            KeychainHelper.isNextCloud = false
+                        }
+                        self?.showSyncMessage()
+                    } else {
+                        self?.pickServer()
+                    }
                 case .failure(let error):
                     if (shouldRetry) {
                         self?.serverTextField.text = "\(serverAddress)/index.php"
@@ -139,6 +131,50 @@ class LoginTableViewController: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
 
+    @IBAction func onCertificateSwitch(_ sender: Any) {
+        KeychainHelper.allowUntrustedCertificate = certificateSwitch.isOn
+    }
+    
+    func pickServer() {
+        let alert = UIAlertController(title: NSLocalizedString("Server", comment: "Alert title for selecting server brand"),
+                                      message: NSLocalizedString("Unable to automatically detect type of server.\nPlease select:", comment: "Alert message for selecting server brand"),
+                                      preferredStyle: .alert)
+        let nextCloudAction = UIAlertAction(title: "NextCloud", style: .default) { [weak self] (_) in
+            KeychainHelper.isNextCloud = true
+            self?.showSyncMessage()
+        }
+        let ownCloudAction = UIAlertAction(title: "ownCloud", style: .default) { [weak self] (_) in
+            KeychainHelper.isNextCloud = false
+            self?.showSyncMessage()
+        }
+        alert.addAction(nextCloudAction)
+        alert.addAction(ownCloudAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    func showSyncMessage() {
+        var config = SwiftMessages.defaultConfig
+        config.duration = .forever
+        config.preferredStatusBarStyle = .default
+        config.presentationContext = .viewController(self)
+        SwiftMessages.show(config: config, viewProvider: {
+            let view = MessageView.viewFromNib(layout: .cardView)
+            view.configureTheme(.success, iconStyle: .default)
+            view.configureDropShadow()
+            view.configureContent(title: NSLocalizedString("Success", comment: "A message title"),
+                                  body: NSLocalizedString("You are now connected to Notes on your server", comment: "A message"),
+                                  iconImage: Icon.success.image,
+                                  iconText: nil,
+                                  buttonImage: nil,
+                                  buttonTitle: NSLocalizedString("Close & Sync", comment: "Title of a button allowing the user to close the login screen and sync with the server"),
+                                  buttonTapHandler: { [weak self] _ in
+                                    SwiftMessages.hide()
+                                    self?.dismiss(animated: true, completion: nil)
+                                    NotificationCenter.default.post(name: .syncNotes, object: nil)
+            })
+            return view
+        })
+    }
 }
 
 extension LoginTableViewController: UITextFieldDelegate {

@@ -67,6 +67,24 @@ struct KeychainHelper {
         }
     }
 
+    static var allowUntrustedCertificate: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "AllowUntrustedCertificate")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "AllowUntrustedCertificate")
+        }
+    }
+
+    static var isNextCloud: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "IsNextCloud")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "IsNextCloud")
+        }
+    }
+
     static var dbReset: Bool {
         get {
             return UserDefaults.standard.bool(forKey: "dbReset")

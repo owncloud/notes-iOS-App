@@ -262,33 +262,37 @@ class NotesTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) ->   UISwipeActionsConfiguration? {
-      let title = NSLocalizedString("Category", comment: "Name of cell category action")
-      let action = UIContextualAction(style: .normal,
-                                      title: title,
-                                      handler: { [weak self] (action, view, completionHandler) in
-        let categories = self?.notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
-            return note.category
-        })
-        if let storyboard = self?.storyboard,
-            let navController = storyboard.instantiateViewController(withIdentifier: "CategoryTableViewControllerNavController") as? UINavigationController,
-            let categoryController = navController.topViewController as? CategoryTableViewController,
-            let categories = categories,
-            let note = self?.notesFrc.object(at: indexPath) {
-            categoryController.categories = categories.removingDuplicates()
-            if let section = self?.notesFrc.sections?.first(where: { $0.name == note.category }) {
-                self?.numberOfObjectsInCurrentSection = section.numberOfObjects
-            }
-            categoryController.note = note
-            self?.present(navController, animated: true, completion: nil)
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // Currently only NextCloud supports categories
+        if !KeychainHelper.isNextCloud {
+            return nil
         }
-        completionHandler(true)
-      })
-
-      let configuration = UISwipeActionsConfiguration(actions: [action])
-      return configuration
+        let title = NSLocalizedString("Category", comment: "Name of cell category action")
+        let action = UIContextualAction(style: .normal,
+                                        title: title,
+                                        handler: { [weak self] (action, view, completionHandler) in
+                                            let categories = self?.notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
+                                                return note.category
+                                            })
+                                            if let storyboard = self?.storyboard,
+                                                let navController = storyboard.instantiateViewController(withIdentifier: "CategoryTableViewControllerNavController") as? UINavigationController,
+                                                let categoryController = navController.topViewController as? CategoryTableViewController,
+                                                let categories = categories,
+                                                let note = self?.notesFrc.object(at: indexPath) {
+                                                categoryController.categories = categories.removingDuplicates()
+                                                if let section = self?.notesFrc.sections?.first(where: { $0.name == note.category }) {
+                                                    self?.numberOfObjectsInCurrentSection = section.numberOfObjects
+                                                }
+                                                categoryController.note = note
+                                                self?.present(navController, animated: true, completion: nil)
+                                            }
+                                            completionHandler(true)
+        })
+        
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        return configuration
     }
-
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -346,11 +350,14 @@ class NotesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case detailSegueIdentifier:
-            if let indexPath = tableView.indexPathForSelectedRow,
-                let navigationController = segue.destination as? UINavigationController,
+            var selectedIndexPath = IndexPath(row: 0, section: 0)
+            if let cell = sender as? UITableViewCell, let cellIndexPath = tableView.indexPath(for: cell) {
+                selectedIndexPath = cellIndexPath
+            }
+            if let navigationController = segue.destination as? UINavigationController,
                 let editorController = navigationController.topViewController as? EditorViewController {
                 editorViewController = editorController
-                let note = notesFrc.object(at: indexPath)
+                let note = notesFrc.object(at: selectedIndexPath)
                 editorController.note = note
                 editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 editorController.navigationItem.leftItemsSupplementBackButton = true
@@ -409,7 +416,9 @@ class NotesTableViewController: UITableViewController {
         NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
             if note != nil {
                 let indexPath = IndexPath(row: 0, section: 0)
-                if self?.notesFrc.validate(indexPath: indexPath) ?? false {
+                if self?.notesFrc.validate(indexPath: indexPath) ?? false,
+                    let collapsedInfo = self?.sectionCollapsedInfo.first(where: { $0.title == Constants.noCategory }),
+                    !collapsedInfo.collapsed {
                     self?.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .top)
                 }
                 self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
@@ -479,18 +488,30 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
     }
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        guard let note = anObject as? CDNote else {
+            return
+        }
+        let sectionName = note.category == "" ? Constants.noCategory : note.category
         switch (type) {
         case .insert:
-            if let indexPath = newIndexPath {
-                tableView.insertRows(at: [indexPath], with: .fade)
+            if let newIndexPath = newIndexPath {
+                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
+                    if !collapsedInfo.collapsed {
+                        tableView.insertRows(at: [newIndexPath], with: .fade)
+                    }
+                }
             }
         case .delete:
             if let indexPath = indexPath {
-                if isSyncing {
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                } else if numberOfObjectsInCurrentSection > 1 {
-                    print("Deleting row")
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
+                    if !collapsedInfo.collapsed {
+                        if isSyncing {
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                        } else if numberOfObjectsInCurrentSection > 1 {
+                            print("Deleting row")
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                        }
+                    }
                 }
             }
         case .update:
@@ -499,8 +520,22 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
             }
         case .move:
             print("IndexPath \(String(describing: indexPath)) newIndexPath \(String(describing: newIndexPath))")
-            if let indexPath = indexPath, let newIndexPath = newIndexPath {
-                tableView.moveRow(at: indexPath, to: newIndexPath)
+            if let indexPath = indexPath {
+                if let oldSection = controller.sections?[indexPath.section] {
+                    let oldSectionName = oldSection.name
+                    if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == oldSectionName }) {
+                        if !collapsedInfo.collapsed {
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                        }
+                    }
+                }
+            }
+            if let newIndexPath = newIndexPath {
+                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
+                    if !collapsedInfo.collapsed {
+                        tableView.insertRows(at: [newIndexPath], with: .fade)
+                    }
+                }
             }
         @unknown default:
             fatalError()
@@ -512,9 +547,11 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
         case .insert:
             print("Inserting section at index \(sectionIndex)")
             tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            sectionCollapsedInfo.append(ExpandableSection(title: sectionInfo.name, collapsed: false))
         case .delete:
             print("Deleting section at index \(sectionIndex)")
             tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            sectionCollapsedInfo = sectionCollapsedInfo.filter({ $0.title != sectionInfo.name })
             numberOfObjectsInCurrentSection = 0
         default:
             return

@@ -12,20 +12,19 @@ import UIKit
 
 class PBHNoteExporter: NSObject {
 
-    var text: String = ""
-    var title: String?
-    var viewController: UIViewController?
-    var barButtonItem: UIBarButtonItem?
+    var text: String
+    var title: String
+    var viewController: UIViewController
+    var barButtonItem: UIBarButtonItem
     
     var alert: UIAlertController!
 
     init(viewController: UIViewController, barButtonItem: UIBarButtonItem, text: String, title: String) {
-        super.init()
-        
         self.viewController = viewController
         self.barButtonItem = barButtonItem
         self.text = text
         self.title = title
+        super.init()
     }
     
     func showMenu() -> Void {
@@ -36,19 +35,19 @@ class PBHNoteExporter: NSObject {
         let richTextAction = UIAlertAction.init(title: NSLocalizedString("Rich Text", comment: "A menu option for sharing in rich text format"), style: .default, handler: beginExport(type: "rtf"))
         let cancelAction = UIAlertAction.init(title: NSLocalizedString("Cancel", comment: "A menu option for cancelling"), style: .cancel, handler: beginExport(type: ""))
         
-        self.alert.addAction(plainTextAction)
-        self.alert.addAction(markdownAction)
-        self.alert.addAction(htmlAction)
-        self.alert.addAction(richTextAction)
-        self.alert.addAction(cancelAction)
+        alert.addAction(plainTextAction)
+        alert.addAction(markdownAction)
+        alert.addAction(htmlAction)
+        alert.addAction(richTextAction)
+        alert.addAction(cancelAction)
+        alert.modalPresentationStyle = .popover
         
         if let popover = alert.popoverPresentationController {
             popover.delegate = self
-            popover.barButtonItem = self.barButtonItem!
+            popover.barButtonItem = self.barButtonItem
             popover.permittedArrowDirections = .any
         }
-        
-        self.viewController?.present(self.alert, animated: true, completion: nil)
+        viewController.present(alert, animated: true, completion: nil)
     }
     
     func beginExport(type: String) -> (_ action: UIAlertAction) -> Void {
@@ -69,7 +68,7 @@ class PBHNoteExporter: NSObject {
                 do {
                     try fileManager.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
                 } catch { }
-                let fileURL = outputDirectory.appendingPathComponent(self.title ?? "Untitled", isDirectory: false).appendingPathExtension(type)
+                let fileURL = outputDirectory.appendingPathComponent(self.title, isDirectory: false).appendingPathExtension(type)
                 var activityItems: [AnyObject]?
 
                 switch type {
@@ -97,7 +96,7 @@ class PBHNoteExporter: NSObject {
                                     <head>
                                         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
                                         <title>
-                                            \(self.title ?? "")
+                                            \(self.title)
                                         </title>
                                     </head>
                                     <body>
@@ -122,18 +121,18 @@ class PBHNoteExporter: NSObject {
                             }
                         } catch { }
                 default:
-                    self.viewController?.dismiss(animated: true, completion: nil)
+                    self.viewController.dismiss(animated: true, completion: nil)
                 }
                 if let activityItems = activityItems {
-                    let openInAppActivity = PBHOpenInActivity(barButton: self.barButtonItem!)
+                    let openInAppActivity = PBHOpenInActivity(barButton: self.barButtonItem)
                     let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: [openInAppActivity])
                     if let popover = activityViewController.popoverPresentationController {
-                        let barbuttonItem = self.viewController?.navigationItem.rightBarButtonItems?.first
+                        let barbuttonItem = self.viewController.navigationItem.rightBarButtonItems?.first
                         popover.delegate = self
                         popover.barButtonItem = barbuttonItem
                         popover.permittedArrowDirections = .any
                     }
-                    self.viewController?.present(activityViewController, animated: true, completion: nil)
+                    self.viewController.present(activityViewController, animated: true, completion: nil)
                 }
             }
         }

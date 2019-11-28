@@ -25,8 +25,20 @@ class NoteSessionManager: Alamofire.SessionManager {
     init() {
         let configuration = URLSessionConfiguration.background(withIdentifier: "com.peterandlinda.CloudNotes.background")
         super.init(configuration: configuration)
+        self.delegate.taskDidReceiveChallengeWithCompletion = challengeHandler(session:task:challenge:completionHandler:)
     }
     
+    func challengeHandler(session: URLSession, task: URLSessionTask, challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) -> Void {
+        let server = KeychainHelper.server
+        if KeychainHelper.allowUntrustedCertificate,
+            !server.isEmpty,
+            let host = URLComponents(string: server)?.host,
+            challenge.protectionSpace.host == host {
+            completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+        } else {
+            completionHandler(.performDefaultHandling, nil)
+        }
+    }
 }
 
 class NotesManager {
@@ -110,18 +122,30 @@ class NotesManager {
             addOnServer {
                 updateOnServer {
                     let router = Router.allNotes(exclude: "")
-                    NoteSessionManager.shared.request(router).responseDecodable { (response: DataResponse<[NoteStruct]>) in
-                        if let notes = response.value {
-                            let serverIds = notes.map( { $0.id } )
-                            if let knownIds = CDNote.all()?.map({ $0.id }).filter({ $0 > 0 }) {
-                                let deletedOnServer = Set(knownIds).subtracting(Set(serverIds))
-                                if !deletedOnServer.isEmpty {
-                                    _ = CDNote.delete(ids: Array(deletedOnServer))
+                    NoteSessionManager
+                        .shared
+                        .request(router)
+                        .validate(statusCode: 200..<300)
+                        .validate(contentType: ["application/json"])
+                        .responseDecodable { (response: DataResponse<[NoteStruct]>) in
+                            switch response.result {
+                            case .success:
+                                if let notes = response.value {
+                                    let serverIds = notes.map( { $0.id } )
+                                    if let knownIds = CDNote.all()?.map({ $0.id }).filter({ $0 > 0 }) {
+                                        let deletedOnServer = Set(knownIds).subtracting(Set(serverIds))
+                                        if !deletedOnServer.isEmpty {
+                                            _ = CDNote.delete(ids: Array(deletedOnServer))
+                                        }
+                                    }
+                                    CDNote.update(notes: notes)
                                 }
+                            case .failure(let error):
+                                let message = ErrorMessage(title: NSLocalizedString("Error Syncing Notes", comment: "The title of an error message"),
+                                                           body: error.localizedDescription)
+                                self.showErrorMessage(message: message)
                             }
-                            CDNote.update(notes: notes)
-                        }
-                        completion?()
+                            completion?()
                     }
                 }
             }
