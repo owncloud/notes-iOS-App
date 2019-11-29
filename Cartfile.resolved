@@ -1,8 +1,4 @@
-github "Alamofire/Alamofire" "4.9.1"
-github "Alamofire/AlamofireNetworkActivityIndicator" "2.4.0"
 github "SwiftKickMobile/SwiftMessages" "7.0.1"
-github "iwasrobbed/Down" "v0.9.0"
-github "kishikawakatsumi/KeychainAccess" "v4.1.0"
 github "kstenerud/KSCrash" "1.15.21"
 github "pkluz/PKHUD" "5.3.0"
 github "ruddfawcett/Notepad" "ee2f696e4dcf723f74026b187c76f826d80a9114"

@@ -1,5 +1,4 @@
 github "kstenerud/KSCrash"
 github "pkluz/PKHUD" ~> 5.0
-github "iwasrobbed/Down"
 github "SwiftKickMobile/SwiftMessages"
 github "ruddfawcett/Notepad" "master"

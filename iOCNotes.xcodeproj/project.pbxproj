@@ -68,25 +68,11 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		D0A3E9DF1CD5759700857A46 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		BD302B8F22B8061A00067888 /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		BD653F87231C43FA00D59A88 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		BD92271622C92EBB004E2408 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/iOS/PKHUD.framework; sourceTree = "<group>"; };
-		BD92271822CAD36D004E2408 /* Down.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Down.framework; path = Carthage/Build/iOS/Down.framework; sourceTree = "<group>"; };
 		BD92271A22CD3743004E2408 /* UtilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityExtensions.swift; sourceTree = "<group>"; };
 		BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMessages.framework; path = Carthage/Build/iOS/SwiftMessages.framework; sourceTree = "<group>"; };
 		BD92272622D7874E004E2408 /* Notepad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Notepad.framework; path = Carthage/Build/iOS/Notepad.framework; sourceTree = "<group>"; };
@@ -239,7 +225,6 @@
 			children = (
 				BD92272622D7874E004E2408 /* Notepad.framework */,
 				BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */,
-				BD92271822CAD36D004E2408 /* Down.framework */,
 				BD92271622C92EBB004E2408 /* PKHUD.framework */,
 				D07F5E8F2207B81F00528E90 /* KeychainAccess.framework */,
 				D07F5E8A2207B61500528E90 /* Alamofire.framework */,
@@ -332,7 +317,6 @@
 				D0CFE5301888A7BD00165839 /* Frameworks */,
 				D0CFE5311888A7BD00165839 /* Resources */,
 				D022570C189749920038232A /* ShellScript */,
-				D0A3E9DF1CD5759700857A46 /* Embed Frameworks */,
 				D05110BD20C8CA2A00AFFDC7 /* ShellScript */,
 				D0A00D472356A7F80054E3A3 /* ShellScript */,
 			);
