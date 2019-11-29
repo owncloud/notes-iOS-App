@@ -17,6 +17,7 @@
 		BDD015A1234CF551000BA001 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD015A0234CEF86000BA001 /* Colors.xcassets */; };
 		BDD015A32353F7D4000BA001 /* PBHSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */; };
 		BDDD77A9235CDF130053DAEC /* NotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDD77A8235CDF130053DAEC /* NotesTests.swift */; };
+		BDF94E812391E5EC005F2D5F /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = BDF94E802391E5EC005F2D5F /* Down */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
 		D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DA220BCA290047E090 /* ResponseSerializer.swift */; };
@@ -151,6 +152,7 @@
 				D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
 				D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */,
+				BDF94E812391E5EC005F2D5F /* Down in Frameworks */,
 				D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */,
 				D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */,
 				D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */,
@@ -328,6 +330,7 @@
 			packageProductDependencies = (
 				D0595C7B238632610004C4E8 /* KeychainAccess */,
 				D06CDA5F238F6EC300CF90B0 /* Alamofire */,
+				BDF94E802391E5EC005F2D5F /* Down */,
 			);
 			productName = iOCNotes;
 			productReference = D0CFE5331888A7BD00165839 /* iOCNotes.app */;
@@ -385,6 +388,7 @@
 			packageReferences = (
 				D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				D06CDA5E238F6EC300CF90B0 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				BDF94E7F2391E5EC005F2D5F /* XCRemoteSwiftPackageReference "Down" */,
 			);
 			productRefGroup = D0CFE5341888A7BD00165839 /* Products */;
 			projectDirPath = "";
@@ -835,6 +839,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BDF94E7F2391E5EC005F2D5F /* XCRemoteSwiftPackageReference "Down" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/iwasrobbed/Down";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
 		D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
@@ -854,6 +866,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BDF94E802391E5EC005F2D5F /* Down */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDF94E7F2391E5EC005F2D5F /* XCRemoteSwiftPackageReference "Down" */;
+			productName = Down;
+		};
 		D0595C7B238632610004C4E8 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
