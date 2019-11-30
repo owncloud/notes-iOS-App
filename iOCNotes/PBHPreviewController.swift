@@ -18,7 +18,7 @@ class PBHPreviewController: UIViewController {
         super.viewDidLoad()
         if let content = textAsMarkdown {
             do {
-                let downView = try DownView(frame: view.bounds, markdownString: content, didLoadSuccessfully: {
+                let downView = try DownView(frame: view.frame, markdownString: content, openLinksInBrowser: true, templateBundle: Bundle(path: "DownView.bundle"), configuration: nil, options: [], didLoadSuccessfully: {
                     print("Markdown was rendered.")
                 })
                 downView.translatesAutoresizingMaskIntoConstraints = false

@@ -1,0 +1,4 @@
+$(SRCROOT)/Carthage/Build/iOS/KSCrash.framework
+$(SRCROOT)/Carthage/Build/iOS/PKHUD.framework
+$(SRCROOT)/Carthage/Build/iOS/SwiftMessages.framework
+$(SRCROOT)/Carthage/Build/iOS/Notepad.framework

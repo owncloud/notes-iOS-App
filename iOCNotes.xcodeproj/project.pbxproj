@@ -12,13 +12,14 @@
 		BD86DD8522B9CDD500115E5D /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */; };
 		BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271622C92EBB004E2408 /* PKHUD.framework */; };
 		BD92271B22CD3743004E2408 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92271A22CD3743004E2408 /* UtilityExtensions.swift */; };
-		BD92271F22CF4EBE004E2408 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */; };
 		BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92272622D7874E004E2408 /* Notepad.framework */; };
 		BDD015A1234CF551000BA001 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD015A0234CEF86000BA001 /* Colors.xcassets */; };
 		BDD015A32353F7D4000BA001 /* PBHSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */; };
 		BDDD77A9235CDF130053DAEC /* NotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDD77A8235CDF130053DAEC /* NotesTests.swift */; };
 		BDF94E812391E5EC005F2D5F /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = BDF94E802391E5EC005F2D5F /* Down */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
+		D004DB662391EBA80080A7D1 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D004DB652391EBA70080A7D1 /* SwiftMessages.framework */; };
+		D004DB7723920E820080A7D1 /* DownView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D004DB7623920E820080A7D1 /* DownView.bundle */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
 		D01067DB220BCA290047E090 /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DA220BCA290047E090 /* ResponseSerializer.swift */; };
 		D01067DE220BCE3C0047E090 /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
@@ -81,6 +82,13 @@
 		BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBHSplitViewController.swift; sourceTree = "<group>"; };
 		BDDD77A8235CDF130053DAEC /* NotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTests.swift; sourceTree = "<group>"; };
 		D00293D619F48B5300B2DA8F /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		D004DB652391EBA70080A7D1 /* SwiftMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMessages.framework; path = Carthage/Build/macCatalyst/SwiftMessages.framework; sourceTree = "<group>"; };
+		D004DB692391EC200080A7D1 /* iOCNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOCNotes.entitlements; sourceTree = "<group>"; };
+		D004DB6D2391F0CB0080A7D1 /* SwiftMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMessages.framework; path = Carthage/Build/macCatalyst/SwiftMessages.framework; sourceTree = "<group>"; };
+		D004DB6F2391F0E80080A7D1 /* Notepad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Notepad.framework; path = Carthage/Build/macCatalyst/Notepad.framework; sourceTree = "<group>"; };
+		D004DB702391F0E80080A7D1 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/macCatalyst/PKHUD.framework; sourceTree = "<group>"; };
+		D004DB7423920ADB0080A7D1 /* KSCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSCrash.framework; path = Carthage/Build/macCatalyst/KSCrash.framework; sourceTree = "<group>"; };
+		D004DB7623920E820080A7D1 /* DownView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DownView.bundle; sourceTree = "<group>"; };
 		D00CDFBB194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFBC194E64F9007505E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D00CDFC0194E65B4007505E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -145,7 +153,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */,
-				BD92271F22CF4EBE004E2408 /* SwiftMessages.framework in Frameworks */,
 				D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */,
 				BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */,
 				D0CCF2AB1F77395E00535D54 /* MobileCoreServices.framework in Frameworks */,
@@ -156,6 +163,7 @@
 				D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */,
 				D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */,
 				D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */,
+				D004DB662391EBA80080A7D1 /* SwiftMessages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +213,10 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
+				D004DB7423920ADB0080A7D1 /* KSCrash.framework */,
+				D004DB6F2391F0E80080A7D1 /* Notepad.framework */,
+				D004DB702391F0E80080A7D1 /* PKHUD.framework */,
+				D004DB6D2391F0CB0080A7D1 /* SwiftMessages.framework */,
 				D0A00D462356A7EB0054E3A3 /* credits.py */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
@@ -225,6 +237,7 @@
 		D0CFE5351888A7BD00165839 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D004DB652391EBA70080A7D1 /* SwiftMessages.framework */,
 				BD92272622D7874E004E2408 /* Notepad.framework */,
 				BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */,
 				BD92271622C92EBB004E2408 /* PKHUD.framework */,
@@ -248,6 +261,7 @@
 		D0CFE53C1888A7BD00165839 /* iOCNotes */ = {
 			isa = PBXGroup;
 			children = (
+				D004DB692391EC200080A7D1 /* iOCNotes.entitlements */,
 				D01067DC220BCAD60047E090 /* Models */,
 				D07F5E8C2207B6D700528E90 /* Networking */,
 				D05110BE20CA1F9D00AFFDC7 /* CoreData */,
@@ -281,6 +295,7 @@
 		D0CFE53D1888A7BD00165839 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D004DB7623920E820080A7D1 /* DownView.bundle */,
 				D0782BF020D60430009AF66B /* Cartfile */,
 				D00CDFC1194E65B4007505E9 /* Localizable.strings */,
 				D0CFE53E1888A7BD00165839 /* iOCNotes-Info.plist */,
@@ -409,6 +424,7 @@
 				D0CFE5521888A7BD00165839 /* Images.xcassets in Resources */,
 				D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */,
 				D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */,
+				D004DB7723920E820080A7D1 /* DownView.bundle in Resources */,
 				D0B6D4AF22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib in Resources */,
 				D02256C71891FD7C0038232A /* defaults.plist in Resources */,
 				D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */,
@@ -446,19 +462,15 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+				"$(SRCROOT)/carthage_input_$(CARTHAGE_SUBFOLDER).xcfilelist",
+			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/KSCrash.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/PKHUD.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftMessages.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Notepad.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Down.framework",
+			);
+			outputFileListPaths = (
+				"$(SRCROOT)/carthage_output_$(CARTHAGE_SUBFOLDER).xcfilelist",
 			);
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/KSCrash.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PKHUD.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftMessages.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Notepad.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Down.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -686,6 +698,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CARTHAGE_SUBFOLDER = iOS;
+				"CARTHAGE_SUBFOLDER[sdk=macosx*]" = macCatalyst;
+				CODE_SIGN_ENTITLEMENTS = iOCNotes/iOCNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 2747;
@@ -694,7 +709,7 @@
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBFOLDER)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
@@ -710,6 +725,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
@@ -720,6 +736,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CARTHAGE_SUBFOLDER = iOS;
+				"CARTHAGE_SUBFOLDER[sdk=macosx*]" = macCatalyst;
+				CODE_SIGN_ENTITLEMENTS = iOCNotes/iOCNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 2747;
@@ -728,7 +747,7 @@
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBFOLDER)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
@@ -744,6 +763,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
