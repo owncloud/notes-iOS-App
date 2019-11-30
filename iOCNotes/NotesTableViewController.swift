@@ -150,8 +150,8 @@ class NotesTableViewController: UITableViewController {
         navigationController?.toolbar.clipsToBounds = true
         searchController = UISearchController(searchResultsController: nil)
         searchController?.searchResultsUpdater = self
-        searchController?.hidesNavigationBarDuringPresentation = true
-        searchController?.dimsBackgroundDuringPresentation = false
+//        searchController?.hidesNavigationBarDuringPresentation = true
+//        searchController?.dimsBackgroundDuringPresentation = false
         searchController?.searchBar.delegate = self
         searchController?.searchBar.sizeToFit()
 
