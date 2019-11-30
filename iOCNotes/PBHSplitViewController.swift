@@ -15,7 +15,11 @@ class PBHSplitViewController: UISplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
+        #if targetEnvironment(macCatalyst)
+        primaryBackgroundStyle = .sidebar
+        #else
         preferredDisplayMode = .allVisible
+        #endif
     }
 
 }

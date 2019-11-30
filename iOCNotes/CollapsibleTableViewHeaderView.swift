@@ -30,6 +30,11 @@ class CollapsibleTableViewHeaderView: UITableViewHeaderFooterView {
     required init?(coder aDecoder: NSCoder) {
         collapsed = false
         super.init(coder: aDecoder)
+        #if !targetEnvironment(macCatalyst)
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .ph_backgroundColor
+        self.backgroundView = backgroundView
+        #endif
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CollapsibleTableViewHeaderView.onTap(_:))))
     }
     

@@ -77,9 +77,10 @@ class EditorViewController: UIViewController {
             bottomConstraint,
         ])
         navigationItem.rightBarButtonItems = [addButton, fixedSpace, activityButton, fixedSpace, deleteButton, fixedSpace, previewButton]
+        #if !targetEnvironment(macCatalyst)
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true
-        
+        #endif
         if let note = note {
             noteView.text = note.content;
             noteView.isEditable = true

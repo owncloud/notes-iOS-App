@@ -18,11 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         #if !targetEnvironment(simulator)
         let installation = self.makeEmailInstallation()
-            installation?.install()
+        installation?.install()
         #endif
-
-//        NetworkActivityIndicatorManager.shared.isEnabled = true
-
+        
+        //        NetworkActivityIndicatorManager.shared.isEnabled = true
+        #if !targetEnvironment(macCatalyst)
         window?.tintColor = .ph_iconColor
 
         UINavigationBar.appearance().barTintColor = .ph_popoverButtonColor
@@ -53,10 +53,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UILabel.appearance(whenContainedInInstancesOf: [UITextField.self]).themeColor = .ph_readTextColor
 
         UITextField.appearance().textColor = .ph_textColor
-        
+        #endif
         if let splitViewController = self.window?.rootViewController as? UISplitViewController,
             let navigationController = splitViewController.viewControllers.last as? UINavigationController {
+            #if targetEnvironment(macCatalyst)
+            splitViewController.primaryBackgroundStyle = .sidebar
+            #else
             navigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+            #endif
         }
 
         #if !targetEnvironment(simulator)

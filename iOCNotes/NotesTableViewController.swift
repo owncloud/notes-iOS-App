@@ -150,8 +150,7 @@ class NotesTableViewController: UITableViewController {
         navigationController?.toolbar.clipsToBounds = true
         searchController = UISearchController(searchResultsController: nil)
         searchController?.searchResultsUpdater = self
-//        searchController?.hidesNavigationBarDuringPresentation = true
-//        searchController?.dimsBackgroundDuringPresentation = false
+        searchController?.hidesNavigationBarDuringPresentation = true
         searchController?.searchBar.delegate = self
         searchController?.searchBar.sizeToFit()
 
@@ -165,6 +164,9 @@ class NotesTableViewController: UITableViewController {
         tableView.reloadData()
         definesPresentationContext = true
         refreshBarButton.isEnabled = NotesManager.isOnline
+        #if !targetEnvironment(macCatalyst)
+        tableView.backgroundColor = .ph_backgroundColor
+        #endif
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -244,9 +246,14 @@ class NotesTableViewController: UITableViewController {
         guard notesFrc.validate(indexPath: indexPath) else {
             return
         }
+        #if !targetEnvironment(macCatalyst)
+        cell.backgroundColor = .ph_cellBackgroundColor
+        cell.contentView.backgroundColor = .ph_cellBackgroundColor
         let selectedBackgroundView = UIView(frame: cell.frame)
         selectedBackgroundView.backgroundColor = UIColor.ph_cellSelectionColor
         cell.selectedBackgroundView = selectedBackgroundView
+        #endif
+
         let note = self.notesFrc.object(at: indexPath)
         cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         cell.textLabel?.text = note.title
@@ -359,14 +366,15 @@ class NotesTableViewController: UITableViewController {
                 editorViewController = editorController
                 let note = notesFrc.object(at: selectedIndexPath)
                 editorController.note = note
+                #if !targetEnvironment(macCatalyst)
                 editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 editorController.navigationItem.leftItemsSupplementBackButton = true
-                
                 if splitViewController?.displayMode == .allVisible || splitViewController?.displayMode == .primaryOverlay {
                     UIView.animate(withDuration: 0.3, animations: {
                         self.splitViewController?.preferredDisplayMode = .primaryHidden
                     }, completion: nil)
                 }
+                #endif
             }
             
         default:
