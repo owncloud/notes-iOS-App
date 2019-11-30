@@ -17,6 +17,8 @@ class PBHSplitViewController: UISplitViewController {
         delegate = self
         #if targetEnvironment(macCatalyst)
         primaryBackgroundStyle = .sidebar
+        minimumPrimaryColumnWidth = 300
+        maximumPrimaryColumnWidth = 1000
         #else
         preferredDisplayMode = .allVisible
         #endif
