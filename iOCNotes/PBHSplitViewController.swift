@@ -11,7 +11,8 @@ import UIKit
 class PBHSplitViewController: UISplitViewController {
 
     var editorViewController: EditorViewController?
-
+    var notesTableViewController: NotesTableViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -24,6 +25,13 @@ class PBHSplitViewController: UISplitViewController {
         #endif
     }
 
+    @IBAction func onFileNew(sender: Any?) {
+        notesTableViewController?.onAdd(sender: sender)
+    }
+    
+    @IBAction func onViewSync(sender: Any?) {
+        notesTableViewController?.onRefresh(sender: sender)
+    }
 }
 
 extension PBHSplitViewController: UISplitViewControllerDelegate {

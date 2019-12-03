@@ -14,6 +14,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var notesTableViewController: NotesTableViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         #if !targetEnvironment(simulator)
@@ -54,13 +55,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UITextField.appearance().textColor = .ph_textColor
         #endif
-        if let splitViewController = self.window?.rootViewController as? UISplitViewController,
-            let navigationController = splitViewController.viewControllers.last as? UINavigationController {
+        if let splitViewController = self.window?.rootViewController as? UISplitViewController {
+            if let firstNavigationController = splitViewController.viewControllers.first as? UINavigationController {
+                notesTableViewController = firstNavigationController.topViewController as? NotesTableViewController
+            
+            }
+            if let secondNavigationController = splitViewController.viewControllers.last as? UINavigationController {
             #if targetEnvironment(macCatalyst)
             splitViewController.primaryBackgroundStyle = .sidebar
             #else
-            navigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+            secondNavigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
             #endif
+        }
         }
 
         #if !targetEnvironment(simulator)
@@ -84,6 +90,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } catch { }
         }
         return true
+    }
+
+    // MARK: UISceneSession Lifecycle
+
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        // Called when a new scene session is being created.
+        // Use this method to select a configuration to create the new scene with.
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+        // Called when the user discards a scene session.
+        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
+        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
     #if !targetEnvironment(simulator)

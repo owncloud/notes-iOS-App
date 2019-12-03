@@ -167,6 +167,9 @@ class NotesTableViewController: UITableViewController {
         #if !targetEnvironment(macCatalyst)
         tableView.backgroundColor = .ph_backgroundColor
         #endif
+        if let splitVC = splitViewController as? PBHSplitViewController {
+            splitVC.notesTableViewController = self
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -387,7 +390,9 @@ class NotesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        #if !targetEnvironment(macCatalyst)
         tableView.deselectRow(at: indexPath, animated: true)
+        #endif
     }
 
     @IBAction func onRefresh(sender: Any?) {

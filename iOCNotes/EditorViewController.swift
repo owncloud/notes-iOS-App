@@ -255,7 +255,7 @@ class EditorViewController: UIViewController {
     }
     
     @IBAction func onPreview(_ sender: Any?) {
-        //
+        performSegue(withIdentifier: "showPreview", sender: sender)
     }
     
     @IBAction func onUndo(_ sender: Any?) {
