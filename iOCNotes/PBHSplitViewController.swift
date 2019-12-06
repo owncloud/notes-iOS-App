@@ -25,6 +25,11 @@ class PBHSplitViewController: UISplitViewController {
         #endif
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        buildMacToolbar()
+    }
+    
     @IBAction func onFileNew(sender: Any?) {
         notesTableViewController?.onAdd(sender: sender)
     }
@@ -77,5 +82,179 @@ extension PBHSplitViewController: UISplitViewControllerDelegate {
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return true
     }
+    
+    @objc func onAddButtonAction(sender: UIBarButtonItem) {
+        editorViewController?.onAdd(sender)
+    }
 
+    @objc func onRefreshButtonAction(sender: UIBarButtonItem) {
+        notesTableViewController?.onRefresh(sender: sender)
+    }
+
+    @objc func onBackButtonAction(sender: UIBarButtonItem) {
+        editorViewController?.navigationController?.popViewController(animated: true)
+    }
+
+    @objc func onPreviewButtonAction(sender: UIBarButtonItem) {
+        editorViewController?.onPreview(sender)
+    }
+    
+    @objc func onShareButtonAction(sender: UIBarButtonItem) {
+            editorViewController?.onActivities(sender)
+        
+//        let userActivity = NSUserActivity(activityType: "com.peterandlinda.CloudNotes.appSettings")
+//
+//        // If you need custom data for your new window initialization, you can
+//        // put it into the userInfo here
+//        //        userActivity.userInfo = ["userid": 1234]
+//
+//        UIApplication.shared.requestSceneSessionActivation(nil, userActivity: userActivity, options: nil) { (e) in
+//            // If we happen to have an error
+//            print("error", e)
+//        }
+    }
+    
 }
+
+#if targetEnvironment(macCatalyst)
+
+extension NSToolbarItem.Identifier {
+    static let add = NSToolbarItem.Identifier(rawValue: "add")
+    static let refresh = NSToolbarItem.Identifier(rawValue: "refresh")
+    static let back = NSToolbarItem.Identifier(rawValue: "back")
+    static let preview = NSToolbarItem.Identifier(rawValue: "preview")
+    static let share = NSToolbarItem.Identifier(rawValue: "share")
+}
+
+extension PBHSplitViewController {
+  func buildMacToolbar() {
+    #if targetEnvironment(macCatalyst)
+    guard let windowScene = view.window?.windowScene else {
+      return
+    }
+    
+    if let titlebar = windowScene.titlebar {
+        let toolbar = NSToolbar(identifier: "NotesToolbar")
+        toolbar.allowsUserCustomization = false
+        toolbar.delegate = self
+        titlebar.toolbar = toolbar
+        titlebar.titleVisibility = .hidden
+    }
+    #endif
+  }
+}
+
+
+extension PBHSplitViewController: NSToolbarDelegate {
+    
+    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+        switch itemIdentifier {
+        case .refresh:
+            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise")?.forMacToolbar(),
+                                                style: .plain,
+                                                target: self,
+                                                action: #selector(self.onRefreshButtonAction(sender:)))
+            barButtonItem.accessibilityIdentifier = itemIdentifier.rawValue
+            let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
+            return button
+        case .back:
+            let barButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.forMacToolbar(),
+                                                 style: .plain,
+                                                 target: self,
+                                                 action: #selector(self.onBackButtonAction(sender:)))
+            barButtonItem.accessibilityIdentifier = itemIdentifier.rawValue
+            let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
+            return button
+        case .preview:
+            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "doc.text.magnifyingglass")?.forMacToolbar(),
+                                                style: .plain,
+                                                target: self,
+                                                action: #selector(self.onPreviewButtonAction(sender:)))
+            barButtonItem.accessibilityIdentifier = itemIdentifier.rawValue
+            let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
+            return button
+        case .share:
+            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up")?.forMacToolbar(),
+                                                style: .plain,
+                                                target: self,
+                                                action: #selector(self.onShareButtonAction(sender:)))
+            barButtonItem.accessibilityIdentifier = itemIdentifier.rawValue
+            let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
+            return button
+        case .add:
+            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus")?.forMacToolbar(),
+                                                style: .plain,
+                                                target: self,
+                                                action: #selector(self.onAddButtonAction(sender:)))
+            barButtonItem.accessibilityIdentifier = itemIdentifier.rawValue
+            let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
+            return button
+            
+        default:
+            break
+        }
+        return nil
+    }
+//        if itemIdentifier == Toolbar.colors {
+//        let items = AppColors.colorSpace
+//          .enumerated()
+//          .map { (index, slice) -> NSToolbarItem in
+//            let item = NSToolbarItem()
+//            item.image = UIImage.swatch(slice.1)
+//            item.target = self
+//            item.action = #selector(colorSelectionChanged(_:))
+//            item.tag = index
+//            item.label = slice.0
+//            return item
+//          }
+//        
+//        let group = NSToolbarItemGroup(itemIdentifier: Toolbar.colors)
+//        group.subitems = items
+//        group.selectionMode = .momentary
+//        group.label = "Text Background"
+//        
+//        return group
+//      }
+//      //4
+//      else if itemIdentifier == Toolbar.addImage {
+//        let item = NSToolbarItem(itemIdentifier: Toolbar.addImage)
+//        item.image = UIImage(systemName: "photo")?.forNSToolbar()
+//        item.target = self
+//        item.action = #selector(chooseImageAction)
+//        item.label = "Add Image"
+//        
+//        return item
+//      }
+//      else if itemIdentifier == Toolbar.share {
+//        let item = NSToolbarItem(itemIdentifier: Toolbar.share)
+//        item.image = UIImage(systemName: "square.and.arrow.up")?.forNSToolbar()
+//        item.target = self
+//        item.action = #selector(shareAction)
+//        item.label = "Share Item"
+//        
+//        return item
+//      }
+//      
+//      return nil
+//    }
+    
+    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return [
+            .add,
+            .refresh,
+            .space,
+            .back,
+            .flexibleSpace,
+            .preview,
+            .share
+        ]
+    }
+    
+    func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return toolbarDefaultItemIdentifiers(toolbar)
+    }
+    
+
+    
+}
+#endif

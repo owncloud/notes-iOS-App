@@ -1,18 +1,18 @@
 //
-//  SceneDelegate.swift
+//  SettingsSceneDelegate.swift
 //  iOCNotes
 //
-//  Created by Peter Hedlund on 12/1/19.
+//  Created by Peter Hedlund on 12/3/19.
 //  Copyright © 2019 Peter Hedlund. All rights reserved.
 //
 
 import UIKit
 import SwiftUI
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SettingsSceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        windowScene.title = "CloudNotes"
+        windowScene.title = "Preferences"
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

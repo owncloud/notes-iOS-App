@@ -92,11 +92,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    override func buildMenu(with builder: UIMenuBuilder) {
+        super.buildMenu(with: builder)
+
+        builder.remove(menu: .newScene)
+//        builder.remove(menu: .format)
+//        builder.remove(menu: .toolbar)
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
+        if options.userActivities.first?.activityType == "com.peterandlinda.CloudNotes.appSettings" {
+            // Load our new window configuration
+            return UISceneConfiguration(name: "Settings Configuration", sessionRole: connectingSceneSession.role)
+        }
+        
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 

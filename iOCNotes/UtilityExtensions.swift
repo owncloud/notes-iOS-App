@@ -31,6 +31,16 @@ extension UIImage {
         image = image.resizableImage(withCapInsets: UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1))
         return image
     }
+    
+    func forMacToolbar() -> UIImage {
+        let newSize = CGSize(width: 16.0, height: 16.0)
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        let image = renderer.image { _ in
+            self.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
+        }
+        return image
+    }
+
 }
 
 extension UIColor {

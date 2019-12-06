@@ -89,6 +89,9 @@ class EditorViewController: UIViewController {
             addButton.isEnabled = !noteView.text.isEmpty
             previewButton.isEnabled = !noteView.text.isEmpty
             deleteButton.isEnabled = true
+            #if targetEnvironment(macCatalyst)
+            (splitViewController as? PBHSplitViewController)?.buildMacToolbar()
+            #endif
         } else {
             noteView.isEditable = false
             noteView.isSelectable = false
@@ -99,13 +102,18 @@ class EditorViewController: UIViewController {
             addButton.isEnabled = true
             deleteButton.isEnabled = false
             previewButton.isEnabled = false
+            #if targetEnvironment(macCatalyst)
+            (splitViewController as? PBHSplitViewController)?.buildMacToolbar()
+            #endif
         }
-
+        #if targetEnvironment(macCatalyst)
+        navigationController?.navigationBar.isHidden = true
+        #else
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.delegate = self
         navigationController?.toolbar.isTranslucent = true
         navigationController?.toolbar.clipsToBounds = true
-
+        #endif
         if let splitVC = splitViewController as? PBHSplitViewController {
             splitVC.editorViewController = self
         }
@@ -345,6 +353,9 @@ extension EditorViewController: UITextViewDelegate {
         self.addButton.isEnabled = textView.text.count > 0
         self.previewButton.isEnabled = textView.text.count > 0
         self.deleteButton.isEnabled = true
+        #if targetEnvironment(macCatalyst)
+        (splitViewController as? PBHSplitViewController)?.buildMacToolbar()
+        #endif
         if editingTimer != nil {
             editingTimer?.invalidate()
             editingTimer = nil

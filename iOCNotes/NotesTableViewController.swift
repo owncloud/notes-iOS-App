@@ -145,6 +145,9 @@ class NotesTableViewController: UITableViewController {
 
         let nib = UINib(nibName: "CollapsibleTableViewHeaderView", bundle: nil)
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: "HeaderView")
+        #if targetEnvironment(macCatalyst)
+        navigationController?.navigationBar.isHidden = true
+        #else
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.toolbar.isTranslucent = true
         navigationController?.toolbar.clipsToBounds = true
@@ -153,10 +156,11 @@ class NotesTableViewController: UITableViewController {
         searchController?.hidesNavigationBarDuringPresentation = true
         searchController?.searchBar.delegate = self
         searchController?.searchBar.sizeToFit()
+        tableView.tableHeaderView = searchController?.searchBar
+        #endif
 
         sectionCollapsedInfo = KeychainHelper.sectionExpandedInfo
         
-        tableView.tableHeaderView = searchController?.searchBar
         tableView.contentOffset = CGPoint(x: 0, y: searchController?.searchBar.frame.size.height ?? 0.0 + tableView.contentOffset.y)
         tableView.backgroundView = UIView()
         tableView.dropDelegate = self
@@ -205,6 +209,9 @@ class NotesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        #if targetEnvironment(macCatalyst)
+        return nil
+        #endif
         let sectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as! CollapsibleTableViewHeaderView
         var displayTitle = ""
         var title = ""
@@ -220,9 +227,30 @@ class NotesTableViewController: UITableViewController {
         sectionHeaderView.delegate = self
         sectionHeaderView.titleLabel.text = displayTitle
         sectionHeaderView.collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
-        return sectionHeaderView;
+        return sectionHeaderView
     }
 
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        #if targetEnvironment(macCatalyst)
+        var displayTitle = ""
+//        var title = ""
+        if let sections = notesFrc.sections {
+            let currentSection = sections[section]
+            if !currentSection.name.isEmpty {
+                displayTitle = currentSection.name
+            }
+            title = currentSection.name
+        }
+//        sectionHeaderView.sectionTitle = title
+//        sectionHeaderView.sectionIndex = section
+//        sectionHeaderView.delegate = self
+//        sectionHeaderView.titleLabel.text = displayTitle
+//        sectionHeaderView.collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
+        return displayTitle.uppercased()
+        #endif
+        return nil
+    }
+    
     override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
