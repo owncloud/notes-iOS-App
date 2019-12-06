@@ -150,7 +150,7 @@ extension PBHSplitViewController: NSToolbarDelegate {
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         switch itemIdentifier {
         case .refresh:
-            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise")?.forMacToolbar(),
+            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"),
                                                 style: .plain,
                                                 target: self,
                                                 action: #selector(self.onRefreshButtonAction(sender:)))
@@ -158,7 +158,7 @@ extension PBHSplitViewController: NSToolbarDelegate {
             let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
             return button
         case .back:
-            let barButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.forMacToolbar(),
+            let barButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
                                                  style: .plain,
                                                  target: self,
                                                  action: #selector(self.onBackButtonAction(sender:)))
@@ -166,7 +166,7 @@ extension PBHSplitViewController: NSToolbarDelegate {
             let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
             return button
         case .preview:
-            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "doc.text.magnifyingglass")?.forMacToolbar(),
+            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "doc.text.magnifyingglass"),
                                                 style: .plain,
                                                 target: self,
                                                 action: #selector(self.onPreviewButtonAction(sender:)))
@@ -174,7 +174,7 @@ extension PBHSplitViewController: NSToolbarDelegate {
             let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
             return button
         case .share:
-            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up")?.forMacToolbar(),
+            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"),
                                                 style: .plain,
                                                 target: self,
                                                 action: #selector(self.onShareButtonAction(sender:)))
@@ -182,7 +182,7 @@ extension PBHSplitViewController: NSToolbarDelegate {
             let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
             return button
         case .add:
-            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus")?.forMacToolbar(),
+            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"),
                                                 style: .plain,
                                                 target: self,
                                                 action: #selector(self.onAddButtonAction(sender:)))

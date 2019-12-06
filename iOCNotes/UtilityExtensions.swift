@@ -32,15 +32,6 @@ extension UIImage {
         return image
     }
     
-    func forMacToolbar() -> UIImage {
-        let newSize = CGSize(width: 16.0, height: 16.0)
-        let renderer = UIGraphicsImageRenderer(size: newSize)
-        let image = renderer.image { _ in
-            self.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
-        }
-        return image
-    }
-
 }
 
 extension UIColor {
@@ -72,3 +63,12 @@ extension UILabel {
     }
 
 }
+
+extension UITextView {
+  #if targetEnvironment(macCatalyst)
+  @objc(_focusRingType)
+  var focusRingType: UInt {
+       return 1 //NSFocusRingTypeNone
+  }
+  #endif
+}  
