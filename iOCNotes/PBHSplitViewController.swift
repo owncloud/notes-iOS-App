@@ -101,17 +101,9 @@ extension PBHSplitViewController: UISplitViewControllerDelegate {
     
     @objc func onShareButtonAction(sender: UIBarButtonItem) {
             editorViewController?.onActivities(sender)
-        
-//        let userActivity = NSUserActivity(activityType: "com.peterandlinda.CloudNotes.appSettings")
-//
-//        // If you need custom data for your new window initialization, you can
-//        // put it into the userInfo here
-//        //        userActivity.userInfo = ["userid": 1234]
-//
-//        UIApplication.shared.requestSceneSessionActivation(nil, userActivity: userActivity, options: nil) { (e) in
-//            // If we happen to have an error
-//            print("error", e)
-//        }
+    }
+    
+    @IBAction func onPreferences(sender: Any) {
     }
     
 }

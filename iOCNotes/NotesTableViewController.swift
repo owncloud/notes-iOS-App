@@ -209,9 +209,9 @@ class NotesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        #if targetEnvironment(macCatalyst)
-        return nil
-        #endif
+//        #if targetEnvironment(macCatalyst)
+//        return nil
+//        #endif
         let sectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as! CollapsibleTableViewHeaderView
         var displayTitle = ""
         var title = ""
@@ -225,32 +225,32 @@ class NotesTableViewController: UITableViewController {
         sectionHeaderView.sectionTitle = title
         sectionHeaderView.sectionIndex = section
         sectionHeaderView.delegate = self
-        sectionHeaderView.titleLabel.text = displayTitle
+        sectionHeaderView.titleLabel.text = displayTitle.uppercased()
         sectionHeaderView.collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
         return sectionHeaderView
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        #if targetEnvironment(macCatalyst)
-        var displayTitle = ""
-//        var title = ""
-        if let sections = notesFrc.sections {
-            let currentSection = sections[section]
-            if !currentSection.name.isEmpty {
-                displayTitle = currentSection.name
-            }
-            title = currentSection.name
-        }
-//        sectionHeaderView.sectionTitle = title
-//        sectionHeaderView.sectionIndex = section
-//        sectionHeaderView.delegate = self
-//        sectionHeaderView.titleLabel.text = displayTitle
-//        sectionHeaderView.collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
-        return displayTitle.uppercased()
-        #endif
-        return nil
-    }
-    
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        #if targetEnvironment(macCatalyst)
+//        var displayTitle = ""
+////        var title = ""
+//        if let sections = notesFrc.sections {
+//            let currentSection = sections[section]
+//            if !currentSection.name.isEmpty {
+//                displayTitle = currentSection.name
+//            }
+//            title = currentSection.name
+//        }
+////        sectionHeaderView.sectionTitle = title
+////        sectionHeaderView.sectionIndex = section
+////        sectionHeaderView.delegate = self
+////        sectionHeaderView.titleLabel.text = displayTitle
+////        sectionHeaderView.collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
+//        return displayTitle.uppercased()
+//        #endif
+//        return nil
+//    }
+//
     override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
@@ -442,7 +442,7 @@ class NotesTableViewController: UITableViewController {
     }
 
     @IBAction func onSettings(sender: Any?) {
-        let storyboard = UIStoryboard(name: "Main_iPhone", bundle:nil)
+        let storyboard = UIStoryboard(name: "Settings", bundle:nil)
         var nav: UINavigationController?
         if sender as? UIBarButtonItem == settingsBarButton {
             nav = storyboard.instantiateViewController(withIdentifier: "login") as? UINavigationController

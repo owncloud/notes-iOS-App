@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Hnc-wc-q9I" initialMenu="PQr-r3-Vpw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Hnc-wc-q9I">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -272,83 +271,6 @@
             </objects>
             <point key="canvasLocation" x="2072.8000000000002" y="-485.30734632683664"/>
         </scene>
-        <!--Main Menu-->
-        <scene sceneID="7OJ-dx-ziE">
-            <objects>
-                <menu isSystemItem="YES" title="Main Menu" identifier="com.apple.menu.root" id="PQr-r3-Vpw" sceneMemberID="viewController">
-                    <children>
-                        <menu isSystemItem="YES" title="Application" identifier="com.apple.menu.application" id="Pdr-aI-q4l">
-                            <systemMenuChildDeletions>
-                                <menuDeletion anchor="com.apple.menu.services"/>
-                            </systemMenuChildDeletions>
-                        </menu>
-                        <menu isSystemItem="YES" title="File" identifier="com.apple.menu.file" id="ujW-7h-x2y">
-                            <children>
-                                <command title="New" id="pqe-xx-8cE">
-                                    <connections>
-                                        <action selector="onFileNewWithSender:" destination="WKB-Va-k03" id="LdD-GS-ayv"/>
-                                    </connections>
-                                </command>
-                                <menu title="Import Export" id="w8J-3u-CD2">
-                                    <menuOptions key="menuOptions" displayInline="YES"/>
-                                    <children>
-                                        <command title="Import..." id="GiV-TN-bio"/>
-                                        <command title="Export..." id="6Hi-6g-5iZ"/>
-                                    </children>
-                                </menu>
-                            </children>
-                            <systemMenuChildDeletions>
-                                <menuDeletion anchor="com.apple.menu.print"/>
-                            </systemMenuChildDeletions>
-                        </menu>
-                        <menu isSystemItem="YES" title="View" identifier="com.apple.menu.view" id="lua-HC-vbq">
-                            <children>
-                                <command title="Sync" input="r" id="Jt0-uL-kUW">
-                                    <keyModifierFlags key="modifierFlags" command="YES"/>
-                                    <connections>
-                                        <action selector="onViewSyncWithSender:" destination="WKB-Va-k03" id="93f-Xd-YUE"/>
-                                    </connections>
-                                </command>
-                            </children>
-                            <systemMenuChildDeletions>
-                                <menuDeletion anchor="com.apple.menu.toolbar"/>
-                            </systemMenuChildDeletions>
-                        </menu>
-                        <menu title="Note" anchor="com.apple.menu.view" id="tMb-sA-pay">
-                            <children>
-                                <menu title="Preview Menu" id="wFQ-Un-nuY">
-                                    <menuOptions key="menuOptions" displayInline="YES"/>
-                                    <children>
-                                        <command title="Preview Markup" input="u" id="ipU-38-0Sa">
-                                            <keyModifierFlags key="modifierFlags" command="YES"/>
-                                            <connections>
-                                                <action selector="onPreview:" destination="WKB-Va-k03" id="ce4-tl-55x"/>
-                                            </connections>
-                                        </command>
-                                    </children>
-                                </menu>
-                                <menu title="Category Menu" id="9hG-km-1Wu">
-                                    <menuOptions key="menuOptions" displayInline="YES"/>
-                                    <children>
-                                        <command title="Change Category..." id="8hF-k0-B0k"/>
-                                    </children>
-                                </menu>
-                                <command title="Delete" id="efV-tn-yWM">
-                                    <string key="input" base64-UTF8="YES">
-CA
-</string>
-                                </command>
-                            </children>
-                        </menu>
-                    </children>
-                    <systemMenuChildDeletions>
-                        <menuDeletion anchor="com.apple.menu.format"/>
-                    </systemMenuChildDeletions>
-                </menu>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WKB-Va-k03" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="264" y="-1899"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="fMS-Gw-CfY">
             <objects>
@@ -419,6 +341,6 @@ CA
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2gj-xK-JEy"/>
+        <segue reference="RCf-VZ-GG6"/>
     </inferredMetricsTieBreakers>
 </document>

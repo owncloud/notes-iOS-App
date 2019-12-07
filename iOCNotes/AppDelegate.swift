@@ -92,14 +92,92 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    
     override func buildMenu(with builder: UIMenuBuilder) {
         super.buildMenu(with: builder)
 
-        builder.remove(menu: .newScene)
-//        builder.remove(menu: .format)
-//        builder.remove(menu: .toolbar)
+        builder.remove(menu: .services)
+        builder.remove(menu: .format)
+        builder.remove(menu: .toolbar)
+        let fullScreenMenu = builder.menu(for: .fullscreen)
+//        builder.remove(menu: .view)
+        //Preview
+        //Category
+        //Delete
+        
+        let preferencesCommand = UIKeyCommand(input: ",", modifierFlags: [.command], action: #selector(openPreferences))
+        preferencesCommand.title = "Preferences..."
+        let openPreferences = UIMenu(title: "Preferences...", image: nil, identifier: UIMenu.Identifier("openPreferences"), options: .displayInline, children: [preferencesCommand])
+        builder.replace(menu: .preferences, with: openPreferences)
+        
+        let newNoteCommand = UIKeyCommand(input: "N", modifierFlags: [.command], action: #selector(newNote))
+        newNoteCommand.title = "New"
+        let newNoteMenu = UIMenu(title: "New", image: nil, identifier: UIMenu.Identifier("newNote"), options: .displayInline, children: [newNoteCommand])
+        builder.replace(menu: .newScene, with: newNoteMenu)
+
+        let syncCommand = UIKeyCommand(input: "R", modifierFlags: [.command], action: #selector(syncNotes))
+        syncCommand.title = "Sync Notes"
+        let syncNotesMenu = UIMenu(title: "Sync Notes", image: nil, identifier: UIMenu.Identifier("syncNotes"), options: .displayInline, children: [syncCommand])
+        builder.insertSibling(syncNotesMenu, afterMenu: UIMenu.Identifier("newNote"))
+
+        let importCommand = UICommand(title: "Import...", action: #selector(importNote))
+        let exportCommand = UICommand(title: "Export...", action: #selector(exportNote))
+        let importExportMenu = UIMenu(title: "ImportExport", image: nil, identifier: UIMenu.Identifier("importExport"), options: .displayInline, children: [importCommand, exportCommand])
+        builder.insertSibling(importExportMenu, afterMenu: UIMenu.Identifier("syncNotes"))
+
+        let viewMenu = UIMenu(title: "View ", image: nil, identifier: UIMenu.Identifier("_view"), options: [], children: [])
+        builder.insertSibling(viewMenu, afterMenu: .edit)
+        if let fullScreenMenu = fullScreenMenu {
+            builder.insertChild(fullScreenMenu, atEndOfMenu: UIMenu.Identifier("_view"))
+        }
+        
+        let noteMenu = UIMenu(title: "Note ", image: nil, identifier: UIMenu.Identifier("note"), options: [], children: [])
+        builder.insertSibling(noteMenu, beforeMenu: .window)
+//toggleTabBar:
+        //toggleTabOverview:
     }
     
+    @objc func openPreferences() {
+        let userActivity = NSUserActivity(activityType: "com.peterandlinda.CloudNotes.appSettings")
+        
+        // If you need custom data for your new window initialization, you can
+        // put it into the userInfo here
+        //        userActivity.userInfo = ["userid": 1234]
+        
+        UIApplication.shared.requestSceneSessionActivation(nil, userActivity: userActivity, options: nil) { (e) in
+            // If we happen to have an error
+            print("error", e)
+        }
+    }
+    
+    @objc func newNote() {
+        //
+    }
+    
+    @objc func syncNotes() {
+        //
+    }
+
+    @objc func importNote() {
+        //
+    }
+
+    @objc func exportNote() {
+        //
+    }
+    
+    @objc func previewNote() {
+        //
+    }
+
+    @objc func changeCategory() {
+        //
+    }
+
+    @objc func deleteNote() {
+        //
+    }
+
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
