@@ -91,8 +91,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
-
     
+    #if !targetEnvironment(simulator)
+    func makeEmailInstallation() -> KSCrashInstallation? {
+        if let email = KSCrashInstallationEmail.sharedInstance() {
+            let emailAddress = "support@pbh.dev";
+            email.recipients = [emailAddress];
+            email.subject = NSLocalizedString("CloudNotes Crash Report", comment: "Crash report email subject")
+            email.message = NSLocalizedString("<Please provide as much details as possible about what you were doing when the crash occurred.>", comment: "Crash report email body placeholder")
+            email.filenameFmt = "crash-report-%d.txt.gz"
+
+            email.addConditionalAlert(withTitle: NSLocalizedString("Crash Detected", comment: "Alert view title"),
+                                      message: NSLocalizedString("CloudNotes crashed last time it was launched. Do you want to send a report to the developer?", comment: ""),
+                                      yesAnswer: NSLocalizedString("Yes, please!", comment: ""),
+                                      noAnswer:NSLocalizedString("No thanks", comment: ""))
+
+            // Uncomment to send Apple style reports instead of JSON.
+            email.setReportStyle(KSCrashEmailReportStyleApple, useDefaultFilenameFormat: true)
+            return email
+        }
+        return nil
+    }
+    #endif
+
     override func buildMenu(with builder: UIMenuBuilder) {
         super.buildMenu(with: builder)
 
@@ -188,27 +209,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-    #if !targetEnvironment(simulator)
-    func makeEmailInstallation() -> KSCrashInstallation? {
-        if let email = KSCrashInstallationEmail.sharedInstance() {
-            let emailAddress = "support@pbh.dev";
-            email.recipients = [emailAddress];
-            email.subject = NSLocalizedString("CloudNotes Crash Report", comment: "Crash report email subject")
-            email.message = NSLocalizedString("<Please provide as much details as possible about what you were doing when the crash occurred.>", comment: "Crash report email body placeholder")
-            email.filenameFmt = "crash-report-%d.txt.gz"
-
-            email.addConditionalAlert(withTitle: NSLocalizedString("Crash Detected", comment: "Alert view title"),
-                                      message: NSLocalizedString("CloudNotes crashed last time it was launched. Do you want to send a report to the developer?", comment: ""),
-                                      yesAnswer: NSLocalizedString("Yes, please!", comment: ""),
-                                      noAnswer:NSLocalizedString("No thanks", comment: ""))
-
-            // Uncomment to send Apple style reports instead of JSON.
-            email.setReportStyle(KSCrashEmailReportStyleApple, useDefaultFilenameFormat: true)
-            return email
-        }
-        return nil
-    }
-    #endif
 
 }

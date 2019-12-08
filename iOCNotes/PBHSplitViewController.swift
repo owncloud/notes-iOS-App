@@ -25,10 +25,12 @@ class PBHSplitViewController: UISplitViewController {
         #endif
     }
 
+    #if targetEnvironment(macCatalyst)
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         buildMacToolbar()
     }
+    #endif
     
     @IBAction func onFileNew(sender: Any?) {
         notesTableViewController?.onAdd(sender: sender)

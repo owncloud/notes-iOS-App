@@ -160,7 +160,7 @@
 		D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTableViewHeaderView.swift; sourceTree = "<group>"; };
 		D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollapsibleTableViewHeaderView.xib; sourceTree = "<group>"; };
 		D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		D0CFE5331888A7BD00165839 /* iOCNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOCNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0CFE5331888A7BD00165839 /* CloudNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5361888A7BD00165839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0CFE5381888A7BD00165839 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D0CFE53A1888A7BD00165839 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -255,7 +255,7 @@
 		D0CFE5341888A7BD00165839 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D0CFE5331888A7BD00165839 /* iOCNotes.app */,
+				D0CFE5331888A7BD00165839 /* CloudNotes.app */,
 				D0CFE5571888A7BD00165839 /* iOCNotesTests.xctest */,
 			);
 			name = Products;
@@ -380,7 +380,7 @@
 				BDF94E802391E5EC005F2D5F /* Down */,
 			);
 			productName = iOCNotes;
-			productReference = D0CFE5331888A7BD00165839 /* iOCNotes.app */;
+			productReference = D0CFE5331888A7BD00165839 /* CloudNotes.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D0CFE5561888A7BD00165839 /* iOCNotesTests */ = {
@@ -757,9 +757,9 @@
 				);
 				MARKETING_VERSION = 3.0.2;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${TARGET_NAME:rfc1034identifier}";
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = CloudNotes;
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
 				SUPPORTS_MACCATALYST = YES;
@@ -797,9 +797,9 @@
 				);
 				MARKETING_VERSION = 3.0.2;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${TARGET_NAME:rfc1034identifier}";
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = CloudNotes;
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
 				SUPPORTS_MACCATALYST = YES;
