@@ -100,11 +100,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         builder.remove(menu: .format)
         builder.remove(menu: .toolbar)
         let fullScreenMenu = builder.menu(for: .fullscreen)
-//        builder.remove(menu: .view)
-        //Preview
-        //Category
-        //Delete
-        
+        builder.remove(menu: .view)
+
         let preferencesCommand = UIKeyCommand(input: ",", modifierFlags: [.command], action: #selector(openPreferences))
         preferencesCommand.title = "Preferences..."
         let openPreferences = UIMenu(title: "Preferences...", image: nil, identifier: UIMenu.Identifier("openPreferences"), options: .displayInline, children: [preferencesCommand])
@@ -115,37 +112,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let newNoteMenu = UIMenu(title: "New", image: nil, identifier: UIMenu.Identifier("newNote"), options: .displayInline, children: [newNoteCommand])
         builder.replace(menu: .newScene, with: newNoteMenu)
 
-        let syncCommand = UIKeyCommand(input: "R", modifierFlags: [.command], action: #selector(syncNotes))
-        syncCommand.title = "Sync Notes"
-        let syncNotesMenu = UIMenu(title: "Sync Notes", image: nil, identifier: UIMenu.Identifier("syncNotes"), options: .displayInline, children: [syncCommand])
-        builder.insertSibling(syncNotesMenu, afterMenu: UIMenu.Identifier("newNote"))
-
         let importCommand = UICommand(title: "Import...", action: #selector(importNote))
         let exportCommand = UICommand(title: "Export...", action: #selector(exportNote))
         let importExportMenu = UIMenu(title: "ImportExport", image: nil, identifier: UIMenu.Identifier("importExport"), options: .displayInline, children: [importCommand, exportCommand])
-        builder.insertSibling(importExportMenu, afterMenu: UIMenu.Identifier("syncNotes"))
+        builder.insertSibling(importExportMenu, afterMenu: UIMenu.Identifier("newNote"))
 
-        let viewMenu = UIMenu(title: "View ", image: nil, identifier: UIMenu.Identifier("_view"), options: [], children: [])
+        let syncCommand = UIKeyCommand(input: "R", modifierFlags: [.command], action: #selector(syncNotes))
+        syncCommand.title = "Sync Notes"
+        let syncNotesMenu = UIMenu(title: "Sync Notes", image: nil, identifier: UIMenu.Identifier("syncNotes"), options: .displayInline, children: [syncCommand])
+        let viewMenu = UIMenu(title: "View ", image: nil, identifier: UIMenu.Identifier("_view"), options: [], children: [syncNotesMenu])
         builder.insertSibling(viewMenu, afterMenu: .edit)
         if let fullScreenMenu = fullScreenMenu {
             builder.insertChild(fullScreenMenu, atEndOfMenu: UIMenu.Identifier("_view"))
         }
-        
-        let noteMenu = UIMenu(title: "Note ", image: nil, identifier: UIMenu.Identifier("note"), options: [], children: [])
+
+        let previewCommand = UICommand(title: "Preview Markup", action: #selector(previewNote))
+        let categoryCommand = UICommand(title: "Change Category...", action: #selector(changeCategory))
+        let deleteCommand = UIKeyCommand(input: "\u{8}", modifierFlags: [.command], action: #selector(deleteNote))
+        deleteCommand.title = "Delete"
+
+        let previewMenu = UIMenu(title: "Preview", image: nil, identifier: UIMenu.Identifier("preview"), options: .displayInline, children: [previewCommand])
+        let categoryMenu = UIMenu(title: "Category", image: nil, identifier: UIMenu.Identifier("category"), options: .displayInline, children: [categoryCommand])
+        let noteMenu = UIMenu(title: "Note ", image: nil, identifier: UIMenu.Identifier("note"), options: [], children: [previewMenu, categoryMenu, deleteCommand])
         builder.insertSibling(noteMenu, beforeMenu: .window)
-//toggleTabBar:
-        //toggleTabOverview:
     }
     
     @objc func openPreferences() {
         let userActivity = NSUserActivity(activityType: "com.peterandlinda.CloudNotes.appSettings")
-        
-        // If you need custom data for your new window initialization, you can
-        // put it into the userInfo here
-        //        userActivity.userInfo = ["userid": 1234]
-        
         UIApplication.shared.requestSceneSessionActivation(nil, userActivity: userActivity, options: nil) { (e) in
-            // If we happen to have an error
             print("error", e)
         }
     }
