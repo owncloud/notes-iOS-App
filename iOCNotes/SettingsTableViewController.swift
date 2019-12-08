@@ -15,6 +15,13 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var offlineModeSwitch: UISwitch!
     @IBOutlet var statusLabel: UILabel!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        #if targetEnvironment(macCatalyst)
+        navigationController?.navigationBar.isHidden = true
+        #endif
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.syncOnStartSwitch.isOn = KeychainHelper.syncOnStart

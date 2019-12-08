@@ -72,3 +72,13 @@ extension UITextView {
   }
   #endif
 }  
+
+#if targetEnvironment(macCatalyst)
+extension NSToolbarItem.Identifier {
+    static let add = NSToolbarItem.Identifier(rawValue: "add")
+    static let refresh = NSToolbarItem.Identifier(rawValue: "refresh")
+    static let back = NSToolbarItem.Identifier(rawValue: "back")
+    static let preview = NSToolbarItem.Identifier(rawValue: "preview")
+    static let share = NSToolbarItem.Identifier(rawValue: "share")
+}
+#endif

@@ -25,6 +25,9 @@ class LoginTableViewController: UITableViewController {
         self.serverTextField.delegate = self
         self.usernameTextField.delegate = self
         self.passwordTextField.delegate = self
+        #if targetEnvironment(macCatalyst)
+        navigationController?.navigationBar.isHidden = true
+        #endif
     }
 
     override func viewWillAppear(_ animated: Bool) {

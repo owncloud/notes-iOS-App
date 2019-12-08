@@ -111,33 +111,23 @@ extension PBHSplitViewController: UISplitViewControllerDelegate {
 }
 
 #if targetEnvironment(macCatalyst)
-
-extension NSToolbarItem.Identifier {
-    static let add = NSToolbarItem.Identifier(rawValue: "add")
-    static let refresh = NSToolbarItem.Identifier(rawValue: "refresh")
-    static let back = NSToolbarItem.Identifier(rawValue: "back")
-    static let preview = NSToolbarItem.Identifier(rawValue: "preview")
-    static let share = NSToolbarItem.Identifier(rawValue: "share")
-}
-
 extension PBHSplitViewController {
-  func buildMacToolbar() {
-    #if targetEnvironment(macCatalyst)
-    guard let windowScene = view.window?.windowScene else {
-      return
+  
+    func buildMacToolbar() {
+        guard let windowScene = view.window?.windowScene else {
+            return
+        }
+        
+        if let titlebar = windowScene.titlebar {
+            let toolbar = NSToolbar(identifier: "NotesToolbar")
+            toolbar.allowsUserCustomization = false
+            toolbar.delegate = self
+            titlebar.toolbar = toolbar
+            titlebar.titleVisibility = .hidden
+        }
     }
     
-    if let titlebar = windowScene.titlebar {
-        let toolbar = NSToolbar(identifier: "NotesToolbar")
-        toolbar.allowsUserCustomization = false
-        toolbar.delegate = self
-        titlebar.toolbar = toolbar
-        titlebar.titleVisibility = .hidden
-    }
-    #endif
-  }
 }
-
 
 extension PBHSplitViewController: NSToolbarDelegate {
     
@@ -189,49 +179,7 @@ extension PBHSplitViewController: NSToolbarDelegate {
         }
         return nil
     }
-//        if itemIdentifier == Toolbar.colors {
-//        let items = AppColors.colorSpace
-//          .enumerated()
-//          .map { (index, slice) -> NSToolbarItem in
-//            let item = NSToolbarItem()
-//            item.image = UIImage.swatch(slice.1)
-//            item.target = self
-//            item.action = #selector(colorSelectionChanged(_:))
-//            item.tag = index
-//            item.label = slice.0
-//            return item
-//          }
-//        
-//        let group = NSToolbarItemGroup(itemIdentifier: Toolbar.colors)
-//        group.subitems = items
-//        group.selectionMode = .momentary
-//        group.label = "Text Background"
-//        
-//        return group
-//      }
-//      //4
-//      else if itemIdentifier == Toolbar.addImage {
-//        let item = NSToolbarItem(itemIdentifier: Toolbar.addImage)
-//        item.image = UIImage(systemName: "photo")?.forNSToolbar()
-//        item.target = self
-//        item.action = #selector(chooseImageAction)
-//        item.label = "Add Image"
-//        
-//        return item
-//      }
-//      else if itemIdentifier == Toolbar.share {
-//        let item = NSToolbarItem(itemIdentifier: Toolbar.share)
-//        item.image = UIImage(systemName: "square.and.arrow.up")?.forNSToolbar()
-//        item.target = self
-//        item.action = #selector(shareAction)
-//        item.label = "Share Item"
-//        
-//        return item
-//      }
-//      
-//      return nil
-//    }
-    
+
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         return [
             .add,
@@ -247,8 +195,6 @@ extension PBHSplitViewController: NSToolbarDelegate {
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         return toolbarDefaultItemIdentifiers(toolbar)
     }
-    
-
     
 }
 #endif
