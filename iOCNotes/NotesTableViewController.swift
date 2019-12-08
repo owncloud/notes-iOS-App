@@ -230,27 +230,6 @@ class NotesTableViewController: UITableViewController {
         return sectionHeaderView
     }
 
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        #if targetEnvironment(macCatalyst)
-//        var displayTitle = ""
-////        var title = ""
-//        if let sections = notesFrc.sections {
-//            let currentSection = sections[section]
-//            if !currentSection.name.isEmpty {
-//                displayTitle = currentSection.name
-//            }
-//            title = currentSection.name
-//        }
-////        sectionHeaderView.sectionTitle = title
-////        sectionHeaderView.sectionIndex = section
-////        sectionHeaderView.delegate = self
-////        sectionHeaderView.titleLabel.text = displayTitle
-////        sectionHeaderView.collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
-//        return displayTitle.uppercased()
-//        #endif
-//        return nil
-//    }
-//
     override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
@@ -281,7 +260,11 @@ class NotesTableViewController: UITableViewController {
         guard notesFrc.validate(indexPath: indexPath) else {
             return
         }
-        #if !targetEnvironment(macCatalyst)
+        #if targetEnvironment(macCatalyst)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 17)
+        cell.textLabel?.textColor = nil
+        #else
+        cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         cell.backgroundColor = .ph_cellBackgroundColor
         cell.contentView.backgroundColor = .ph_cellBackgroundColor
         let selectedBackgroundView = UIView(frame: cell.frame)
@@ -290,7 +273,6 @@ class NotesTableViewController: UITableViewController {
         #endif
 
         let note = self.notesFrc.object(at: indexPath)
-        cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         cell.textLabel?.text = note.title
         cell.backgroundColor = .clear
         let date = Date(timeIntervalSince1970: note.modified)
