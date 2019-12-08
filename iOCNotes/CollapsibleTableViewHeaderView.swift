@@ -14,6 +14,7 @@ protocol CollapsibleTableViewHeaderViewDelegate {
 
 class CollapsibleTableViewHeaderView: UITableViewHeaderFooterView {
 
+    @IBOutlet var folderImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var collapsedImageView: UIImageView!
     
@@ -36,6 +37,15 @@ class CollapsibleTableViewHeaderView: UITableViewHeaderFooterView {
         self.backgroundView = backgroundView
         #endif
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CollapsibleTableViewHeaderView.onTap(_:))))
+    }
+    
+    override func draw(_ rect: CGRect) {
+        #if targetEnvironment(macCatalyst)
+        self.titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        self.titleLabel.textColor = .label
+        self.folderImageView.isHidden = true
+        #endif
+        super.draw(rect)
     }
     
     @objc func onTap(_ gestureRecognizer: UITapGestureRecognizer) {

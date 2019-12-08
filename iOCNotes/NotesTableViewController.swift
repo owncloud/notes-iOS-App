@@ -225,7 +225,7 @@ class NotesTableViewController: UITableViewController {
         sectionHeaderView.sectionTitle = title
         sectionHeaderView.sectionIndex = section
         sectionHeaderView.delegate = self
-        sectionHeaderView.titleLabel.text = displayTitle.uppercased()
+        sectionHeaderView.titleLabel.text = displayTitle
         sectionHeaderView.collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
         return sectionHeaderView
     }

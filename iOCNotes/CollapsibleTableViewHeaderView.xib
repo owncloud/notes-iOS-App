@@ -15,53 +15,43 @@
             <rect key="frame" x="0.0" y="0.0" width="538" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vNF-Ja-XxC">
-                    <rect key="frame" x="0.0" y="0.0" width="538" height="44"/>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Vgp-I1-rmu">
+                    <rect key="frame" x="10" y="11" width="518" height="22"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder" translatesAutoresizingMaskIntoConstraints="NO" id="KLN-XD-dcx">
-                            <rect key="frame" x="10" y="11" width="22" height="22"/>
+                            <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="X57-pG-IwS"/>
                                 <constraint firstAttribute="height" constant="22" id="tF4-ql-bxl"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oq8-Ob-bAb">
-                            <rect key="frame" x="42" y="11.5" width="454" height="21"/>
+                            <rect key="frame" x="32" y="0.0" width="454" height="22"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <color key="textColor" name="PHWhiteText"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="collapse" translatesAutoresizingMaskIntoConstraints="NO" id="L0f-pO-Ure">
-                            <rect key="frame" x="506" y="11" width="22" height="22"/>
+                            <rect key="frame" x="496" y="0.0" width="22" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="NRK-cQ-BA9"/>
                                 <constraint firstAttribute="width" constant="22" id="Qxf-DA-jgE"/>
                             </constraints>
                         </imageView>
                     </subviews>
-                    <gestureRecognizers/>
-                    <constraints>
-                        <constraint firstItem="oq8-Ob-bAb" firstAttribute="centerY" secondItem="vNF-Ja-XxC" secondAttribute="centerY" id="1Fa-dq-gxe"/>
-                        <constraint firstItem="KLN-XD-dcx" firstAttribute="centerY" secondItem="vNF-Ja-XxC" secondAttribute="centerY" id="8ln-l4-Xah"/>
-                        <constraint firstItem="KLN-XD-dcx" firstAttribute="leading" secondItem="vNF-Ja-XxC" secondAttribute="leading" constant="10" id="SmO-zl-cBD"/>
-                        <constraint firstItem="oq8-Ob-bAb" firstAttribute="leading" secondItem="KLN-XD-dcx" secondAttribute="trailing" constant="10" id="WaG-dD-eL4"/>
-                        <constraint firstItem="L0f-pO-Ure" firstAttribute="leading" secondItem="oq8-Ob-bAb" secondAttribute="trailing" constant="10" id="eVH-eM-IjM"/>
-                        <constraint firstItem="L0f-pO-Ure" firstAttribute="centerY" secondItem="vNF-Ja-XxC" secondAttribute="centerY" id="eWP-SI-D0Y"/>
-                        <constraint firstAttribute="trailing" secondItem="L0f-pO-Ure" secondAttribute="trailing" constant="10" id="hqH-x7-LCE"/>
-                    </constraints>
-                </view>
+                </stackView>
             </subviews>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="vNF-Ja-XxC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="0Ye-NM-5O8"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vNF-Ja-XxC" secondAttribute="trailing" priority="999" id="XnU-df-gEH"/>
-                <constraint firstItem="vNF-Ja-XxC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cZE-vo-NGK"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vNF-Ja-XxC" secondAttribute="bottom" id="jMs-7t-fxo"/>
+                <constraint firstItem="Vgp-I1-rmu" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="C7o-o6-yM9"/>
+                <constraint firstItem="Vgp-I1-rmu" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="nAw-1E-E4p"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Vgp-I1-rmu" secondAttribute="trailing" constant="10" id="wJn-6U-cu4"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="collapsedImageView" destination="L0f-pO-Ure" id="IKA-k1-TLf"/>
+                <outlet property="folderImageView" destination="KLN-XD-dcx" id="uN4-c7-FeA"/>
                 <outlet property="titleLabel" destination="oq8-Ob-bAb" id="SCI-76-NLu"/>
             </connections>
             <point key="canvasLocation" x="164.80000000000001" y="-156.97151424287858"/>
