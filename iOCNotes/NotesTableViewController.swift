@@ -43,6 +43,8 @@ class NotesTableViewController: UITableViewController {
     private var sectionCollapsedInfo = ExpandableSectionType()
     private var isSyncing = false
 
+    private var contextMenuIndexPath: IndexPath?
+    
     private var dateFormat: DateFormatter {
         let df = DateFormatter()
         df.dateStyle = .short
@@ -87,8 +89,8 @@ class NotesTableViewController: UITableViewController {
                                                                         if let editor = self?.editorViewController,
                                                                             let note = editor.note,
                                                                             let currentIndexPath = self?.notesFrc.indexPath(forObject: note), let tableView = self?.tableView {
-                                                                                self?.tableView(tableView, commit: .delete, forRowAt: currentIndexPath)
-                                                                                }
+                                                                            self?.tableView(tableView, commit: .delete, forRowAt: currentIndexPath)
+                                                                        }
         }))
         self.observers.append(NotificationCenter.default.addObserver(forName: .syncNotes,
                                                                      object: nil,
@@ -285,7 +287,7 @@ class NotesTableViewController: UITableViewController {
         configureCell(cell, at: indexPath)
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         // Currently only NextCloud supports categories
         if !KeychainHelper.isNextCloud {
@@ -294,22 +296,8 @@ class NotesTableViewController: UITableViewController {
         let title = NSLocalizedString("Category", comment: "Name of cell category action")
         let action = UIContextualAction(style: .normal,
                                         title: title,
-                                        handler: { [weak self] (action, view, completionHandler) in
-                                            let categories = self?.notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
-                                                return note.category
-                                            })
-                                            if let storyboard = self?.storyboard,
-                                                let navController = storyboard.instantiateViewController(withIdentifier: "CategoryTableViewControllerNavController") as? UINavigationController,
-                                                let categoryController = navController.topViewController as? CategoryTableViewController,
-                                                let categories = categories,
-                                                let note = self?.notesFrc.object(at: indexPath) {
-                                                categoryController.categories = categories.removingDuplicates()
-                                                if let section = self?.notesFrc.sections?.first(where: { $0.name == note.category }) {
-                                                    self?.numberOfObjectsInCurrentSection = section.numberOfObjects
-                                                }
-                                                categoryController.note = note
-                                                self?.present(navController, animated: true, completion: nil)
-                                            }
+                                        handler: { [weak self] (_, _, completionHandler) in
+                                            self?.showCategories(indexPath: indexPath)
                                             completionHandler(true)
         })
         
@@ -405,6 +393,29 @@ class NotesTableViewController: UITableViewController {
         #endif
     }
 
+    public override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        contextMenuIndexPath = indexPath
+        let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in
+            let categoryAction = UIAction(title: "Change Category...", image: nil) { [weak self] _ in
+                if let indexPath = self?.contextMenuIndexPath {
+                    self?.showCategories(indexPath: indexPath)
+                }
+            }
+            let deleteAction = UIAction(title: "Delete", image: (UIImage(systemName: "trash")), identifier: UIAction.Identifier("deleteAction"), discoverabilityTitle: nil, attributes: .destructive, state: .off, handler: { [weak self] _ in
+                if let indexPath = self?.contextMenuIndexPath {
+                    self?.tableView(tableView, commit: .delete, forRowAt: indexPath)
+                }
+            })
+            
+            let categoryMenu = UIMenu(title: "Category", image: nil, identifier: UIMenu.Identifier("category"), options: .displayInline, children: [categoryAction])
+            let actions = [categoryMenu, deleteAction]
+            return UIMenu(title: "Actions", image: nil, identifier: nil, children: actions)
+        }
+        return UIContextMenuConfiguration(identifier: nil,
+                                          previewProvider: nil,
+                                          actionProvider: actionProvider)
+    }
+    
     @IBAction func onRefresh(sender: Any?) {
         guard NotesManager.isOnline else {
             return
@@ -503,6 +514,24 @@ class NotesTableViewController: UITableViewController {
             KeychainHelper.dbReset = false
             try? notesFrc.performFetch()
             tableView.reloadData()
+        }
+    }
+    
+    fileprivate func showCategories(indexPath: IndexPath) {
+        let categories = notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
+            return note.category
+        })
+        if let storyboard = self.storyboard,
+            let navController = storyboard.instantiateViewController(withIdentifier: "CategoryTableViewControllerNavController") as? UINavigationController,
+            let categoryController = navController.topViewController as? CategoryTableViewController,
+            let categories = categories {
+            let note = self.notesFrc.object(at: indexPath)
+            categoryController.categories = categories.removingDuplicates()
+            if let section = self.notesFrc.sections?.first(where: { $0.name == note.category }) {
+                self.numberOfObjectsInCurrentSection = section.numberOfObjects
+            }
+            categoryController.note = note
+            self.present(navController, animated: true, completion: nil)
         }
     }
 
