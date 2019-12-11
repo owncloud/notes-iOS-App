@@ -75,7 +75,7 @@ class LoginTableViewController: UITableViewController {
             .shared
             .request(router)
             .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
+            .validate(contentType: [Router.applicationJson])
             .responseDecodable { [weak self] (response: DataResponse<[NoteStruct]>) in
                 var message: String?
                 var title: String?

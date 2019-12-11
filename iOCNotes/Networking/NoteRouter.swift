@@ -15,6 +15,8 @@ enum Router: URLRequestConvertible {
     case updateNote(id: Int, paramters: Parameters)
     case deleteNote(id: Int)
 
+    static let applicationJson = "application/json"
+
     var method: HTTPMethod {
         switch self {
         case .allNotes, .getNote:
@@ -56,7 +58,7 @@ enum Router: URLRequestConvertible {
             if let authorizationHeader = Request.authorizationHeader(user: username, password: password) {
                 urlRequest.setValue(authorizationHeader.value, forHTTPHeaderField: authorizationHeader.key)
             }
-            urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+            urlRequest.setValue(Router.applicationJson, forHTTPHeaderField: "Accept")
 
             switch self {
             case .allNotes(let exclude):

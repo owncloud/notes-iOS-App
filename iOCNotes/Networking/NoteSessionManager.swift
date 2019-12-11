@@ -126,7 +126,7 @@ class NotesManager {
                         .shared
                         .request(router)
                         .validate(statusCode: 200..<300)
-                        .validate(contentType: ["application/json"])
+                        .validate(contentType: [Router.applicationJson])
                         .responseDecodable { (response: DataResponse<[NoteStruct]>) in
                             switch response.result {
                             case .success:
@@ -176,7 +176,7 @@ class NotesManager {
             .shared
             .request(router)
             .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
+            .validate(contentType: [Router.applicationJson])
             .responseDecodable { (response: DataResponse<NoteStruct>) in
                 switch response.result {
                 case .success:
@@ -210,7 +210,7 @@ class NotesManager {
             .shared
             .request(router)
             .validate(statusCode: 200..<300)
-            .validate(contentType: ["application/json"])
+            .validate(contentType: [Router.applicationJson])
             .responseDecodable { (response: DataResponse<NoteStruct>) in
                 switch response.result {
                 case .success:
