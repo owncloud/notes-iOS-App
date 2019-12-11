@@ -11,7 +11,7 @@ import Alamofire
 enum Router: URLRequestConvertible {
     case allNotes(exclude: String)
     case getNote(id: Int, exclude: String)
-    case createNote(paramters: Parameters)
+    case createNote(parameters: Parameters)
     case updateNote(id: Int, paramters: Parameters)
     case deleteNote(id: Int)
 

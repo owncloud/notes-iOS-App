@@ -171,7 +171,7 @@ class NotesManager {
                                       "category": note.category as Any,
                                       "modified": note.modified,
                                       "favorite": note.favorite]
-        let router = Router.createNote(paramters: parameters)
+        let router = Router.createNote(parameters: parameters)
         NoteSessionManager
             .shared
             .request(router)
