@@ -723,6 +723,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/Carthage/Checkouts/down/Source/cmark";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
@@ -755,6 +756,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/Carthage/Checkouts/down/Source/cmark";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
