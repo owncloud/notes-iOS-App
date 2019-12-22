@@ -12,6 +12,7 @@ import SwiftMessages
 
 typealias SyncCompletionBlock = () -> Void
 typealias SyncCompletionBlockWithNote = (_ note: CDNote?) -> Void
+typealias SyncCompletionBlockWithRetry = (_ retry: Bool) -> Void
 
 struct ErrorMessage {
     var title: String
@@ -43,6 +44,18 @@ class NoteSessionManager: Alamofire.SessionManager {
 
 class NotesManager {
     
+    struct NoteError: Error {
+        var retry: Bool
+        var message: ErrorMessage
+    }
+    
+    enum Result<CDNote, NoteError> {
+        case success(CDNote?)
+        case failure(NoteError)
+    }
+
+    typealias SyncHandler = (Result<CDNote, NoteError>) -> Void
+
     static let shared = NotesManager()
 
     class var isConnectedToInternet: Bool {
@@ -154,23 +167,50 @@ class NotesManager {
     
     func add(content: String, category: String, favorite: Bool? = false, completion: SyncCompletionBlockWithNote? = nil) {
         let note = NoteStruct(content: content, category: category, favorite: favorite ?? false)
-        let result = CDNote.update(note: note) //addNeeded defaults to true
-        if NotesManager.isOnline, let note = result {
-            addToServer(note: note) { (serverNote) in
-                completion?(serverNote)
-            }
-        } else {
-            completion?(result)
+        if  let incoming = CDNote.update(note: note) { //addNeeded defaults to true
+            self.add(note: incoming, completion: completion)
         }
     }
 
-    func addToServer(note: CDNote, completion: @escaping SyncCompletionBlockWithNote) {
+    func add(note: CDNote, completion: SyncCompletionBlockWithNote? = nil) {
+        if NotesManager.isOnline {
+            addToServer(note: note) { [weak self] result in
+                switch result {
+                case .success(let newNote):
+                    completion?(newNote)
+                case .failure(let error):
+                    if error.retry {
+                        KeychainHelper.server += "/index.php"
+                        self?.addToServer(note: note) { result2 in
+                            // only one retry
+                            switch result2 {
+                            case .success(let newNote):
+                                completion?(newNote)
+                            case .failure(let error):
+                                self?.showErrorMessage(message: error.message)
+                                completion?(note)
+                            }
+                        }
+                    } else {
+                        self?.showErrorMessage(message: error.message)
+                        completion?(note)
+
+                    }
+                }
+            }
+        } else {
+            completion?(note)
+        }
+    }
+
+    func addToServer(note: CDNote, handler: @escaping SyncHandler) {
         let newNote = note
         var result: CDNote?
         let parameters: Parameters = ["content": note.content as Any,
                                       "category": note.category as Any,
                                       "modified": note.modified,
                                       "favorite": note.favorite]
+        let canRetry = !KeychainHelper.server.hasSuffix(".php")
         let router = Router.createNote(parameters: parameters)
         NoteSessionManager
             .shared
@@ -190,13 +230,21 @@ class NotesManager {
                         newNote.updateNeeded = false
                         result = CDNote.update(note: newNote)
                     }
+                    handler(.success(result))
                 case .failure(let error):
                     let message = ErrorMessage(title: NSLocalizedString("Error Adding Note", comment: "The title of an error message"),
                                                body: error.localizedDescription)
-                    self.showErrorMessage(message: message)
-                    result = newNote
+                    if let urlResponse = response.response {
+                        switch urlResponse.statusCode {
+                        case 405:
+                            handler(.failure(NoteError(retry: canRetry, message: message)))
+                        default:
+                            handler(.failure(NoteError(retry: false, message: message)))
+                        }
+                    } else {
+                        handler(.failure(NoteError(retry: false, message: message)))
+                    }
                 }
-                completion(result)
         }
     }
 
@@ -223,7 +271,7 @@ class NotesManager {
                         case 404:
                             if let guid = note.guid,
                                 let dbNote = CDNote.note(guid: guid) {
-                                self.addToServer(note: dbNote, completion: { _ in })
+                                self.add(note: dbNote, completion: nil)
                             }
                         default:
                             let message = ErrorMessage(title: NSLocalizedString("Error Getting Note", comment: "The title of an error message"),
@@ -241,39 +289,28 @@ class NotesManager {
         var incoming = note
         incoming.updateNeeded = true
         if NotesManager.isOnline {
-            let parameters: Parameters = ["content": note.content as Any,
-                                          "category": note.category as Any,
-                                          "modified": Date().timeIntervalSince1970 as Any,
-                                          "favorite": note.favorite]
-            let router = Router.updateNote(id: Int(note.id), paramters: parameters)
-            NoteSessionManager
-                .shared
-                .request(router)
-                .validate(statusCode: 200..<300)
-                .validate(contentType: ["application/json"])
-                .responseDecodable { (response: DataResponse<NoteStruct>) in
-                    switch response.result {
-                    case .success:
-                        if let note = response.value {
-                            CDNote.update(notes: [note])
-                        }
-                    case .failure(let error):
-                        CDNote.update(notes: [incoming])
-                        if let urlResponse = response.response {
-                            switch urlResponse.statusCode {
-                            case 404:
-                                if let guid = incoming.guid,
-                                let dbNote = CDNote.note(guid: guid) {
-                                    self.addToServer(note: dbNote, completion: { _ in })
-                                }
-                            default:
-                                let message = ErrorMessage(title: NSLocalizedString("Error Updating Note", comment: "The title of an error message"),
-                                                           body: error.localizedDescription)
-                                self.showErrorMessage(message: message)
+            updateOnServer(incoming) { [weak self] result in
+                switch result {
+                case .success( _):
+                    completion?()
+                case .failure(let error):
+                    if error.retry {
+                        KeychainHelper.server += "/index.php"
+                        self?.updateOnServer(note) { result2 in
+                            // only one retry
+                            switch result2 {
+                            case .success( _):
+                                completion?()
+                            case .failure(let error):
+                                self?.showErrorMessage(message: error.message)
+                                completion?()
                             }
                         }
+                    } else {
+                        self?.showErrorMessage(message: error.message)
+                        completion?()
                     }
-                    completion?()
+                }
             }
         } else {
             CDNote.update(notes: [incoming])
@@ -281,38 +318,75 @@ class NotesManager {
         }
     }
     
+    fileprivate func updateOnServer(_ note: NoteProtocol, handler: @escaping SyncHandler) {
+        let parameters: Parameters = ["content": note.content as Any,
+                                      "category": note.category as Any,
+                                      "modified": Date().timeIntervalSince1970 as Any,
+                                      "favorite": note.favorite]
+        let canRetry = !KeychainHelper.server.hasSuffix(".php")
+        let router = Router.updateNote(id: Int(note.id), paramters: parameters)
+        NoteSessionManager
+            .shared
+            .request(router)
+            .validate(statusCode: 200..<300)
+            .validate(contentType: [Router.applicationJson])
+            .responseDecodable { (response: DataResponse<NoteStruct>) in
+                switch response.result {
+                case .success:
+                    if let note = response.value {
+                        CDNote.update(notes: [note])
+                    }
+                    handler(.success(nil))
+                case .failure(let error):
+                    CDNote.update(notes: [note])
+                    let message = ErrorMessage(title: NSLocalizedString("Error Updating Note", comment: "The title of an error message"),
+                                               body: error.localizedDescription)
+                    if let urlResponse = response.response {
+                        switch urlResponse.statusCode {
+                        case 404:
+                            if let guid = note.guid,
+                                let dbNote = CDNote.note(guid: guid) {
+                                self.add(note: dbNote, completion: nil)
+                            }
+                            handler(.success(nil))
+                        case 405:
+                            handler(.failure(NoteError(retry: canRetry, message: message)))
+                        default:
+                            handler(.failure(NoteError(retry: false, message: message)))
+                        }
+                    } else {
+                        handler(.failure(NoteError(retry: false, message: message)))
+                    }
+                }
+        }
+    }
+    
     func delete(note: NoteProtocol, completion: SyncCompletionBlock? = nil) {
         var incoming = note
         incoming.deleteNeeded = true
         if NotesManager.isOnline {
-            let router = Router.deleteNote(id: Int(note.id))
-            NoteSessionManager
-                .shared
-                .request(router)
-                .validate(statusCode: 200..<300)
-                .responseData { (response) in
-                    switch response.result {
-                    case .success:
-                        CDNote.delete(note: note)
-                    case .failure(let error):
-                        var message = ErrorMessage(title: NSLocalizedString("Error Deleting Note", comment: "The title of an error message"),
-                                                   body: error.localizedDescription)
-                        if let urlResponse = response.response {
-                            switch urlResponse.statusCode {
-                            case 404:
-                                //Note doesn't exist on the server but we are obviously
-                                //trying to delete it, so let's do that.
-                                CDNote.delete(note: note)
-                                message.body = ""
-                            default:
-                                CDNote.update(notes: [incoming])
+            deleteOnServer(incoming) { [weak self] result in
+                switch result {
+                case .success( _):
+                    completion?()
+                case .failure(let error):
+                    if error.retry {
+                        KeychainHelper.server += "/index.php"
+                        self?.deleteOnServer(note) { result2 in
+                            // only one retry
+                            switch result2 {
+                            case .success( _):
+                                completion?()
+                            case .failure(let error):
+                                self?.showErrorMessage(message: error.message)
+                                completion?()
                             }
                         }
-                        if !message.body.isEmpty {
-                            self.showErrorMessage(message: message)
-                        }
+                    } else {
+                        self?.showErrorMessage(message: error.message)
+                        completion?()
                     }
-                    completion?()
+                }
             }
         } else {
             CDNote.update(notes: [incoming])
@@ -320,6 +394,43 @@ class NotesManager {
         }
     }
 
+    fileprivate func deleteOnServer(_ note: NoteProtocol, handler: @escaping SyncHandler) {
+        let canRetry = !KeychainHelper.server.hasSuffix(".php")
+        let router = Router.deleteNote(id: Int(note.id))
+        NoteSessionManager
+            .shared
+            .request(router)
+            .validate(statusCode: 200..<300)
+            .responseData { (response) in
+                switch response.result {
+                case .success:
+                    CDNote.delete(note: note)
+                    handler(.success(nil))
+                case .failure(let error):
+                    let message = ErrorMessage(title: NSLocalizedString("Error Deleting Note", comment: "The title of an error message"),
+                                               body: error.localizedDescription)
+                    if let urlResponse = response.response {
+                        switch urlResponse.statusCode {
+                        case 404:
+                            //Note doesn't exist on the server but we are obviously
+                            //trying to delete it, so let's do that.
+                            CDNote.delete(note: note)
+                            handler(.success(nil))
+                        case 405:
+                            CDNote.update(notes: [note])
+                            handler(.failure(NoteError(retry: canRetry, message: message)))
+                        default:
+                            CDNote.update(notes: [note])
+                            handler(.failure(NoteError(retry: false, message: message)))
+                        }
+                    }
+                    if !message.body.isEmpty {
+                        self.showErrorMessage(message: message)
+                    }
+                }
+        }
+    }
+    
     func showErrorMessage(message: ErrorMessage) {
         var config = SwiftMessages.defaultConfig
         config.interactiveHide = true
