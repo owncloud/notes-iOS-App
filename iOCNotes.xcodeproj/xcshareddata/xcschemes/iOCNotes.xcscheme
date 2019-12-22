@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D0CFE5321888A7BD00165839"
-               BuildableName = "iOCNotes.app"
+               BuildableName = "CloudNotes.app"
                BlueprintName = "iOCNotes"
                ReferencedContainer = "container:iOCNotes.xcodeproj">
             </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0CFE5321888A7BD00165839"
-            BuildableName = "iOCNotes.app"
+            BuildableName = "CloudNotes.app"
             BlueprintName = "iOCNotes"
             ReferencedContainer = "container:iOCNotes.xcodeproj">
          </BuildableReference>
@@ -73,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D0CFE5321888A7BD00165839"
-            BuildableName = "iOCNotes.app"
+            BuildableName = "CloudNotes.app"
             BlueprintName = "iOCNotes"
             ReferencedContainer = "container:iOCNotes.xcodeproj">
          </BuildableReference>
