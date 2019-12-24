@@ -78,6 +78,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         #endif
+//        UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil) { (error) in
+//            
+//        }
+
         return true
     }
 
@@ -158,6 +162,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         builder.insertSibling(noteMenu, beforeMenu: .window)
     }
     
+    override func validate(_ command: UICommand) {
+        print(command.description)
+    }
+    
     @objc func openPreferences() {
         let userActivity = NSUserActivity(activityType: "com.peterandlinda.CloudNotes.appSettings")
         UIApplication.shared.requestSceneSessionActivation(nil, userActivity: userActivity, options: nil) { (e) in
@@ -186,7 +194,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     @objc func changeCategory() {
-        //
+        let activity = NSUserActivity(activityType: "com.peterandlinda.CloudNotes.categories")
+        UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil) { (error) in
+            
+        }
     }
 
     @objc func deleteNote() {
@@ -196,12 +207,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        if options.userActivities.first?.activityType == "com.peterandlinda.CloudNotes.appSettings" {
-            // Load our new window configuration
-            return UISceneConfiguration(name: "Settings Configuration", sessionRole: connectingSceneSession.role)
+        if options.userActivities.first?.activityType == "com.peterandlinda.CloudNotes.categories" {
+            let configuration = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+            configuration.delegateClass = CategoriesSceneDelegate.self
+            configuration.storyboard = UIStoryboard(name: "Categories", bundle: Bundle.main)
+            return configuration
+        } else if options.userActivities.first?.activityType == "com.peterandlinda.CloudNotes.appSettings" {
+            let configuration = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+            configuration.delegateClass = SettingsSceneDelegate.self
+            configuration.storyboard = UIStoryboard(name: "Settings", bundle: Bundle.main)
+            return configuration
+        } else {
+            let configuration = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+//            configuration.delegateClass = SceneDelegate.self
+//            configuration.storyboard = UIStoryboard(name: "Main_iPhone", bundle: Bundle.main)
+            return configuration
         }
-        
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {

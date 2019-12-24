@@ -83,88 +83,11 @@
                         <outlet property="addBarButton" destination="MOs-yv-oce" id="KfS-dy-ASJ"/>
                         <outlet property="refreshBarButton" destination="Vq9-nq-q23" id="MIf-rO-5SM"/>
                         <outlet property="settingsBarButton" destination="Ehu-4h-6IO" id="qQP-ED-FEw"/>
-                        <segue destination="xSS-OQ-fPd" kind="presentation" identifier="SelectCategorySegue" id="Cuz-Wm-m3f"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2nj-I5-PGU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1349" y="-1235"/>
-        </scene>
-        <!--Categories-->
-        <scene sceneID="5VN-0d-QVH">
-            <objects>
-                <tableViewController storyboardIdentifier="CategoryTableViewController" id="HS0-0b-fms" customClass="CategoryTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Aga-NB-hq8">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="separatorColor" name="PHWhiteReadText"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" textLabel="7NV-vt-ak3" style="IBUITableViewCellStyleDefault" id="PiD-VF-ye8">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PiD-VF-ye8" id="Jbb-lb-W7i">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7NV-vt-ak3">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" name="PHWhiteCellBackground"/>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="HS0-0b-fms" id="qCC-Cf-j7j"/>
-                            <outlet property="delegate" destination="HS0-0b-fms" id="Cb2-Yv-drr"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Categories" id="fAi-OU-vKZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GIC-S8-T0g">
-                            <connections>
-                                <action selector="onAdd:" destination="HS0-0b-fms" id="54P-ZY-Bvd"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="cancelBarButton" destination="6LR-QA-d2b" id="o7O-0z-2eV"/>
-                        <outlet property="doneBarButton" destination="cpw-aA-Zuz" id="3fx-KJ-5NV"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rgq-m5-7ba" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <barButtonItem style="plain" systemItem="cancel" id="6LR-QA-d2b">
-                    <connections>
-                        <action selector="onCancel:" destination="HS0-0b-fms" id="IH6-ee-drc"/>
-                    </connections>
-                </barButtonItem>
-                <barButtonItem style="done" systemItem="done" id="cpw-aA-Zuz">
-                    <connections>
-                        <action selector="onCancel:" destination="HS0-0b-fms" id="0K7-9V-7Nf"/>
-                    </connections>
-                </barButtonItem>
-            </objects>
-            <point key="canvasLocation" x="3164" y="-1235"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Mf7-Zc-R4g">
-            <objects>
-                <navigationController storyboardIdentifier="CategoryTableViewControllerNavController" modalPresentationStyle="formSheet" id="xSS-OQ-fPd" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qaa-DK-t9z">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="HS0-0b-fms" kind="relationship" relationship="rootViewController" id="xcE-RJ-6Wl"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qMb-iO-jgr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2243" y="-1235"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="T5b-rp-L4S">
@@ -323,9 +246,6 @@
         <image name="preview" width="24" height="44"/>
         <namedColor name="PHWhiteBackground">
             <color red="0.97000002861022949" green="0.97000002861022949" blue="0.97000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="PHWhiteCellBackground">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="PHWhiteIcon">
             <color red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

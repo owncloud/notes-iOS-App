@@ -34,6 +34,8 @@
 		D01067E42213BDF30047E090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E32213BDF20047E090 /* AppDelegate.swift */; };
 		D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E52213C17D0047E090 /* NotesTableViewController.swift */; };
 		D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D017D4231D3B03BE00B21443 /* WebKit.framework */; };
+		D018034823B03625001CA4FC /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D018034723B03625001CA4FC /* Categories.storyboard */; };
+		D018034A23B037B2001CA4FC /* CategoriesSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018034923B037B1001CA4FC /* CategoriesSceneDelegate.swift */; };
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
 		D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */; };
@@ -128,6 +130,8 @@
 		D01067E32213BDF20047E090 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D01067E52213C17D0047E090 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
 		D017D4231D3B03BE00B21443 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D018034723B03625001CA4FC /* Categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Categories.storyboard; sourceTree = "<group>"; };
+		D018034923B037B1001CA4FC /* CategoriesSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSceneDelegate.swift; sourceTree = "<group>"; };
 		D02256C61891FD7C0038232A /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = defaults.plist; sourceTree = "<group>"; };
 		D0225708189745C40038232A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D0225710189848060038232A /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -296,6 +300,7 @@
 				D01067E32213BDF20047E090 /* AppDelegate.swift */,
 				D004DB7E23948F3D0080A7D1 /* SceneDelegate.swift */,
 				D004DB82239759020080A7D1 /* SettingsSceneDelegate.swift */,
+				D018034923B037B1001CA4FC /* CategoriesSceneDelegate.swift */,
 				BD302B8F22B8061A00067888 /* LoginTableViewController.swift */,
 				D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */,
 				D01067E52213C17D0047E090 /* NotesTableViewController.swift */,
@@ -316,6 +321,7 @@
 				BDD015A0234CEF86000BA001 /* Colors.xcassets */,
 				D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */,
 				D004DB802397581A0080A7D1 /* Settings.storyboard */,
+				D018034723B03625001CA4FC /* Categories.storyboard */,
 				D0CFE53D1888A7BD00165839 /* Supporting Files */,
 				D0225708189745C40038232A /* Settings.bundle */,
 				D00293D619F48B5300B2DA8F /* Launch Screen.xib */,
@@ -462,6 +468,7 @@
 				D02256C71891FD7C0038232A /* defaults.plist in Resources */,
 				D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */,
 				D0225709189745C40038232A /* Settings.bundle in Resources */,
+				D018034823B03625001CA4FC /* Categories.storyboard in Resources */,
 				D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,6 +563,7 @@
 				D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */,
 				D004DB7F23948F3D0080A7D1 /* SceneDelegate.swift in Sources */,
 				BD86DD8522B9CDD500115E5D /* KeychainHelper.swift in Sources */,
+				D018034A23B037B2001CA4FC /* CategoriesSceneDelegate.swift in Sources */,
 				D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */,
 				BD302B9022B8061A00067888 /* LoginTableViewController.swift in Sources */,
 				D03493B922F3CC5700E1A9B0 /* CategoryTableViewController.swift in Sources */,
