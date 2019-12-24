@@ -36,9 +36,20 @@ class CategoryTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        #if targetEnvironment(macCatalyst)
+        navigationController?.navigationBar.isHidden = true
+        #else
         navigationItem.leftBarButtonItem = cancelBarButton
+        #endif
     }
 
+    #if targetEnvironment(macCatalyst)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        buildMacToolbar()
+    }
+    #endif
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -110,3 +121,55 @@ class CategoryTableViewController: UITableViewController {
         self.present(alert, animated: true, completion: nil)
     }
 }
+
+#if targetEnvironment(macCatalyst)
+extension CategoryTableViewController {
+  
+    func buildMacToolbar() {
+        guard let windowScene = self.view.window?.windowScene else {
+            return
+        }
+        
+        if let titlebar = windowScene.titlebar {
+            let toolbar = NSToolbar(identifier: "CategoriesToolbar")
+            toolbar.allowsUserCustomization = false
+            toolbar.delegate = self
+            titlebar.toolbar = toolbar
+            titlebar.titleVisibility = .hidden
+        }
+    }
+    
+}
+
+extension CategoryTableViewController: NSToolbarDelegate {
+    
+    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+        switch itemIdentifier {
+        case .add:
+            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"),
+                                                style: .plain,
+                                                target: self,
+                                                action: #selector(self.onAdd(_:)))
+            barButtonItem.accessibilityIdentifier = itemIdentifier.rawValue
+            let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
+            return button
+
+        default:
+            break
+        }
+        return nil
+    }
+
+    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return [
+            .flexibleSpace,
+            .add
+        ]
+    }
+    
+    func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return toolbarDefaultItemIdentifiers(toolbar)
+    }
+    
+}
+#endif

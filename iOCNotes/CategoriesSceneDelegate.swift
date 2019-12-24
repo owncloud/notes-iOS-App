@@ -22,7 +22,6 @@ class CategoriesSceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        buildMacToolbar()
         windowScene.title = "Categories"
     }
 
@@ -55,64 +54,4 @@ class CategoriesSceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     }
 
-    @objc func onBackButtonAction(sender: UIBarButtonItem) {
-        guard let settingsNavController = window?.rootViewController as? UINavigationController else {
-            return
-        }
-        settingsNavController.popViewController(animated: true)
-    }
-
 }
-
-#if targetEnvironment(macCatalyst)
-extension CategoriesSceneDelegate {
-  
-    func buildMacToolbar() {
-        guard let windowScene = window?.windowScene else {
-            return
-        }
-        
-        if let titlebar = windowScene.titlebar {
-            let toolbar = NSToolbar(identifier: "SettingsToolbar")
-            toolbar.allowsUserCustomization = false
-            toolbar.delegate = self
-            titlebar.toolbar = toolbar
-            titlebar.titleVisibility = .hidden
-        }
-    }
-    
-}
-
-extension CategoriesSceneDelegate: NSToolbarDelegate {
-    
-    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
-        switch itemIdentifier {
-        case .back:
-            let barButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
-                                                 style: .plain,
-                                                 target: self,
-                                                 action: #selector(self.onBackButtonAction(sender:)))
-            barButtonItem.accessibilityIdentifier = itemIdentifier.rawValue
-            let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
-            return button
-
-            
-        default:
-            break
-        }
-        return nil
-    }
-
-    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [
-            .back,
-            .flexibleSpace
-        ]
-    }
-    
-    func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return toolbarDefaultItemIdentifiers(toolbar)
-    }
-    
-}
-#endif
