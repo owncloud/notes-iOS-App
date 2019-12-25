@@ -36,6 +36,12 @@
 		D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D017D4231D3B03BE00B21443 /* WebKit.framework */; };
 		D018034823B03625001CA4FC /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D018034723B03625001CA4FC /* Categories.storyboard */; };
 		D018034A23B037B2001CA4FC /* CategoriesSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018034923B037B1001CA4FC /* CategoriesSceneDelegate.swift */; };
+		D01803A523B2BAC6001CA4FC /* AppKitEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01803A423B2BAC6001CA4FC /* AppKitEntryPoint.swift */; };
+		D01803A623B2BE23001CA4FC /* AppKitGlue.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = D018039E23B2BA23001CA4FC /* AppKitGlue.bundle */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D01803BE23B40D7F001CA4FC /* AppKitInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = D01803BC23B40D7F001CA4FC /* AppKitInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D01803C223B40D96001CA4FC /* AppKitInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01803AA23B2D289001CA4FC /* AppKitInterface.swift */; };
+		D01803C323B40DB6001CA4FC /* AppKitInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */; };
+		D01803C423B40DB6001CA4FC /* AppKitInterface.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
 		D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */; };
@@ -70,6 +76,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D01803A723B2BE23001CA4FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0CFE52B1888A7BD00165839 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D018039D23B2BA23001CA4FC;
+			remoteInfo = AppKitGlue;
+		};
+		D01803C523B40DB6001CA4FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0CFE52B1888A7BD00165839 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D01803B923B40D7F001CA4FC;
+			remoteInfo = AppKitInterface;
+		};
+		D01803CC23B41A55001CA4FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0CFE52B1888A7BD00165839 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D01803B923B40D7F001CA4FC;
+			remoteInfo = AppKitInterface;
+		};
 		D0CFE55C1888A7BD00165839 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0CFE52B1888A7BD00165839 /* Project object */;
@@ -86,11 +113,23 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D01803C423B40DB6001CA4FC /* AppKitInterface.framework in CopyFiles */,
 				D004DB7A239211E10080A7D1 /* KSCrash.framework in CopyFiles */,
 				D004DB7B239211E10080A7D1 /* Notepad.framework in CopyFiles */,
 				D004DB7C239211E10080A7D1 /* PKHUD.framework in CopyFiles */,
 				D004DB7D239211E10080A7D1 /* SwiftMessages.framework in CopyFiles */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D01803A923B2BE23001CA4FC /* Embed PlugIns */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D01803A623B2BE23001CA4FC /* AppKitGlue.bundle in Embed PlugIns */,
+			);
+			name = "Embed PlugIns";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -132,6 +171,13 @@
 		D017D4231D3B03BE00B21443 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D018034723B03625001CA4FC /* Categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Categories.storyboard; sourceTree = "<group>"; };
 		D018034923B037B1001CA4FC /* CategoriesSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSceneDelegate.swift; sourceTree = "<group>"; };
+		D018039E23B2BA23001CA4FC /* AppKitGlue.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppKitGlue.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		D01803A023B2BA23001CA4FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D01803A423B2BAC6001CA4FC /* AppKitEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKitEntryPoint.swift; sourceTree = "<group>"; };
+		D01803AA23B2D289001CA4FC /* AppKitInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKitInterface.swift; sourceTree = "<group>"; };
+		D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppKitInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D01803BC23B40D7F001CA4FC /* AppKitInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKitInterface.h; sourceTree = "<group>"; };
+		D01803BD23B40D7F001CA4FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D02256C61891FD7C0038232A /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = defaults.plist; sourceTree = "<group>"; };
 		D0225708189745C40038232A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D0225710189848060038232A /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -179,6 +225,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D018039B23B2BA23001CA4FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D01803B723B40D7F001CA4FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0CFE5301888A7BD00165839 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -187,6 +247,7 @@
 				D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */,
 				BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */,
 				D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */,
+				D01803C323B40DB6001CA4FC /* AppKitInterface.framework in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
 				D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */,
 				BDF94E812391E5EC005F2D5F /* Down in Frameworks */,
@@ -217,6 +278,25 @@
 				D01067E12213BB5E0047E090 /* NoteProtocol.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D018039F23B2BA23001CA4FC /* AppKitGlue */ = {
+			isa = PBXGroup;
+			children = (
+				D01803A023B2BA23001CA4FC /* Info.plist */,
+				D01803A423B2BAC6001CA4FC /* AppKitEntryPoint.swift */,
+			);
+			path = AppKitGlue;
+			sourceTree = "<group>";
+		};
+		D01803BB23B40D7F001CA4FC /* AppKitInterface */ = {
+			isa = PBXGroup;
+			children = (
+				D01803BC23B40D7F001CA4FC /* AppKitInterface.h */,
+				D01803AA23B2D289001CA4FC /* AppKitInterface.swift */,
+				D01803BD23B40D7F001CA4FC /* Info.plist */,
+			);
+			path = AppKitInterface;
 			sourceTree = "<group>";
 		};
 		D05110BE20CA1F9D00AFFDC7 /* CoreData */ = {
@@ -251,6 +331,8 @@
 				D0A00D462356A7EB0054E3A3 /* credits.py */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
+				D018039F23B2BA23001CA4FC /* AppKitGlue */,
+				D01803BB23B40D7F001CA4FC /* AppKitInterface */,
 				D0CFE5351888A7BD00165839 /* Frameworks */,
 				D0CFE5341888A7BD00165839 /* Products */,
 			);
@@ -261,6 +343,8 @@
 			children = (
 				D0CFE5331888A7BD00165839 /* CloudNotes.app */,
 				D0CFE5571888A7BD00165839 /* iOCNotesTests.xctest */,
+				D018039E23B2BA23001CA4FC /* AppKitGlue.bundle */,
+				D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -362,7 +446,54 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		D01803B523B40D7F001CA4FC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D01803BE23B40D7F001CA4FC /* AppKitInterface.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		D018039D23B2BA23001CA4FC /* AppKitGlue */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D01803A123B2BA23001CA4FC /* Build configuration list for PBXNativeTarget "AppKitGlue" */;
+			buildPhases = (
+				D018039A23B2BA23001CA4FC /* Sources */,
+				D018039B23B2BA23001CA4FC /* Frameworks */,
+				D018039C23B2BA23001CA4FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D01803CD23B41A55001CA4FC /* PBXTargetDependency */,
+			);
+			name = AppKitGlue;
+			productName = AppKitGlue;
+			productReference = D018039E23B2BA23001CA4FC /* AppKitGlue.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		D01803B923B40D7F001CA4FC /* AppKitInterface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D01803BF23B40D7F001CA4FC /* Build configuration list for PBXNativeTarget "AppKitInterface" */;
+			buildPhases = (
+				D01803B523B40D7F001CA4FC /* Headers */,
+				D01803B623B40D7F001CA4FC /* Sources */,
+				D01803B723B40D7F001CA4FC /* Frameworks */,
+				D01803B823B40D7F001CA4FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppKitInterface;
+			productName = AppKitInterface;
+			productReference = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		D0CFE5321888A7BD00165839 /* iOCNotes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0CFE5681888A7BD00165839 /* Build configuration list for PBXNativeTarget "iOCNotes" */;
@@ -374,10 +505,13 @@
 				D05110BD20C8CA2A00AFFDC7 /* ShellScript */,
 				D0A00D472356A7F80054E3A3 /* ShellScript */,
 				D004DB79239211D30080A7D1 /* CopyFiles */,
+				D01803A923B2BE23001CA4FC /* Embed PlugIns */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D01803A823B2BE23001CA4FC /* PBXTargetDependency */,
+				D01803C623B40DB6001CA4FC /* PBXTargetDependency */,
 			);
 			name = iOCNotes;
 			packageProductDependencies = (
@@ -417,6 +551,13 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Peter Hedlund";
 				TargetAttributes = {
+					D018039D23B2BA23001CA4FC = {
+						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1130;
+					};
+					D01803B923B40D7F001CA4FC = {
+						CreatedOnToolsVersion = 11.3;
+					};
 					D0CFE5321888A7BD00165839 = {
 						DevelopmentTeam = 73AQJ77PZ5;
 						LastSwiftMigration = 0810;
@@ -449,11 +590,27 @@
 			targets = (
 				D0CFE5321888A7BD00165839 /* iOCNotes */,
 				D0CFE5561888A7BD00165839 /* iOCNotesTests */,
+				D018039D23B2BA23001CA4FC /* AppKitGlue */,
+				D01803B923B40D7F001CA4FC /* AppKitInterface */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D018039C23B2BA23001CA4FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D01803B823B40D7F001CA4FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0CFE5311888A7BD00165839 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -536,6 +693,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D018039A23B2BA23001CA4FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D01803A523B2BAC6001CA4FC /* AppKitEntryPoint.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D01803B623B40D7F001CA4FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D01803C223B40D96001CA4FC /* AppKitInterface.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0CFE52F1888A7BD00165839 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -581,6 +754,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D01803A823B2BE23001CA4FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = maccatalyst;
+			target = D018039D23B2BA23001CA4FC /* AppKitGlue */;
+			targetProxy = D01803A723B2BE23001CA4FC /* PBXContainerItemProxy */;
+		};
+		D01803C623B40DB6001CA4FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D01803B923B40D7F001CA4FC /* AppKitInterface */;
+			targetProxy = D01803C523B40DB6001CA4FC /* PBXContainerItemProxy */;
+		};
+		D01803CD23B41A55001CA4FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D01803B923B40D7F001CA4FC /* AppKitInterface */;
+			targetProxy = D01803CC23B41A55001CA4FC /* PBXContainerItemProxy */;
+		};
 		D0CFE55D1888A7BD00165839 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D0CFE5321888A7BD00165839 /* iOCNotes */;
@@ -633,6 +822,170 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D01803A223B2BA23001CA4FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
+				DEVELOPMENT_TEAM = 73AQJ77PZ5;
+				FRAMEWORK_SEARCH_PATHS = "../${TARGET_BUILD_DIR}/AppKitInterface.framework";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = AppKitGlue/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.hedlund.AppKitGlue;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		D01803A323B2BA23001CA4FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
+				DEVELOPMENT_TEAM = 73AQJ77PZ5;
+				FRAMEWORK_SEARCH_PATHS = "../${TARGET_BUILD_DIR}/AppKitInterface.framework";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = AppKitGlue/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.hedlund.AppKitGlue;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		D01803C023B40D7F001CA4FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
+				DEVELOPMENT_TEAM = 73AQJ77PZ5;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = AppKitInterface/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.hedlund.AppKitInterface;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D01803C123B40D7F001CA4FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
+				DEVELOPMENT_TEAM = 73AQJ77PZ5;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = AppKitInterface/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.hedlund.AppKitInterface;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		D0CFE5661888A7BD00165839 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -755,6 +1108,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBFOLDER)",
 					"$(PROJECT_DIR)/Carthage/Build/macCatalyst",
+					"${TARGET_BUILD_DIR}/AppKitInterface.framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
@@ -796,6 +1150,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBFOLDER)",
 					"$(PROJECT_DIR)/Carthage/Build/macCatalyst",
+					"${TARGET_BUILD_DIR}/AppKitInterface.framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
@@ -878,6 +1233,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D01803A123B2BA23001CA4FC /* Build configuration list for PBXNativeTarget "AppKitGlue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D01803A223B2BA23001CA4FC /* Debug */,
+				D01803A323B2BA23001CA4FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D01803BF23B40D7F001CA4FC /* Build configuration list for PBXNativeTarget "AppKitInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D01803C023B40D7F001CA4FC /* Debug */,
+				D01803C123B40D7F001CA4FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D0CFE52E1888A7BD00165839 /* Build configuration list for PBXProject "iOCNotes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -9,6 +9,9 @@
 //import AlamofireNetworkActivityIndicator
 import KSCrash
 import UIKit
+#if targetEnvironment(macCatalyst)
+import AppKitInterface
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +26,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         //        NetworkActivityIndicatorManager.shared.isEnabled = true
-        #if !targetEnvironment(macCatalyst)
+        #if targetEnvironment(macCatalyst)
+        if let bundleUrl = Bundle.main.builtInPlugInsURL {
+            let pluginUrl = bundleUrl.appendingPathComponent("AppKitGlue").appendingPathExtension("bundle")
+            if let appKitBundle = Bundle(url: pluginUrl) {
+                if let entryPoint = appKitBundle.classNamed("AppKitGlue.AppKitEntryPoint") as? AppKitInterfaceProtocol.Type {
+                    let plugin = entryPoint.init()
+                    print(plugin.message())
+                }
+            }
+        }
+        #else
         window?.tintColor = .ph_iconColor
 
         UINavigationBar.appearance().barTintColor = .ph_popoverButtonColor
@@ -55,6 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UITextField.appearance().textColor = .ph_textColor
         #endif
+        
         if let splitViewController = self.window?.rootViewController as? UISplitViewController {
             if let firstNavigationController = splitViewController.viewControllers.first as? UINavigationController {
                 notesTableViewController = firstNavigationController.topViewController as? NotesTableViewController
