@@ -138,8 +138,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         builder.remove(menu: .services)
         builder.remove(menu: .format)
         builder.remove(menu: .toolbar)
-        let fullScreenMenu = builder.menu(for: .fullscreen)
-        builder.remove(menu: .view)
 
         let preferencesCommand = UIKeyCommand(input: ",", modifierFlags: [.command], action: #selector(openPreferences))
         preferencesCommand.title = "Preferences..."
@@ -159,11 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let syncCommand = UIKeyCommand(input: "R", modifierFlags: [.command], action: #selector(syncNotes))
         syncCommand.title = "Sync Notes"
         let syncNotesMenu = UIMenu(title: "Sync Notes", image: nil, identifier: UIMenu.Identifier("syncNotes"), options: .displayInline, children: [syncCommand])
-        let viewMenu = UIMenu(title: "View ", image: nil, identifier: UIMenu.Identifier("_view"), options: [], children: [syncNotesMenu])
-        builder.insertSibling(viewMenu, afterMenu: .edit)
-        if let fullScreenMenu = fullScreenMenu {
-            builder.insertChild(fullScreenMenu, atEndOfMenu: UIMenu.Identifier("_view"))
-        }
+        builder.insertChild(syncNotesMenu, atStartOfMenu: .view)
 
         let previewCommand = UICommand(title: "Preview Markup", action: #selector(previewNote))
         let categoryCommand = UICommand(title: "Change Category...", action: #selector(changeCategory))
