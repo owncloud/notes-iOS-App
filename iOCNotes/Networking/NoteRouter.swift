@@ -10,7 +10,7 @@ import Alamofire
 
 enum Router: URLRequestConvertible {
     case allNotes(exclude: String)
-    case getNote(id: Int, exclude: String)
+    case getNote(id: Int, exclude: String, etag: String)
     case createNote(parameters: Parameters)
     case updateNote(id: Int, paramters: Parameters)
     case deleteNote(id: Int)
@@ -34,7 +34,7 @@ enum Router: URLRequestConvertible {
         switch self {
         case .allNotes:
             return "/notes"
-        case .getNote(let id , _):
+        case .getNote(let id , _, _):
             return "/notes/\(id)"
         case .createNote:
             return "/notes"
@@ -64,8 +64,9 @@ enum Router: URLRequestConvertible {
             case .allNotes(let exclude):
                 let parameters = ["exclude": exclude] as [String : Any]
                 urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
-            case .getNote(_, let exclude):
+            case .getNote(_, let exclude, let etag):
                 let parameters = ["exclude": exclude] as [String : Any]
+                urlRequest.setValue(etag, forHTTPHeaderField: "If-None-Match")
                 urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
 
             case .createNote(let parameters):

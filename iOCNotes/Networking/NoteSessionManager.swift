@@ -253,7 +253,7 @@ class NotesManager {
             completion?()
             return
         }
-        let router = Router.getNote(id: Int(note.id), exclude: "")
+        let router = Router.getNote(id: Int(note.id), exclude: "", etag: note.etag)
         NoteSessionManager
             .shared
             .request(router)
@@ -268,6 +268,9 @@ class NotesManager {
                 case .failure(let error):
                     if let urlResponse = response.response {
                         switch urlResponse.statusCode {
+                        case 304:
+                            // Not modified. Do nothing.
+                            break
                         case 404:
                             if let guid = note.guid,
                                 let dbNote = CDNote.note(guid: guid) {
