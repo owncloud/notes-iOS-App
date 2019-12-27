@@ -520,8 +520,8 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
             }
         case .move:
             print("IndexPath \(String(describing: indexPath)) newIndexPath \(String(describing: newIndexPath))")
-            if let indexPath = indexPath {
-                if let oldSection = controller.sections?[indexPath.section] {
+            if let indexPath = indexPath, let sectionCount = controller.sections?.count {
+                if indexPath.section < sectionCount, let oldSection = controller.sections?[indexPath.section] {
                     let oldSectionName = oldSection.name
                     if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == oldSectionName }) {
                         if !collapsedInfo.collapsed {
