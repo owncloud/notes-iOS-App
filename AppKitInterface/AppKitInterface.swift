@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol AppKitInterfaceProtocol {
+public protocol AppKitInterfaceProtocol: NSObject {
     init() 
-    func message() -> String
+    func sceneDidActivate(identifier: String)
 }

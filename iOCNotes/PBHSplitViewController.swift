@@ -28,6 +28,7 @@ class PBHSplitViewController: UISplitViewController {
     #if targetEnvironment(macCatalyst)
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        AppDelegate.shared.sceneDidActivate(identifier: "CloudNotes")
         buildMacToolbar()
     }
     #endif

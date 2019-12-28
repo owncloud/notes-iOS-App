@@ -521,18 +521,19 @@ class NotesTableViewController: UITableViewController {
         let categories = notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
             return note.category
         })
-        if let storyboard = self.storyboard,
-            let navController = storyboard.instantiateViewController(withIdentifier: "CategoryTableViewControllerNavController") as? UINavigationController,
-            let categoryController = navController.topViewController as? CategoryTableViewController,
-            let categories = categories {
-            let note = self.notesFrc.object(at: indexPath)
-            categoryController.categories = categories.removingDuplicates()
-            if let section = self.notesFrc.sections?.first(where: { $0.name == note.category }) {
-                self.numberOfObjectsInCurrentSection = section.numberOfObjects
-            }
-            categoryController.note = note
-            self.present(navController, animated: true, completion: nil)
-        }
+        AppDelegate.shared.changeCategory()
+//        if let storyboard = self.storyboard,
+//            let navController = storyboard.instantiateViewController(withIdentifier: "CategoryNavigationController") as? UINavigationController,
+//            let categoryController = navController.topViewController as? CategoryTableViewController,
+//            let categories = categories {
+//            let note = self.notesFrc.object(at: indexPath)
+//            categoryController.categories = categories.removingDuplicates()
+//            if let section = self.notesFrc.sections?.first(where: { $0.name == note.category }) {
+//                self.numberOfObjectsInCurrentSection = section.numberOfObjects
+//            }
+//            categoryController.note = note
+//            self.present(navController, animated: true, completion: nil)
+//        }
     }
 
 }

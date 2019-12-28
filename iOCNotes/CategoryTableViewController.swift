@@ -47,6 +47,7 @@ class CategoryTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         buildMacToolbar()
+        AppDelegate.shared.sceneDidActivate(identifier: "Categories")
     }
     #endif
     

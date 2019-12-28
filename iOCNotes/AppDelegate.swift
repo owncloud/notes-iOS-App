@@ -18,6 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var notesTableViewController: NotesTableViewController?
+    var appKitPlugin: AppKitInterfaceProtocol?
+
+    static var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         #if !targetEnvironment(simulator)
@@ -31,8 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let pluginUrl = bundleUrl.appendingPathComponent("AppKitGlue").appendingPathExtension("bundle")
             if let appKitBundle = Bundle(url: pluginUrl) {
                 if let entryPoint = appKitBundle.classNamed("AppKitGlue.AppKitEntryPoint") as? AppKitInterfaceProtocol.Type {
-                    let plugin = entryPoint.init()
-                    print(plugin.message())
+                    appKitPlugin = entryPoint.init()
                 }
             }
         }
@@ -239,4 +243,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+}
+
+extension AppDelegate {
+    
+    func sceneDidActivate(identifier: String) {
+        appKitPlugin?.sceneDidActivate(identifier: identifier)
+    }
+    
 }

@@ -9,15 +9,35 @@
 import Cocoa
 import AppKitInterface
 
-public class AppKitEntryPoint: AppKitInterfaceProtocol {
+public class AppKitEntryPoint: NSObject, AppKitInterfaceProtocol, NSApplicationDelegate {
 
-    public required init() {
+    public required override init() {
+        super.init()
         let macApp = NSApplication.shared
-        print(macApp.description)
+        macApp.delegate = self // Doesn't work
         NSWindow.allowsAutomaticWindowTabbing = false
     }
     
-    public func message() -> String {
-        return "message"
+    public func sceneDidActivate(identifier: String) {
+        for window in NSApp.windows {
+            print(window.title)
+            switch window.title {
+            case "Categories" where identifier == "Categories":
+                window.setContentSize(NSSize(width: 200, height: 200))
+            case "Preferences" where identifier == "Preferences":
+                window.setContentSize(NSSize(width: 200, height: 200))
+            default:
+                break
+            }
+            
+        }
+    }
+    
+    public func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
+
+    public func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        return .terminateNow
     }
 }
