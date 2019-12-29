@@ -440,7 +440,7 @@ class NotesTableViewController: UITableViewController {
         if sender as? UIBarButtonItem == settingsBarButton {
             nav = storyboard.instantiateViewController(withIdentifier: "login") as? UINavigationController
         } else {
-            let loginController = storyboard.instantiateViewController(withIdentifier: "server")
+            let loginController = storyboard.instantiateViewController(withIdentifier: "LoginTableViewController")
             nav = UINavigationController(rootViewController: loginController)
             nav?.modalPresentationStyle = .formSheet
         }

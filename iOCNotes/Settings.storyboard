@@ -31,7 +31,7 @@
         <!--Settings-->
         <scene sceneID="Bmt-3K-dJG">
             <objects>
-                <tableViewController modalPresentationStyle="formSheet" id="F8m-nl-oCR" customClass="SettingsTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsTableViewController" modalPresentationStyle="formSheet" id="F8m-nl-oCR" customClass="SettingsTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="XDx-C3-7pJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -181,7 +181,7 @@
         <!--Login Information-->
         <scene sceneID="1Ik-4j-WtD">
             <objects>
-                <tableViewController storyboardIdentifier="server" modalPresentationStyle="formSheet" id="CMl-QL-89G" customClass="LoginTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LoginTableViewController" modalPresentationStyle="formSheet" id="CMl-QL-89G" customClass="LoginTableViewController" customModule="iOCNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rIQ-xz-ct4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

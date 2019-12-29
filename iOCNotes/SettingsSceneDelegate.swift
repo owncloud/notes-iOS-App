@@ -62,6 +62,26 @@ class SettingsSceneDelegate: UIResponder, UIWindowSceneDelegate {
         settingsNavController.popViewController(animated: true)
     }
 
+    @objc func toolbarGroupSelectionChanged(sender: NSToolbarItemGroup) {
+        let storyboard = UIStoryboard(name: "Settings", bundle:nil)
+        var nav: UINavigationController?
+        switch sender.selectedIndex {
+        case 0:
+            print("Selected Settings")
+            if let settingsController = storyboard.instantiateViewController(withIdentifier: "SettingsTableViewController") as? SettingsTableViewController {
+                nav = UINavigationController(rootViewController: settingsController)
+            }
+        case 1:
+            print("Selected Server")
+            if let loginController = storyboard.instantiateViewController(withIdentifier: "LoginTableViewController") as? LoginTableViewController {
+                nav = UINavigationController(rootViewController: loginController)
+            }
+        default:
+            break
+        }
+        window?.rootViewController = nav
+    }
+
 }
 
 #if targetEnvironment(macCatalyst)
@@ -74,6 +94,7 @@ extension SettingsSceneDelegate {
         
         if let titlebar = windowScene.titlebar {
             let toolbar = NSToolbar(identifier: "SettingsToolbar")
+            toolbar.centeredItemIdentifier = .segmented
             toolbar.allowsUserCustomization = false
             toolbar.delegate = self
             titlebar.toolbar = toolbar
@@ -95,7 +116,20 @@ extension SettingsSceneDelegate: NSToolbarDelegate {
             barButtonItem.accessibilityIdentifier = itemIdentifier.rawValue
             let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
             return button
-
+        case .segmented:
+            // Create a new group item that hosts two buttons
+            let group = NSToolbarItemGroup(itemIdentifier: .segmented,
+                                           titles: ["Settings", "Server"],
+                                           selectionMode: .selectOne,
+                                           labels: ["section1", "section2"],
+                                           target: self,
+                                           action: #selector(toolbarGroupSelectionChanged))
+            
+            // Set the initial selection
+            group.setSelected(true, at: 0)
+            
+            return group
+            
             
         default:
             break
@@ -105,7 +139,7 @@ extension SettingsSceneDelegate: NSToolbarDelegate {
 
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         return [
-            .back,
+            .segmented,
             .flexibleSpace
         ]
     }

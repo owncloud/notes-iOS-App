@@ -27,6 +27,8 @@ class LoginTableViewController: UITableViewController {
         self.passwordTextField.delegate = self
         #if targetEnvironment(macCatalyst)
         navigationController?.navigationBar.isHidden = true
+        self.tableView.sectionHeaderHeight = UITableView.automaticDimension;
+        self.tableView.estimatedSectionHeaderHeight = 44.0;
         #endif
     }
 
@@ -45,13 +47,15 @@ class LoginTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
+    #if !targetEnvironment(macCatalyst)
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 44.0
+            return tableView.automaticDimension
         }
         return 0.0001
     }
-
+    #endif
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard indexPath.section == 1,
             connectLabel.isEnabled,

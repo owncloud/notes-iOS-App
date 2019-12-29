@@ -19,6 +19,8 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         #if targetEnvironment(macCatalyst)
         navigationController?.navigationBar.isHidden = true
+        self.tableView.rowHeight = UITableView.automaticDimension;
+        self.tableView.estimatedRowHeight = 44.0;
         #endif
     }
     
@@ -31,6 +33,9 @@ class SettingsTableViewController: UITableViewController {
         } else {
             self.statusLabel.text =  NSLocalizedString("Not Logged In", comment: "A status label indicating that the user is not logged in")
         }
+        #if targetEnvironment(macCatalyst)
+        self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.isHidden = true
+        #endif
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,6 +44,15 @@ class SettingsTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        #if targetEnvironment(macCatalyst)
+        if indexPath.section == 0, indexPath.row == 0 {
+            return 2.0
+        }
+        #endif
+        return UITableView.automaticDimension
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             if MFMailComposeViewController.canSendMail() {

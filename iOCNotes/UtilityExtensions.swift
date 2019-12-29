@@ -80,5 +80,6 @@ extension NSToolbarItem.Identifier {
     static let back = NSToolbarItem.Identifier(rawValue: "back")
     static let preview = NSToolbarItem.Identifier(rawValue: "preview")
     static let share = NSToolbarItem.Identifier(rawValue: "share")
+    static let segmented = NSToolbarItem.Identifier(rawValue: "segmented")
 }
 #endif
