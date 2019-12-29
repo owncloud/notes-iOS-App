@@ -42,6 +42,7 @@
 		D01803C223B40D96001CA4FC /* AppKitInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01803AA23B2D289001CA4FC /* AppKitInterface.swift */; };
 		D01803C323B40DB6001CA4FC /* AppKitInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */; };
 		D01803C423B40DB6001CA4FC /* AppKitInterface.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D01803CF23B843BD001CA4FC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D01803CE23B843BD001CA4FC /* Credits.rtf */; };
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
 		D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */; };
@@ -178,6 +179,7 @@
 		D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppKitInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D01803BC23B40D7F001CA4FC /* AppKitInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKitInterface.h; sourceTree = "<group>"; };
 		D01803BD23B40D7F001CA4FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D01803CE23B843BD001CA4FC /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		D02256C61891FD7C0038232A /* defaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = defaults.plist; sourceTree = "<group>"; };
 		D0225708189745C40038232A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D0225710189848060038232A /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -422,6 +424,7 @@
 				D0CFE53E1888A7BD00165839 /* iOCNotes-Info.plist */,
 				D0CFE53F1888A7BD00165839 /* InfoPlist.strings */,
 				D02256C61891FD7C0038232A /* defaults.plist */,
+				D01803CE23B843BD001CA4FC /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */,
 				D004DB7723920E820080A7D1 /* DownView.bundle in Resources */,
 				D0B6D4AF22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib in Resources */,
+				D01803CF23B843BD001CA4FC /* Credits.rtf in Resources */,
 				D02256C71891FD7C0038232A /* defaults.plist in Resources */,
 				D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */,
 				D0225709189745C40038232A /* Settings.bundle in Resources */,
