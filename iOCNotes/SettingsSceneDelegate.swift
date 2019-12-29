@@ -109,28 +109,22 @@ extension SettingsSceneDelegate: NSToolbarDelegate {
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         switch itemIdentifier {
         case .back:
-            let barButtonItem =  UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
-                                                 style: .plain,
-                                                 target: self,
-                                                 action: #selector(self.onBackButtonAction(sender:)))
+            let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
+                                                style: .plain,
+                                                target: self,
+                                                action: #selector(self.onBackButtonAction(sender:)))
             barButtonItem.accessibilityIdentifier = itemIdentifier.rawValue
             let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
             return button
         case .segmented:
-            // Create a new group item that hosts two buttons
             let group = NSToolbarItemGroup(itemIdentifier: .segmented,
                                            titles: ["Settings", "Server"],
                                            selectionMode: .selectOne,
                                            labels: ["section1", "section2"],
                                            target: self,
                                            action: #selector(toolbarGroupSelectionChanged))
-            
-            // Set the initial selection
             group.setSelected(true, at: 0)
-            
             return group
-            
-            
         default:
             break
         }
