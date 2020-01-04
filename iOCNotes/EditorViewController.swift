@@ -219,7 +219,7 @@ class EditorViewController: UIViewController {
         let deleteAction = UIAlertAction(title: NSLocalizedString("Delete Note", comment: "A menu action"),
                                          style: .destructive,
                                          handler: { [weak self] action in
-                                            self?.deleteNote(action: action)
+                                            self?.deleteNote(action)
         })
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "A menu action"), style: .cancel, handler: { _ in
             //
@@ -229,7 +229,8 @@ class EditorViewController: UIViewController {
         return controller
     }()
     
-    func deleteNote(action: UIAlertAction) {
+    @objc
+    func deleteNote(_ sender: Any?) {
         NotificationCenter.default.post(name: .deletingNote, object: self)
         let imageView = UIImageView(frame: self.noteView.frame)
         imageView.image = self.screenShot

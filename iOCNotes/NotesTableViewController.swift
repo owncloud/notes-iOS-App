@@ -521,7 +521,7 @@ class NotesTableViewController: UITableViewController {
         let categories = notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
             return note.category
         })
-        AppDelegate.shared.changeCategory()
+//        AppDelegate.shared.changeCategory()
 //        if let storyboard = self.storyboard,
 //            let navController = storyboard.instantiateViewController(withIdentifier: "CategoryNavigationController") as? UINavigationController,
 //            let categoryController = navController.topViewController as? CategoryTableViewController,
@@ -577,8 +577,8 @@ extension NotesTableViewController: NSFetchedResultsControllerDelegate {
             }
         case .move:
             print("IndexPath \(String(describing: indexPath)) newIndexPath \(String(describing: newIndexPath))")
-            if let indexPath = indexPath {
-                if let oldSection = controller.sections?[indexPath.section] {
+            if let indexPath = indexPath, let sectionCount = controller.sections?.count {
+                if indexPath.section < sectionCount, let oldSection = controller.sections?[indexPath.section] {
                     let oldSectionName = oldSection.name
                     if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == oldSectionName }) {
                         if !collapsedInfo.collapsed {

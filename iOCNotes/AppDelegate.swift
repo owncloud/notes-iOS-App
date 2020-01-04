@@ -96,10 +96,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         #endif
-//        UIApplication.shared.requestSceneSessionActivation(nil, userActivity: nil, options: nil) { (error) in
-//            
-//        }
-
         return true
     }
 
@@ -138,36 +134,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     override func buildMenu(with builder: UIMenuBuilder) {
         super.buildMenu(with: builder)
-
+        
         builder.remove(menu: .services)
         builder.remove(menu: .format)
         builder.remove(menu: .toolbar)
-
+        
         let preferencesCommand = UIKeyCommand(input: ",", modifierFlags: [.command], action: #selector(openPreferences))
         preferencesCommand.title = "Preferences..."
         let openPreferences = UIMenu(title: "Preferences...", image: nil, identifier: UIMenu.Identifier("openPreferences"), options: .displayInline, children: [preferencesCommand])
         builder.replace(menu: .preferences, with: openPreferences)
         
-        let newNoteCommand = UIKeyCommand(input: "N", modifierFlags: [.command], action: #selector(newNote))
-        newNoteCommand.title = "New"
-        let newNoteMenu = UIMenu(title: "New", image: nil, identifier: UIMenu.Identifier("newNote"), options: .displayInline, children: [newNoteCommand])
-        builder.replace(menu: .newScene, with: newNoteMenu)
-
+        if let newSceneMenuElement = builder.menu(for: .newScene)?.children.first {
+            let newNoteCommand = UIKeyCommand(input: "N", modifierFlags: [.command, .shift], action: #selector(NotesTableViewController.onAdd(sender:)))
+            newNoteCommand.title = "New Note"
+            let newNoteMenu = UIMenu(title: "New Note", image: nil, identifier: UIMenu.Identifier("newNote"), options: .displayInline, children: [newSceneMenuElement, newNoteCommand])
+            builder.replace(menu: .newScene, with: newNoteMenu)
+        }
+        
         let importCommand = UICommand(title: "Import...", action: #selector(importNote))
         let exportCommand = UICommand(title: "Export...", action: #selector(exportNote))
         let importExportMenu = UIMenu(title: "ImportExport", image: nil, identifier: UIMenu.Identifier("importExport"), options: .displayInline, children: [importCommand, exportCommand])
         builder.insertSibling(importExportMenu, afterMenu: UIMenu.Identifier("newNote"))
-
-        let syncCommand = UIKeyCommand(input: "R", modifierFlags: [.command], action: #selector(syncNotes))
+        
+        let syncCommand = UIKeyCommand(input: "R", modifierFlags: [.command], action: #selector(NotesTableViewController.onRefresh(sender:)))
         syncCommand.title = "Sync Notes"
         let syncNotesMenu = UIMenu(title: "Sync Notes", image: nil, identifier: UIMenu.Identifier("syncNotes"), options: .displayInline, children: [syncCommand])
         builder.insertChild(syncNotesMenu, atStartOfMenu: .view)
-
-        let previewCommand = UICommand(title: "Preview Markup", action: #selector(previewNote))
+        
+        let previewCommand = UICommand(title: "Preview Markup", action: #selector(EditorViewController.onPreview(_:)))
         let categoryCommand = UICommand(title: "Change Category...", action: #selector(changeCategory))
-        let deleteCommand = UIKeyCommand(input: "\u{8}", modifierFlags: [.command], action: #selector(deleteNote))
+        let deleteCommand = UIKeyCommand(input: "\u{8}", modifierFlags: [.command], action: #selector(EditorViewController.deleteNote(_:)))
         deleteCommand.title = "Delete"
-
+        
         let previewMenu = UIMenu(title: "Preview", image: nil, identifier: UIMenu.Identifier("preview"), options: .displayInline, children: [previewCommand])
         let categoryMenu = UIMenu(title: "Category", image: nil, identifier: UIMenu.Identifier("category"), options: .displayInline, children: [categoryCommand])
         let noteMenu = UIMenu(title: "Note ", image: nil, identifier: UIMenu.Identifier("note"), options: [], children: [previewMenu, categoryMenu, deleteCommand])
@@ -185,37 +183,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    @objc func newNote() {
-        //
-    }
-    
-    @objc func syncNotes() {
-        //
-    }
-
     @objc func importNote() {
         //
     }
-
+    
     @objc func exportNote() {
         //
     }
-    
-    @objc func previewNote() {
-        //
-    }
-
+       
     @objc func changeCategory() {
         let activity = NSUserActivity(activityType: "com.peterandlinda.CloudNotes.categories")
         UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil) { (error) in
             
         }
     }
-
-    @objc func deleteNote() {
-        //
-    }
-
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
