@@ -38,10 +38,12 @@ class SettingsTableViewController: UITableViewController {
         #endif
     }
     
+    #if targetEnvironment(macCatalyst)
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         AppDelegate.shared.sceneDidActivate(identifier: "Preferences")
     }
+    #endif
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

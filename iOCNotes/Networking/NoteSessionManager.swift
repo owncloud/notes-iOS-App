@@ -8,7 +8,9 @@
 
 import Alamofire
 import Foundation
+#if !os(OSX)
 import SwiftMessages
+#endif
 
 typealias SyncCompletionBlock = () -> Void
 typealias SyncCompletionBlockWithNote = (_ note: CDNote?) -> Void
@@ -435,6 +437,7 @@ class NotesManager {
     }
     
     func showErrorMessage(message: ErrorMessage) {
+        #if !os(OSX)
         var config = SwiftMessages.defaultConfig
         config.interactiveHide = true
         config.duration = .forever
@@ -450,6 +453,7 @@ class NotesManager {
             )
             return view
         })
+        #endif
     }
 
 }

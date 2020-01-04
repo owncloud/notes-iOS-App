@@ -40,8 +40,8 @@
 		D01803A623B2BE23001CA4FC /* AppKitGlue.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = D018039E23B2BA23001CA4FC /* AppKitGlue.bundle */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D01803BE23B40D7F001CA4FC /* AppKitInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = D01803BC23B40D7F001CA4FC /* AppKitInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D01803C223B40D96001CA4FC /* AppKitInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01803AA23B2D289001CA4FC /* AppKitInterface.swift */; };
-		D01803C323B40DB6001CA4FC /* AppKitInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */; };
-		D01803C423B40DB6001CA4FC /* AppKitInterface.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D01803C323B40DB6001CA4FC /* AppKitInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */; platformFilter = maccatalyst; };
+		D01803C423B40DB6001CA4FC /* AppKitInterface.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D01803CF23B843BD001CA4FC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D01803CE23B843BD001CA4FC /* Credits.rtf */; };
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
@@ -57,10 +57,22 @@
 		D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D06CDA5F238F6EC300CF90B0 /* Alamofire */; };
 		D071BFAA23C02EA1002BF63B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFA923C02EA1002BF63B /* AppDelegate.swift */; };
 		D071BFAC23C02EA1002BF63B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFAB23C02EA1002BF63B /* ContentView.swift */; };
-		D071BFAF23C02EA1002BF63B /* CloudNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D071BFAD23C02EA1002BF63B /* CloudNotes.xcdatamodeld */; };
 		D071BFB123C02EA8002BF63B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D071BFB023C02EA8002BF63B /* Assets.xcassets */; };
 		D071BFB423C02EA8002BF63B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D071BFB323C02EA8002BF63B /* Preview Assets.xcassets */; };
 		D071BFB723C02EA8002BF63B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D071BFB523C02EA8002BF63B /* Main.storyboard */; };
+		D071BFBD23C0371C002BF63B /* NoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E12213BB5E0047E090 /* NoteProtocol.swift */; };
+		D071BFBE23C03721002BF63B /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */; };
+		D071BFBF23C03725002BF63B /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
+		D071BFC023C03729002BF63B /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DA220BCA290047E090 /* ResponseSerializer.swift */; };
+		D071BFC123C03733002BF63B /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */; };
+		D071BFC223C03737002BF63B /* CDNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */; };
+		D071BFC323C0373A002BF63B /* CDNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */; };
+		D071BFC523C03740002BF63B /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E882207B2CF00528E90 /* NotesData.swift */; };
+		D071BFC723C037CE002BF63B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D071BFC623C037CE002BF63B /* Alamofire */; };
+		D071BFC923C039C0002BF63B /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D071BFC823C039C0002BF63B /* KeychainAccess */; };
+		D071BFCA23C039C9002BF63B /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */; };
+		D071BFCB23C03A94002BF63B /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92271A22CD3743004E2408 /* UtilityExtensions.swift */; };
+		D071BFCC23C03B11002BF63B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653F87231C43FA00D59A88 /* Constants.swift */; };
 		D078A1C4239C8A2000E1A004 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D078A1C3239C8A2000E1A004 /* CoreServices.framework */; };
 		D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */; };
 		D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */; };
@@ -194,7 +206,6 @@
 		D03493B822F3CC5700E1A9B0 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSCrash.framework; path = Carthage/Build/iOS/KSCrash.framework; sourceTree = "<group>"; };
 		D05110C020CA1FE000AFFDC7 /* Notes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Notes.xcdatamodel; sourceTree = "<group>"; };
-		D05110C620CA245700AFFDC7 /* NotesDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotesDataManager.swift; path = CoreData/NotesDataManager.swift; sourceTree = "<group>"; };
 		D0545F22230901D30001D165 /* PBHOpenInActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBHOpenInActivity.swift; sourceTree = "<group>"; };
 		D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHNoteExporter.swift; sourceTree = "<group>"; };
@@ -203,7 +214,6 @@
 		D071BFA723C02EA1002BF63B /* CloudNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D071BFA923C02EA1002BF63B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D071BFAB23C02EA1002BF63B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		D071BFAE23C02EA1002BF63B /* CloudNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CloudNotes.xcdatamodel; sourceTree = "<group>"; };
 		D071BFB023C02EA8002BF63B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D071BFB323C02EA8002BF63B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D071BFB623C02EA8002BF63B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -260,6 +270,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D071BFC923C039C0002BF63B /* KeychainAccess in Frameworks */,
+				D071BFC723C037CE002BF63B /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +341,6 @@
 				D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */,
 				D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */,
 				D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */,
-				D05110C620CA245700AFFDC7 /* NotesDataManager.swift */,
 				D07F5E882207B2CF00528E90 /* NotesData.swift */,
 			);
 			name = CoreData;
@@ -344,7 +355,6 @@
 				D071BFB523C02EA8002BF63B /* Main.storyboard */,
 				D071BFB823C02EA8002BF63B /* Info.plist */,
 				D071BFB923C02EA8002BF63B /* CloudNotes.entitlements */,
-				D071BFAD23C02EA1002BF63B /* CloudNotes.xcdatamodeld */,
 				D071BFB223C02EA8002BF63B /* Preview Content */,
 			);
 			path = CloudNotes;
@@ -557,6 +567,10 @@
 			dependencies = (
 			);
 			name = CloudNotes;
+			packageProductDependencies = (
+				D071BFC623C037CE002BF63B /* Alamofire */,
+				D071BFC823C039C0002BF63B /* KeychainAccess */,
+			);
 			productName = CloudNotes;
 			productReference = D071BFA723C02EA1002BF63B /* CloudNotes.app */;
 			productType = "com.apple.product-type.application";
@@ -797,8 +811,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				D071BFAC23C02EA1002BF63B /* ContentView.swift in Sources */,
+				D071BFBF23C03725002BF63B /* NoteSessionManager.swift in Sources */,
+				D071BFCB23C03A94002BF63B /* UtilityExtensions.swift in Sources */,
+				D071BFC523C03740002BF63B /* NotesData.swift in Sources */,
+				D071BFC323C0373A002BF63B /* CDNote+CoreDataProperties.swift in Sources */,
+				D071BFC023C03729002BF63B /* ResponseSerializer.swift in Sources */,
+				D071BFC123C03733002BF63B /* Notes.xcdatamodeld in Sources */,
+				D071BFCC23C03B11002BF63B /* Constants.swift in Sources */,
+				D071BFCA23C039C9002BF63B /* KeychainHelper.swift in Sources */,
 				D071BFAA23C02EA1002BF63B /* AppDelegate.swift in Sources */,
-				D071BFAF23C02EA1002BF63B /* CloudNotes.xcdatamodeld in Sources */,
+				D071BFBE23C03721002BF63B /* NoteRouter.swift in Sources */,
+				D071BFC223C03737002BF63B /* CDNote+CoreDataClass.swift in Sources */,
+				D071BFBD23C0371C002BF63B /* NoteProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -855,6 +879,7 @@
 		};
 		D01803C623B40DB6001CA4FC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = maccatalyst;
 			target = D01803B923B40D7F001CA4FC /* AppKitInterface */;
 			targetProxy = D01803C523B40DB6001CA4FC /* PBXContainerItemProxy */;
 		};
@@ -1505,6 +1530,16 @@
 			package = D06CDA5E238F6EC300CF90B0 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
+		D071BFC623C037CE002BF63B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D06CDA5E238F6EC300CF90B0 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		D071BFC823C039C0002BF63B /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
@@ -1516,16 +1551,6 @@
 			currentVersion = D05110C020CA1FE000AFFDC7 /* Notes.xcdatamodel */;
 			name = Notes.xcdatamodeld;
 			path = CoreData/Notes.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		D071BFAD23C02EA1002BF63B /* CloudNotes.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D071BFAE23C02EA1002BF63B /* CloudNotes.xcdatamodel */,
-			);
-			currentVersion = D071BFAE23C02EA1002BF63B /* CloudNotes.xcdatamodel */;
-			path = CloudNotes.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

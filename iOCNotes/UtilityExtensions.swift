@@ -6,7 +6,11 @@
 //  Copyright © 2019 Peter Hedlund. All rights reserved.
 //
 
+#if os(macOS)
+import Foundation
+#else
 import UIKit
+#endif
 
 extension NSNotification.Name {
     static let deletingNote = NSNotification.Name("DeletingNote")
@@ -17,6 +21,14 @@ extension NSNotification.Name {
     static let doneSelectingCategory = NSNotification.Name("DoneSelectingCategory")
 }
 
+struct ExpandableSection: Codable {
+    var title: String
+    var collapsed: Bool
+}
+
+typealias ExpandableSectionType = [ExpandableSection]
+
+#if os(iOS)
 extension UIImage {
     static func colorResizableImage(color: UIColor) -> UIImage {
         var image = UIImage()
@@ -72,6 +84,7 @@ extension UITextView {
   }
   #endif
 }  
+#endif
 
 #if targetEnvironment(macCatalyst)
 extension NSToolbarItem.Identifier {

@@ -50,7 +50,7 @@ class LoginTableViewController: UITableViewController {
     #if !targetEnvironment(macCatalyst)
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return tableView.automaticDimension
+            return UITableView.automaticDimension
         }
         return 0.0001
     }

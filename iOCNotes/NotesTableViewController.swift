@@ -15,13 +15,6 @@ import UIKit
 let detailSegueIdentifier = "showDetail"
 let categorySegueIdentifier = "SelectCategorySegue"
 
-struct ExpandableSection: Codable {
-    var title: String
-    var collapsed: Bool
-}
-
-typealias ExpandableSectionType = [ExpandableSection]
-
 class NotesTableViewController: UITableViewController {
 
     @IBOutlet var addBarButton: UIBarButtonItem!
@@ -393,6 +386,7 @@ class NotesTableViewController: UITableViewController {
         #endif
     }
 
+    @available(iOS 13.0, *)
     public override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         contextMenuIndexPath = indexPath
         let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in

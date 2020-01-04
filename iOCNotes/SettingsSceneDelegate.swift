@@ -22,7 +22,9 @@ class SettingsSceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
+        #if targetEnvironment(macCatalyst)
         buildMacToolbar()
+        #endif
         windowScene.title = "Preferences"
     }
 
@@ -62,6 +64,7 @@ class SettingsSceneDelegate: UIResponder, UIWindowSceneDelegate {
         settingsNavController.popViewController(animated: true)
     }
 
+    #if targetEnvironment(macCatalyst)
     @objc func toolbarGroupSelectionChanged(sender: NSToolbarItemGroup) {
         let storyboard = UIStoryboard(name: "Settings", bundle:nil)
         var nav: UINavigationController?
@@ -81,6 +84,7 @@ class SettingsSceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         window?.rootViewController = nav
     }
+    #endif
 
 }
 

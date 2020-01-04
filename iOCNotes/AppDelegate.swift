@@ -18,8 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var notesTableViewController: NotesTableViewController?
+    #if targetEnvironment(macCatalyst)
     var appKitPlugin: AppKitInterfaceProtocol?
-
+    #endif
     static var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
@@ -132,6 +133,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     #endif
 
+    #if targetEnvironment(macCatalyst)
+    @available(iOS 13.0, *)
     override func buildMenu(with builder: UIMenuBuilder) {
         super.buildMenu(with: builder)
         
@@ -172,10 +175,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         builder.insertSibling(noteMenu, beforeMenu: .window)
     }
     
+    @available(iOS 13.0, *)
     override func validate(_ command: UICommand) {
         print(command.description)
     }
     
+    @available(iOS 13.0, *)
     @objc func openPreferences() {
         let userActivity = NSUserActivity(activityType: "com.peterandlinda.CloudNotes.appSettings")
         UIApplication.shared.requestSceneSessionActivation(nil, userActivity: userActivity, options: nil) { (e) in
@@ -224,9 +229,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    #endif
 
 }
 
+#if targetEnvironment(macCatalyst)
 extension AppDelegate {
     
     func sceneDidActivate(identifier: String) {
@@ -234,3 +241,4 @@ extension AppDelegate {
     }
     
 }
+#endif
