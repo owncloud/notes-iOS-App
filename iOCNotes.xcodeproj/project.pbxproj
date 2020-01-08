@@ -73,6 +73,7 @@
 		D071BFCA23C039C9002BF63B /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */; };
 		D071BFCB23C03A94002BF63B /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92271A22CD3743004E2408 /* UtilityExtensions.swift */; };
 		D071BFCC23C03B11002BF63B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653F87231C43FA00D59A88 /* Constants.swift */; };
+		D071BFCE23C571DE002BF63B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFCD23C571DE002BF63B /* TextView.swift */; };
 		D078A1C4239C8A2000E1A004 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D078A1C3239C8A2000E1A004 /* CoreServices.framework */; };
 		D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */; };
 		D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */; };
@@ -219,6 +220,7 @@
 		D071BFB623C02EA8002BF63B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D071BFB823C02EA8002BF63B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D071BFB923C02EA8002BF63B /* CloudNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CloudNotes.entitlements; sourceTree = "<group>"; };
+		D071BFCD23C571DE002BF63B /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D078A1C3239C8A2000E1A004 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataClass.swift"; path = "CoreData/CDNote+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 			children = (
 				D071BFA923C02EA1002BF63B /* AppDelegate.swift */,
 				D071BFAB23C02EA1002BF63B /* ContentView.swift */,
+				D071BFCD23C571DE002BF63B /* TextView.swift */,
 				D071BFB023C02EA8002BF63B /* Assets.xcassets */,
 				D071BFB523C02EA8002BF63B /* Main.storyboard */,
 				D071BFB823C02EA8002BF63B /* Info.plist */,
@@ -813,6 +816,7 @@
 				D071BFAC23C02EA1002BF63B /* ContentView.swift in Sources */,
 				D071BFBF23C03725002BF63B /* NoteSessionManager.swift in Sources */,
 				D071BFCB23C03A94002BF63B /* UtilityExtensions.swift in Sources */,
+				D071BFCE23C571DE002BF63B /* TextView.swift in Sources */,
 				D071BFC523C03740002BF63B /* NotesData.swift in Sources */,
 				D071BFC323C0373A002BF63B /* CDNote+CoreDataProperties.swift in Sources */,
 				D071BFC023C03729002BF63B /* ResponseSerializer.swift in Sources */,
