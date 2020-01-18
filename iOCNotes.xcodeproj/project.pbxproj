@@ -55,25 +55,25 @@
 		D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */; };
 		D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882ED22BB146200CEBC1F /* EditorViewController.swift */; };
 		D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D06CDA5F238F6EC300CF90B0 /* Alamofire */; };
-		D071BFAA23C02EA1002BF63B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFA923C02EA1002BF63B /* AppDelegate.swift */; };
-		D071BFAC23C02EA1002BF63B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFAB23C02EA1002BF63B /* ContentView.swift */; };
-		D071BFB123C02EA8002BF63B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D071BFB023C02EA8002BF63B /* Assets.xcassets */; };
-		D071BFB423C02EA8002BF63B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D071BFB323C02EA8002BF63B /* Preview Assets.xcassets */; };
-		D071BFB723C02EA8002BF63B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D071BFB523C02EA8002BF63B /* Main.storyboard */; };
-		D071BFBD23C0371C002BF63B /* NoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E12213BB5E0047E090 /* NoteProtocol.swift */; };
-		D071BFBE23C03721002BF63B /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */; };
-		D071BFBF23C03725002BF63B /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
-		D071BFC023C03729002BF63B /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DA220BCA290047E090 /* ResponseSerializer.swift */; };
-		D071BFC123C03733002BF63B /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */; };
-		D071BFC223C03737002BF63B /* CDNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */; };
-		D071BFC323C0373A002BF63B /* CDNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */; };
-		D071BFC523C03740002BF63B /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E882207B2CF00528E90 /* NotesData.swift */; };
-		D071BFC723C037CE002BF63B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D071BFC623C037CE002BF63B /* Alamofire */; };
-		D071BFC923C039C0002BF63B /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D071BFC823C039C0002BF63B /* KeychainAccess */; };
-		D071BFCA23C039C9002BF63B /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */; };
-		D071BFCB23C03A94002BF63B /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92271A22CD3743004E2408 /* UtilityExtensions.swift */; };
-		D071BFCC23C03B11002BF63B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653F87231C43FA00D59A88 /* Constants.swift */; };
-		D071BFCE23C571DE002BF63B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFCD23C571DE002BF63B /* TextView.swift */; };
+		D071BFDE23CD6244002BF63B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFDD23CD6244002BF63B /* AppDelegate.swift */; };
+		D071BFE023CD6244002BF63B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFDF23CD6244002BF63B /* ViewController.swift */; };
+		D071BFE523CD6245002BF63B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D071BFE423CD6245002BF63B /* Assets.xcassets */; };
+		D071BFE823CD6245002BF63B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D071BFE623CD6245002BF63B /* Main.storyboard */; };
+		D071BFEF23CD6777002BF63B /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFEE23CD6777002BF63B /* WindowController.swift */; };
+		D071BFF023D14F2D002BF63B /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */; };
+		D071BFF123D14F31002BF63B /* CDNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */; };
+		D071BFF223D14F34002BF63B /* CDNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */; };
+		D071BFF323D14F39002BF63B /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E882207B2CF00528E90 /* NotesData.swift */; };
+		D071BFF423D14FB6002BF63B /* NoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E12213BB5E0047E090 /* NoteProtocol.swift */; };
+		D071BFF523D14FCD002BF63B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653F87231C43FA00D59A88 /* Constants.swift */; };
+		D071BFF623D14FFA002BF63B /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */; };
+		D071BFF723D15000002BF63B /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
+		D071BFF823D15003002BF63B /* ResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DA220BCA290047E090 /* ResponseSerializer.swift */; };
+		D071BFF923D15012002BF63B /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */; };
+		D071BFFA23D1505A002BF63B /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92271A22CD3743004E2408 /* UtilityExtensions.swift */; };
+		D071BFFC23D151CC002BF63B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D071BFFB23D151CC002BF63B /* Alamofire */; };
+		D071BFFE23D151D2002BF63B /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D071BFFD23D151D2002BF63B /* KeychainAccess */; };
+		D071C00023D1571B002BF63B /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFFF23D1571B002BF63B /* PrefsViewController.swift */; };
 		D078A1C4239C8A2000E1A004 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D078A1C3239C8A2000E1A004 /* CoreServices.framework */; };
 		D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */; };
 		D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */; };
@@ -212,15 +212,15 @@
 		D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHNoteExporter.swift; sourceTree = "<group>"; };
 		D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D06882ED22BB146200CEBC1F /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
-		D071BFA723C02EA1002BF63B /* CloudNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D071BFA923C02EA1002BF63B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D071BFAB23C02EA1002BF63B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		D071BFB023C02EA8002BF63B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D071BFB323C02EA8002BF63B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D071BFB623C02EA8002BF63B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D071BFB823C02EA8002BF63B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D071BFB923C02EA8002BF63B /* CloudNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CloudNotes.entitlements; sourceTree = "<group>"; };
-		D071BFCD23C571DE002BF63B /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		D071BFDB23CD6244002BF63B /* CloudNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D071BFDD23CD6244002BF63B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D071BFDF23CD6244002BF63B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D071BFE423CD6245002BF63B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D071BFE723CD6245002BF63B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D071BFE923CD6245002BF63B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D071BFEA23CD6245002BF63B /* CloudNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CloudNotes.entitlements; sourceTree = "<group>"; };
+		D071BFEE23CD6777002BF63B /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		D071BFFF23D1571B002BF63B /* PrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D078A1C3239C8A2000E1A004 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataClass.swift"; path = "CoreData/CDNote+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -268,12 +268,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D071BFA423C02EA1002BF63B /* Frameworks */ = {
+		D071BFD823CD6244002BF63B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D071BFC923C039C0002BF63B /* KeychainAccess in Frameworks */,
-				D071BFC723C037CE002BF63B /* Alamofire in Frameworks */,
+				D071BFFE23D151D2002BF63B /* KeychainAccess in Frameworks */,
+				D071BFFC23D151CC002BF63B /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,27 +348,19 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
-		D071BFA823C02EA1002BF63B /* CloudNotes */ = {
+		D071BFDC23CD6244002BF63B /* CloudNotes */ = {
 			isa = PBXGroup;
 			children = (
-				D071BFA923C02EA1002BF63B /* AppDelegate.swift */,
-				D071BFAB23C02EA1002BF63B /* ContentView.swift */,
-				D071BFCD23C571DE002BF63B /* TextView.swift */,
-				D071BFB023C02EA8002BF63B /* Assets.xcassets */,
-				D071BFB523C02EA8002BF63B /* Main.storyboard */,
-				D071BFB823C02EA8002BF63B /* Info.plist */,
-				D071BFB923C02EA8002BF63B /* CloudNotes.entitlements */,
-				D071BFB223C02EA8002BF63B /* Preview Content */,
+				D071BFDD23CD6244002BF63B /* AppDelegate.swift */,
+				D071BFEE23CD6777002BF63B /* WindowController.swift */,
+				D071BFDF23CD6244002BF63B /* ViewController.swift */,
+				D071BFFF23D1571B002BF63B /* PrefsViewController.swift */,
+				D071BFE423CD6245002BF63B /* Assets.xcassets */,
+				D071BFE623CD6245002BF63B /* Main.storyboard */,
+				D071BFE923CD6245002BF63B /* Info.plist */,
+				D071BFEA23CD6245002BF63B /* CloudNotes.entitlements */,
 			);
 			path = CloudNotes;
-			sourceTree = "<group>";
-		};
-		D071BFB223C02EA8002BF63B /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				D071BFB323C02EA8002BF63B /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		D07F5E8C2207B6D700528E90 /* Networking */ = {
@@ -393,7 +385,7 @@
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
 				D018039F23B2BA23001CA4FC /* AppKitGlue */,
 				D01803BB23B40D7F001CA4FC /* AppKitInterface */,
-				D071BFA823C02EA1002BF63B /* CloudNotes */,
+				D071BFDC23CD6244002BF63B /* CloudNotes */,
 				D0CFE5351888A7BD00165839 /* Frameworks */,
 				D0CFE5341888A7BD00165839 /* Products */,
 			);
@@ -406,7 +398,7 @@
 				D0CFE5571888A7BD00165839 /* iOCNotesTests.xctest */,
 				D018039E23B2BA23001CA4FC /* AppKitGlue.bundle */,
 				D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */,
-				D071BFA723C02EA1002BF63B /* CloudNotes.app */,
+				D071BFDB23CD6244002BF63B /* CloudNotes.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -557,13 +549,13 @@
 			productReference = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D071BFA623C02EA1002BF63B /* CloudNotes */ = {
+		D071BFDA23CD6244002BF63B /* CloudNotes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D071BFBC23C02EA8002BF63B /* Build configuration list for PBXNativeTarget "CloudNotes" */;
+			buildConfigurationList = D071BFEB23CD6245002BF63B /* Build configuration list for PBXNativeTarget "CloudNotes" */;
 			buildPhases = (
-				D071BFA323C02EA1002BF63B /* Sources */,
-				D071BFA423C02EA1002BF63B /* Frameworks */,
-				D071BFA523C02EA1002BF63B /* Resources */,
+				D071BFD723CD6244002BF63B /* Sources */,
+				D071BFD823CD6244002BF63B /* Frameworks */,
+				D071BFD923CD6244002BF63B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -571,11 +563,11 @@
 			);
 			name = CloudNotes;
 			packageProductDependencies = (
-				D071BFC623C037CE002BF63B /* Alamofire */,
-				D071BFC823C039C0002BF63B /* KeychainAccess */,
+				D071BFFB23D151CC002BF63B /* Alamofire */,
+				D071BFFD23D151D2002BF63B /* KeychainAccess */,
 			);
 			productName = CloudNotes;
-			productReference = D071BFA723C02EA1002BF63B /* CloudNotes.app */;
+			productReference = D071BFDB23CD6244002BF63B /* CloudNotes.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D0CFE5321888A7BD00165839 /* iOCNotes */ = {
@@ -643,7 +635,7 @@
 					D01803B923B40D7F001CA4FC = {
 						CreatedOnToolsVersion = 11.3;
 					};
-					D071BFA623C02EA1002BF63B = {
+					D071BFDA23CD6244002BF63B = {
 						CreatedOnToolsVersion = 11.3;
 					};
 					D0CFE5321888A7BD00165839 = {
@@ -680,7 +672,7 @@
 				D0CFE5561888A7BD00165839 /* iOCNotesTests */,
 				D018039D23B2BA23001CA4FC /* AppKitGlue */,
 				D01803B923B40D7F001CA4FC /* AppKitInterface */,
-				D071BFA623C02EA1002BF63B /* CloudNotes */,
+				D071BFDA23CD6244002BF63B /* CloudNotes */,
 			);
 		};
 /* End PBXProject section */
@@ -700,13 +692,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D071BFA523C02EA1002BF63B /* Resources */ = {
+		D071BFD923CD6244002BF63B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D071BFB723C02EA8002BF63B /* Main.storyboard in Resources */,
-				D071BFB423C02EA8002BF63B /* Preview Assets.xcassets in Resources */,
-				D071BFB123C02EA8002BF63B /* Assets.xcassets in Resources */,
+				D071BFE523CD6245002BF63B /* Assets.xcassets in Resources */,
+				D071BFE823CD6245002BF63B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,24 +800,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D071BFA323C02EA1002BF63B /* Sources */ = {
+		D071BFD723CD6244002BF63B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D071BFAC23C02EA1002BF63B /* ContentView.swift in Sources */,
-				D071BFBF23C03725002BF63B /* NoteSessionManager.swift in Sources */,
-				D071BFCB23C03A94002BF63B /* UtilityExtensions.swift in Sources */,
-				D071BFCE23C571DE002BF63B /* TextView.swift in Sources */,
-				D071BFC523C03740002BF63B /* NotesData.swift in Sources */,
-				D071BFC323C0373A002BF63B /* CDNote+CoreDataProperties.swift in Sources */,
-				D071BFC023C03729002BF63B /* ResponseSerializer.swift in Sources */,
-				D071BFC123C03733002BF63B /* Notes.xcdatamodeld in Sources */,
-				D071BFCC23C03B11002BF63B /* Constants.swift in Sources */,
-				D071BFCA23C039C9002BF63B /* KeychainHelper.swift in Sources */,
-				D071BFAA23C02EA1002BF63B /* AppDelegate.swift in Sources */,
-				D071BFBE23C03721002BF63B /* NoteRouter.swift in Sources */,
-				D071BFC223C03737002BF63B /* CDNote+CoreDataClass.swift in Sources */,
-				D071BFBD23C0371C002BF63B /* NoteProtocol.swift in Sources */,
+				D071BFF623D14FFA002BF63B /* NoteRouter.swift in Sources */,
+				D071BFF723D15000002BF63B /* NoteSessionManager.swift in Sources */,
+				D071BFF223D14F34002BF63B /* CDNote+CoreDataProperties.swift in Sources */,
+				D071BFE023CD6244002BF63B /* ViewController.swift in Sources */,
+				D071BFF023D14F2D002BF63B /* Notes.xcdatamodeld in Sources */,
+				D071BFEF23CD6777002BF63B /* WindowController.swift in Sources */,
+				D071BFDE23CD6244002BF63B /* AppDelegate.swift in Sources */,
+				D071C00023D1571B002BF63B /* PrefsViewController.swift in Sources */,
+				D071BFF423D14FB6002BF63B /* NoteProtocol.swift in Sources */,
+				D071BFF923D15012002BF63B /* KeychainHelper.swift in Sources */,
+				D071BFF823D15003002BF63B /* ResponseSerializer.swift in Sources */,
+				D071BFFA23D1505A002BF63B /* UtilityExtensions.swift in Sources */,
+				D071BFF323D14F39002BF63B /* NotesData.swift in Sources */,
+				D071BFF123D14F31002BF63B /* CDNote+CoreDataClass.swift in Sources */,
+				D071BFF523D14FCD002BF63B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -910,10 +902,10 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		D071BFB523C02EA8002BF63B /* Main.storyboard */ = {
+		D071BFE623CD6245002BF63B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D071BFB623C02EA8002BF63B /* Base */,
+				D071BFE723CD6245002BF63B /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1116,7 +1108,7 @@
 			};
 			name = Release;
 		};
-		D071BFBA23C02EA8002BF63B /* Debug */ = {
+		D071BFEC23CD6245002BF63B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1130,10 +1122,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = "\"CloudNotes/Preview Content\"";
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = CloudNotes/Info.plist;
@@ -1152,7 +1142,7 @@
 			};
 			name = Debug;
 		};
-		D071BFBB23C02EA8002BF63B /* Release */ = {
+		D071BFED23CD6245002BF63B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1167,10 +1157,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_ASSET_PATHS = "\"CloudNotes/Preview Content\"";
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = CloudNotes/Info.plist;
@@ -1453,11 +1441,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D071BFBC23C02EA8002BF63B /* Build configuration list for PBXNativeTarget "CloudNotes" */ = {
+		D071BFEB23CD6245002BF63B /* Build configuration list for PBXNativeTarget "CloudNotes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D071BFBA23C02EA8002BF63B /* Debug */,
-				D071BFBB23C02EA8002BF63B /* Release */,
+				D071BFEC23CD6245002BF63B /* Debug */,
+				D071BFED23CD6245002BF63B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1534,12 +1522,12 @@
 			package = D06CDA5E238F6EC300CF90B0 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		D071BFC623C037CE002BF63B /* Alamofire */ = {
+		D071BFFB23D151CC002BF63B /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D06CDA5E238F6EC300CF90B0 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		D071BFC823C039C0002BF63B /* KeychainAccess */ = {
+		D071BFFD23D151D2002BF63B /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
