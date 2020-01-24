@@ -49,10 +49,30 @@ public class CDNote: NSManagedObject {
         return noteList
     }
 
-
+    static func categories() -> [String]? {
+        if let notes = CDNote.all() {
+            let rawCategories = notes.compactMap({ (note) -> String? in
+                return note.category
+            })
+            return Array(Set(rawCategories)).sorted()
+        }
+        return nil
+    }
+        
     static func notes(property: String) -> [CDNote]? {
         let request: NSFetchRequest<CDNote> = self.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", property, NSNumber(value: true))
+        do {
+            return try NotesData.mainThreadContext.fetch(request)
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        return nil
+    }
+
+    static func notes(category: String) -> [CDNote]? {
+        let request: NSFetchRequest<CDNote> = self.fetchRequest()
+        request.predicate = NSPredicate(format: "cdCategory == %@", category)
         do {
             return try NotesData.mainThreadContext.fetch(request)
         } catch let error as NSError {

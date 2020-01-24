@@ -17,6 +17,7 @@ class PrefsViewController: NSViewController {
     @IBOutlet var serverTextField: NSTextField!
     @IBOutlet var usernameTextField: NSTextField!
     @IBOutlet var passwordTextField: NSSecureTextField!
+    @IBOutlet var certificateSwitch: NSButton!
     @IBOutlet var connectionActivityIndicator: NSProgressIndicator!
     @IBOutlet var statusLabel: NSTextField!
     @IBOutlet var tabView: NSTabView!
@@ -25,26 +26,20 @@ class PrefsViewController: NSViewController {
         super.viewDidLoad()
         
         let sync = UserDefaults.standard.bool(forKey: "sync")
-        self.syncCheckbox.state = sync == true ? .on : .off
-        self.intervalPopup.isEnabled = sync
+        syncCheckbox.state = sync == true ? .on : .off
+        intervalPopup.isEnabled = sync
         let interval = UserDefaults.standard.integer(forKey: "interval")
-        self.intervalPopup.selectItem(at: interval)
+        intervalPopup.selectItem(at: interval)
         
-        let keychain = Keychain(service: "com.peterandlinda.CloudNews")
-        let username = keychain["username"]
-        let password = keychain["password"]
-        let server = UserDefaults.standard.string(forKey: "server")
-        let version = UserDefaults.standard.string(forKey: "version")
-        self.serverTextField.stringValue = server ?? ""
-        self.usernameTextField.stringValue = username ?? ""
-        self.passwordTextField.stringValue = password ?? ""
-        if server == nil || server?.count == 0 {
-            self.tabView.selectLastTabViewItem(nil)
-        }
-        if let version = version, version.count > 0 {
-            self.statusLabel.stringValue = "News version \(version) found on server"
+        serverTextField.stringValue = KeychainHelper.server
+        usernameTextField.stringValue = KeychainHelper.username
+        passwordTextField.stringValue = KeychainHelper.password
+        certificateSwitch.state = KeychainHelper.allowUntrustedCertificate ? .on : .off
+        if KeychainHelper.server.isEmpty {
+            tabView.selectLastTabViewItem(nil)
+            statusLabel.stringValue = "Not connected to Notes on a server"
         } else {
-            self.statusLabel.stringValue = "Not connected to News on a server"
+            statusLabel.stringValue = "Connected to Notes on the server"
         }
     }
     
@@ -81,10 +76,10 @@ class PrefsViewController: NSViewController {
                         } else {
                             KeychainHelper.isNextCloud = false
                         }
-                        //self?.showSyncMessage()
                     } else {
                         self?.pickServer()
                     }
+                    self?.statusLabel.stringValue = "Connected to Notes on the server"
                 case .failure(let error):
                     if (shouldRetry) {
                         self?.serverTextField.stringValue = "\(serverAddress)/index.php"
@@ -136,21 +131,29 @@ class PrefsViewController: NSViewController {
 //TODO        NewsManager.shared.setupSyncTimer()
     }
     
+    @IBAction func onCertificateSwitch(_ sender: Any) {
+        KeychainHelper.allowUntrustedCertificate = certificateSwitch.state == .on
+    }
+    
     func pickServer() {
-//        let alert = UIAlertController(title: NSLocalizedString("Server", comment: "Alert title for selecting server brand"),
-//                                      message: NSLocalizedString("Unable to automatically detect type of server.\nPlease select:", comment: "Alert message for selecting server brand"),
-//                                      preferredStyle: .alert)
-//        let nextCloudAction = UIAlertAction(title: "NextCloud", style: .default) { [weak self] (_) in
-//            KeychainHelper.isNextCloud = true
-//            self?.showSyncMessage()
-//        }
-//        let ownCloudAction = UIAlertAction(title: "ownCloud", style: .default) { [weak self] (_) in
-//            KeychainHelper.isNextCloud = false
-//            self?.showSyncMessage()
-//        }
-//        alert.addAction(nextCloudAction)
-//        alert.addAction(ownCloudAction)
-//        self.present(alert, animated: true, completion: nil)
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = NSLocalizedString("Server", comment: "Alert title for selecting server brand")
+        alert.informativeText = NSLocalizedString("Unable to automatically detect type of server.\nPlease select:", comment: "Alert message for selecting server brand")
+        alert.addButton(withTitle: "Nextcloud")
+        alert.addButton(withTitle: "ownCloud")
+        alert.buttons[0].keyEquivalent = "n"
+        alert.buttons[1].keyEquivalent = "o"
+        alert.beginSheetModal(for: self.view.window!) { response in
+            switch response {
+            case .alertFirstButtonReturn:
+                KeychainHelper.isNextCloud = true
+            case .alertSecondButtonReturn:
+                KeychainHelper.isNextCloud = false
+            default:
+                KeychainHelper.isNextCloud = true
+            }
+        }
     }
 
 }

@@ -45,6 +45,8 @@
 		D01803CF23B843BD001CA4FC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D01803CE23B843BD001CA4FC /* Credits.rtf */; };
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
+		D02BBB9623D5339B0097F120 /* NoteTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */; };
+		D02BBB9823DA86550097F120 /* CategoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9723DA86550097F120 /* CategoryCellView.swift */; };
 		D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */; };
 		D03493B922F3CC5700E1A9B0 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B822F3CC5700E1A9B0 /* CategoryTableViewController.swift */; };
 		D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */; platformFilter = ios; };
@@ -56,7 +58,7 @@
 		D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882ED22BB146200CEBC1F /* EditorViewController.swift */; };
 		D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D06CDA5F238F6EC300CF90B0 /* Alamofire */; };
 		D071BFDE23CD6244002BF63B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFDD23CD6244002BF63B /* AppDelegate.swift */; };
-		D071BFE023CD6244002BF63B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFDF23CD6244002BF63B /* ViewController.swift */; };
+		D071BFE023CD6244002BF63B /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFDF23CD6244002BF63B /* NotesViewController.swift */; };
 		D071BFE523CD6245002BF63B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D071BFE423CD6245002BF63B /* Assets.xcassets */; };
 		D071BFE823CD6245002BF63B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D071BFE623CD6245002BF63B /* Main.storyboard */; };
 		D071BFEF23CD6777002BF63B /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFEE23CD6777002BF63B /* WindowController.swift */; };
@@ -203,6 +205,8 @@
 		D0225708189745C40038232A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D0225710189848060038232A /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D0225712189848120038232A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTreeNode.swift; sourceTree = "<group>"; };
+		D02BBB9723DA86550097F120 /* CategoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellView.swift; sourceTree = "<group>"; };
 		D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D03493B822F3CC5700E1A9B0 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSCrash.framework; path = Carthage/Build/iOS/KSCrash.framework; sourceTree = "<group>"; };
@@ -214,7 +218,7 @@
 		D06882ED22BB146200CEBC1F /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		D071BFDB23CD6244002BF63B /* CloudNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D071BFDD23CD6244002BF63B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D071BFDF23CD6244002BF63B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D071BFDF23CD6244002BF63B /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		D071BFE423CD6245002BF63B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D071BFE723CD6245002BF63B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D071BFE923CD6245002BF63B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -353,8 +357,10 @@
 			children = (
 				D071BFDD23CD6244002BF63B /* AppDelegate.swift */,
 				D071BFEE23CD6777002BF63B /* WindowController.swift */,
-				D071BFDF23CD6244002BF63B /* ViewController.swift */,
+				D071BFDF23CD6244002BF63B /* NotesViewController.swift */,
 				D071BFFF23D1571B002BF63B /* PrefsViewController.swift */,
+				D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */,
+				D02BBB9723DA86550097F120 /* CategoryCellView.swift */,
 				D071BFE423CD6245002BF63B /* Assets.xcassets */,
 				D071BFE623CD6245002BF63B /* Main.storyboard */,
 				D071BFE923CD6245002BF63B /* Info.plist */,
@@ -807,12 +813,14 @@
 				D071BFF623D14FFA002BF63B /* NoteRouter.swift in Sources */,
 				D071BFF723D15000002BF63B /* NoteSessionManager.swift in Sources */,
 				D071BFF223D14F34002BF63B /* CDNote+CoreDataProperties.swift in Sources */,
-				D071BFE023CD6244002BF63B /* ViewController.swift in Sources */,
+				D071BFE023CD6244002BF63B /* NotesViewController.swift in Sources */,
 				D071BFF023D14F2D002BF63B /* Notes.xcdatamodeld in Sources */,
 				D071BFEF23CD6777002BF63B /* WindowController.swift in Sources */,
 				D071BFDE23CD6244002BF63B /* AppDelegate.swift in Sources */,
 				D071C00023D1571B002BF63B /* PrefsViewController.swift in Sources */,
 				D071BFF423D14FB6002BF63B /* NoteProtocol.swift in Sources */,
+				D02BBB9823DA86550097F120 /* CategoryCellView.swift in Sources */,
+				D02BBB9623D5339B0097F120 /* NoteTreeNode.swift in Sources */,
 				D071BFF923D15012002BF63B /* KeychainHelper.swift in Sources */,
 				D071BFF823D15003002BF63B /* ResponseSerializer.swift in Sources */,
 				D071BFFA23D1505A002BF63B /* UtilityExtensions.swift in Sources */,

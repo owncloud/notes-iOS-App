@@ -440,10 +440,10 @@ CA
             </objects>
             <point key="canvasLocation" x="75" y="703"/>
         </scene>
-        <!--View Controller-->
+        <!--Notes View Controller-->
         <scene sceneID="nhq-fd-LAx">
             <objects>
-                <viewController id="7fh-gz-iZS" sceneMemberID="viewController">
+                <viewController id="7fh-gz-iZS" customClass="NotesViewController" customModule="CloudNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="e5W-Uh-rAb">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="323"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -464,6 +464,9 @@ CA
                                             <behavior key="behavior" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="onRefreshWithSender:" target="7fh-gz-iZS" id="zws-ZJ-lCI"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V2O-sp-L96">
                                         <rect key="frame" x="409" y="10" width="21" height="21"/>
@@ -475,6 +478,9 @@ CA
                                             <behavior key="behavior" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="onAddWithSender:" target="7fh-gz-iZS" id="GXa-WI-pze"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -503,7 +509,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="1000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -514,7 +520,7 @@ CA
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="KdD-0t-sir">
+                                                        <tableCellView id="KdD-0t-sir" customClass="CategoryCellView" customModule="CloudNotes" customModuleProvider="target">
                                                             <rect key="frame" x="1" y="1" width="445" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -528,6 +534,9 @@ CA
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="KdD-0t-sir" name="value" keyPath="objectValue.title" id="HOd-nc-f3O"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -537,6 +546,7 @@ CA
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="K9v-N8-yvx" id="z3u-eg-gJK"/>
+                                                                <outlet property="titleLabel" destination="K9v-N8-yvx" id="dWw-gY-e9y"/>
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView id="Dhd-dR-qdo">
@@ -590,6 +600,13 @@ CA
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
+                                                    <connections>
+                                                        <binding destination="0TQ-ZO-SOR" name="value" keyPath="arrangedObjects" id="73V-sG-8bT">
+                                                            <dictionary key="options">
+                                                                <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
                                                 </tableColumn>
                                             </tableColumns>
                                         </outlineView>
@@ -615,8 +632,19 @@ CA
                             <constraint firstAttribute="trailing" secondItem="vB1-E7-W3a" secondAttribute="trailing" id="ygV-Cn-U1p"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addBarButton" destination="V2O-sp-L96" id="OJk-Cf-6oz"/>
+                        <outlet property="refreshBarButton" destination="3am-db-XRk" id="irk-3o-1fL"/>
+                        <outlet property="refreshProgressIndicator" destination="3Ss-Ne-65J" id="pdW-oK-CFb"/>
+                    </connections>
                 </viewController>
                 <customObject id="MOd-Rk-U17" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <treeController objectClassName="NoteTreeNode" editable="NO" childrenKeyPath="children" countKeyPath="childCount" leafKeyPath="isLeaf" id="0TQ-ZO-SOR">
+                    <connections>
+                        <binding destination="7fh-gz-iZS" name="contentArray" keyPath="self.nodeArray" id="9Ta-m1-y2n"/>
+                    </connections>
+                </treeController>
+                <userDefaultsController representsSharedInstance="YES" id="iYp-fE-ouV"/>
             </objects>
             <point key="canvasLocation" x="663" y="264.5"/>
         </scene>
@@ -736,7 +764,7 @@ CA
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" title="15 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CIL-Zf-dN6" id="wcj-7q-46h">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="system"/>
                                                         <menu key="menu" id="jXg-tm-00m">
                                                             <items>
                                                                 <menuItem title="Never" id="CBV-XJ-5Ay"/>
@@ -765,23 +793,13 @@ CA
                                             <rect key="frame" x="10" y="33" width="410" height="238"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eA9-9s-DaF">
-                                                    <rect key="frame" x="307" y="121" width="92" height="32"/>
-                                                    <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="g3g-FK-Dpv">
-                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="onConnect:" target="30Q-1q-hS1" id="ISe-sS-0eb"/>
-                                                    </connections>
-                                                </button>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KZJ-QA-LPV">
-                                                    <rect key="frame" x="100" y="68" width="242" height="50"/>
+                                                    <rect key="frame" x="100" y="44" width="242" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="c1Z-cB-973"/>
                                                     </constraints>
                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Currently not connected to News on a server." id="Wwq-Ca-XoU">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -821,7 +839,7 @@ CA
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hKS-9e-Je3">
                                                     <rect key="frame" x="102" y="214" width="291" height="21"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="https://myserver.com/owncloud" drawsBackground="YES" id="AOZ-Qv-86V">
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="https://myserver.com/cloud" drawsBackground="YES" id="AOZ-Qv-86V">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -846,9 +864,29 @@ CA
                                                         </allowedInputSourceLocales>
                                                     </secureTextFieldCell>
                                                 </secureTextField>
+                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8FF-qH-MKW">
+                                                    <rect key="frame" x="100" y="140" width="295" height="18"/>
+                                                    <buttonCell key="cell" type="check" title="Allow Untrusted SSL Certificate" bezelStyle="regularSquare" imagePosition="left" inset="2" id="MMJ-rn-lr9">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="onCertificateSwitch:" target="30Q-1q-hS1" id="ijd-mW-8fC"/>
+                                                    </connections>
+                                                </button>
                                                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="7Zq-k3-dLM">
-                                                    <rect key="frame" x="282" y="131" width="16" height="16"/>
+                                                    <rect key="frame" x="282" y="109" width="16" height="16"/>
                                                 </progressIndicator>
+                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eA9-9s-DaF">
+                                                    <rect key="frame" x="307" y="99" width="92" height="32"/>
+                                                    <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="g3g-FK-Dpv">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="onConnect:" target="30Q-1q-hS1" id="ISe-sS-0eb"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="eA9-9s-DaF" firstAttribute="leading" secondItem="7Zq-k3-dLM" secondAttribute="trailing" constant="15" id="0CY-ZO-2xB"/>
@@ -856,23 +894,26 @@ CA
                                                 <constraint firstAttribute="trailing" secondItem="eA9-9s-DaF" secondAttribute="trailing" constant="17" id="A0N-c3-lfc"/>
                                                 <constraint firstItem="ykH-Nv-N8w" firstAttribute="top" secondItem="Zh6-6B-Uah" secondAttribute="top" constant="53" id="DuT-b7-uO1"/>
                                                 <constraint firstItem="n7C-Wr-xir" firstAttribute="leading" secondItem="Zh6-6B-Uah" secondAttribute="leading" constant="102" id="E95-LC-Tda"/>
-                                                <constraint firstItem="eA9-9s-DaF" firstAttribute="top" secondItem="ykH-Nv-N8w" secondAttribute="bottom" constant="15" id="Fln-BX-8Dz"/>
                                                 <constraint firstItem="ykH-Nv-N8w" firstAttribute="leading" secondItem="Zh6-6B-Uah" secondAttribute="leading" constant="102" id="H9n-ZF-vcg"/>
+                                                <constraint firstItem="7Zq-k3-dLM" firstAttribute="top" secondItem="8FF-qH-MKW" secondAttribute="bottom" constant="17" id="HIK-IU-C0j"/>
                                                 <constraint firstItem="hKS-9e-Je3" firstAttribute="top" secondItem="Zh6-6B-Uah" secondAttribute="top" constant="3" id="HMR-eG-oMq"/>
                                                 <constraint firstAttribute="trailing" secondItem="ykH-Nv-N8w" secondAttribute="trailing" constant="17" id="HXa-o9-lBF"/>
                                                 <constraint firstItem="SCa-Ml-b46" firstAttribute="leading" secondItem="Zh6-6B-Uah" secondAttribute="leading" constant="19" id="KqL-ru-D4E"/>
-                                                <constraint firstItem="KZJ-QA-LPV" firstAttribute="top" secondItem="Zh6-6B-Uah" secondAttribute="top" constant="120" id="Ntc-Ey-jnV"/>
+                                                <constraint firstItem="KZJ-QA-LPV" firstAttribute="top" secondItem="Zh6-6B-Uah" secondAttribute="top" constant="144" id="Ntc-Ey-jnV"/>
                                                 <constraint firstItem="4s9-0o-K0V" firstAttribute="leading" secondItem="Zh6-6B-Uah" secondAttribute="leading" constant="19" id="OwC-gi-UOn"/>
                                                 <constraint firstItem="84d-y7-0QH" firstAttribute="leading" secondItem="Zh6-6B-Uah" secondAttribute="leading" constant="19" id="Svs-M4-lJC"/>
                                                 <constraint firstItem="KZJ-QA-LPV" firstAttribute="leading" secondItem="Zh6-6B-Uah" secondAttribute="leading" constant="102" id="Vk7-9R-RWB"/>
+                                                <constraint firstItem="8FF-qH-MKW" firstAttribute="leading" secondItem="ykH-Nv-N8w" secondAttribute="leading" id="aa3-Pa-v6T"/>
                                                 <constraint firstItem="hKS-9e-Je3" firstAttribute="leading" secondItem="Zh6-6B-Uah" secondAttribute="leading" constant="102" id="eIf-6r-7aH"/>
                                                 <constraint firstItem="SCa-Ml-b46" firstAttribute="top" secondItem="Zh6-6B-Uah" secondAttribute="top" constant="28" id="f52-YK-gzr"/>
                                                 <constraint firstItem="7Zq-k3-dLM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zh6-6B-Uah" secondAttribute="leading" constant="282" id="iqC-4O-gSQ"/>
+                                                <constraint firstItem="8FF-qH-MKW" firstAttribute="trailing" secondItem="ykH-Nv-N8w" secondAttribute="trailing" id="jqw-O2-Wci"/>
                                                 <constraint firstAttribute="trailing" secondItem="hKS-9e-Je3" secondAttribute="trailing" constant="17" id="lQu-fl-9Dc"/>
+                                                <constraint firstItem="eA9-9s-DaF" firstAttribute="top" secondItem="8FF-qH-MKW" secondAttribute="bottom" constant="15" id="lkf-R3-UGW"/>
                                                 <constraint firstItem="4s9-0o-K0V" firstAttribute="top" secondItem="Zh6-6B-Uah" secondAttribute="top" constant="3" id="mOH-bO-aMn"/>
+                                                <constraint firstItem="8FF-qH-MKW" firstAttribute="top" secondItem="ykH-Nv-N8w" secondAttribute="bottom" constant="8" id="mgf-uQ-lkG"/>
                                                 <constraint firstAttribute="trailing" secondItem="n7C-Wr-xir" secondAttribute="trailing" constant="17" id="pei-TA-Uxt"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KZJ-QA-LPV" secondAttribute="trailing" constant="20" symbolic="YES" id="xV1-Hn-vHj"/>
-                                                <constraint firstItem="7Zq-k3-dLM" firstAttribute="top" secondItem="ykH-Nv-N8w" secondAttribute="bottom" constant="17" id="zY1-vH-ue7"/>
                                                 <constraint firstItem="n7C-Wr-xir" firstAttribute="top" secondItem="Zh6-6B-Uah" secondAttribute="top" constant="28" id="zfh-9o-Lfs"/>
                                             </constraints>
                                         </view>
@@ -888,6 +929,7 @@ CA
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="certificateSwitch" destination="8FF-qH-MKW" id="gni-P7-Wkg"/>
                         <outlet property="connectionActivityIndicator" destination="7Zq-k3-dLM" id="dnn-TB-6ID"/>
                         <outlet property="intervalPopup" destination="66V-ut-0ml" id="Ycr-mO-WdD"/>
                         <outlet property="passwordTextField" destination="ykH-Nv-N8w" id="3jV-gH-ChD"/>
