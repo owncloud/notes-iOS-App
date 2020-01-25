@@ -494,7 +494,7 @@ CA
                                     <constraint firstItem="3am-db-XRk" firstAttribute="leading" secondItem="3Ss-Ne-65J" secondAttribute="trailing" constant="5" id="rIm-3n-kAO"/>
                                 </constraints>
                             </customView>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="98" horizontalPageScroll="10" verticalLineScroll="98" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhF-iy-tbS" userLabel="Notes Outline">
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="101" horizontalPageScroll="10" verticalLineScroll="101" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhF-iy-tbS" userLabel="Notes Outline">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="283"/>
                                 <clipView key="contentView" id="VeE-Rx-E8X">
                                     <rect key="frame" x="1" y="1" width="448" height="281"/>
@@ -503,7 +503,7 @@ CA
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="96" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="eFW-OD-AFH" id="pJO-ky-b7X">
                                             <rect key="frame" x="0.0" y="0.0" width="448" height="281"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <size key="intercellSpacing" width="3" height="2"/>
+                                            <size key="intercellSpacing" width="3" height="5"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
@@ -521,7 +521,7 @@ CA
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="CategoryCell" id="KdD-0t-sir" customClass="CategoryCellView" customModule="CloudNotes" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="1" width="445" height="17"/>
+                                                            <rect key="frame" x="1" y="2" width="445" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9v-N8-yvx">
@@ -550,7 +550,7 @@ CA
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="NoteCell" id="Dhd-dR-qdo" customClass="NoteCellView" customModule="CloudNotes" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="20" width="445" height="96"/>
+                                                            <rect key="frame" x="1" y="24" width="445" height="96"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fgf-Q9-Bbg">
@@ -568,7 +568,7 @@ CA
                                                                     </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjX-KD-6WP">
-                                                                    <rect key="frame" x="0.0" y="23" width="84" height="48"/>
+                                                                    <rect key="frame" x="22" y="23" width="84" height="48"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="48" id="uIL-hu-Wkx"/>
                                                                     </constraints>
@@ -582,7 +582,7 @@ CA
                                                                     </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTe-Wh-HjU">
-                                                                    <rect key="frame" x="0.0" y="1" width="75" height="14"/>
+                                                                    <rect key="frame" x="22" y="5" width="75" height="14"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="14" id="STa-Fx-QBw"/>
                                                                     </constraints>
@@ -599,18 +599,22 @@ CA
                                                                         </binding>
                                                                     </connections>
                                                                 </textField>
+                                                                <box verticalHuggingPriority="750" boxType="separator" id="oWI-RY-pWl">
+                                                                    <rect key="frame" x="0.0" y="-2" width="4450" height="5"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                </box>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fgf-Q9-Bbg" secondAttribute="trailing" constant="2" id="7SC-je-IZe"/>
-                                                                <constraint firstItem="cjX-KD-6WP" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="2" id="8gd-aW-72q"/>
-                                                                <constraint firstItem="ZTe-Wh-HjU" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="2" id="R4B-j0-ZhI"/>
+                                                                <constraint firstItem="cjX-KD-6WP" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="24" id="8gd-aW-72q"/>
+                                                                <constraint firstItem="ZTe-Wh-HjU" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="24" id="R4B-j0-ZhI"/>
                                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZTe-Wh-HjU" secondAttribute="trailing" constant="2" id="Wen-Jj-RWk"/>
                                                                 <constraint firstItem="fgf-Q9-Bbg" firstAttribute="top" secondItem="Dhd-dR-qdo" secondAttribute="top" id="ak5-62-M6M"/>
                                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cjX-KD-6WP" secondAttribute="trailing" constant="2" id="dWK-Ac-RQS"/>
                                                                 <constraint firstItem="fgf-Q9-Bbg" firstAttribute="centerX" secondItem="Dhd-dR-qdo" secondAttribute="centerX" id="tZS-0j-Gg6"/>
                                                                 <constraint firstItem="cjX-KD-6WP" firstAttribute="top" secondItem="fgf-Q9-Bbg" secondAttribute="bottom" constant="8" symbolic="YES" id="ucq-NH-xFx"/>
                                                                 <constraint firstItem="fgf-Q9-Bbg" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="2" id="xMV-rI-cbs"/>
-                                                                <constraint firstAttribute="bottom" secondItem="ZTe-Wh-HjU" secondAttribute="bottom" constant="1" id="xqa-7c-k1w"/>
+                                                                <constraint firstAttribute="bottom" secondItem="ZTe-Wh-HjU" secondAttribute="bottom" constant="5" id="xqa-7c-k1w"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="contentLabel" destination="cjX-KD-6WP" id="unT-rw-HzW"/>
