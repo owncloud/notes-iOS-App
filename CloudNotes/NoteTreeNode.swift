@@ -16,7 +16,7 @@ import Cocoa
     
     var title: String { get }
     var content: String? { get }
-    var modified: String? { get }
+    var modified: NSNumber? { get }
 
     var sortId: Int { get }
 }
@@ -57,7 +57,7 @@ class AllNotesNode: NSObject, NoteTreeNode {
         return nil
     }
     
-    var modified: String? {
+    var modified: NSNumber? {
         return nil
     }
     
@@ -91,7 +91,7 @@ class StarredNotesNode: NSObject, NoteTreeNode {
         return nil
     }
     
-    var modified: String? {
+    var modified: NSNumber? {
         return nil
     }
     
@@ -134,6 +134,9 @@ class CategoryNode: NSObject, NoteTreeNode {
     }
     
     var title: String {
+        if self.category.isEmpty {
+            return Constants.noCategory
+        }
         return self.category
     }
     
@@ -141,7 +144,7 @@ class CategoryNode: NSObject, NoteTreeNode {
         return nil
     }
     
-    var modified: String? {
+    var modified: NSNumber? {
         return nil
     }
     
@@ -179,8 +182,8 @@ class NoteNode: NSObject, NoteTreeNode {
         return self.note.content
     }
     
-    var modified: String? {
-        return "\(self.note.modified)"
+    var modified: NSNumber? {
+        return NSNumber(value: self.note.modified)
     }
     
 }

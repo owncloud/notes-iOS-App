@@ -13,6 +13,8 @@ class NotesViewController: NSViewController {
     @IBOutlet var addBarButton: NSButton!
     @IBOutlet var refreshBarButton: NSButton!
     @IBOutlet var refreshProgressIndicator: NSProgressIndicator!
+    @IBOutlet var notesOutlineView: NSOutlineView!
+    @IBOutlet var notesTreeController: NSTreeController!
     
     @objc dynamic let managedContext: NSManagedObjectContext = NotesData.mainThreadContext
     @objc dynamic let sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
@@ -82,3 +84,36 @@ class NotesViewController: NSViewController {
 
 }
 
+extension NotesViewController: NSOutlineViewDelegate {
+    
+    func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
+        guard let treeNode = item as? NSTreeNode, let noteNode = treeNode.representedObject as? NoteTreeNode else {
+            return nil
+        }
+        
+        if noteNode.isLeaf {
+            if let noteView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "NoteCell"), owner: self) as? NoteCellView {
+                return noteView
+            }
+        } else {
+            if let categoryView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CategoryCell"), owner: self) as? CategoryCellView {
+                return categoryView
+            }
+        }
+        return nil
+    }
+
+    func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
+        guard let treeNode = item as? NSTreeNode, let noteNode = treeNode.representedObject as? NoteTreeNode else {
+            return 0.0
+        }
+        
+        if noteNode.isLeaf {
+            return 96.0
+        } else {
+            return 17.0
+        }
+        return 0.0
+    }
+    
+}

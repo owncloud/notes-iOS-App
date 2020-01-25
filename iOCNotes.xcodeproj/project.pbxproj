@@ -47,6 +47,8 @@
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
 		D02BBB9623D5339B0097F120 /* NoteTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */; };
 		D02BBB9823DA86550097F120 /* CategoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9723DA86550097F120 /* CategoryCellView.swift */; };
+		D02BBB9A23DA91170097F120 /* NoteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9923DA91170097F120 /* NoteCellView.swift */; };
+		D02BBB9C23DBE3960097F120 /* ModifiedValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9B23DBE3960097F120 /* ModifiedValueTransformer.swift */; };
 		D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */; };
 		D03493B922F3CC5700E1A9B0 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B822F3CC5700E1A9B0 /* CategoryTableViewController.swift */; };
 		D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */; platformFilter = ios; };
@@ -207,6 +209,8 @@
 		D0225712189848120038232A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTreeNode.swift; sourceTree = "<group>"; };
 		D02BBB9723DA86550097F120 /* CategoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellView.swift; sourceTree = "<group>"; };
+		D02BBB9923DA91170097F120 /* NoteCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCellView.swift; sourceTree = "<group>"; };
+		D02BBB9B23DBE3960097F120 /* ModifiedValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifiedValueTransformer.swift; sourceTree = "<group>"; };
 		D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D03493B822F3CC5700E1A9B0 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSCrash.framework; path = Carthage/Build/iOS/KSCrash.framework; sourceTree = "<group>"; };
@@ -361,6 +365,8 @@
 				D071BFFF23D1571B002BF63B /* PrefsViewController.swift */,
 				D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */,
 				D02BBB9723DA86550097F120 /* CategoryCellView.swift */,
+				D02BBB9923DA91170097F120 /* NoteCellView.swift */,
+				D02BBB9B23DBE3960097F120 /* ModifiedValueTransformer.swift */,
 				D071BFE423CD6245002BF63B /* Assets.xcassets */,
 				D071BFE623CD6245002BF63B /* Main.storyboard */,
 				D071BFE923CD6245002BF63B /* Info.plist */,
@@ -817,9 +823,11 @@
 				D071BFF023D14F2D002BF63B /* Notes.xcdatamodeld in Sources */,
 				D071BFEF23CD6777002BF63B /* WindowController.swift in Sources */,
 				D071BFDE23CD6244002BF63B /* AppDelegate.swift in Sources */,
+				D02BBB9C23DBE3960097F120 /* ModifiedValueTransformer.swift in Sources */,
 				D071C00023D1571B002BF63B /* PrefsViewController.swift in Sources */,
 				D071BFF423D14FB6002BF63B /* NoteProtocol.swift in Sources */,
 				D02BBB9823DA86550097F120 /* CategoryCellView.swift in Sources */,
+				D02BBB9A23DA91170097F120 /* NoteCellView.swift in Sources */,
 				D02BBB9623D5339B0097F120 /* NoteTreeNode.swift in Sources */,
 				D071BFF923D15012002BF63B /* KeychainHelper.swift in Sources */,
 				D071BFF823D15003002BF63B /* ResponseSerializer.swift in Sources */,
