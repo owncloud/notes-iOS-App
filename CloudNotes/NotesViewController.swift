@@ -23,6 +23,8 @@ class NotesViewController: NSViewController {
     @objc dynamic var itemsFilterPredicate: NSPredicate? = nil
     @objc dynamic var nodeArray = [NoteTreeNode]()
 
+    var editorViewController: EditorViewController?
+    
     private var isSyncing = false
 
     override func viewDidLoad() {

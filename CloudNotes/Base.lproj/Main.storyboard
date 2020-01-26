@@ -509,7 +509,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -679,10 +679,10 @@ CA
             </objects>
             <point key="canvasLocation" x="663" y="264.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Editor View Controller-->
         <scene sceneID="39l-TD-mhg">
             <objects>
-                <viewController id="Rgw-HT-mPX" sceneMemberID="viewController">
+                <viewController id="Rgw-HT-mPX" customClass="EditorViewController" customModule="CloudNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Wem-M4-JAw">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -795,7 +795,7 @@ CA
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" title="15 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CIL-Zf-dN6" id="wcj-7q-46h">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="menu"/>
                                                         <menu key="menu" id="jXg-tm-00m">
                                                             <items>
                                                                 <menuItem title="Never" id="CBV-XJ-5Ay"/>

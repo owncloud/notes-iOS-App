@@ -16,6 +16,7 @@
 		BDD015A1234CF551000BA001 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD015A0234CEF86000BA001 /* Colors.xcassets */; };
 		BDD015A32353F7D4000BA001 /* PBHSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */; };
 		BDDD77A9235CDF130053DAEC /* NotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDD77A8235CDF130053DAEC /* NotesTests.swift */; };
+		BDEFED6523DE326E00EA22A6 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEFED6423DE326E00EA22A6 /* EditorViewController.swift */; };
 		BDF94E812391E5EC005F2D5F /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = BDF94E802391E5EC005F2D5F /* Down */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D004DB662391EBA80080A7D1 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D004DB652391EBA70080A7D1 /* SwiftMessages.framework */; platformFilter = ios; };
@@ -169,6 +170,7 @@
 		BDD015A0234CEF86000BA001 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBHSplitViewController.swift; sourceTree = "<group>"; };
 		BDDD77A8235CDF130053DAEC /* NotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTests.swift; sourceTree = "<group>"; };
+		BDEFED6423DE326E00EA22A6 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		D00293D619F48B5300B2DA8F /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D004DB652391EBA70080A7D1 /* SwiftMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMessages.framework; path = Carthage/Build/macCatalyst/SwiftMessages.framework; sourceTree = "<group>"; };
 		D004DB692391EC200080A7D1 /* iOCNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOCNotes.entitlements; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				D071BFDD23CD6244002BF63B /* AppDelegate.swift */,
 				D071BFEE23CD6777002BF63B /* WindowController.swift */,
 				D071BFDF23CD6244002BF63B /* NotesViewController.swift */,
+				BDEFED6423DE326E00EA22A6 /* EditorViewController.swift */,
 				D071BFFF23D1571B002BF63B /* PrefsViewController.swift */,
 				D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */,
 				D02BBB9723DA86550097F120 /* CategoryCellView.swift */,
@@ -819,6 +822,7 @@
 				D071BFF623D14FFA002BF63B /* NoteRouter.swift in Sources */,
 				D071BFF723D15000002BF63B /* NoteSessionManager.swift in Sources */,
 				D071BFF223D14F34002BF63B /* CDNote+CoreDataProperties.swift in Sources */,
+				BDEFED6523DE326E00EA22A6 /* EditorViewController.swift in Sources */,
 				D071BFE023CD6244002BF63B /* NotesViewController.swift in Sources */,
 				D071BFF023D14F2D002BF63B /* Notes.xcdatamodeld in Sources */,
 				D071BFEF23CD6777002BF63B /* WindowController.swift in Sources */,
@@ -1128,6 +1132,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CARTHAGE_SUBFOLDER = "";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1162,6 +1167,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CARTHAGE_SUBFOLDER = "";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
