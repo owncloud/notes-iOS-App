@@ -662,6 +662,7 @@ CA
                     </view>
                     <connections>
                         <outlet property="addBarButton" destination="V2O-sp-L96" id="OJk-Cf-6oz"/>
+                        <outlet property="leftTopView" destination="vB1-E7-W3a" id="i08-yt-uXP"/>
                         <outlet property="notesOutlineView" destination="pJO-ky-b7X" id="WaD-NB-MjZ"/>
                         <outlet property="notesTreeController" destination="0TQ-ZO-SOR" id="TR3-pJ-dhe"/>
                         <outlet property="refreshBarButton" destination="3am-db-XRk" id="irk-3o-1fL"/>

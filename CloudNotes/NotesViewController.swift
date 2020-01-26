@@ -15,6 +15,7 @@ class NotesViewController: NSViewController {
     @IBOutlet var refreshProgressIndicator: NSProgressIndicator!
     @IBOutlet var notesOutlineView: NSOutlineView!
     @IBOutlet var notesTreeController: NSTreeController!
+    @IBOutlet var leftTopView: NSView!
     
     @objc dynamic let managedContext: NSManagedObjectContext = NotesData.mainThreadContext
     @objc dynamic let sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
@@ -26,6 +27,16 @@ class NotesViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        leftTopView.wantsLayer = true
+        let border: CALayer = CALayer()
+        border.autoresizingMask = .layerWidthSizable;
+        border.frame = CGRect(x: 0,
+                              y: 1,
+                              width: leftTopView.frame.width,
+                              height: 1)
+        border.backgroundColor = NSColor.gridColor.cgColor
+        leftTopView.layer?.addSublayer(border)
+        
         rebuildCategoriesAndNotesList()
     }
 
