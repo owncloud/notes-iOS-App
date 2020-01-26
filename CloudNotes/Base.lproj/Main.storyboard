@@ -445,17 +445,17 @@ CA
             <objects>
                 <viewController id="7fh-gz-iZS" customClass="NotesViewController" customModule="CloudNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="e5W-Uh-rAb">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="323"/>
+                        <rect key="frame" x="0.0" y="0.0" width="448" height="323"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="vB1-E7-W3a" userLabel="Left Top View">
-                                <rect key="frame" x="0.0" y="283" width="450" height="40"/>
+                                <rect key="frame" x="0.0" y="283" width="448" height="40"/>
                                 <subviews>
                                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="3Ss-Ne-65J">
-                                        <rect key="frame" x="362" y="12" width="16" height="16"/>
+                                        <rect key="frame" x="360" y="12" width="16" height="16"/>
                                     </progressIndicator>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3am-db-XRk">
-                                        <rect key="frame" x="383" y="10" width="21" height="21"/>
+                                        <rect key="frame" x="381" y="10" width="21" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="21" id="Xi4-ce-2L4"/>
                                             <constraint firstAttribute="height" constant="21" id="kSz-UR-8H9"/>
@@ -469,7 +469,7 @@ CA
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V2O-sp-L96">
-                                        <rect key="frame" x="409" y="10" width="21" height="21"/>
+                                        <rect key="frame" x="407" y="10" width="21" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="Wxy-za-nV2"/>
                                             <constraint firstAttribute="width" constant="21" id="qWS-qr-vQq"/>
@@ -494,22 +494,22 @@ CA
                                     <constraint firstItem="3am-db-XRk" firstAttribute="leading" secondItem="3Ss-Ne-65J" secondAttribute="trailing" constant="5" id="rIm-3n-kAO"/>
                                 </constraints>
                             </customView>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="101" horizontalPageScroll="10" verticalLineScroll="101" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhF-iy-tbS" userLabel="Notes Outline">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="283"/>
-                                <clipView key="contentView" id="VeE-Rx-E8X">
-                                    <rect key="frame" x="1" y="1" width="448" height="281"/>
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhF-iy-tbS" userLabel="Notes Outline">
+                                <rect key="frame" x="0.0" y="0.0" width="448" height="283"/>
+                                <clipView key="contentView" drawsBackground="NO" id="VeE-Rx-E8X">
+                                    <rect key="frame" x="0.0" y="0.0" width="448" height="283"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="96" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="eFW-OD-AFH" id="pJO-ky-b7X">
-                                            <rect key="frame" x="0.0" y="0.0" width="448" height="281"/>
+                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="14" outlineTableColumn="eFW-OD-AFH" id="pJO-ky-b7X">
+                                            <rect key="frame" x="0.0" y="0.0" width="448" height="283"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <size key="intercellSpacing" width="3" height="5"/>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="intercellSpacing" width="3" height="0.0"/>
+                                            <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -521,7 +521,7 @@ CA
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="CategoryCell" id="KdD-0t-sir" customClass="CategoryCellView" customModule="CloudNotes" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="2" width="445" height="17"/>
+                                                            <rect key="frame" x="1" y="0.0" width="445" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9v-N8-yvx">
@@ -550,7 +550,7 @@ CA
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="NoteCell" id="Dhd-dR-qdo" customClass="NoteCellView" customModule="CloudNotes" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="24" width="445" height="96"/>
+                                                            <rect key="frame" x="1" y="17" width="445" height="96"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fgf-Q9-Bbg">
@@ -638,9 +638,10 @@ CA
                                             </connections>
                                         </outlineView>
                                     </subviews>
+                                    <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="TAH-LZ-5P3">
-                                    <rect key="frame" x="1" y="299" width="448" height="16"/>
+                                    <rect key="frame" x="0.0" y="267" width="448" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="hxd-pP-VjA">
@@ -793,7 +794,7 @@ CA
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" title="15 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CIL-Zf-dN6" id="wcj-7q-46h">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="system"/>
                                                         <menu key="menu" id="jXg-tm-00m">
                                                             <items>
                                                                 <menuItem title="Never" id="CBV-XJ-5Ay"/>
@@ -828,7 +829,7 @@ CA
                                                         <constraint firstAttribute="height" constant="50" id="c1Z-cB-973"/>
                                                     </constraints>
                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Currently not connected to News on a server." id="Wwq-Ca-XoU">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
