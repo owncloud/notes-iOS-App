@@ -113,7 +113,6 @@ extension NotesViewController: NSOutlineViewDelegate {
         } else {
             return 17.0
         }
-        return 0.0
     }
     
 }
