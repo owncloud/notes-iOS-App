@@ -128,4 +128,57 @@ extension NotesViewController: NSOutlineViewDelegate {
         }
     }
     
+    func outlineViewSelectionDidChange(_ notification: Notification) {
+//        guard let outlineView = notification.object as? NSOutlineView else {
+//            return
+//        }
+
+//        let selectedIndex = outlineView.selectedRow
+//        self.currentFeedRowIndex = selectedIndex
+
+        if let selectedObject = self.notesTreeController.selectedObjects.first as? NoteTreeNode {
+
+            switch selectedObject {
+            case _ as AllNotesNode:
+//                if NSUserDefaultsController.shared.defaults.integer(forKey: "hideRead") == 0 {
+//                    self.itemsFilterPredicate = NSPredicate(format: "unread == true")
+//                } else {
+//                    self.itemsFilterPredicate = nil
+//                }
+                break
+            case _ as StarredNotesNode:
+//                print("Starred articles selected")
+//                self.itemsFilterPredicate = NSPredicate(format: "starred == true")
+                break
+            case _ as CategoryNode:
+//                print("Folder: \(folderNode.folder.name ?? "") selected")
+//                if let feedIds = CDFeed.idsInFolder(folder: folderNode.folder.id) {
+//                    if NSUserDefaultsController.shared.defaults.integer(forKey: "hideRead") == 0 {
+//                        let unreadPredicate = NSPredicate(format: "unread == true")
+//                        let feedPredicate = NSPredicate(format:"feedId IN %@", feedIds)
+//                        self.itemsFilterPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unreadPredicate, feedPredicate])
+//                    } else {
+//                        self.itemsFilterPredicate = NSPredicate(format:"feedId IN %@", feedIds)
+//                    }
+//                }
+                break
+            case let noteNode as NoteNode:
+                let selectedNote = noteNode.note
+                editorViewController?.representedObject = selectedNote
+//                print("Feed: \(feedNode.feed.title ?? "") selected")
+//                if NSUserDefaultsController.shared.defaults.integer(forKey: "hideRead") == 0 {
+//                    let unreadPredicate = NSPredicate(format: "unread == true")
+//                    let feedPredicate = NSPredicate(format: "feedId == %d", feedNode.feed.id)
+//                    self.itemsFilterPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unreadPredicate, feedPredicate])
+//                } else {
+//                    self.itemsFilterPredicate = NSPredicate(format: "feedId == %d", feedNode.feed.id)
+//                }
+                break
+            default:
+                break
+            }
+        }
+//        self.itemsTableView.scrollRowToVisible(0)
+
+    }
 }

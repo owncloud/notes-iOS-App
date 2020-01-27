@@ -509,7 +509,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -721,20 +721,47 @@ CA
                                     <constraint firstAttribute="trailing" secondItem="Vrt-on-aMa" secondAttribute="trailing" constant="20" id="dRw-0e-tv8"/>
                                 </constraints>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="FHA-it-De6" userLabel="Editor Container">
+                            <scrollView appearanceType="aqua" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQ4-80-j78">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="260"/>
-                            </customView>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="8yY-lx-ROy">
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="260"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="bar" allowsDocumentBackgroundColorChange="YES" spellingCorrection="YES" smartInsertDelete="YES" id="YVG-TR-fJn">
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="260"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <size key="minSize" width="450" height="260"/>
+                                            <size key="maxSize" width="450" height="10000000"/>
+                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        </textView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="BZf-1l-dWr">
+                                    <rect key="frame" x="-100" y="-100" width="240" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="VHa-rm-lG7">
+                                    <rect key="frame" x="434" y="0.0" width="16" height="260"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="FHA-it-De6" firstAttribute="top" secondItem="Wem-M4-JAw" secondAttribute="top" constant="40" id="5rV-gf-GdQ"/>
-                            <constraint firstItem="FHA-it-De6" firstAttribute="leading" secondItem="Wem-M4-JAw" secondAttribute="leading" id="B8G-iA-QMV"/>
+                            <constraint firstAttribute="bottom" secondItem="nQ4-80-j78" secondAttribute="bottom" id="HbX-vi-FU2"/>
                             <constraint firstAttribute="trailing" secondItem="Qij-aY-Abr" secondAttribute="trailing" id="LGo-LW-dLz"/>
-                            <constraint firstAttribute="bottom" secondItem="FHA-it-De6" secondAttribute="bottom" id="QXb-gp-fMu"/>
                             <constraint firstItem="Qij-aY-Abr" firstAttribute="leading" secondItem="Wem-M4-JAw" secondAttribute="leading" id="YEd-RM-8uP"/>
-                            <constraint firstAttribute="trailing" secondItem="FHA-it-De6" secondAttribute="trailing" id="Z8z-BQ-jvK"/>
+                            <constraint firstAttribute="trailing" secondItem="nQ4-80-j78" secondAttribute="trailing" id="gc6-9G-AAA"/>
+                            <constraint firstItem="nQ4-80-j78" firstAttribute="leading" secondItem="Wem-M4-JAw" secondAttribute="leading" id="ndS-DW-jg1"/>
+                            <constraint firstItem="nQ4-80-j78" firstAttribute="top" secondItem="Qij-aY-Abr" secondAttribute="bottom" id="uXf-c9-Wrt"/>
                             <constraint firstItem="Qij-aY-Abr" firstAttribute="top" secondItem="Wem-M4-JAw" secondAttribute="top" id="w5W-2i-A1V"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="YVG-TR-fJn" id="tJA-j1-Hf8"/>
+                        <outlet property="topView" destination="Qij-aY-Abr" id="Axg-aM-Ymd"/>
+                    </connections>
                 </viewController>
                 <customObject id="cLh-nO-9JT" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -795,7 +822,7 @@ CA
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" title="15 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CIL-Zf-dN6" id="wcj-7q-46h">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="system"/>
                                                         <menu key="menu" id="jXg-tm-00m">
                                                             <items>
                                                                 <menuItem title="Never" id="CBV-XJ-5Ay"/>
