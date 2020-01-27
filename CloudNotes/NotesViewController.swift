@@ -164,7 +164,7 @@ extension NotesViewController: NSOutlineViewDelegate {
                 break
             case let noteNode as NoteNode:
                 let selectedNote = noteNode.note
-                editorViewController?.representedObject = selectedNote
+                editorViewController?.note = selectedNote
 //                print("Feed: \(feedNode.feed.title ?? "") selected")
 //                if NSUserDefaultsController.shared.defaults.integer(forKey: "hideRead") == 0 {
 //                    let unreadPredicate = NSPredicate(format: "unread == true")

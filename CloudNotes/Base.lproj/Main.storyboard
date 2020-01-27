@@ -759,7 +759,7 @@ CA
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="textView" destination="YVG-TR-fJn" id="tJA-j1-Hf8"/>
+                        <outlet property="noteView" destination="YVG-TR-fJn" id="tJA-j1-Hf8"/>
                         <outlet property="topView" destination="Qij-aY-Abr" id="Axg-aM-Ymd"/>
                     </connections>
                 </viewController>
