@@ -507,9 +507,9 @@ CA
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
+                                                <tableColumn identifier="NotesColumn" editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -534,9 +534,6 @@ CA
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
-                                                                    <connections>
-                                                                        <binding destination="KdD-0t-sir" name="value" keyPath="objectValue.title" id="HOd-nc-f3O"/>
-                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -563,9 +560,6 @@ CA
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
-                                                                    <connections>
-                                                                        <binding destination="Dhd-dR-qdo" name="value" keyPath="objectValue.title" id="Sro-go-msh"/>
-                                                                    </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjX-KD-6WP">
                                                                     <rect key="frame" x="22" y="23" width="84" height="48"/>
@@ -577,9 +571,6 @@ CA
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
-                                                                    <connections>
-                                                                        <binding destination="Dhd-dR-qdo" name="value" keyPath="objectValue.content" id="a9n-CI-5q8"/>
-                                                                    </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTe-Wh-HjU">
                                                                     <rect key="frame" x="22" y="5" width="75" height="14"/>
@@ -591,13 +582,6 @@ CA
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
-                                                                    <connections>
-                                                                        <binding destination="Dhd-dR-qdo" name="value" keyPath="objectValue.modified" id="Ate-qh-o4M">
-                                                                            <dictionary key="options">
-                                                                                <string key="NSValueTransformerName">ModifiedValueTransformer</string>
-                                                                            </dictionary>
-                                                                        </binding>
-                                                                    </connections>
                                                                 </textField>
                                                                 <box verticalHuggingPriority="750" boxType="separator" id="oWI-RY-pWl">
                                                                     <rect key="frame" x="0.0" y="-2" width="4450" height="5"/>
@@ -624,16 +608,10 @@ CA
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
-                                                    <connections>
-                                                        <binding destination="0TQ-ZO-SOR" name="value" keyPath="arrangedObjects" id="73V-sG-8bT">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
+                                                <outlet property="dataSource" destination="7fh-gz-iZS" id="NhM-jc-Vwe"/>
                                                 <outlet property="delegate" destination="7fh-gz-iZS" id="yCy-k3-l8l"/>
                                             </connections>
                                         </outlineView>
@@ -664,17 +642,11 @@ CA
                         <outlet property="addBarButton" destination="V2O-sp-L96" id="OJk-Cf-6oz"/>
                         <outlet property="leftTopView" destination="vB1-E7-W3a" id="i08-yt-uXP"/>
                         <outlet property="notesOutlineView" destination="pJO-ky-b7X" id="WaD-NB-MjZ"/>
-                        <outlet property="notesTreeController" destination="0TQ-ZO-SOR" id="TR3-pJ-dhe"/>
                         <outlet property="refreshBarButton" destination="3am-db-XRk" id="irk-3o-1fL"/>
                         <outlet property="refreshProgressIndicator" destination="3Ss-Ne-65J" id="pdW-oK-CFb"/>
                     </connections>
                 </viewController>
                 <customObject id="MOd-Rk-U17" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <treeController objectClassName="NoteTreeNode" editable="NO" childrenKeyPath="children" countKeyPath="childCount" leafKeyPath="isLeaf" id="0TQ-ZO-SOR">
-                    <connections>
-                        <binding destination="7fh-gz-iZS" name="contentArray" keyPath="self.nodeArray" id="9Ta-m1-y2n"/>
-                    </connections>
-                </treeController>
                 <userDefaultsController representsSharedInstance="YES" id="iYp-fE-ouV"/>
             </objects>
             <point key="canvasLocation" x="663" y="264.5"/>
@@ -822,7 +794,7 @@ CA
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" title="15 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CIL-Zf-dN6" id="wcj-7q-46h">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="menu"/>
                                                         <menu key="menu" id="jXg-tm-00m">
                                                             <items>
                                                                 <menuItem title="Never" id="CBV-XJ-5Ay"/>

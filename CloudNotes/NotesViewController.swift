@@ -14,7 +14,6 @@ class NotesViewController: NSViewController {
     @IBOutlet var refreshBarButton: NSButton!
     @IBOutlet var refreshProgressIndicator: NSProgressIndicator!
     @IBOutlet var notesOutlineView: NSOutlineView!
-    @IBOutlet var notesTreeController: NSTreeController!
     @IBOutlet var leftTopView: NSView!
     
     @objc dynamic let managedContext: NSManagedObjectContext = NotesData.mainThreadContext
@@ -26,7 +25,7 @@ class NotesViewController: NSViewController {
     var editorViewController: EditorViewController?
     
     private var currentNode: NoteTreeNode?
-    private var selectedRow: IndexSet?
+    private var selectedRow: Int?
     private var selectedColumn: IndexSet?
     private var isSyncing = false
     private var observers = [NSObjectProtocol]()
@@ -44,15 +43,17 @@ class NotesViewController: NSViewController {
         leftTopView.layer?.addSublayer(border)
         
         rebuildCategoriesAndNotesList()
+        notesOutlineView.reloadData()
         observers.append(NotificationCenter.default.addObserver(forName: .editorUpdatedNote, object: nil, queue: .main, using: { [weak self] _ in
 //            self?.notesTreeController.perform(#selector(self?.notesTreeController.rearrangeObjects), with: nil, afterDelay: 0.0)
-            if let node = self?.currentNode as? NoteNode,
-                let parent = self?.notesOutlineView.parent(forItem: node) {
-                self?.notesOutlineView.collapseItem(parent)
-                self?.notesOutlineView.reloadItem(parent)
-                self?.notesOutlineView.expandItem(parent)
-            }
-//            self?.notesOutlineView.reloadItem(self?.currentNode)
+//            if let node = self?.currentNode as? NoteNode,
+//                let parent = self?.notesOutlineView.parent(forItem: node) {
+//                self?.notesOutlineView.collapseItem(parent)
+//                self?.notesOutlineView.reloadItem(parent)
+//                self?.notesOutlineView.expandItem(parent)
+//            }
+            print("Attempting reload of \(self?.currentNode?.title ?? "")")
+            self?.notesOutlineView.reloadItem(self?.currentNode)
 //            if let selectedRow = self?.selectedRow, let selectedColumn = self?.selectedColumn {
 //                self?.notesOutlineView.reloadData(forRowIndexes: selectedRow, columnIndexes: selectedColumn)
 //            }
@@ -123,16 +124,20 @@ class NotesViewController: NSViewController {
 extension NotesViewController: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        guard let treeNode = item as? NSTreeNode, let noteNode = treeNode.representedObject as? NoteTreeNode else {
+        guard let noteNode = item as? NoteTreeNode else {
             return nil
         }
         
         if noteNode.isLeaf {
             if let noteView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "NoteCell"), owner: self) as? NoteCellView {
+                noteView.titleLabel.stringValue = noteNode.title
+                noteView.contentLabel.stringValue = noteNode.content ?? ""
+                noteView.modifiedLabel.stringValue = noteNode.modified?.stringValue ?? ""
                 return noteView
             }
         } else {
             if let categoryView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CategoryCell"), owner: self) as? CategoryCellView {
+                categoryView.titleLabel.stringValue = noteNode.title
                 return categoryView
             }
         }
@@ -140,7 +145,7 @@ extension NotesViewController: NSOutlineViewDelegate {
     }
 
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        guard let treeNode = item as? NSTreeNode, let noteNode = treeNode.representedObject as? NoteTreeNode else {
+        guard let noteNode = item as? NoteTreeNode else {
             return 0.0
         }
         
@@ -159,9 +164,9 @@ extension NotesViewController: NSOutlineViewDelegate {
 //        let selectedIndex = outlineView.selectedRow
 //        self.currentFeedRowIndex = selectedIndex
         selectedColumn = notesOutlineView.selectedColumnIndexes
-        selectedRow = notesOutlineView.selectedRowIndexes
+        selectedRow = notesOutlineView.selectedRow
         
-        if let selectedObject = self.notesTreeController.selectedObjects.first as? NoteTreeNode {
+        if let selectedRow = selectedRow, let selectedObject = notesOutlineView.item(atRow: selectedRow) as? NoteTreeNode {
             currentNode = selectedObject
             
             switch currentNode {
@@ -207,4 +212,50 @@ extension NotesViewController: NSOutlineViewDelegate {
 //        self.itemsTableView.scrollRowToVisible(0)
 
     }
+}
+
+extension NotesViewController: NSOutlineViewDataSource {
+
+    func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
+        if item == nil {
+            return nodeArray[index]
+        }
+        guard let noteNode = item as? NoteTreeNode else {
+            return 0
+        }
+
+        if noteNode.isLeaf {
+            return 0
+        } else {
+            return noteNode.children[index]
+        }
+    }
+
+    func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
+        if item == nil {
+            return nodeArray.count
+        }
+        guard let noteNode = item as? NoteTreeNode else {
+            return 0
+        }
+
+        if noteNode.isLeaf {
+            return 0
+        } else {
+            return noteNode.childCount
+        }
+    }
+
+    func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
+        guard let noteNode = item as? NoteTreeNode else {
+            return false
+        }
+
+        if noteNode.isLeaf {
+            return false
+        } else {
+            return true
+        }
+    }
+
 }
