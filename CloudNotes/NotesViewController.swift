@@ -25,7 +25,11 @@ class NotesViewController: NSViewController {
 
     var editorViewController: EditorViewController?
     
+    private var currentNode: NoteTreeNode?
+    private var selectedRow: IndexSet?
+    private var selectedColumn: IndexSet?
     private var isSyncing = false
+    private var observers = [NSObjectProtocol]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +44,25 @@ class NotesViewController: NSViewController {
         leftTopView.layer?.addSublayer(border)
         
         rebuildCategoriesAndNotesList()
+        observers.append(NotificationCenter.default.addObserver(forName: .editorUpdatedNote, object: nil, queue: .main, using: { [weak self] _ in
+//            self?.notesTreeController.perform(#selector(self?.notesTreeController.rearrangeObjects), with: nil, afterDelay: 0.0)
+            if let node = self?.currentNode as? NoteNode,
+                let parent = self?.notesOutlineView.parent(forItem: node) {
+                self?.notesOutlineView.collapseItem(parent)
+                self?.notesOutlineView.reloadItem(parent)
+                self?.notesOutlineView.expandItem(parent)
+            }
+//            self?.notesOutlineView.reloadItem(self?.currentNode)
+//            if let selectedRow = self?.selectedRow, let selectedColumn = self?.selectedColumn {
+//                self?.notesOutlineView.reloadData(forRowIndexes: selectedRow, columnIndexes: selectedColumn)
+//            }
+//            self?.rebuildCategoriesAndNotesList()
+//            if let noteNode = self?.currentNode as? NoteTreeNode, let note = notification.object as? CDNote {
+//                let oldIndex = self?.nodeArray.firstIndex(where: { (node) -> Bool in
+//                    node == noteNode
+//                })
+//            }
+        }))
     }
 
     override var representedObject: Any? {
@@ -135,10 +158,13 @@ extension NotesViewController: NSOutlineViewDelegate {
 
 //        let selectedIndex = outlineView.selectedRow
 //        self.currentFeedRowIndex = selectedIndex
-
+        selectedColumn = notesOutlineView.selectedColumnIndexes
+        selectedRow = notesOutlineView.selectedRowIndexes
+        
         if let selectedObject = self.notesTreeController.selectedObjects.first as? NoteTreeNode {
-
-            switch selectedObject {
+            currentNode = selectedObject
+            
+            switch currentNode {
             case _ as AllNotesNode:
 //                if NSUserDefaultsController.shared.defaults.integer(forKey: "hideRead") == 0 {
 //                    self.itemsFilterPredicate = NSPredicate(format: "unread == true")

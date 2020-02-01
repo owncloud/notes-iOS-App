@@ -45,6 +45,7 @@ class EditorViewController: NSViewController {
                               height: 1)
         border.backgroundColor = NSColor.gridColor.cgColor
         topView.layer?.addSublayer(border)
+        noteView.delegate = self
         updateTextView()
     }
     
@@ -77,7 +78,9 @@ extension EditorViewController: NSTextViewDelegate {
     fileprivate func updateNoteContent() {
         if let note = self.note, self.noteView.string != note.content {
             note.content = self.noteView.string
-            NotesManager.shared.update(note: note)
+            NotesManager.shared.update(note: note) {
+                NotificationCenter.default.post(name: .editorUpdatedNote, object: note)
+            }
         }
     }
 
