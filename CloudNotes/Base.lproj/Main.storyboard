@@ -509,7 +509,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="NotesColumn" editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -550,30 +550,19 @@ CA
                                                             <rect key="frame" x="1" y="24" width="445" height="96"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="fgf-Q9-Bbg">
-                                                                    <rect key="frame" x="0.0" y="79" width="445" height="17"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="17" id="Lfj-C9-OGm"/>
-                                                                    </constraints>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Note title" usesSingleLineMode="YES" id="7Hs-7q-Rmt">
-                                                                        <font key="font" metaFont="systemSemibold" size="13"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjX-KD-6WP">
-                                                                    <rect key="frame" x="22" y="23" width="84" height="48"/>
+                                                                    <rect key="frame" x="16" y="23" width="423" height="72"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="48" id="uIL-hu-Wkx"/>
+                                                                        <constraint firstAttribute="height" constant="72" id="uIL-hu-Wkx"/>
                                                                     </constraints>
-                                                                    <textFieldCell key="cell" truncatesLastVisibleLine="YES" allowsUndo="NO" title="Note content" id="gIi-hV-mNL">
+                                                                    <textFieldCell key="cell" truncatesLastVisibleLine="YES" allowsUndo="NO" title="Note content" allowsEditingTextAttributes="YES" id="gIi-hV-mNL">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTe-Wh-HjU">
-                                                                    <rect key="frame" x="22" y="5" width="75" height="14"/>
+                                                                    <rect key="frame" x="14" y="5" width="75" height="14"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="14" id="STa-Fx-QBw"/>
                                                                     </constraints>
@@ -589,22 +578,16 @@ CA
                                                                 </box>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fgf-Q9-Bbg" secondAttribute="trailing" constant="2" id="7SC-je-IZe"/>
-                                                                <constraint firstItem="cjX-KD-6WP" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="24" id="8gd-aW-72q"/>
-                                                                <constraint firstItem="ZTe-Wh-HjU" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="24" id="R4B-j0-ZhI"/>
+                                                                <constraint firstItem="cjX-KD-6WP" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="18" id="8gd-aW-72q"/>
+                                                                <constraint firstItem="ZTe-Wh-HjU" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="16" id="R4B-j0-ZhI"/>
                                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZTe-Wh-HjU" secondAttribute="trailing" constant="2" id="Wen-Jj-RWk"/>
-                                                                <constraint firstItem="fgf-Q9-Bbg" firstAttribute="top" secondItem="Dhd-dR-qdo" secondAttribute="top" id="ak5-62-M6M"/>
-                                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cjX-KD-6WP" secondAttribute="trailing" constant="2" id="dWK-Ac-RQS"/>
-                                                                <constraint firstItem="fgf-Q9-Bbg" firstAttribute="centerX" secondItem="Dhd-dR-qdo" secondAttribute="centerX" id="tZS-0j-Gg6"/>
-                                                                <constraint firstItem="cjX-KD-6WP" firstAttribute="top" secondItem="fgf-Q9-Bbg" secondAttribute="bottom" constant="8" symbolic="YES" id="ucq-NH-xFx"/>
-                                                                <constraint firstItem="fgf-Q9-Bbg" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="2" id="xMV-rI-cbs"/>
+                                                                <constraint firstAttribute="trailing" secondItem="cjX-KD-6WP" secondAttribute="trailing" constant="8" id="dWK-Ac-RQS"/>
                                                                 <constraint firstAttribute="bottom" secondItem="ZTe-Wh-HjU" secondAttribute="bottom" constant="5" id="xqa-7c-k1w"/>
+                                                                <constraint firstItem="ZTe-Wh-HjU" firstAttribute="top" secondItem="cjX-KD-6WP" secondAttribute="bottom" constant="4" id="yMP-IB-Yh9"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="contentLabel" destination="cjX-KD-6WP" id="unT-rw-HzW"/>
                                                                 <outlet property="modifiedLabel" destination="ZTe-Wh-HjU" id="3Di-05-p0B"/>
-                                                                <outlet property="textField" destination="fgf-Q9-Bbg" id="m3d-hz-r9U"/>
-                                                                <outlet property="titleLabel" destination="fgf-Q9-Bbg" id="euh-zc-Btj"/>
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
@@ -647,6 +630,15 @@ CA
                     </connections>
                 </viewController>
                 <customObject id="MOd-Rk-U17" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <textView editable="NO" selectable="NO" importsGraphics="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="8Gf-K4-TDQ">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    <size key="minSize" width="240" height="135"/>
+                    <size key="maxSize" width="240" height="10000000"/>
+                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                </textView>
                 <userDefaultsController representsSharedInstance="YES" id="iYp-fE-ouV"/>
             </objects>
             <point key="canvasLocation" x="663" y="264.5"/>
@@ -794,7 +786,7 @@ CA
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" title="15 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CIL-Zf-dN6" id="wcj-7q-46h">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="system"/>
                                                         <menu key="menu" id="jXg-tm-00m">
                                                             <items>
                                                                 <menuItem title="Never" id="CBV-XJ-5Ay"/>

@@ -10,7 +10,6 @@ import Cocoa
 
 class NoteCellView: NSTableCellView {
 
-    @IBOutlet var titleLabel: NSTextField!
     @IBOutlet var contentLabel: NSTextField!
     @IBOutlet var modifiedLabel: NSTextField!
 

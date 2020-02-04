@@ -44,32 +44,15 @@ class NotesViewController: NSViewController {
         
         rebuildCategoriesAndNotesList()
         notesOutlineView.reloadData()
+        
         observers.append(NotificationCenter.default.addObserver(forName: .editorUpdatedNote, object: nil, queue: .main, using: { [weak self] _ in
-//            self?.notesTreeController.perform(#selector(self?.notesTreeController.rearrangeObjects), with: nil, afterDelay: 0.0)
-//            if let node = self?.currentNode as? NoteNode,
-//                let parent = self?.notesOutlineView.parent(forItem: node) {
-//                self?.notesOutlineView.collapseItem(parent)
-//                self?.notesOutlineView.reloadItem(parent)
-//                self?.notesOutlineView.expandItem(parent)
-//            }
-            print("Attempting reload of \(self?.currentNode?.title ?? "")")
-            self?.notesOutlineView.reloadItem(self?.currentNode)
-//            if let selectedRow = self?.selectedRow, let selectedColumn = self?.selectedColumn {
-//                self?.notesOutlineView.reloadData(forRowIndexes: selectedRow, columnIndexes: selectedColumn)
-//            }
-//            self?.rebuildCategoriesAndNotesList()
-//            if let noteNode = self?.currentNode as? NoteTreeNode, let note = notification.object as? CDNote {
-//                let oldIndex = self?.nodeArray.firstIndex(where: { (node) -> Bool in
-//                    node == noteNode
-//                })
-//            }
+            DispatchQueue.main.async {
+                if let row = self?.selectedRow {
+                    let selectedItem = self?.notesOutlineView.item(atRow: row)
+                    self?.notesOutlineView.reloadItem(selectedItem)
+                }
+            }
         }))
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
     }
 
     @IBAction func onRefresh(sender: Any?) {
@@ -123,6 +106,25 @@ class NotesViewController: NSViewController {
 
 extension NotesViewController: NSOutlineViewDelegate {
     
+    private func boldTitle(title: String, content: String?) -> NSAttributedString {
+        var attributedString: NSMutableAttributedString
+        var boldedRange: NSRange
+        if let content = content, !content.isEmpty {
+            attributedString = NSMutableAttributedString(string: content, attributes: [NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.systemFontSize)])
+            boldedRange = (content as NSString).range(of: title)
+            if boldedRange.length == 0 {
+                boldedRange = NSRange(location: 0, length: min(title.count, content.count))
+            }
+        } else {
+            attributedString = NSMutableAttributedString(string: title, attributes: [NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.systemFontSize)])
+            boldedRange = (title as NSString).range(of: title)
+        }
+
+        let boldFontAttribute = [NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)]
+        attributedString.addAttributes(boldFontAttribute, range: boldedRange)
+        return NSAttributedString(attributedString: attributedString)
+    }
+
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         guard let noteNode = item as? NoteTreeNode else {
             return nil
@@ -130,8 +132,8 @@ extension NotesViewController: NSOutlineViewDelegate {
         
         if noteNode.isLeaf {
             if let noteView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "NoteCell"), owner: self) as? NoteCellView {
-                noteView.titleLabel.stringValue = noteNode.title
-                noteView.contentLabel.stringValue = noteNode.content ?? ""
+                let attributedContent = boldTitle(title: noteNode.title, content: noteNode.content)
+                noteView.contentLabel.attributedStringValue = attributedContent
                 noteView.modifiedLabel.stringValue = noteNode.modified?.stringValue ?? ""
                 return noteView
             }
