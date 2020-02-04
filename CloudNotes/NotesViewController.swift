@@ -134,7 +134,7 @@ extension NotesViewController: NSOutlineViewDelegate {
             if let noteView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "NoteCell"), owner: self) as? NoteCellView {
                 let attributedContent = boldTitle(title: noteNode.title, content: noteNode.content)
                 noteView.contentLabel.attributedStringValue = attributedContent
-                noteView.modifiedLabel.stringValue = noteNode.modified?.stringValue ?? ""
+                noteView.modifiedLabel.stringValue = ModifiedValueTransformer().transformedValue(noteNode.modified) as? String ?? ""
                 return noteView
             }
         } else {
