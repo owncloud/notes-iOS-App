@@ -7,12 +7,15 @@
 //
 
 import Cocoa
+import Notepad
 
 class EditorViewController: NSViewController {
 
     @IBOutlet var topView: NSView!
     @IBOutlet var noteView: NSTextView!
 
+    let storage = Storage()
+    
     var note: CDNote? {
         didSet {
             if note != oldValue, let note = note {
@@ -46,6 +49,12 @@ class EditorViewController: NSViewController {
         border.backgroundColor = NSColor.gridColor.cgColor
         topView.layer?.addSublayer(border)
         noteView.delegate = self
+        let theme = Theme("system-minimal")
+        storage.theme = theme
+        noteView.backgroundColor = theme.backgroundColor
+        noteView.insertionPointColor = theme.tintColor
+        noteView.layoutManager?.replaceTextStorage(storage)
+        noteView.textContainerInset = NSSize(width: 10, height: 10)
         updateTextView()
     }
     
