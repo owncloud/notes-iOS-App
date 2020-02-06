@@ -88,11 +88,17 @@ class NotesViewController: NSViewController {
     
     func rebuildCategoriesAndNotesList() {
         self.nodeArray.removeAll()
+        self.nodeArray.append(FavoritesNotesNode())
         self.nodeArray.append(AllNotesNode())
         self.nodeArray.append(StarredNotesNode())
         if let categories = CDNote.categories() {
             for category in categories {
-                self.nodeArray.append(CategoryNode(category: category))
+                if category.isEmpty {
+                    self.nodeArray.append(CategoryNode(category: category))
+                    self.nodeArray.append(CategoriesNotesNode())
+                } else {
+                    self.nodeArray.append(CategoryNode(category: category))
+                }
             }
         }
     }
@@ -151,6 +157,14 @@ extension NotesViewController: NSOutlineViewDelegate {
         } else {
             return 17.0
         }
+    }
+
+
+    func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {
+        guard let noteNode = item as? NoteTreeNode else {
+            return false
+        }
+        return noteNode.isGroupItem
     }
     
     func outlineViewSelectionDidChange(_ notification: Notification) {

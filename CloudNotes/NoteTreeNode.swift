@@ -11,6 +11,7 @@ import Cocoa
 protocol NoteTreeNode: class {
     
     var isLeaf: Bool { get }
+    var isGroupItem: Bool { get }
     var childCount: Int { get }
     var children: [NoteTreeNode] { get }
     
@@ -31,6 +32,10 @@ class AllNotesNode: NoteTreeNode {
         return false
     }
     
+    var isGroupItem: Bool {
+        return false
+    }
+
     var childCount: Int {
         var count = 0
         if let notes = CDNote.all() {
@@ -50,7 +55,7 @@ class AllNotesNode: NoteTreeNode {
     }
     
     var title: String {
-        return "All Notes"
+        return "All"
     }
     
     var content: String? {
@@ -73,6 +78,10 @@ class StarredNotesNode: NoteTreeNode {
         return false
     }
     
+    var isGroupItem: Bool {
+        return false
+    }
+
     var childCount: Int {
         return 0
     }
@@ -82,7 +91,7 @@ class StarredNotesNode: NoteTreeNode {
     }
     
     var title: String {
-        return "Starred Notes"
+        return "Favorites"
     }
     
     var content: String? {
@@ -111,6 +120,10 @@ class CategoryNode: NoteTreeNode {
         return false
     }
     
+    var isGroupItem: Bool {
+        return false
+    }
+
     var childCount: Int {
         var count = 0
         if let notes = CDNote.notes(category: self.category) {
@@ -164,6 +177,10 @@ class NoteNode: NoteTreeNode {
         return true
     }
     
+    var isGroupItem: Bool {
+        return false
+    }
+
     var childCount: Int {
         return 0
     }
@@ -184,4 +201,76 @@ class NoteNode: NoteTreeNode {
         return NSNumber(value: self.note.modified)
     }
     
+}
+
+class FavoritesNotesNode: NoteTreeNode {
+
+    var sortId: Int {
+        return -1
+    }
+
+    var isLeaf: Bool {
+        return false
+    }
+
+    var isGroupItem: Bool {
+        return true
+    }
+
+    var childCount: Int {
+        return 0
+    }
+
+    var children: [NoteTreeNode] {
+        return []
+    }
+
+    var title: String {
+        return "MAIN"
+    }
+
+    var content: String? {
+        return nil
+    }
+
+    var modified: NSNumber? {
+        return nil
+    }
+
+}
+
+class CategoriesNotesNode: NoteTreeNode {
+
+    var sortId: Int {
+        return -1
+    }
+
+    var isLeaf: Bool {
+        return false
+    }
+
+    var isGroupItem: Bool {
+        return true
+    }
+
+    var childCount: Int {
+        return 0
+    }
+
+    var children: [NoteTreeNode] {
+        return []
+    }
+
+    var title: String {
+        return "CATEGORIES"
+    }
+
+    var content: String? {
+        return nil
+    }
+
+    var modified: NSNumber? {
+        return nil
+    }
+
 }
