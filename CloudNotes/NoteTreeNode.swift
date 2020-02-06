@@ -8,7 +8,7 @@
 
 import Cocoa
 
-@objc protocol NoteTreeNode: class {
+protocol NoteTreeNode: class {
     
     var isLeaf: Bool { get }
     var childCount: Int { get }
@@ -21,7 +21,7 @@ import Cocoa
     var sortId: Int { get }
 }
 
-class AllNotesNode: NSObject, NoteTreeNode {
+class AllNotesNode: NoteTreeNode {
 
     var sortId: Int {
         return 0
@@ -63,7 +63,7 @@ class AllNotesNode: NSObject, NoteTreeNode {
     
 }
 
-class StarredNotesNode: NSObject, NoteTreeNode {
+class StarredNotesNode: NoteTreeNode {
 
     var sortId: Int {
         return 1
@@ -82,9 +82,7 @@ class StarredNotesNode: NSObject, NoteTreeNode {
     }
     
     var title: String {
-        get {
-            return "Starred Notes"
-        }
+        return "Starred Notes"
     }
     
     var content: String? {
@@ -97,7 +95,7 @@ class StarredNotesNode: NSObject, NoteTreeNode {
     
 }
 
-class CategoryNode: NSObject, NoteTreeNode {
+class CategoryNode: NoteTreeNode {
 
     var sortId: Int {
         return 2
@@ -150,7 +148,7 @@ class CategoryNode: NSObject, NoteTreeNode {
     
 }
 
-class NoteNode: NSObject, NoteTreeNode {
+class NoteNode: NoteTreeNode {
 
     var sortId: Int {
         return Int(self.note.id) + 1000

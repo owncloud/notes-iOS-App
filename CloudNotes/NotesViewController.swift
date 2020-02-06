@@ -15,15 +15,10 @@ class NotesViewController: NSViewController {
     @IBOutlet var refreshProgressIndicator: NSProgressIndicator!
     @IBOutlet var notesOutlineView: NSOutlineView!
     @IBOutlet var leftTopView: NSView!
-    
-    @objc dynamic let managedContext: NSManagedObjectContext = NotesData.mainThreadContext
-    @objc dynamic let sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
-    @objc dynamic let feedSortDescriptors = [NSSortDescriptor(key: "sortId", ascending: true)]
-    @objc dynamic var itemsFilterPredicate: NSPredicate? = nil
-    @objc dynamic var nodeArray = [NoteTreeNode]()
 
     var editorViewController: EditorViewController?
     
+    private var nodeArray = [NoteTreeNode]()
     private var currentNode: NoteTreeNode?
     private var selectedRow: Int?
     private var selectedColumn: IndexSet?
