@@ -440,10 +440,10 @@ CA
             </objects>
             <point key="canvasLocation" x="75" y="703"/>
         </scene>
-        <!--Notes View Controller-->
+        <!--Source List Controller-->
         <scene sceneID="nhq-fd-LAx">
             <objects>
-                <viewController id="7fh-gz-iZS" customClass="NotesViewController" customModule="CloudNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7fh-gz-iZS" customClass="SourceListController" customModule="CloudNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="e5W-Uh-rAb">
                         <rect key="frame" x="0.0" y="0.0" width="448" height="323"/>
                         <autoresizingMask key="autoresizingMask"/>

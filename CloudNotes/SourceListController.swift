@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class NotesViewController: NSViewController {
+class SourceListController: NSViewController {
 
     @IBOutlet var addBarButton: NSButton!
     @IBOutlet var refreshBarButton: NSButton!
@@ -105,7 +105,7 @@ class NotesViewController: NSViewController {
 
 }
 
-extension NotesViewController: NSOutlineViewDelegate {
+extension SourceListController: NSOutlineViewDelegate {
     
     private func boldTitle(title: String, content: String?) -> NSAttributedString {
         var attributedString: NSMutableAttributedString
@@ -225,7 +225,7 @@ extension NotesViewController: NSOutlineViewDelegate {
     }
 }
 
-extension NotesViewController: NSOutlineViewDataSource {
+extension SourceListController: NSOutlineViewDataSource {
 
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         if item == nil {

@@ -10,7 +10,7 @@ import Cocoa
 
 class WindowController: NSWindowController {
 
-    private var notesViewController: NotesViewController?
+    private var notesViewController: SourceListController?
     private var editorViewController: EditorViewController?
 
     override func windowDidLoad() {
@@ -21,7 +21,7 @@ class WindowController: NSWindowController {
         window?.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
 
         if let splitviewController = window?.contentViewController as? NSSplitViewController {
-            notesViewController = splitviewController.splitViewItems[0].viewController as? NotesViewController
+            notesViewController = splitviewController.splitViewItems[0].viewController as? SourceListController
             editorViewController = splitviewController.splitViewItems[1].viewController as? EditorViewController
             notesViewController?.editorViewController = editorViewController
         }
