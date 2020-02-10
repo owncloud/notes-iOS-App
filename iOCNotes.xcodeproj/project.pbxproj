@@ -81,6 +81,7 @@
 		D071BFFE23D151D2002BF63B /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D071BFFD23D151D2002BF63B /* KeychainAccess */; };
 		D071C00023D1571B002BF63B /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071BFFF23D1571B002BF63B /* PrefsViewController.swift */; };
 		D076032623EF8E0C00A11C56 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D076032523EF8E0C00A11C56 /* NotesViewController.swift */; };
+		D076032823F0F91A00A11C56 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D076032723F0F91A00A11C56 /* SplitViewController.swift */; };
 		D078A1C4239C8A2000E1A004 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D078A1C3239C8A2000E1A004 /* CoreServices.framework */; };
 		D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */; };
 		D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */; };
@@ -245,6 +246,7 @@
 		D071BFEE23CD6777002BF63B /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		D071BFFF23D1571B002BF63B /* PrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
 		D076032523EF8E0C00A11C56 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		D076032723F0F91A00A11C56 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D078A1C3239C8A2000E1A004 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataClass.swift"; path = "CoreData/CDNote+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 			children = (
 				D071BFDD23CD6244002BF63B /* AppDelegate.swift */,
 				D071BFEE23CD6777002BF63B /* WindowController.swift */,
+				D076032723F0F91A00A11C56 /* SplitViewController.swift */,
 				D071BFDF23CD6244002BF63B /* SourceListController.swift */,
 				D076032523EF8E0C00A11C56 /* NotesViewController.swift */,
 				BDEFED6423DE326E00EA22A6 /* EditorViewController.swift */,
@@ -870,6 +873,7 @@
 				D071BFF423D14FB6002BF63B /* NoteProtocol.swift in Sources */,
 				D02BBB9823DA86550097F120 /* CategoryCellView.swift in Sources */,
 				D02BBB9A23DA91170097F120 /* NoteCellView.swift in Sources */,
+				D076032823F0F91A00A11C56 /* SplitViewController.swift in Sources */,
 				D02BBB9623D5339B0097F120 /* NoteTreeNode.swift in Sources */,
 				D071BFF923D15012002BF63B /* KeychainHelper.swift in Sources */,
 				D071BFF823D15003002BF63B /* ResponseSerializer.swift in Sources */,

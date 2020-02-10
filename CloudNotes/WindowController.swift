@@ -21,7 +21,7 @@ class WindowController: NSWindowController {
         window?.titleVisibility = .hidden
         window?.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
 
-        if let splitviewController = window?.contentViewController as? NSSplitViewController {
+        if let splitviewController = window?.contentViewController as? SplitViewController {
             sourceListController = splitviewController.splitViewItems[0].viewController as? SourceListController
             notesViewController = splitviewController.splitViewItems[1].viewController as? NotesViewController
             editorViewController = splitviewController.splitViewItems[2].viewController as? EditorViewController

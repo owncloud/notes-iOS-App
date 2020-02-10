@@ -418,11 +418,11 @@ CA
         <!--Split View Controller-->
         <scene sceneID="4DQ-EU-GzQ">
             <objects>
-                <splitViewController id="sTy-d4-xpi" sceneMemberID="viewController">
+                <splitViewController id="sTy-d4-xpi" customClass="SplitViewController" customModule="CloudNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="ZMQ-m9-IwS"/>
-                        <splitViewItem id="1AE-xE-eaY"/>
-                        <splitViewItem id="guL-IT-4Rf"/>
+                        <splitViewItem holdingPriority="490" behavior="sidebar" id="ZMQ-m9-IwS"/>
+                        <splitViewItem holdingPriority="255" behavior="contentList" id="1AE-xE-eaY"/>
+                        <splitViewItem holdingPriority="1" id="guL-IT-4Rf"/>
                     </splitViewItems>
                     <splitView key="splitView" autosaveName="mainSplitViewAutoSave" dividerStyle="thin" vertical="YES" id="oMH-gP-aHv">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>

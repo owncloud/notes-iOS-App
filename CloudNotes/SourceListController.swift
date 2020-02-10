@@ -228,6 +228,10 @@ extension SourceListController: NSOutlineViewDelegate {
 //        self.itemsTableView.scrollRowToVisible(0)
 
     }
+    
+    func outlineView(_ outlineView: NSOutlineView, shouldShowOutlineCellForItem item: Any) -> Bool {
+        return false
+    }
 }
 
 extension SourceListController: NSOutlineViewDataSource {
