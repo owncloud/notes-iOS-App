@@ -16,7 +16,7 @@ class SourceListController: NSViewController {
     @IBOutlet var notesOutlineView: NSOutlineView!
     @IBOutlet var leftTopView: NSView!
 
-    var editorViewController: EditorViewController?
+    var notesViewController: NotesViewController?
     
     private var nodeArray = [NoteTreeNode]()
     private var currentNode: NoteTreeNode?
@@ -131,19 +131,19 @@ extension SourceListController: NSOutlineViewDelegate {
             return nil
         }
         
-        if noteNode.isLeaf {
-            if let noteView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "NoteCell"), owner: self) as? NoteCellView {
-                let attributedContent = boldTitle(title: noteNode.title, content: noteNode.content)
-                noteView.contentLabel.attributedStringValue = attributedContent
-                noteView.modifiedLabel.stringValue = ModifiedValueTransformer().transformedValue(noteNode.modified) as? String ?? ""
-                return noteView
-            }
-        } else {
+//        if noteNode.isLeaf {
+//            if let noteView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "NoteCell"), owner: self) as? NoteCellView {
+//                let attributedContent = boldTitle(title: noteNode.title, content: noteNode.content)
+//                noteView.contentLabel.attributedStringValue = attributedContent
+//                noteView.modifiedLabel.stringValue = ModifiedValueTransformer().transformedValue(noteNode.modified) as? String ?? ""
+//                return noteView
+//            }
+//        } else {
             if let categoryView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CategoryCell"), owner: self) as? CategoryCellView {
                 categoryView.titleLabel.stringValue = noteNode.title
                 return categoryView
             }
-        }
+//        }
         return nil
     }
 
@@ -152,11 +152,11 @@ extension SourceListController: NSOutlineViewDelegate {
             return 0.0
         }
         
-        if noteNode.isLeaf {
-            return 96.0
-        } else {
+//        if noteNode.isLeaf {
+//            return 96.0
+//        } else {
             return 17.0
-        }
+//        }
     }
 
 
@@ -179,7 +179,12 @@ extension SourceListController: NSOutlineViewDelegate {
         
         if let selectedRow = selectedRow, let selectedObject = notesOutlineView.item(atRow: selectedRow) as? NoteTreeNode {
             currentNode = selectedObject
-            
+            notesViewController?.notes = selectedObject.children.compactMap({ (node) -> CDNote? in
+                if let node = node as? NoteNode {
+                    return node.note
+                }
+                return nil
+            })
             switch currentNode {
             case _ as AllNotesNode:
 //                if NSUserDefaultsController.shared.defaults.integer(forKey: "hideRead") == 0 {
@@ -204,9 +209,9 @@ extension SourceListController: NSOutlineViewDelegate {
 //                    }
 //                }
                 break
-            case let noteNode as NoteNode:
-                let selectedNote = noteNode.note
-                editorViewController?.note = selectedNote
+            case let _ as NoteNode:
+//                let selectedNote = noteNode.note
+//                editorViewController?.note = selectedNote
 //                print("Feed: \(feedNode.feed.title ?? "") selected")
 //                if NSUserDefaultsController.shared.defaults.integer(forKey: "hideRead") == 0 {
 //                    let unreadPredicate = NSPredicate(format: "unread == true")

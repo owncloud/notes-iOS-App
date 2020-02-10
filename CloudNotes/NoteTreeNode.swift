@@ -29,7 +29,7 @@ class AllNotesNode: NoteTreeNode {
     }
     
     var isLeaf: Bool {
-        return false
+        return true
     }
     
     var isGroupItem: Bool {
@@ -75,7 +75,7 @@ class StarredNotesNode: NoteTreeNode {
     }
 
     var isLeaf: Bool {
-        return false
+        return true
     }
     
     var isGroupItem: Bool {
@@ -117,7 +117,7 @@ class CategoryNode: NoteTreeNode {
     }
     
     var isLeaf: Bool {
-        return false
+        return true
     }
     
     var isGroupItem: Bool {
