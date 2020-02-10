@@ -24,6 +24,7 @@ class SourceListController: NSViewController {
     private var selectedColumn: IndexSet?
     private var isSyncing = false
     private var observers = [NSObjectProtocol]()
+    private var isInitialLaunch = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,14 @@ class SourceListController: NSViewController {
         }))
     }
 
+    override func viewWillAppear() {
+        if isInitialLaunch {
+            notesOutlineView.selectRowIndexes(IndexSet(integer: 1), byExtendingSelection: false)
+            outlineViewSelectionDidChange(Notification(name: NSOutlineView.selectionDidChangeNotification))
+            isInitialLaunch = false
+        }
+    }
+    
     @IBAction func onRefresh(sender: Any?) {
         guard NotesManager.isOnline else {
             return
@@ -130,33 +139,15 @@ extension SourceListController: NSOutlineViewDelegate {
         guard let noteNode = item as? NoteTreeNode else {
             return nil
         }
-        
-//        if noteNode.isLeaf {
-//            if let noteView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "NoteCell"), owner: self) as? NoteCellView {
-//                let attributedContent = boldTitle(title: noteNode.title, content: noteNode.content)
-//                noteView.contentLabel.attributedStringValue = attributedContent
-//                noteView.modifiedLabel.stringValue = ModifiedValueTransformer().transformedValue(noteNode.modified) as? String ?? ""
-//                return noteView
-//            }
-//        } else {
-            if let categoryView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CategoryCell"), owner: self) as? CategoryCellView {
-                categoryView.titleLabel.stringValue = noteNode.title
-                return categoryView
-            }
-//        }
+        if let categoryView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CategoryCell"), owner: self) as? CategoryCellView {
+            categoryView.titleLabel.stringValue = noteNode.title
+            return categoryView
+        }
         return nil
     }
 
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        guard let noteNode = item as? NoteTreeNode else {
-            return 0.0
-        }
-        
-//        if noteNode.isLeaf {
-//            return 96.0
-//        } else {
-            return 17.0
-//        }
+        return 17.0
     }
 
 
@@ -168,12 +159,6 @@ extension SourceListController: NSOutlineViewDelegate {
     }
     
     func outlineViewSelectionDidChange(_ notification: Notification) {
-//        guard let outlineView = notification.object as? NSOutlineView else {
-//            return
-//        }
-
-//        let selectedIndex = outlineView.selectedRow
-//        self.currentFeedRowIndex = selectedIndex
         selectedColumn = notesOutlineView.selectedColumnIndexes
         selectedRow = notesOutlineView.selectedRow
         
@@ -185,48 +170,7 @@ extension SourceListController: NSOutlineViewDelegate {
                 }
                 return nil
             })
-            switch currentNode {
-            case _ as AllNotesNode:
-//                if NSUserDefaultsController.shared.defaults.integer(forKey: "hideRead") == 0 {
-//                    self.itemsFilterPredicate = NSPredicate(format: "unread == true")
-//                } else {
-//                    self.itemsFilterPredicate = nil
-//                }
-                break
-            case _ as StarredNotesNode:
-//                print("Starred articles selected")
-//                self.itemsFilterPredicate = NSPredicate(format: "starred == true")
-                break
-            case _ as CategoryNode:
-//                print("Folder: \(folderNode.folder.name ?? "") selected")
-//                if let feedIds = CDFeed.idsInFolder(folder: folderNode.folder.id) {
-//                    if NSUserDefaultsController.shared.defaults.integer(forKey: "hideRead") == 0 {
-//                        let unreadPredicate = NSPredicate(format: "unread == true")
-//                        let feedPredicate = NSPredicate(format:"feedId IN %@", feedIds)
-//                        self.itemsFilterPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unreadPredicate, feedPredicate])
-//                    } else {
-//                        self.itemsFilterPredicate = NSPredicate(format:"feedId IN %@", feedIds)
-//                    }
-//                }
-                break
-            case let _ as NoteNode:
-//                let selectedNote = noteNode.note
-//                editorViewController?.note = selectedNote
-//                print("Feed: \(feedNode.feed.title ?? "") selected")
-//                if NSUserDefaultsController.shared.defaults.integer(forKey: "hideRead") == 0 {
-//                    let unreadPredicate = NSPredicate(format: "unread == true")
-//                    let feedPredicate = NSPredicate(format: "feedId == %d", feedNode.feed.id)
-//                    self.itemsFilterPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unreadPredicate, feedPredicate])
-//                } else {
-//                    self.itemsFilterPredicate = NSPredicate(format: "feedId == %d", feedNode.feed.id)
-//                }
-                break
-            default:
-                break
-            }
         }
-//        self.itemsTableView.scrollRowToVisible(0)
-
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldShowOutlineCellForItem item: Any) -> Bool {
