@@ -49,7 +49,8 @@ class EditorViewController: NSViewController {
         border.backgroundColor = NSColor.gridColor.cgColor
         topView.layer?.addSublayer(border)
         noteView.delegate = self
-        let theme = Theme("system-minimal")
+        let theme = Theme("one-light")
+        ///theme.backgroundColor = NSColor.controlBackgroundColor
         storage.theme = theme
         noteView.backgroundColor = theme.backgroundColor
         noteView.insertionPointColor = theme.tintColor

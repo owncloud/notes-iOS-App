@@ -13,9 +13,11 @@ class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         splitViewItems[0].minimumThickness = 200.0
+        splitViewItems[0].maximumThickness = 400.0
         splitViewItems[0].collapseBehavior = .useConstraints
         splitViewItems[0].isCollapsed = false
         splitViewItems[1].minimumThickness = 300.0
+        splitViewItems[1].maximumThickness = 600.0
         splitViewItems[1].collapseBehavior = .useConstraints
         splitViewItems[1].isCollapsed = false
         splitViewItems[2].minimumThickness = 300.0
