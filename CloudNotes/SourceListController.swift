@@ -139,9 +139,19 @@ extension SourceListController: NSOutlineViewDelegate {
         guard let noteNode = item as? NoteTreeNode else {
             return nil
         }
-        if let categoryView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CategoryCell"), owner: self) as? CategoryCellView {
-            categoryView.titleLabel.stringValue = noteNode.title
-            return categoryView
+        if noteNode.isGroupItem {
+            if let groupView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "GroupCell"), owner: self) as? NSTableCellView {
+                groupView.textField?.stringValue = noteNode.title
+                return groupView
+            }
+        } else {
+            if let categoryView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CategoryCell"), owner: self) as? NSTableCellView {
+                categoryView.textField?.stringValue = noteNode.title
+                if let _ = item as? StarredNotesNode {
+                    categoryView.imageView?.image = NSImage(named: "starred_mac")
+                }
+                return categoryView
+            }
         }
         return nil
     }

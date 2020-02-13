@@ -50,7 +50,6 @@
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
 		D02BBB9623D5339B0097F120 /* NoteTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */; };
-		D02BBB9823DA86550097F120 /* CategoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9723DA86550097F120 /* CategoryCellView.swift */; };
 		D02BBB9A23DA91170097F120 /* NoteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9923DA91170097F120 /* NoteCellView.swift */; };
 		D02BBB9C23DBE3960097F120 /* ModifiedValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9B23DBE3960097F120 /* ModifiedValueTransformer.swift */; };
 		D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */; };
@@ -228,7 +227,6 @@
 		D0225710189848060038232A /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D0225712189848120038232A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTreeNode.swift; sourceTree = "<group>"; };
-		D02BBB9723DA86550097F120 /* CategoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellView.swift; sourceTree = "<group>"; };
 		D02BBB9923DA91170097F120 /* NoteCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCellView.swift; sourceTree = "<group>"; };
 		D02BBB9B23DBE3960097F120 /* ModifiedValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifiedValueTransformer.swift; sourceTree = "<group>"; };
 		D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
@@ -390,7 +388,6 @@
 				BDEFED6423DE326E00EA22A6 /* EditorViewController.swift */,
 				D071BFFF23D1571B002BF63B /* PrefsViewController.swift */,
 				D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */,
-				D02BBB9723DA86550097F120 /* CategoryCellView.swift */,
 				BDC5FF8F23F3BBD200E0EB17 /* SourceTableRowView.swift */,
 				BDC5FF9123F4E48F00E0EB17 /* NoteTableRowView.swift */,
 				D02BBB9923DA91170097F120 /* NoteCellView.swift */,
@@ -878,7 +875,6 @@
 				D02BBB9C23DBE3960097F120 /* ModifiedValueTransformer.swift in Sources */,
 				D071C00023D1571B002BF63B /* PrefsViewController.swift in Sources */,
 				D071BFF423D14FB6002BF63B /* NoteProtocol.swift in Sources */,
-				D02BBB9823DA86550097F120 /* CategoryCellView.swift in Sources */,
 				D02BBB9A23DA91170097F120 /* NoteCellView.swift in Sources */,
 				D076032823F0F91A00A11C56 /* SplitViewController.swift in Sources */,
 				D02BBB9623D5339B0097F120 /* NoteTreeNode.swift in Sources */,

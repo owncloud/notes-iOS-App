@@ -522,30 +522,46 @@ CA
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView identifier="CategoryCell" id="KdD-0t-sir" customClass="CategoryCellView" customModule="CloudNotes" customModuleProvider="target">
+                                                        <tableCellView identifier="GroupCell" id="bdz-9N-r64">
                                                             <rect key="frame" x="1" y="2" width="445" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9v-N8-yvx">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kYF-Em-08Z">
                                                                     <rect key="frame" x="0.0" y="0.0" width="445" height="17"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="17" id="phO-ae-kD7"/>
-                                                                    </constraints>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Uncategorized" id="s3z-3S-OM5">
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="oiD-W3-dUC">
                                                                         <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="K9v-N8-yvx" firstAttribute="centerX" secondItem="KdD-0t-sir" secondAttribute="centerX" id="hLP-Fw-qwY"/>
-                                                                <constraint firstItem="K9v-N8-yvx" firstAttribute="centerY" secondItem="KdD-0t-sir" secondAttribute="centerY" id="rmS-hO-4bg"/>
-                                                                <constraint firstItem="K9v-N8-yvx" firstAttribute="leading" secondItem="KdD-0t-sir" secondAttribute="leading" constant="2" id="zMA-sm-Sms"/>
-                                                            </constraints>
                                                             <connections>
-                                                                <outlet property="textField" destination="K9v-N8-yvx" id="z3u-eg-gJK"/>
-                                                                <outlet property="titleLabel" destination="K9v-N8-yvx" id="dWw-gY-e9y"/>
+                                                                <outlet property="textField" destination="kYF-Em-08Z" id="K0R-dt-Yzk"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                        <tableCellView identifier="CategoryCell" id="FeC-cR-Pyp">
+                                                            <rect key="frame" x="1" y="24" width="445" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5K0-Vr-ip8">
+                                                                    <rect key="frame" x="3" y="0.0" width="17" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="folder" id="3Ly-RY-0EQ"/>
+                                                                </imageView>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nyB-6N-3uI">
+                                                                    <rect key="frame" x="25" y="0.0" width="420" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="JlN-Rb-l9G">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="imageView" destination="5K0-Vr-ip8" id="gcv-zd-pYw"/>
+                                                                <outlet property="textField" destination="nyB-6N-3uI" id="EOV-rf-9rt"/>
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
@@ -1065,5 +1081,6 @@ CA
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSShareTemplate" width="11" height="16"/>
         <image name="NSTouchBarDeleteTemplate" width="15" height="30"/>
+        <image name="folder" width="22" height="22"/>
     </resources>
 </document>
