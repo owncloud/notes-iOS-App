@@ -71,7 +71,11 @@ extension NotesViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         return 96.0
     }
-    
+
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return NoteTableRowView(frame: .zero)
+    }
+
     func tableViewSelectionDidChange(_ notification: Notification) {
         let selectedRow = notesView.selectedRow
         guard let note = notes?[selectedRow] else {

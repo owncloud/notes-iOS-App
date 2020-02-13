@@ -14,7 +14,8 @@
 		BD92271B22CD3743004E2408 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92271A22CD3743004E2408 /* UtilityExtensions.swift */; };
 		BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92272622D7874E004E2408 /* Notepad.framework */; platformFilter = ios; };
 		BDC5FF8B23EB996200E0EB17 /* Notepad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDC5FF8A23EB996200E0EB17 /* Notepad.framework */; };
-		BDC5FF9023F3BBD200E0EB17 /* TableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC5FF8F23F3BBD200E0EB17 /* TableRowView.swift */; };
+		BDC5FF9023F3BBD200E0EB17 /* SourceTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC5FF8F23F3BBD200E0EB17 /* SourceTableRowView.swift */; };
+		BDC5FF9323F4E5C200E0EB17 /* NoteTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC5FF9123F4E48F00E0EB17 /* NoteTableRowView.swift */; };
 		BDD015A1234CF551000BA001 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD015A0234CEF86000BA001 /* Colors.xcassets */; };
 		BDD015A32353F7D4000BA001 /* PBHSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */; };
 		BDDD77A9235CDF130053DAEC /* NotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDD77A8235CDF130053DAEC /* NotesTests.swift */; };
@@ -182,7 +183,8 @@
 		BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMessages.framework; path = Carthage/Build/iOS/SwiftMessages.framework; sourceTree = "<group>"; };
 		BD92272622D7874E004E2408 /* Notepad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Notepad.framework; path = Carthage/Build/iOS/Notepad.framework; sourceTree = "<group>"; };
 		BDC5FF8A23EB996200E0EB17 /* Notepad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Notepad.framework; path = Carthage/Build/Mac/Notepad.framework; sourceTree = "<group>"; };
-		BDC5FF8F23F3BBD200E0EB17 /* TableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRowView.swift; sourceTree = "<group>"; };
+		BDC5FF8F23F3BBD200E0EB17 /* SourceTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceTableRowView.swift; sourceTree = "<group>"; };
+		BDC5FF9123F4E48F00E0EB17 /* NoteTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableRowView.swift; sourceTree = "<group>"; };
 		BDD015A0234CEF86000BA001 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBHSplitViewController.swift; sourceTree = "<group>"; };
 		BDDD77A8235CDF130053DAEC /* NotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTests.swift; sourceTree = "<group>"; };
@@ -389,7 +391,8 @@
 				D071BFFF23D1571B002BF63B /* PrefsViewController.swift */,
 				D02BBB9523D5339B0097F120 /* NoteTreeNode.swift */,
 				D02BBB9723DA86550097F120 /* CategoryCellView.swift */,
-				BDC5FF8F23F3BBD200E0EB17 /* TableRowView.swift */,
+				BDC5FF8F23F3BBD200E0EB17 /* SourceTableRowView.swift */,
+				BDC5FF9123F4E48F00E0EB17 /* NoteTableRowView.swift */,
 				D02BBB9923DA91170097F120 /* NoteCellView.swift */,
 				D02BBB9B23DBE3960097F120 /* ModifiedValueTransformer.swift */,
 				D071BFE423CD6245002BF63B /* Assets.xcassets */,
@@ -865,6 +868,7 @@
 			files = (
 				D071BFF623D14FFA002BF63B /* NoteRouter.swift in Sources */,
 				D071BFF723D15000002BF63B /* NoteSessionManager.swift in Sources */,
+				BDC5FF9323F4E5C200E0EB17 /* NoteTableRowView.swift in Sources */,
 				D071BFF223D14F34002BF63B /* CDNote+CoreDataProperties.swift in Sources */,
 				BDEFED6523DE326E00EA22A6 /* EditorViewController.swift in Sources */,
 				D071BFE023CD6244002BF63B /* SourceListController.swift in Sources */,
@@ -882,7 +886,7 @@
 				D071BFF823D15003002BF63B /* ResponseSerializer.swift in Sources */,
 				D071BFFA23D1505A002BF63B /* UtilityExtensions.swift in Sources */,
 				D076032623EF8E0C00A11C56 /* NotesViewController.swift in Sources */,
-				BDC5FF9023F3BBD200E0EB17 /* TableRowView.swift in Sources */,
+				BDC5FF9023F3BBD200E0EB17 /* SourceTableRowView.swift in Sources */,
 				D071BFF323D14F39002BF63B /* NotesData.swift in Sources */,
 				D071BFF123D14F31002BF63B /* CDNote+CoreDataClass.swift in Sources */,
 				D071BFF523D14FCD002BF63B /* Constants.swift in Sources */,

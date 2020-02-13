@@ -151,7 +151,7 @@ extension SourceListController: NSOutlineViewDelegate {
     }
 
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-        return TableRowView(frame: .zero)
+        return SourceTableRowView(frame: .zero)
     }
 
     func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {

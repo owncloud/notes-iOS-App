@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class TableRowView: NSTableRowView {
+class SourceTableRowView: NSTableRowView {
 
     override var isEmphasized: Bool {
         set { }
@@ -16,4 +16,5 @@ class TableRowView: NSTableRowView {
             return false
         }
     }
+
 }
