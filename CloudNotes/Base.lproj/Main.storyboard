@@ -454,10 +454,10 @@ CA
                                 <rect key="frame" x="0.0" y="283" width="448" height="40"/>
                                 <subviews>
                                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="3Ss-Ne-65J">
-                                        <rect key="frame" x="360" y="12" width="16" height="16"/>
+                                        <rect key="frame" x="386" y="12" width="16" height="16"/>
                                     </progressIndicator>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3am-db-XRk">
-                                        <rect key="frame" x="381" y="10" width="21" height="21"/>
+                                        <rect key="frame" x="407" y="10" width="21" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="21" id="Xi4-ce-2L4"/>
                                             <constraint firstAttribute="height" constant="21" id="kSz-UR-8H9"/>
@@ -470,28 +470,12 @@ CA
                                             <action selector="onRefreshWithSender:" target="7fh-gz-iZS" id="zws-ZJ-lCI"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="V2O-sp-L96">
-                                        <rect key="frame" x="407" y="10" width="21" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="Wxy-za-nV2"/>
-                                            <constraint firstAttribute="width" constant="21" id="qWS-qr-vQq"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" refusesFirstResponder="YES" inset="2" id="1JO-zc-CQ2">
-                                            <behavior key="behavior" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="onAddWithSender:" target="7fh-gz-iZS" id="GXa-WI-pze"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="V2O-sp-L96" firstAttribute="leading" secondItem="3am-db-XRk" secondAttribute="trailing" constant="5" id="AqG-uB-Wi0"/>
+                                    <constraint firstAttribute="trailing" secondItem="3am-db-XRk" secondAttribute="trailing" constant="20" id="Bdb-8F-W1Q"/>
                                     <constraint firstAttribute="height" constant="40" id="Isa-2m-tTa"/>
                                     <constraint firstItem="3Ss-Ne-65J" firstAttribute="centerY" secondItem="vB1-E7-W3a" secondAttribute="centerY" id="S7p-EO-sxB"/>
-                                    <constraint firstAttribute="trailing" secondItem="V2O-sp-L96" secondAttribute="trailing" constant="20" id="WqJ-WH-mxh"/>
                                     <constraint firstItem="3Ss-Ne-65J" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vB1-E7-W3a" secondAttribute="leading" constant="15" id="jDd-DN-Dqo"/>
-                                    <constraint firstItem="V2O-sp-L96" firstAttribute="centerY" secondItem="vB1-E7-W3a" secondAttribute="centerY" id="mBf-Hy-z06"/>
                                     <constraint firstItem="3am-db-XRk" firstAttribute="centerY" secondItem="vB1-E7-W3a" secondAttribute="centerY" id="okD-Ti-LHn"/>
                                     <constraint firstItem="3am-db-XRk" firstAttribute="leading" secondItem="3Ss-Ne-65J" secondAttribute="trailing" constant="5" id="rIm-3n-kAO"/>
                                 </constraints>
@@ -596,7 +580,6 @@ CA
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addBarButton" destination="V2O-sp-L96" id="OJk-Cf-6oz"/>
                         <outlet property="leftTopView" destination="vB1-E7-W3a" id="i08-yt-uXP"/>
                         <outlet property="notesOutlineView" destination="pJO-ky-b7X" id="WaD-NB-MjZ"/>
                         <outlet property="refreshBarButton" destination="3am-db-XRk" id="irk-3o-1fL"/>
