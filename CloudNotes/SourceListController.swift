@@ -148,7 +148,7 @@ extension SourceListController: NSOutlineViewDelegate {
             if let categoryView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CategoryCell"), owner: self) as? NSTableCellView {
                 categoryView.textField?.stringValue = noteNode.title
                 if let _ = item as? StarredNotesNode {
-                    categoryView.imageView?.image = NSImage(named: "starred_mac")
+                    categoryView.imageView?.image = NSImage(named: "Starred Articles")
                 }
                 return categoryView
             }
