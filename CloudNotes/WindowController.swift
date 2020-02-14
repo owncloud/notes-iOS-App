@@ -34,6 +34,7 @@ class WindowController: NSWindowController {
     //        HUD.show(.progress)
             NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
                 if note != nil {
+                    self?.sourceListController?.notesOutlineView.selectRowIndexes([3], byExtendingSelection: false)
     //                let indexPath = IndexPath(row: 0, section: 0)
     //                if self?.notesFrc.validate(indexPath: indexPath) ?? false,
     //                    let collapsedInfo = self?.sectionCollapsedInfo.first(where: { $0.title == Constants.noCategory }),
