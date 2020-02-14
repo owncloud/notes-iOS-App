@@ -67,7 +67,7 @@
                                     <items>
                                         <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
                                             <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
+                                                <action selector="onAddWithSender:" target="Ady-hI-5gd" id="Hu0-s4-bSo"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
@@ -621,6 +621,9 @@ CA
                                             <behavior key="behavior" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="onAddWithSender:" target="kEA-nM-7QA" id="3UU-sp-Sfm"/>
+                                        </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="DFX-34-bVY">
                                         <rect key="frame" x="381" y="10" width="21" height="21"/>
