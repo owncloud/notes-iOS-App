@@ -16,7 +16,7 @@ class NotesViewController: NSViewController {
     var editorViewController: EditorViewController?
     var selectedNote: CDNote?
 
-    var notes: [CDNote]? {
+    var node: NoteTreeNode? {
         didSet {
             editorViewController?.note = nil
             notesView.reloadData()
@@ -57,13 +57,13 @@ class NotesViewController: NSViewController {
 extension NotesViewController: NSTableViewDelegate {
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let note = notes?[row] else {
+        guard let noteNodes = node?.children, let noteNode = noteNodes[row] as? NoteNode else {
             return nil
         }
         
         if let noteView = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "NoteCell"), owner: self) as? NoteCellView {
-            noteView.contentLabel.stringValue = note.content
-            noteView.modifiedLabel.stringValue = ModifiedValueTransformer().transformedValue(note.modified) as? String ?? ""
+            noteView.contentLabel.stringValue = noteNode.note.content
+            noteView.modifiedLabel.stringValue = ModifiedValueTransformer().transformedValue(noteNode.note.modified) as? String ?? ""
             return noteView
         }
         return nil        
@@ -79,11 +79,11 @@ extension NotesViewController: NSTableViewDelegate {
 
     func tableViewSelectionDidChange(_ notification: Notification) {
         let selectedRow = notesView.selectedRow
-        guard let note = notes?[selectedRow] else {
+        guard let noteNodes = node?.children, let noteNode = noteNodes[selectedRow] as? NoteNode else {
             return
         }
-        selectedNote = note
-        editorViewController?.note = note
+        selectedNote = noteNode.note
+        editorViewController?.note = noteNode.note
     }
 
 }
@@ -91,17 +91,14 @@ extension NotesViewController: NSTableViewDelegate {
 extension NotesViewController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        if let notes = notes {
-            return notes.count
-        }
-        return 0
+        return node?.childCount ?? 0
     }
     
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        guard let note = notes?[row] else {
+        guard let noteNodes = node?.children, let noteNode = noteNodes[row] as? NoteNode else {
             return nil
         }
-        return note
+        return noteNode.note
     }
     
 }

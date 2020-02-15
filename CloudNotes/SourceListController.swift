@@ -158,12 +158,7 @@ extension SourceListController: NSOutlineViewDelegate {
         
         if let selectedRow = selectedRow, let selectedObject = notesOutlineView.item(atRow: selectedRow) as? NoteTreeNode {
             currentNode = selectedObject
-            notesViewController?.notes = selectedObject.children.compactMap({ (node) -> CDNote? in
-                if let node = node as? NoteNode {
-                    return node.note
-                }
-                return nil
-            })
+            notesViewController?.node = currentNode
         }
     }
     
