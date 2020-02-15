@@ -10,7 +10,6 @@ import Cocoa
 
 class SourceListController: NSViewController {
 
-    @IBOutlet var addBarButton: NSButton!
     @IBOutlet var refreshBarButton: NSButton!
     @IBOutlet var refreshProgressIndicator: NSProgressIndicator!
     @IBOutlet var notesOutlineView: NSOutlineView!
@@ -66,18 +65,17 @@ class SourceListController: NSViewController {
 
         refreshProgressIndicator.startAnimation(nil)
         refreshBarButton.isEnabled = false
-        addBarButton.isEnabled = false
         isSyncing = true
         NotesManager.shared.sync { [weak self] in
             self?.isSyncing = false
-            self?.addBarButton.isEnabled = true
             self?.refreshBarButton.isEnabled = NotesManager.isOnline
+            self?.notesOutlineView.reloadData()
+            self?.notesViewController?.notesView.reloadData()
             self?.refreshProgressIndicator.stopAnimation(nil)
-//          self?.tableView.reloadData()
         }
 
     }
-        
+
     func rebuildCategoriesAndNotesList() {
         self.nodeArray.removeAll()
         self.nodeArray.append(FavoritesNotesNode())

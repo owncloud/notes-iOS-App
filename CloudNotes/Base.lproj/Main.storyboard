@@ -301,7 +301,7 @@
                                     <items>
                                         <menuItem title="Sync" keyEquivalent="r" id="snW-S8-Cw5">
                                             <connections>
-                                                <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="BXY-wc-z0C"/>
+                                                <action selector="onSyncWithSender:" target="Ady-hI-5gd" id="TZd-wd-lP6"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="iTe-42-0fl"/>

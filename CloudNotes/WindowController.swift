@@ -40,6 +40,10 @@ class WindowController: NSWindowController {
         })
     }
 
+    @IBAction func onSync(sender: Any?) {
+        self.sourceListController?.onRefresh(sender: sender)
+    }
+
 }
 
 class PrefsWindowController: NSWindowController {
