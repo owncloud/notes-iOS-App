@@ -31,21 +31,14 @@ class WindowController: NSWindowController {
     }
 
     @IBAction func onAdd(sender: Any?) {
-    //        HUD.show(.progress)
-            NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
-                if note != nil {
-                    self?.sourceListController?.notesOutlineView.selectRowIndexes([3], byExtendingSelection: false)
-    //                let indexPath = IndexPath(row: 0, section: 0)
-    //                if self?.notesFrc.validate(indexPath: indexPath) ?? false,
-    //                    let collapsedInfo = self?.sectionCollapsedInfo.first(where: { $0.title == Constants.noCategory }),
-    //                    !collapsedInfo.collapsed {
-    //                    self?.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .top)
-    //                }
-    //                self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
-                }
-    //            HUD.hide()
-            })
-        }
+        NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
+            if note != nil {
+                self?.sourceListController?.notesOutlineView.selectRowIndexes([3], byExtendingSelection: false)
+                self?.notesViewController?.notesView.selectRowIndexes([0], byExtendingSelection: false)
+                self?.window?.makeFirstResponder(self?.editorViewController?.noteView)
+            }
+        })
+    }
 
 }
 
