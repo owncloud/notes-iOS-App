@@ -37,6 +37,8 @@ public class CDNote: NSManagedObject {
 
     static func all() -> [CDNote]? {
         let request: NSFetchRequest<CDNote> = self.fetchRequest()
+        let property = "cdDeleteNeeded"
+        request.predicate = NSPredicate(format: "%K == %@", property, NSNumber(value: false))
         var noteList = [CDNote]()
         do {
             let results  = try NotesData.mainThreadContext.fetch(request)
@@ -72,7 +74,10 @@ public class CDNote: NSManagedObject {
 
     static func notes(category: String) -> [CDNote]? {
         let request: NSFetchRequest<CDNote> = self.fetchRequest()
-        request.predicate = NSPredicate(format: "cdCategory == %@", category)
+        let predicate1 = NSPredicate(format: "cdCategory == %@", category)
+        let property = "cdDeleteNeeded"
+        let predicate2 = NSPredicate(format: "%K == %@", property, NSNumber(value: false))
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2])
         do {
             return try NotesData.mainThreadContext.fetch(request)
         } catch let error as NSError {

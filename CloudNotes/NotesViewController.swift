@@ -62,6 +62,7 @@ extension NotesViewController: NSTableViewDelegate {
         }
         
         if let noteView = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "NoteCell"), owner: self) as? NoteCellView {
+            noteView.titleLabel.stringValue = noteNode.note.title
             noteView.contentLabel.stringValue = noteNode.note.content
             noteView.modifiedLabel.stringValue = ModifiedValueTransformer().transformedValue(noteNode.note.modified) as? String ?? ""
             return noteView
