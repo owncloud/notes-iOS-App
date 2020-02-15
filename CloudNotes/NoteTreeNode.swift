@@ -51,7 +51,13 @@ class AllNotesNode: NoteTreeNode {
                 result.append(NoteNode(note: note))
             }
         }
-        return result
+        let sorted = result.sorted {
+            if let modified1 = $0.modified?.intValue, let modified2 = $1.modified?.intValue {
+                return modified1 > modified2
+            }
+            return false
+        }
+        return sorted
     }
     
     var title: String {
@@ -140,7 +146,13 @@ class CategoryNode: NoteTreeNode {
                     result.append(NoteNode(note: note))
                 }
             }
-            return result
+            let sorted = result.sorted {
+                if let modified1 = $0.modified?.intValue, let modified2 = $1.modified?.intValue {
+                    return modified1 > modified2
+                }
+                return false
+            }
+            return sorted
         }
     }
     
