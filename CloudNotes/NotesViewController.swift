@@ -14,6 +14,7 @@ class NotesViewController: NSViewController {
     @IBOutlet var notesView: NSTableView!
 
     var editorViewController: EditorViewController?
+    var selectedNote: CDNote?
 
     var notes: [CDNote]? {
         didSet {
@@ -21,7 +22,7 @@ class NotesViewController: NSViewController {
             notesView.reloadData()
         }
     }
-    
+
     private var observers = [NSObjectProtocol]()
 
     deinit {
@@ -81,6 +82,7 @@ extension NotesViewController: NSTableViewDelegate {
         guard let note = notes?[selectedRow] else {
             return
         }
+        selectedNote = note
         editorViewController?.note = note
     }
 

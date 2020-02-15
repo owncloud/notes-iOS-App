@@ -333,6 +333,9 @@
 CA
 </string>
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="onDeleteWithSender:" target="Ady-hI-5gd" id="olJ-p1-pX3"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -627,6 +630,9 @@ CA
                                             <behavior key="behavior" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="onDeleteWithSender:" target="kEA-nM-7QA" id="fUQ-9Q-OJc"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>

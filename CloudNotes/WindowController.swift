@@ -20,6 +20,7 @@ class WindowController: NSWindowController {
         window?.titlebarAppearsTransparent = true
         window?.titleVisibility = .hidden
         window?.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
+        NSApp.mainMenu?.delegate = self
 
         if let splitviewController = window?.contentViewController as? SplitViewController {
             sourceListController = splitviewController.splitViewItems[0].viewController as? SourceListController
@@ -44,6 +45,26 @@ class WindowController: NSWindowController {
         self.sourceListController?.onRefresh(sender: sender)
     }
 
+    @IBAction func onDelete(sender: Any?) {
+        if let currentNote = notesViewController?.selectedNote {
+            NotesManager.shared.delete(note: currentNote) { [weak self] in
+                self?.sourceListController?.notesOutlineView.reloadData()
+                self?.notesViewController?.notesView.reloadData()
+                self?.editorViewController?.note = nil
+            }
+        }
+    }
+
+}
+
+extension WindowController: NSMenuDelegate, NSMenuItemValidation {
+
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.action == #selector(onDelete(sender:)) {
+            return notesViewController?.selectedNote != nil
+        }
+        return true
+    }
 }
 
 class PrefsWindowController: NSWindowController {
