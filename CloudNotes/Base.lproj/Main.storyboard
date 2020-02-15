@@ -71,16 +71,8 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                                        <menuItem title="Import…" keyEquivalent="i" id="qIS-W8-SiK">
-                                            <connections>
-                                                <action selector="runPageLayout:" target="Ady-hI-5gd" id="Din-rz-gC5"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Export…" keyEquivalent="e" id="aTl-1u-JFS">
-                                            <connections>
-                                                <action selector="print:" target="Ady-hI-5gd" id="qaZ-4w-aoO"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="Import…" keyEquivalent="i" id="qIS-W8-SiK"/>
+                                        <menuItem title="Export…" keyEquivalent="e" id="aTl-1u-JFS"/>
                                     </items>
                                 </menu>
                             </menuItem>
