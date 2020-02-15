@@ -673,10 +673,18 @@ CA
                                                             <rect key="frame" x="1" y="1" width="445" height="96"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hIw-eC-bS0">
+                                                                    <rect key="frame" x="16" y="74" width="423" height="16"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Label" usesSingleLineMode="YES" id="UF9-eB-ovY">
+                                                                        <font key="font" metaFont="systemBold"/>
+                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjX-KD-6WP">
-                                                                    <rect key="frame" x="16" y="23" width="423" height="72"/>
+                                                                    <rect key="frame" x="16" y="23" width="423" height="48"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="72" id="uIL-hu-Wkx"/>
+                                                                        <constraint firstAttribute="height" constant="48" id="uIL-hu-Wkx"/>
                                                                     </constraints>
                                                                     <textFieldCell key="cell" truncatesLastVisibleLine="YES" allowsUndo="NO" title="Note content" allowsEditingTextAttributes="YES" id="gIi-hV-mNL">
                                                                         <font key="font" metaFont="system"/>
@@ -699,14 +707,19 @@ CA
                                                             <constraints>
                                                                 <constraint firstItem="cjX-KD-6WP" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="18" id="8gd-aW-72q"/>
                                                                 <constraint firstItem="ZTe-Wh-HjU" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="16" id="R4B-j0-ZhI"/>
+                                                                <constraint firstItem="hIw-eC-bS0" firstAttribute="leading" secondItem="Dhd-dR-qdo" secondAttribute="leading" constant="18" id="UWF-CT-pyH"/>
                                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZTe-Wh-HjU" secondAttribute="trailing" constant="2" id="Wen-Jj-RWk"/>
+                                                                <constraint firstItem="cjX-KD-6WP" firstAttribute="top" secondItem="hIw-eC-bS0" secondAttribute="bottom" constant="3" id="YA6-Qf-Qyz"/>
                                                                 <constraint firstAttribute="trailing" secondItem="cjX-KD-6WP" secondAttribute="trailing" constant="8" id="dWK-Ac-RQS"/>
+                                                                <constraint firstItem="hIw-eC-bS0" firstAttribute="top" secondItem="Dhd-dR-qdo" secondAttribute="top" constant="6" id="g3f-vO-Abh"/>
+                                                                <constraint firstAttribute="trailing" secondItem="hIw-eC-bS0" secondAttribute="trailing" constant="8" id="uMT-9a-ONt"/>
                                                                 <constraint firstAttribute="bottom" secondItem="ZTe-Wh-HjU" secondAttribute="bottom" constant="5" id="xqa-7c-k1w"/>
                                                                 <constraint firstItem="ZTe-Wh-HjU" firstAttribute="top" secondItem="cjX-KD-6WP" secondAttribute="bottom" constant="4" id="yMP-IB-Yh9"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="contentLabel" destination="cjX-KD-6WP" id="unT-rw-HzW"/>
                                                                 <outlet property="modifiedLabel" destination="ZTe-Wh-HjU" id="3Di-05-p0B"/>
+                                                                <outlet property="titleLabel" destination="hIw-eC-bS0" id="emE-vO-rBV"/>
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
