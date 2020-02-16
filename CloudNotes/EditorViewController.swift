@@ -59,6 +59,16 @@ class EditorViewController: NSViewController {
         updateTextView()
     }
     
+    func updateStarred() {
+        if let note = note {
+            let currentState = note.favorite
+            note.favorite = !currentState
+            NotesManager.shared.update(note: note) {
+                NotificationCenter.default.post(name: .editorUpdatedNote, object: note)
+            }
+        }
+    }
+    
     private func updateTextView() {
         if let note = note {
             noteView.string = note.content;

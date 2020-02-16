@@ -54,16 +54,34 @@ class WindowController: NSWindowController {
             }
         }
     }
+    
+    @IBAction func onFavorite(sender: Any?) {
+        editorViewController?.updateStarred()
+    }
+
 
 }
 
 extension WindowController: NSMenuDelegate, NSMenuItemValidation {
 
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.action == #selector(onDelete(sender:)) {
+        print("Validating \(menuItem.identifier?.rawValue ?? ""))")
+        switch menuItem.identifier?.rawValue {
+        case "deleteMenuItem":
             return notesViewController?.selectedNote != nil
+        case "favoriteMenuItem":
+            if let note = notesViewController?.selectedNote {
+                if note.favorite {
+                    menuItem.state = .on
+                } else {
+                    menuItem.state = .off
+                }
+                return true
+            }
+            return false
+        default:
+            return true
         }
-        return true
     }
 }
 

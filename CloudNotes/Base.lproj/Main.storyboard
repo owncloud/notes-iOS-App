@@ -65,14 +65,14 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
+                                        <menuItem title="New" keyEquivalent="n" identifier="newMenuItem" id="Was-JA-tGl">
                                             <connections>
                                                 <action selector="onAddWithSender:" target="Ady-hI-5gd" id="Hu0-s4-bSo"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                                        <menuItem title="Import…" keyEquivalent="i" id="qIS-W8-SiK"/>
-                                        <menuItem title="Export…" keyEquivalent="e" id="aTl-1u-JFS"/>
+                                        <menuItem title="Import…" keyEquivalent="i" identifier="importMenuItem" id="qIS-W8-SiK"/>
+                                        <menuItem title="Export…" keyEquivalent="e" identifier="exportMenuItem" id="aTl-1u-JFS"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -299,7 +299,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
                                     <items>
-                                        <menuItem title="Sync" keyEquivalent="r" id="snW-S8-Cw5">
+                                        <menuItem title="Sync" keyEquivalent="r" identifier="syncMenuItem" id="snW-S8-Cw5">
                                             <connections>
                                                 <action selector="onSyncWithSender:" target="Ady-hI-5gd" id="TZd-wd-lP6"/>
                                             </connections>
@@ -318,17 +318,22 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Note" id="sDg-q8-d8x">
                                     <items>
-                                        <menuItem title="Preview..." keyEquivalent="s" id="xJx-tA-z3e">
+                                        <menuItem title="Preview..." keyEquivalent="s" identifier="previewMenuItem" id="xJx-tA-z3e">
                                             <connections>
                                                 <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="Qjk-yx-kM7"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Z1r-rF-9lu"/>
-                                        <menuItem title="Category..." id="avb-fx-4gh">
+                                        <menuItem title="Favorite" keyEquivalent="d" identifier="favoriteMenuItem" id="lPS-K5-5ht">
+                                            <connections>
+                                                <action selector="onFavoriteWithSender:" target="Ady-hI-5gd" id="efZ-Hk-hig"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Category..." identifier="categoryMenuItem" id="avb-fx-4gh">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
-                                        <menuItem title="Delete" id="Ok3-Es-Be6">
+                                        <menuItem title="Delete" identifier="deleteMenuItem" id="Ok3-Es-Be6">
                                             <string key="keyEquivalent" base64-UTF8="YES">
 CA
 </string>
@@ -415,8 +420,8 @@ CA
             <objects>
                 <splitViewController id="sTy-d4-xpi" customClass="SplitViewController" customModule="CloudNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem holdingPriority="249" behavior="sidebar" id="ZMQ-m9-IwS"/>
-                        <splitViewItem holdingPriority="249" behavior="contentList" id="1AE-xE-eaY"/>
+                        <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="ZMQ-m9-IwS"/>
+                        <splitViewItem holdingPriority="255" behavior="contentList" id="1AE-xE-eaY"/>
                         <splitViewItem holdingPriority="1" id="guL-IT-4Rf"/>
                     </splitViewItems>
                     <splitView key="splitView" autosaveName="mainSplitViewAutoSave" dividerStyle="thin" vertical="YES" id="oMH-gP-aHv">
@@ -490,7 +495,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="NotesColumn" editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -658,7 +663,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="1000" id="imA-Q9-RWv">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -892,7 +897,7 @@ CA
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" title="15 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CIL-Zf-dN6" id="wcj-7q-46h">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="system"/>
                                                         <menu key="menu" id="jXg-tm-00m">
                                                             <items>
                                                                 <menuItem title="Never" id="CBV-XJ-5Ay"/>
