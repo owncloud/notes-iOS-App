@@ -51,6 +51,20 @@ public class CDNote: NSManagedObject {
         return noteList
     }
 
+    static func starred() -> [CDNote]? {
+        let request: NSFetchRequest<CDNote> = self.fetchRequest()
+        let predicate1 = NSPredicate(format: "cdFavorite == %@", NSNumber(value: true))
+        let property = "cdDeleteNeeded"
+        let predicate2 = NSPredicate(format: "%K == %@", property, NSNumber(value: false))
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2])
+        do {
+            return try NotesData.mainThreadContext.fetch(request)
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        return nil
+    }
+
     static func categories() -> [String]? {
         if let notes = CDNote.all() {
             let rawCategories = notes.compactMap({ (note) -> String? in

@@ -89,11 +89,27 @@ class StarredNotesNode: NoteTreeNode {
     }
 
     var childCount: Int {
-        return 0
+        var count = 0
+        if let notes = CDNote.starred() {
+            count = notes.count
+        }
+        return count
     }
     
     var children: [NoteTreeNode] {
-        return []
+        var result = [NoteTreeNode]()
+        if let notes = CDNote.starred() {
+            for note in notes {
+                result.append(NoteNode(note: note))
+            }
+        }
+        let sorted = result.sorted {
+            if let modified1 = $0.modified?.intValue, let modified2 = $1.modified?.intValue {
+                return modified1 > modified2
+            }
+            return false
+        }
+        return sorted
     }
     
     var title: String {
