@@ -56,9 +56,8 @@ class WindowController: NSWindowController {
     }
     
     @IBAction func onFavorite(sender: Any?) {
-        editorViewController?.updateStarred()
+        editorViewController?.onFavorite(self)
     }
-
 
 }
 

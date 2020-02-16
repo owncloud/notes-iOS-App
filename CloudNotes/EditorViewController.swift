@@ -14,6 +14,9 @@ class EditorViewController: NSViewController {
     @IBOutlet var topView: NSView!
     @IBOutlet var noteView: NSTextView!
 
+    @IBOutlet var shareButton: NSButton!
+    @IBOutlet var favoriteButton: NSButton!
+    
     let storage = Storage()
     
     var note: CDNote? {
@@ -59,10 +62,18 @@ class EditorViewController: NSViewController {
         updateTextView()
     }
     
-    func updateStarred() {
+    @IBAction func onShare(_ sender: Any) {
+    }
+    
+    @IBAction func onFavorite(_ sender: Any) {
         if let note = note {
             let currentState = note.favorite
             note.favorite = !currentState
+            if note.favorite {
+                favoriteButton.image = NSImage(named: "starred_mac")
+            } else {
+                favoriteButton.image = NSImage(named: "unstarred_mac")
+            }
             NotesManager.shared.update(note: note) {
                 NotificationCenter.default.post(name: .editorUpdatedNote, object: note)
             }
@@ -74,20 +85,19 @@ class EditorViewController: NSViewController {
             noteView.string = note.content;
             noteView.isEditable = true
             noteView.isSelectable = true
-//            activityButton.isEnabled = !noteView.text.isEmpty
-//            addButton.isEnabled = !noteView.text.isEmpty
-//            previewButton.isEnabled = !noteView.text.isEmpty
-//            deleteButton.isEnabled = true
+            favoriteButton.isEnabled = true
+            if note.favorite {
+                favoriteButton.image = NSImage(named: "starred_mac")
+            } else {
+                favoriteButton.image = NSImage(named: "unstarred_mac")
+            }
+            shareButton.isEnabled = false //TODO set to true once implemented
         } else {
             noteView.isEditable = false
             noteView.isSelectable = false
             noteView.string = NSLocalizedString("Select or create a note.", comment: "Placeholder text when no note is selected")
-//            noteView.headerLabel.text =
-//            navigationItem.title = ""
-//            activityButton.isEnabled = false
-//            addButton.isEnabled = true
-//            deleteButton.isEnabled = false
-//            previewButton.isEnabled = false
+            favoriteButton.isEnabled = false
+            shareButton.isEnabled = false
         }
     }
 

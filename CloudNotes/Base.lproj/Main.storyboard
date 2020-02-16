@@ -495,7 +495,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="NotesColumn" editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -663,7 +663,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="1000" id="imA-Q9-RWv">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -788,12 +788,31 @@ CA
                                             <behavior key="behavior" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="onShare:" target="Rgw-HT-mPX" id="44K-M7-C0U"/>
+                                        </connections>
+                                    </button>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="kj6-Iz-yHi">
+                                        <rect key="frame" x="383" y="10" width="21" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="21" id="Tow-UZ-xsa"/>
+                                            <constraint firstAttribute="height" constant="21" id="aWG-78-Gdy"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="unstarred_mac" imagePosition="only" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyDown" inset="2" id="npj-On-lUf">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="onFavorite:" target="Rgw-HT-mPX" id="ghu-aC-rCc"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="kj6-Iz-yHi" firstAttribute="centerY" secondItem="Qij-aY-Abr" secondAttribute="centerY" id="McF-nn-XGT"/>
                                     <constraint firstAttribute="height" constant="40" id="XXe-tu-hv9"/>
                                     <constraint firstItem="Vrt-on-aMa" firstAttribute="centerY" secondItem="Qij-aY-Abr" secondAttribute="centerY" id="bOq-YK-NMk"/>
                                     <constraint firstAttribute="trailing" secondItem="Vrt-on-aMa" secondAttribute="trailing" constant="20" id="dRw-0e-tv8"/>
+                                    <constraint firstItem="Vrt-on-aMa" firstAttribute="leading" secondItem="kj6-Iz-yHi" secondAttribute="trailing" constant="5" id="qso-8U-p0p"/>
                                 </constraints>
                             </customView>
                             <scrollView appearanceType="aqua" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQ4-80-j78">
@@ -834,7 +853,9 @@ CA
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="favoriteButton" destination="kj6-Iz-yHi" id="K09-Os-ZO3"/>
                         <outlet property="noteView" destination="YVG-TR-fJn" id="tJA-j1-Hf8"/>
+                        <outlet property="shareButton" destination="Vrt-on-aMa" id="HFG-nM-yjb"/>
                         <outlet property="topView" destination="Qij-aY-Abr" id="Axg-aM-Ymd"/>
                     </connections>
                 </viewController>
@@ -932,7 +953,7 @@ CA
                                                         <constraint firstAttribute="height" constant="50" id="c1Z-cB-973"/>
                                                     </constraints>
                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Currently not connected to News on a server." id="Wwq-Ca-XoU">
-                                                        <font key="font" metaFont="label" size="11"/>
+                                                        <font key="font" metaFont="menu" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -1084,5 +1105,6 @@ CA
         <image name="NSShareTemplate" width="11" height="16"/>
         <image name="NSTouchBarDeleteTemplate" width="15" height="30"/>
         <image name="folder" width="22" height="22"/>
+        <image name="unstarred_mac" width="42" height="42"/>
     </resources>
 </document>
