@@ -14,7 +14,11 @@ class CategoriesViewController: NSViewController {
     @IBOutlet var categoryTextField: NSTextField!
     @IBOutlet var addButton: NSButton!
     
-    var note: CDNote?
+    var note: CDNote? {
+    didSet {
+        selectedCategory = note?.category
+        }
+    }
     
     private var categories: [String]?
     private var selectedCategory: String?
@@ -23,13 +27,22 @@ class CategoriesViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addButton.isEnabled = false
+        categoryTextField.delegate = self
         categories = CDNote.categories()
         categoriesTableView.reloadData()
     }
     
     @IBAction func onAdd(_ sender: Any) {
+        let newCategory = categoryTextField.stringValue
+        if !newCategory.isEmpty {
+            categories?.append(newCategory)
+            selectedCategory = newCategory
+            categoriesTableView.reloadData()
+        }
     }
 
+    @IBAction func onSave(_ sender: Any) {
+    }
 }
 
 extension CategoriesViewController: NSTableViewDelegate {
@@ -46,9 +59,9 @@ extension CategoriesViewController: NSTableViewDelegate {
                 categoryView.textField?.stringValue = category
             }
             categoryView.imageView?.image = nil
-            if category == note?.category {
+            if category == selectedCategory {
                 categoryView.imageView?.image = NSImage(named: NSImage.menuOnStateTemplateName)
-                selectedCategory = category
+//                selectedCategory = category
                 selectedRow = row
                 categoryTextField.stringValue = category
             }
@@ -69,7 +82,7 @@ extension CategoriesViewController: NSTableViewDelegate {
         } else {
             categoryTextField.stringValue = category
         }
-        note?.category = category
+        selectedCategory = category
         categoriesTableView.reloadData(forRowIndexes: IndexSet([oldSelectedRow, selectedRow]), columnIndexes: IndexSet(integer: 0))
     }
 
@@ -84,5 +97,18 @@ extension CategoriesViewController: NSTableViewDataSource {
 }
 
 extension CategoriesViewController: NSTextFieldDelegate {
-    
+
+    func controlTextDidChange(_ obj: Notification) {
+        let text = categoryTextField.stringValue
+        if text.isEmpty {
+            addButton.isEnabled = false
+        } else {
+            if let _ = categories?.lastIndex(of: text) {
+                addButton.isEnabled = false
+            } else {
+                addButton.isEnabled = true
+            }
+        }
+    }
+
 }

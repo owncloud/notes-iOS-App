@@ -495,7 +495,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="NotesColumn" editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -680,7 +680,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="1000" id="imA-Q9-RWv">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -935,7 +935,7 @@ CA
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" title="15 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CIL-Zf-dN6" id="wcj-7q-46h">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
+                                                        <font key="font" metaFont="menu"/>
                                                         <menu key="menu" id="jXg-tm-00m">
                                                             <items>
                                                                 <menuItem title="Never" id="CBV-XJ-5Ay"/>
@@ -1138,7 +1138,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="405" minWidth="40" maxWidth="1000" id="ZUm-7M-GGt">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1199,9 +1199,6 @@ CA
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="wZV-Mm-Xe8" id="ZEw-Su-C1c"/>
-                                </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ynk-yI-rqL">
                                 <rect key="frame" x="344" y="60" width="92" height="32"/>
@@ -1224,12 +1221,28 @@ CA
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="Svi-PK-KTW"/>
                                 </constraints>
-                                <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wes-ph-yp4">
+                                <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wes-ph-yp4">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="dismissController:" target="wZV-Mm-Xe8" id="zIW-FJ-Xql"/>
+                                    <action selector="onSave:" target="wZV-Mm-Xe8" id="cz8-Ii-nqx"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z2s-o1-xAN">
+                                <rect key="frame" x="249" y="13" width="92" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="NKX-He-bi1"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CeY-PO-i0K">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="dismissController:" target="wZV-Mm-Xe8" id="jDw-O7-4bz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1240,8 +1253,10 @@ CA
                             <constraint firstAttribute="trailing" secondItem="zuw-XZ-EQf" secondAttribute="trailing" constant="20" id="7Ru-ZH-2IB"/>
                             <constraint firstItem="ynk-yI-rqL" firstAttribute="leading" secondItem="9Lc-dQ-Ebm" secondAttribute="trailing" constant="15" id="Bfw-OW-HOh"/>
                             <constraint firstItem="zuw-XZ-EQf" firstAttribute="leading" secondItem="BQ7-jL-9bX" secondAttribute="leading" constant="20" id="C74-sk-28v"/>
+                            <constraint firstItem="P9v-JE-h5M" firstAttribute="leading" secondItem="z2s-o1-xAN" secondAttribute="trailing" constant="18" id="ChY-i3-Mcr"/>
                             <constraint firstAttribute="trailing" secondItem="ynk-yI-rqL" secondAttribute="trailing" constant="20" id="Ms1-uk-c97"/>
                             <constraint firstItem="WIl-oT-aap" firstAttribute="top" secondItem="BQ7-jL-9bX" secondAttribute="top" constant="20" id="Sye-Ot-dnf"/>
+                            <constraint firstItem="z2s-o1-xAN" firstAttribute="centerY" secondItem="P9v-JE-h5M" secondAttribute="centerY" id="TSB-gG-Ic9"/>
                             <constraint firstAttribute="trailing" secondItem="P9v-JE-h5M" secondAttribute="trailing" constant="17" id="VWs-hI-8FO"/>
                             <constraint firstItem="P9v-JE-h5M" firstAttribute="top" secondItem="zuw-XZ-EQf" secondAttribute="bottom" constant="10" id="aWD-SB-9uE"/>
                             <constraint firstItem="WIl-oT-aap" firstAttribute="leading" secondItem="BQ7-jL-9bX" secondAttribute="leading" constant="20" id="gd0-B1-ear"/>
