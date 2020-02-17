@@ -52,6 +52,20 @@ class NotesViewController: NSViewController {
         }))
     }
     
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CategorySegue" {
+            if let categoriesViewController = segue.destinationController as? CategoriesViewController {
+                categoriesViewController.note = selectedNote
+            }
+        }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: NSStoryboardSegue.Identifier, sender: Any?) -> Bool {
+        if identifier == "CategorySegue" {
+            return selectedNote != nil
+        }
+        return true
+    }
 }
 
 extension NotesViewController: NSTableViewDelegate {

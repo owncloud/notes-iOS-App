@@ -495,7 +495,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="NotesColumn" editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -651,7 +651,7 @@ CA
                                         </buttonCell>
                                         <connections>
                                             <action selector="onDeleteWithSender:" target="kEA-nM-7QA" id="xZe-G8-Om0"/>
-                                            <segue destination="wZV-Mm-Xe8" kind="sheet" id="tyd-rE-gOy"/>
+                                            <segue destination="wZV-Mm-Xe8" kind="sheet" identifier="CategorySegue" id="tyd-rE-gOy"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -680,7 +680,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="1000" id="imA-Q9-RWv">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -935,7 +935,7 @@ CA
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" title="15 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CIL-Zf-dN6" id="wcj-7q-46h">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="system"/>
                                                         <menu key="menu" id="jXg-tm-00m">
                                                             <items>
                                                                 <menuItem title="Never" id="CBV-XJ-5Ay"/>
@@ -970,7 +970,7 @@ CA
                                                         <constraint firstAttribute="height" constant="50" id="c1Z-cB-973"/>
                                                     </constraints>
                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Currently not connected to News on a server." id="Wwq-Ca-XoU">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -1115,10 +1115,10 @@ CA
             </objects>
             <point key="canvasLocation" x="1225" y="703"/>
         </scene>
-        <!--View Controller-->
+        <!--Categories View Controller-->
         <scene sceneID="eAj-71-Eq2">
             <objects>
-                <viewController id="wZV-Mm-Xe8" sceneMemberID="viewController">
+                <viewController showSeguePresentationStyle="single" id="wZV-Mm-Xe8" customClass="CategoriesViewController" customModule="CloudNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="BQ7-jL-9bX">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1129,7 +1129,7 @@ CA
                                     <rect key="frame" x="1" y="1" width="408" height="180"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="VOw-fs-m0z">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveName="categoriesTableView" rowSizeStyle="automatic" viewBased="YES" id="VOw-fs-m0z">
                                             <rect key="frame" x="0.0" y="0.0" width="408" height="180"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -1138,7 +1138,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="405" minWidth="40" maxWidth="1000" id="ZUm-7M-GGt">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1149,14 +1149,19 @@ CA
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="alt-dC-fko">
+                                                        <tableCellView identifier="CategoryCell" id="zfl-XR-1Ft">
                                                             <rect key="frame" x="1" y="1" width="405" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqM-ul-5fp">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="405" height="17"/>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqc-oA-Bub">
+                                                                    <rect key="frame" x="3" y="0.0" width="17" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSMenuOnStateTemplate" id="anb-ON-9yg"/>
+                                                                </imageView>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0v3-vR-t8u">
+                                                                    <rect key="frame" x="25" y="0.0" width="380" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="6YK-Tw-dQ6">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="gVp-Wf-CDX">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1164,12 +1169,17 @@ CA
                                                                 </textField>
                                                             </subviews>
                                                             <connections>
-                                                                <outlet property="textField" destination="uqM-ul-5fp" id="xns-xe-QE5"/>
+                                                                <outlet property="imageView" destination="bqc-oA-Bub" id="LU7-Ax-3HP"/>
+                                                                <outlet property="textField" destination="0v3-vR-t8u" id="B7K-gJ-NeB"/>
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="wZV-Mm-Xe8" id="dHX-ys-3ze"/>
+                                                <outlet property="delegate" destination="wZV-Mm-Xe8" id="CAC-Xy-8FE"/>
+                                            </connections>
                                         </tableView>
                                     </subviews>
                                 </clipView>
@@ -1189,6 +1199,9 @@ CA
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="wZV-Mm-Xe8" id="ZEw-Su-C1c"/>
+                                </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ynk-yI-rqL">
                                 <rect key="frame" x="344" y="60" width="92" height="32"/>
@@ -1199,6 +1212,9 @@ CA
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="onAdd:" target="wZV-Mm-Xe8" id="NQY-ca-etn"/>
+                                </connections>
                             </button>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="zuw-XZ-EQf">
                                 <rect key="frame" x="20" y="49" width="410" height="5"/>
@@ -1234,14 +1250,20 @@ CA
                             <constraint firstItem="9Lc-dQ-Ebm" firstAttribute="top" secondItem="WIl-oT-aap" secondAttribute="bottom" constant="10" id="zvi-fc-WmF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addButton" destination="ynk-yI-rqL" id="EKb-Fb-jRk"/>
+                        <outlet property="categoriesTableView" destination="VOw-fs-m0z" id="1vI-AD-UoJ"/>
+                        <outlet property="categoryTextField" destination="9Lc-dQ-Ebm" id="l9Y-aj-Zje"/>
+                    </connections>
                 </viewController>
                 <customObject id="g07-Ro-19f" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1228" y="1133"/>
+            <point key="canvasLocation" x="1228" y="1195"/>
         </scene>
     </scenes>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSMenuOnStateTemplate" width="12" height="12"/>
         <image name="NSPathTemplate" width="16" height="10"/>
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSShareTemplate" width="11" height="16"/>
