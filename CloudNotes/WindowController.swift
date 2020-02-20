@@ -59,6 +59,10 @@ class WindowController: NSWindowController {
         editorViewController?.onFavorite(self)
     }
 
+    @IBAction func onCategories(sender: Any?) {
+        notesViewController?.performSegue(withIdentifier: "CategorySegue", sender: self)
+    }
+
 }
 
 extension WindowController: NSMenuDelegate, NSMenuItemValidation {
@@ -78,6 +82,8 @@ extension WindowController: NSMenuDelegate, NSMenuItemValidation {
                 return true
             }
             return false
+        case "categoryMenuItem":
+            return notesViewController?.selectedNote != nil
         default:
             return true
         }

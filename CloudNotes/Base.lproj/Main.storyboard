@@ -331,6 +331,9 @@
                                         </menuItem>
                                         <menuItem title="Category..." identifier="categoryMenuItem" id="avb-fx-4gh">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="onCategoriesWithSender:" target="Ady-hI-5gd" id="MS7-Ia-sfu"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
                                         <menuItem title="Delete" identifier="deleteMenuItem" id="Ok3-Es-Be6">
