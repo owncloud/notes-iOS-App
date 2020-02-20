@@ -68,7 +68,7 @@ class WindowController: NSWindowController {
 extension WindowController: NSMenuDelegate, NSMenuItemValidation {
 
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        print("Validating \(menuItem.identifier?.rawValue ?? ""))")
+        print("Validating \(menuItem.identifier?.rawValue ?? "")")
         switch menuItem.identifier?.rawValue {
         case "deleteMenuItem":
             return notesViewController?.selectedNote != nil
