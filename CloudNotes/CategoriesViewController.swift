@@ -42,6 +42,15 @@ class CategoriesViewController: NSViewController {
     }
 
     @IBAction func onSave(_ sender: Any) {
+        if let note = note, let category = selectedCategory, category != note.category {
+            note.category = category
+            NotesManager.shared.update(note: note) { [weak self] in
+                NotificationCenter.default.post(name: .editorUpdatedNote, object: note)
+                self?.dismiss(nil)
+            }
+        } else {
+            dismiss(nil)
+        }
     }
 }
 
@@ -61,9 +70,12 @@ extension CategoriesViewController: NSTableViewDelegate {
             categoryView.imageView?.image = nil
             if category == selectedCategory {
                 categoryView.imageView?.image = NSImage(named: NSImage.menuOnStateTemplateName)
-//                selectedCategory = category
                 selectedRow = row
-                categoryTextField.stringValue = category
+                if category.isEmpty {
+                    categoryTextField.stringValue = Constants.noCategory
+                } else {
+                    categoryTextField.stringValue = category
+                }
             }
             return categoryView
         }
