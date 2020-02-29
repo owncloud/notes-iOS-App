@@ -20,6 +20,7 @@ extension NSNotification.Name {
     static let offlineModeChanged = NSNotification.Name("OfflineModeChanged")
     static let doneSelectingCategory = NSNotification.Name("DoneSelectingCategory")
     static let editorUpdatedNote = NSNotification.Name("EditorUpdatedNote")
+    static let categoryUpdated = NSNotification.Name("CategoryUpdated")
 }
 
 struct ExpandableSection: Codable {

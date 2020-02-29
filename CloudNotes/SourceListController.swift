@@ -25,6 +25,12 @@ class SourceListController: NSViewController {
     private var observers = [NSObjectProtocol]()
     private var isInitialLaunch = true
 
+    deinit {
+        for observer in observers {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         leftTopView.wantsLayer = true
@@ -37,7 +43,7 @@ class SourceListController: NSViewController {
         border.backgroundColor = NSColor.gridColor.cgColor
         leftTopView.layer?.addSublayer(border)
         
-        rebuildCategoriesAndNotesList()
+        rebuildCategoryList()
         notesOutlineView.reloadData()
         
         observers.append(NotificationCenter.default.addObserver(forName: .editorUpdatedNote, object: nil, queue: .main, using: { [weak self] _ in
@@ -46,6 +52,12 @@ class SourceListController: NSViewController {
                     let selectedItem = self?.notesOutlineView.item(atRow: row)
                     self?.notesOutlineView.reloadItem(selectedItem)
                 }
+            }
+        }))
+        observers.append(NotificationCenter.default.addObserver(forName: .categoryUpdated, object: nil, queue: .main, using: { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.rebuildCategoryList()
+                self?.notesOutlineView.reloadData()
             }
         }))
     }
@@ -69,6 +81,7 @@ class SourceListController: NSViewController {
         NotesManager.shared.sync { [weak self] in
             self?.isSyncing = false
             self?.refreshBarButton.isEnabled = NotesManager.isOnline
+            self?.rebuildCategoryList()
             self?.notesOutlineView.reloadData()
             self?.notesViewController?.notesView.reloadData()
             self?.refreshProgressIndicator.stopAnimation(nil)
@@ -76,7 +89,7 @@ class SourceListController: NSViewController {
 
     }
 
-    func rebuildCategoriesAndNotesList() {
+    func rebuildCategoryList() {
         self.nodeArray.removeAll()
         self.nodeArray.append(FavoritesNotesNode())
         self.nodeArray.append(AllNotesNode())
