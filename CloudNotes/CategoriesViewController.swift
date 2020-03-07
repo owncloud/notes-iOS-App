@@ -45,7 +45,6 @@ class CategoriesViewController: NSViewController {
         if let note = note, let category = selectedCategory, category != note.category {
             note.category = category
             NotesManager.shared.update(note: note) { [weak self] in
-                NotificationCenter.default.post(name: .editorUpdatedNote, object: note)
                 NotificationCenter.default.post(name: .categoryUpdated, object: note)
                 self?.dismiss(nil)
             }

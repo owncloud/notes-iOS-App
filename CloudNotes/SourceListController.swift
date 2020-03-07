@@ -54,10 +54,21 @@ class SourceListController: NSViewController {
                 }
             }
         }))
-        observers.append(NotificationCenter.default.addObserver(forName: .categoryUpdated, object: nil, queue: .main, using: { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.rebuildCategoryList()
-                self?.notesOutlineView.reloadData()
+        observers.append(NotificationCenter.default.addObserver(forName: .categoryUpdated, object: nil, queue: .main, using: { [weak self] notification in
+            if let note = notification.object as? CDNote {
+                DispatchQueue.main.async {
+                    self?.rebuildCategoryList()
+                    self?.notesOutlineView.reloadData()
+                    let index = self?.nodeArray.firstIndex(where: {
+                        if let categoryNode = $0 as? CategoryNode {
+                            return categoryNode.category == note.category
+                        }
+                        return false
+                    })
+                    self?.notesOutlineView.selectRowIndexes(IndexSet(integer: index ?? 1), byExtendingSelection: false)
+                    self?.notesViewController?.notesView.reloadData()
+                    self?.notesViewController?.notesView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+                }
             }
         }))
     }
