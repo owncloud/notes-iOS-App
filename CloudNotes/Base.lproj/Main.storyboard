@@ -73,6 +73,13 @@
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                                         <menuItem title="Import…" keyEquivalent="i" identifier="importMenuItem" id="qIS-W8-SiK"/>
                                         <menuItem title="Export…" keyEquivalent="e" identifier="exportMenuItem" id="aTl-1u-JFS"/>
+                                        <menuItem isSeparatorItem="YES" id="AJF-Vx-F4Z"/>
+                                        <menuItem title="Work Offline" identifier="offlineMenuItem" id="241-61-1xx" userLabel="Work Offline">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="onOfflineWithSender:" target="Ady-hI-5gd" id="uBt-JP-eYP"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -498,7 +505,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="NotesColumn" editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -683,7 +690,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="1000" id="imA-Q9-RWv">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -938,7 +945,7 @@ CA
                                                     </constraints>
                                                     <popUpButtonCell key="cell" type="push" title="15 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CIL-Zf-dN6" id="wcj-7q-46h">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="system"/>
                                                         <menu key="menu" id="jXg-tm-00m">
                                                             <items>
                                                                 <menuItem title="Never" id="CBV-XJ-5Ay"/>
@@ -973,7 +980,7 @@ CA
                                                         <constraint firstAttribute="height" constant="50" id="c1Z-cB-973"/>
                                                     </constraints>
                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Currently not connected to Notes on a server." id="Wwq-Ca-XoU">
-                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
@@ -1141,7 +1148,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="405" minWidth="40" maxWidth="1000" id="ZUm-7M-GGt">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>

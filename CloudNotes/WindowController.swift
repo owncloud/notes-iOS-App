@@ -41,6 +41,10 @@ class WindowController: NSWindowController {
         })
     }
 
+    @IBAction func onOffline(sender: Any?) {
+        KeychainHelper.offlineMode.toggle()
+    }
+
     @IBAction func onSync(sender: Any?) {
         self.sourceListController?.onRefresh(sender: sender)
     }
@@ -70,6 +74,9 @@ extension WindowController: NSMenuDelegate, NSMenuItemValidation {
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         print("Validating \(menuItem.identifier?.rawValue ?? "")")
         switch menuItem.identifier?.rawValue {
+        case "offlineMenuItem":
+            menuItem.state = KeychainHelper.offlineMode ? .on : .off
+            return true
         case "deleteMenuItem":
             return notesViewController?.selectedNote != nil
         case "favoriteMenuItem":
