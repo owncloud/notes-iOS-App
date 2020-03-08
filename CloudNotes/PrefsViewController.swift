@@ -12,31 +12,21 @@ import Alamofire
 
 class PrefsViewController: NSViewController {
     
-    @IBOutlet var syncCheckbox: NSButton!
-    @IBOutlet var intervalPopup: NSPopUpButton!
     @IBOutlet var serverTextField: NSTextField!
     @IBOutlet var usernameTextField: NSTextField!
     @IBOutlet var passwordTextField: NSSecureTextField!
     @IBOutlet var certificateSwitch: NSButton!
     @IBOutlet var connectionActivityIndicator: NSProgressIndicator!
     @IBOutlet var statusLabel: NSTextField!
-    @IBOutlet var tabView: NSTabView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let sync = UserDefaults.standard.bool(forKey: "sync")
-        syncCheckbox.state = sync == true ? .on : .off
-        intervalPopup.isEnabled = sync
-        let interval = UserDefaults.standard.integer(forKey: "interval")
-        intervalPopup.selectItem(at: interval)
-        
+              
         serverTextField.stringValue = KeychainHelper.server
         usernameTextField.stringValue = KeychainHelper.username
         passwordTextField.stringValue = KeychainHelper.password
         certificateSwitch.state = KeychainHelper.allowUntrustedCertificate ? .on : .off
         if KeychainHelper.server.isEmpty {
-            tabView.selectLastTabViewItem(nil)
             statusLabel.stringValue = "Not connected to Notes on a server"
         } else {
             statusLabel.stringValue = "Connected to Notes on the server"
@@ -114,21 +104,6 @@ class PrefsViewController: NSViewController {
                 }
                 self?.connectionActivityIndicator.stopAnimation(nil)
         }
-    }
-    
-    @IBAction func onSyncCheckbox(_ sender: Any) {
-        if self.syncCheckbox.state == .on {
-            self.intervalPopup.isEnabled = true
-            UserDefaults.standard.set(true, forKey: "sync")
-        } else {
-            self.intervalPopup.isEnabled = false
-            UserDefaults.standard.set(false, forKey: "sync")
-        }
-    }
-    
-    @IBAction func onIntervalPopup(_ sender: Any) {
-        UserDefaults.standard.set(self.intervalPopup.indexOfSelectedItem, forKey: "interval")
-//TODO        NewsManager.shared.setupSyncTimer()
     }
     
     @IBAction func onCertificateSwitch(_ sender: Any) {
