@@ -661,7 +661,7 @@ CA
                                             <constraint firstAttribute="width" constant="21" id="bn5-3I-fED"/>
                                             <constraint firstAttribute="height" constant="21" id="qHc-QH-CfT"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSPathTemplate" imagePosition="only" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyUpOrDown" inset="2" id="ghm-On-Pp9">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="categories" imagePosition="only" alignment="center" refusesFirstResponder="YES" imageScaling="proportionallyUpOrDown" inset="2" id="ghm-On-Pp9">
                                             <behavior key="behavior" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -1229,10 +1229,10 @@ Gw
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSMenuOnStateTemplate" width="12" height="12"/>
-        <image name="NSPathTemplate" width="16" height="10"/>
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSShareTemplate" width="11" height="16"/>
         <image name="NSTouchBarDeleteTemplate" width="15" height="30"/>
+        <image name="categories" width="42" height="42"/>
         <image name="folder" width="22" height="22"/>
         <image name="unstarred_mac" width="42" height="42"/>
     </resources>
