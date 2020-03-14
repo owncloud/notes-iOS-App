@@ -511,7 +511,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="NotesColumn" editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -526,9 +526,11 @@ CA
                                                             <rect key="frame" x="1" y="2" width="445" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kYF-Em-08Z">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="kYF-Em-08Z">
                                                                     <rect key="frame" x="0.0" y="0.0" width="445" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="17" id="lbj-uB-fiv"/>
+                                                                    </constraints>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="oiD-W3-dUC">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -536,6 +538,11 @@ CA
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="kYF-Em-08Z" firstAttribute="centerY" secondItem="bdz-9N-r64" secondAttribute="centerY" id="YLi-RM-Rjz"/>
+                                                                <constraint firstItem="kYF-Em-08Z" firstAttribute="leading" secondItem="bdz-9N-r64" secondAttribute="leading" constant="2" id="qgV-9x-fbU"/>
+                                                                <constraint firstItem="kYF-Em-08Z" firstAttribute="centerX" secondItem="bdz-9N-r64" secondAttribute="centerX" id="rnQ-VH-PQc"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="kYF-Em-08Z" id="K0R-dt-Yzk"/>
                                                             </connections>
@@ -544,14 +551,12 @@ CA
                                                             <rect key="frame" x="1" y="24" width="445" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5K0-Vr-ip8">
-                                                                    <rect key="frame" x="3" y="0.0" width="17" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5K0-Vr-ip8">
+                                                                    <rect key="frame" x="2" y="0.0" width="22" height="17"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="folder" id="3Ly-RY-0EQ"/>
                                                                 </imageView>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nyB-6N-3uI">
-                                                                    <rect key="frame" x="25" y="0.0" width="420" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nyB-6N-3uI">
+                                                                    <rect key="frame" x="27" y="0.0" width="418" height="17"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="JlN-Rb-l9G">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -559,6 +564,15 @@ CA
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="nyB-6N-3uI" firstAttribute="leading" secondItem="5K0-Vr-ip8" secondAttribute="trailing" constant="5" id="1bX-WE-HQG"/>
+                                                                <constraint firstItem="nyB-6N-3uI" firstAttribute="top" secondItem="5K0-Vr-ip8" secondAttribute="top" id="46E-9K-eul"/>
+                                                                <constraint firstItem="nyB-6N-3uI" firstAttribute="centerY" secondItem="FeC-cR-Pyp" secondAttribute="centerY" id="4mi-iZ-Gs4"/>
+                                                                <constraint firstItem="5K0-Vr-ip8" firstAttribute="leading" secondItem="FeC-cR-Pyp" secondAttribute="leading" constant="2" id="mzr-Wn-KK6"/>
+                                                                <constraint firstAttribute="trailing" secondItem="nyB-6N-3uI" secondAttribute="trailing" constant="2" id="pvQ-dO-Ih5"/>
+                                                                <constraint firstItem="nyB-6N-3uI" firstAttribute="bottom" secondItem="5K0-Vr-ip8" secondAttribute="bottom" id="q1U-HE-UCn"/>
+                                                                <constraint firstItem="nyB-6N-3uI" firstAttribute="top" secondItem="FeC-cR-Pyp" secondAttribute="top" id="vO6-hP-O0D"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="imageView" destination="5K0-Vr-ip8" id="gcv-zd-pYw"/>
                                                                 <outlet property="textField" destination="nyB-6N-3uI" id="EOV-rf-9rt"/>
@@ -696,7 +710,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="1000" id="imA-Q9-RWv">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1017,7 +1031,7 @@ CA
                                     <constraint firstAttribute="height" constant="50" id="Rjc-cJ-4Tu"/>
                                 </constraints>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Currently not connected to Notes on a server." id="vTU-Qe-yTt">
-                                    <font key="font" metaFont="menu" size="11"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1088,7 +1102,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="405" minWidth="40" maxWidth="1000" id="ZUm-7M-GGt">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="menu" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
