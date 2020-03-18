@@ -13,6 +13,10 @@ class NotesViewController: NSViewController {
     @IBOutlet var topView: NSView!
     @IBOutlet var notesView: NSTableView!
 
+    @IBOutlet var categoriesButton: NSButton!
+    @IBOutlet var deleteButton: NSButton!
+    @IBOutlet var addButton: NSButton!
+    
     var editorViewController: EditorViewController?
     var selectedNote: CDNote?
 
@@ -20,6 +24,7 @@ class NotesViewController: NSViewController {
         didSet {
             editorViewController?.note = nil
             notesView.reloadData()
+            updateState()
         }
     }
 
@@ -50,6 +55,7 @@ class NotesViewController: NSViewController {
                 }
             }
         }))
+        updateState()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -65,6 +71,18 @@ class NotesViewController: NSViewController {
             return selectedNote != nil
         }
         return true
+    }
+    
+    private func updateState() {
+        if node != nil {
+            categoriesButton.isEnabled = selectedNote != nil
+            deleteButton.isEnabled = selectedNote != nil
+            addButton.isEnabled = true
+        } else {
+            categoriesButton.isEnabled = false
+            deleteButton.isEnabled = false
+            addButton.isEnabled = false
+        }
     }
 }
 
@@ -99,6 +117,7 @@ extension NotesViewController: NSTableViewDelegate {
         }
         selectedNote = noteNode.note
         editorViewController?.note = noteNode.note
+        updateState()
     }
 
 }

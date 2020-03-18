@@ -806,6 +806,9 @@ CA
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="6hU-Wa-MUX" id="h4K-Hz-Lhw"/>
+                        <outlet property="categoriesButton" destination="IkQ-in-OCz" id="Ovg-3B-q4e"/>
+                        <outlet property="deleteButton" destination="DFX-34-bVY" id="nTc-7N-QRZ"/>
                         <outlet property="notesView" destination="ttk-m6-6th" id="pXo-v5-arm"/>
                         <outlet property="topView" destination="cin-n9-VOg" id="Usy-0c-1Vw"/>
                     </connections>
