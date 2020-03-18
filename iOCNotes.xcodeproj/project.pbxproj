@@ -91,6 +91,7 @@
 		D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
+		D09DB859241F0CD2001E0E08 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D09DB858241F0CD1001E0E08 /* Credits.html */; };
 		D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */; };
 		D0B6D4AE22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */; };
 		D0B6D4AF22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */; };
@@ -261,6 +262,7 @@
 		D07F5E8F2207B81F00528E90 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
 		D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHHeaderTextView.swift; sourceTree = "<group>"; };
 		D09538421D32A56A006BB78E /* PBHPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHPreviewController.swift; sourceTree = "<group>"; };
+		D09DB858241F0CD1001E0E08 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		D09E430D1E2C46930010E4B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D09E430F1E2C469C0010E4B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E43101E2C469F0010E4B3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 		D071BFDC23CD6244002BF63B /* CloudNotes */ = {
 			isa = PBXGroup;
 			children = (
+				D09DB858241F0CD1001E0E08 /* Credits.html */,
 				D071BFDD23CD6244002BF63B /* AppDelegate.swift */,
 				D071BFEE23CD6777002BF63B /* WindowController.swift */,
 				D076032723F0F91A00A11C56 /* SplitViewController.swift */,
@@ -740,6 +743,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D071BFE523CD6245002BF63B /* Assets.xcassets in Resources */,
+				D09DB859241F0CD2001E0E08 /* Credits.html in Resources */,
 				D071BFE823CD6245002BF63B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1211,7 +1215,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.hedlund.CloudNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.pbh.CloudNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1252,7 +1256,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.hedlund.CloudNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.pbh.CloudNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
