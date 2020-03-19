@@ -16,9 +16,11 @@ class WindowController: NSWindowController {
 
     override func windowDidLoad() {
         super.windowDidLoad()
+        window?.delegate = self
         window?.tabbingMode = .disallowed
         window?.titlebarAppearsTransparent = true
         window?.titleVisibility = .hidden
+        window?.toolbar = NSToolbar()
         window?.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
         NSApp.mainMenu?.delegate = self
 
@@ -65,6 +67,14 @@ class WindowController: NSWindowController {
 
     @IBAction func onCategories(sender: Any?) {
         notesViewController?.performSegue(withIdentifier: "CategorySegue", sender: self)
+    }
+
+}
+
+extension WindowController: NSWindowDelegate {
+
+    func window(_ window: NSWindow, willUseFullScreenPresentationOptions proposedOptions: NSApplication.PresentationOptions = []) -> NSApplication.PresentationOptions {
+        return [.autoHideToolbar, .autoHideMenuBar, .fullScreen]
     }
 
 }
