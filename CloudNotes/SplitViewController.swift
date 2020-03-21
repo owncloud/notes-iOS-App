@@ -25,6 +25,14 @@ class SplitViewController: NSSplitViewController {
         splitViewItems[2].isCollapsed = false
     }
 
+    override func viewDidAppear() {
+        if KeychainHelper.server.isEmpty {
+            if let windowController = self.view.window?.windowController as? WindowController {
+                windowController.onPreferences(sender: nil)
+            }
+        }
+    }
+    
     override func splitView(_ splitView: NSSplitView, canCollapseSubview subview: NSView) -> Bool {
         return false
     }

@@ -13,6 +13,7 @@ class WindowController: NSWindowController {
     private var sourceListController: SourceListController?
     private var notesViewController: NotesViewController?
     private var editorViewController: EditorViewController?
+    private var prefsWindowController: PrefsWindowController?
 
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -31,6 +32,12 @@ class WindowController: NSWindowController {
             sourceListController?.notesViewController = notesViewController
             notesViewController?.editorViewController = editorViewController
         }
+    }
+
+    @IBAction func onPreferences(sender: Any?) {
+        let mainStoryboard = NSStoryboard(name: "Main", bundle: nil)
+        prefsWindowController = mainStoryboard.instantiateController(withIdentifier: "PrefsWindowController") as? PrefsWindowController
+        prefsWindowController?.showWindow(self)
     }
 
     @IBAction func onAdd(sender: Any?) {
