@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -510,7 +510,6 @@ CA
                                             <tableColumns>
                                                 <tableColumn identifier="NotesColumn" editable="NO" width="445" minWidth="40" maxWidth="10000" id="eFW-OD-AFH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -709,7 +708,6 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="445" minWidth="40" maxWidth="1000" id="imA-Q9-RWv">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1033,7 +1031,7 @@ CA
                                     <constraint firstAttribute="height" constant="50" id="Rjc-cJ-4Tu"/>
                                 </constraints>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Currently not connected to Notes on a server." id="vTU-Qe-yTt">
-                                    <font key="font" metaFont="label" size="11"/>
+                                    <font key="font" metaFont="menu" size="11"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1104,7 +1102,6 @@ CA
                                             <tableColumns>
                                                 <tableColumn editable="NO" width="405" minWidth="40" maxWidth="1000" id="ZUm-7M-GGt">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="label" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1119,14 +1116,16 @@ CA
                                                             <rect key="frame" x="1" y="1" width="405" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqc-oA-Bub">
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bqc-oA-Bub">
                                                                     <rect key="frame" x="3" y="0.0" width="17" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="17" id="Rb7-nQ-Tmh"/>
+                                                                        <constraint firstAttribute="width" constant="17" id="uy3-Pw-E1k"/>
+                                                                    </constraints>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSMenuOnStateTemplate" id="anb-ON-9yg"/>
                                                                 </imageView>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0v3-vR-t8u">
-                                                                    <rect key="frame" x="25" y="0.0" width="380" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0v3-vR-t8u">
+                                                                    <rect key="frame" x="25" y="1" width="380" height="16"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="gVp-Wf-CDX">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1134,6 +1133,13 @@ CA
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="0v3-vR-t8u" firstAttribute="centerY" secondItem="zfl-XR-1Ft" secondAttribute="centerY" id="1rv-iN-CGq"/>
+                                                                <constraint firstItem="bqc-oA-Bub" firstAttribute="centerY" secondItem="zfl-XR-1Ft" secondAttribute="centerY" id="CTP-WF-yCX"/>
+                                                                <constraint firstItem="0v3-vR-t8u" firstAttribute="leading" secondItem="bqc-oA-Bub" secondAttribute="trailing" constant="7" id="f5r-rn-5dJ"/>
+                                                                <constraint firstAttribute="trailing" secondItem="0v3-vR-t8u" secondAttribute="trailing" constant="2" id="ib9-BS-Bvr"/>
+                                                                <constraint firstItem="bqc-oA-Bub" firstAttribute="leading" secondItem="zfl-XR-1Ft" secondAttribute="leading" constant="3" id="kZO-KJ-ddZ"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="imageView" destination="bqc-oA-Bub" id="LU7-Ax-3HP"/>
                                                                 <outlet property="textField" destination="0v3-vR-t8u" id="B7K-gJ-NeB"/>
@@ -1169,7 +1175,7 @@ CA
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ynk-yI-rqL">
                                 <rect key="frame" x="344" y="60" width="92" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="lNG-1Q-n17"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="lNG-1Q-n17"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EAO-bn-e6n">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1185,7 +1191,7 @@ CA
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P9v-JE-h5M">
                                 <rect key="frame" x="347" y="13" width="92" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="Svi-PK-KTW"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Svi-PK-KTW"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wes-ph-yp4">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1198,7 +1204,7 @@ CA
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z2s-o1-xAN">
                                 <rect key="frame" x="249" y="13" width="92" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="NKX-He-bi1"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="NKX-He-bi1"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CeY-PO-i0K">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1220,6 +1226,7 @@ Gw
                             <constraint firstItem="ynk-yI-rqL" firstAttribute="leading" secondItem="9Lc-dQ-Ebm" secondAttribute="trailing" constant="15" id="Bfw-OW-HOh"/>
                             <constraint firstItem="zuw-XZ-EQf" firstAttribute="leading" secondItem="BQ7-jL-9bX" secondAttribute="leading" constant="20" id="C74-sk-28v"/>
                             <constraint firstItem="P9v-JE-h5M" firstAttribute="leading" secondItem="z2s-o1-xAN" secondAttribute="trailing" constant="18" id="ChY-i3-Mcr"/>
+                            <constraint firstItem="z2s-o1-xAN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BQ7-jL-9bX" secondAttribute="leading" constant="20" symbolic="YES" id="LC5-9h-10H"/>
                             <constraint firstAttribute="trailing" secondItem="ynk-yI-rqL" secondAttribute="trailing" constant="20" id="Ms1-uk-c97"/>
                             <constraint firstItem="WIl-oT-aap" firstAttribute="top" secondItem="BQ7-jL-9bX" secondAttribute="top" constant="20" id="Sye-Ot-dnf"/>
                             <constraint firstItem="z2s-o1-xAN" firstAttribute="centerY" secondItem="P9v-JE-h5M" secondAttribute="centerY" id="TSB-gG-Ic9"/>
