@@ -217,6 +217,7 @@ class EditorViewController: UIViewController {
         })
         controller.addAction(deleteAction)
         controller.addAction(cancelAction)
+        controller.modalPresentationStyle = .popover
         return controller
     }()
     
@@ -242,8 +243,8 @@ class EditorViewController: UIViewController {
     @IBAction func onDelete(_ sender: Any?) {
         if let popover = deleteAlertController.popoverPresentationController {
             popover.barButtonItem = deleteButton
-            present(deleteAlertController, animated: true, completion: nil)
         }
+        present(deleteAlertController, animated: true, completion: nil)
     }
     
     @IBAction func onAdd(_ sender: Any?) {
