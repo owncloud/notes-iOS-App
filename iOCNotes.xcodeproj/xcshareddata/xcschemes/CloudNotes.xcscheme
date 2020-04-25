@@ -79,7 +79,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "EXPORT_PATH=&quot;$SRCROOT/MacDist&quot;&#10;APP_PATH=&quot;$EXPORT_PATH/$PRODUCT_NAME.app&quot;&#10;&#10;/usr/bin/xcodebuild -exportArchive -archivePath &quot;$ARCHIVE_PATH&quot; -exportOptionsPlist &quot;$SRCROOT/ExportOptions.plist&quot; -exportPath &quot;$EXPORT_PATH&quot;&#10;&#10;/usr/local/bin/appdmg &quot;$SRCROOT/appdmg.json&quot; &quot;$SRCROOT/MacDist/CloudNotes.dmg&quot;&#10;">
+               scriptText = "EXPORT_PATH=&quot;$SRCROOT/MacDist&quot;&#10;APP_PATH=&quot;$EXPORT_PATH/$PRODUCT_NAME.app&quot;&#10;&#10;/usr/bin/xcodebuild -exportArchive -archivePath &quot;$ARCHIVE_PATH&quot; -exportOptionsPlist &quot;$SRCROOT/MacDist/ExportOptions.plist&quot; -exportPath &quot;$EXPORT_PATH&quot;&#10;&#10;/usr/local/bin/appdmg &quot;$SRCROOT/appdmg.json&quot; &quot;$SRCROOT/MacDist/CloudNotes.dmg&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
