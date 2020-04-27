@@ -61,7 +61,7 @@ class AllNotesNode: NoteTreeNode {
     }
     
     var title: String {
-        return "All"
+        return NSLocalizedString("All", comment: "Item to show all notes")
     }
     
     var content: String? {
@@ -113,7 +113,7 @@ class StarredNotesNode: NoteTreeNode {
     }
     
     var title: String {
-        return "Favorites"
+        return NSLocalizedString("Favorites", comment: "Item to show favorite notes")
     }
     
     var content: String? {
@@ -254,7 +254,7 @@ class FavoritesNotesNode: NoteTreeNode {
     }
 
     var title: String {
-        return "MAIN"
+        return NSLocalizedString("MAIN", comment: "Header title, main")
     }
 
     var content: String? {
@@ -290,7 +290,7 @@ class CategoriesNotesNode: NoteTreeNode {
     }
 
     var title: String {
-        return "CATEGORIES"
+        return NSLocalizedString("CATEGORIES", comment: "Header title, categories")
     }
 
     var content: String? {

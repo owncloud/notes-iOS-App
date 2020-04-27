@@ -27,9 +27,9 @@ class PrefsViewController: NSViewController {
         passwordTextField.stringValue = KeychainHelper.password
         certificateSwitch.state = KeychainHelper.allowUntrustedCertificate ? .on : .off
         if KeychainHelper.server.isEmpty {
-            statusLabel.stringValue = "Not connected to Notes on a server"
+            statusLabel.stringValue = NSLocalizedString("Not connected to Notes on a server", comment: "Status information, not connected")
         } else {
-            statusLabel.stringValue = "Connected to Notes on the server"
+            statusLabel.stringValue = NSLocalizedString("Connected to Notes on the server", comment: "Status information, connected")
         }
     }
     
@@ -69,7 +69,7 @@ class PrefsViewController: NSViewController {
                     } else {
                         self?.pickServer()
                     }
-                    self?.statusLabel.stringValue = "Connected to Notes on the server"
+                    self?.statusLabel.stringValue = NSLocalizedString("Connected to Notes on the server", comment: "Status information, connected")
                 case .failure(let error):
                     if (shouldRetry) {
                         self?.serverTextField.stringValue = "\(serverAddress)/index.php"

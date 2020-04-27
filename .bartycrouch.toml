@@ -3,13 +3,13 @@
 tasks = ["interfaces", "code", "normalize"]
 
 [update.interfaces]
-path = "iOCNotes"
+paths = ["iOCNotes", "CloudNotes"]
 defaultToBase = true
 ignoreEmptyStrings = false
 unstripped = false
 
 [update.code]
-codePath = "iOCNotes"
+codePaths = ["iOCNotes", "CloudNotes"]
 localizablePath = "."
 defaultToKeys = false
 additive = true
@@ -24,7 +24,7 @@ typeName = "BartyCrouch"
 translateMethodName = "translate"
 
 [update.normalize]
-path = "iOCNotes"
+paths = ["iOCNotes", "CloudNotes"]
 sourceLocale = "en"
 harmonizeWithSource = true
 sortByKeys = true
