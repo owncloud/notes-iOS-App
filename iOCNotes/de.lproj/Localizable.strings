@@ -8,9 +8,15 @@
 /* An error message */
 "A server installation could not be found. Check the server address." = "Es konnte keine Serverinstallation gefunden werden. Prüfen Sie die Serveradresse";
 
+/* Item to show all notes */
+"All" = "Alle";
+
 /* A menu action
    A menu option for cancelling */
 "Cancel" = "Abbrechen";
+
+/* Header title, categories */
+"CATEGORIES" = "KATEGORIEN";
 
 /* 'Category' menu item */
 "Category" = "Kategorie";
@@ -32,6 +38,9 @@
 
 /* A button title */
 "Connect" = "Verbinden";
+
+/* Status information, connected */
+"Connected to Notes on the server" = "Verbunden mit Notes auf Ihrem Server";
 
 /* An error message title */
 "Connection failure" = "Verbindungsfehler";
@@ -63,11 +72,17 @@
 /* An error message */
 "Failed to connect to a server. Check your settings." = "Fehler beim Verbinden mit dem Server. Bitte prüfen Sie die Einstellungen";
 
+/* Item to show favorite notes */
+"Favorites" = "Favoriten";
+
 /* A menu option for plain sharing in html format */
 "HTML" = "HTML";
 
 /* A status label indicating that the user is logged in */
 "Logged In" = "Angemeldet";
+
+/* Header title, main */
+"MAIN" = "HAUPT";
 
 /* A menu option for sharing in markdown format */
 "Markdown" = "Markdown";
@@ -106,6 +121,9 @@
 /* Placeholder text when no note is selected */
 "Select or create a note." = "Notiz auswählen oder erstellen.";
 
+/* Alert title for selecting server brand */
+"Server" = "Server";
+
 /* An error message title */
 "Server not found" = "Server nicht gefunden";
 
@@ -124,6 +142,9 @@
 /* An error message */
 "The note does not exist" = "Die Notiz existiert nicht";
 
+/* Alert message for selecting server brand */
+"Unable to automatically detect type of server.\nPlease select:" = "Servertyp kann nicht automatisch erkannt werden.\nBitte wählen Sie:";
+
 /* A message title
    The title of an error message */
 "Unable to Reach Server" = "Server nicht erreichbar";
@@ -140,8 +161,23 @@
 /* A message */
 "You are now connected to Notes on your server" = "Sie sind jetzt mit Notes auf Ihrem Server verbunden";
 
-/* Alert title for selecting server brand */
-"Server" = "Server";
+/* Acknowledgements */
+"Acknowledgements" = "";
 
-/* Alert message for selecting server brand */
-"Unable to automatically detect type of server.\nPlease select:" = "Servertyp kann nicht automatisch erkannt werden.\nBitte wählen Sie:";
+/* Title of alert for adding a category */
+"Add Category" = "Kategorie hinzufügen";
+
+/* Action to change category of a note */
+"Change Category..." = "";
+
+/* Action to delete a note */
+"Delete" = "Löschen";
+
+/* Prompt on alert for adding a category */
+"Enter a name for the new category" = "Einen Namen für die neue Kategorie eingeben";
+
+/* Status information, not connected */
+"Not connected to Notes on a server" = "";
+
+/* Button, OK */
+"OK" = "OK";

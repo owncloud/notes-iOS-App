@@ -103,6 +103,9 @@
 /* Placeholder text when no note is selected */
 "Select or create a note." = "Select or create a note.";
 
+/* Alert title for selecting server brand */
+"Server" = "Server";
+
 /* An error message title */
 "Server not found" = "Server not found";
 
@@ -121,6 +124,9 @@
 /* An error message */
 "The note does not exist" = "The note does not exist";
 
+/* Alert message for selecting server brand */
+"Unable to automatically detect type of server.\nPlease select:" = "Unable to automatically detect type of server.\nPlease select:";
+
 /* A message title
    The title of an error message */
 "Unable to Reach Server" = "Unable to Reach Server";
@@ -137,11 +143,44 @@
 /* A message */
 "You are now connected to Notes on your server" = "You are now connected to Notes on your server";
 
+/* Acknowledgements */
+"Acknowledgements" = "";
+
+/* Title of alert for adding a category */
+"Add Category" = "";
+
+/* Item to show all notes */
+"All" = "";
+
+/* Header title, categories */
+"CATEGORIES" = "";
+
 /* 'Category' menu item */
 "Category" = "";
 
-/* Alert title for selecting server brand */
-"Server" = "Server";
+/* Action to change category of a note */
+"Change Category..." = "";
 
-/* Alert message for selecting server brand */
-"Unable to automatically detect type of server.\nPlease select:" = "Unable to automatically detect type of server.\nPlease select:";
+/* Status information, connected */
+"Connected to Notes on the server" = "";
+
+/* Action to delete a note */
+"Delete" = "";
+
+/* Prompt on alert for adding a category */
+"Enter a name for the new catefgory" = "";
+
+/* Prompt on alert for adding a category */
+"Enter a name for the new category" = "";
+
+/* Item to show favorite notes */
+"Favorites" = "";
+
+/* Header title, main */
+"MAIN" = "";
+
+/* Status information, not connected */
+"Not connected to Notes on a server" = "";
+
+/* Button, OK */
+"OK" = "";
