@@ -105,9 +105,9 @@ class CategoryTableViewController: UITableViewController {
     }
 
     @IBAction func onAdd(_ sender: Any) {
-        let alert = UIAlertController(title: "Add Category", message: "Enter a name for the new catefgory", preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("Add Category", comment: "Title of alert for adding a category"), message: NSLocalizedString("Enter a name for the new category", comment: "Prompt on alert for adding a category"), preferredStyle: .alert)
         alert.addTextField(configurationHandler: nil)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self, weak alert] (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Button, OK"), style: .default, handler: { [weak self, weak alert] (_) in
             if let textField = alert?.textFields?[0],
                 let text = textField.text,
                 !text.isEmpty {
@@ -118,7 +118,7 @@ class CategoryTableViewController: UITableViewController {
                 self?.isDirty = true
             }
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Button, cancel"), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }

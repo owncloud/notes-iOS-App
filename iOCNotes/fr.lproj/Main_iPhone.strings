@@ -1,81 +1,9 @@
 
-/* Class = "UILabel"; text = "Contact"; ObjectID = "0lJ-iq-Nto"; */
-"0lJ-iq-Nto.text" = "Contact";
-
-/* Class = "UILabel"; text = "Connect"; ObjectID = "1nd-Wd-hwP"; */
-"1nd-Wd-hwP.text" = "Connect";
-
 /* Class = "UILabel"; text = "Title"; ObjectID = "1Q3-he-nuB"; */
 "1Q3-he-nuB.text" = "Title";
 
-/* Class = "UINavigationItem"; title = "Login Information"; ObjectID = "37p-J6-f3v"; */
-"37p-J6-f3v.title" = "Login Information";
-
-/* Class = "UILabel"; text = "URL"; ObjectID = "6JA-kC-iF4"; */
-"6JA-kC-iF4.text" = "URL";
-
-/* Class = "UILabel"; text = "Server"; ObjectID = "7lc-SH-cWC"; */
-"7lc-SH-cWC.text" = "Server";
-
-/* Class = "UILabel"; text = "Title"; ObjectID = "7NV-vt-ak3"; */
-"7NV-vt-ak3.text" = "Title";
-
-/* Class = "UITableViewSection"; headerTitle = "SUPPORT"; ObjectID = "aJm-k3-Bdj"; */
-"aJm-k3-Bdj.headerTitle" = "SUPPORT";
-
-/* Class = "UILabel"; text = "Allow Untrusted SSL Certificate"; ObjectID = "c6c-Oz-QsA"; */
-"c6c-Oz-QsA.text" = "Allow Untrusted SSL Certificate";
-
-/* Class = "UILabel"; text = "Username"; ObjectID = "DJL-8q-B7Y"; */
-"DJL-8q-B7Y.text" = "Username";
-
-/* Class = "UITableViewSection"; footerTitle = " "; ObjectID = "DPD-gx-oOQ"; */
-"DPD-gx-oOQ.footerTitle" = " ";
-
-/* Class = "UILabel"; text = "Offline Mode"; ObjectID = "ejj-IH-M0X"; */
-"ejj-IH-M0X.text" = "Offline Mode";
-
-/* Class = "UINavigationItem"; title = "Categories"; ObjectID = "fAi-OU-vKZ"; */
-"fAi-OU-vKZ.title" = "Categories";
-
-/* Class = "UILabel"; text = "Password"; ObjectID = "fDE-jW-f9T"; */
-"fDE-jW-f9T.text" = "Password";
-
-/* Class = "UITableViewSection"; footerTitle = " "; ObjectID = "GFD-er-5qc"; */
-"GFD-er-5qc.footerTitle" = " ";
-
-/* Class = "UITableViewSection"; headerTitle = "Server"; ObjectID = "GFD-er-5qc"; */
-"GFD-er-5qc.headerTitle" = "Server";
-
-/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "klT-al-UKS"; */
-"klT-al-UKS.title" = "Settings";
-
-/* Class = "UILabel"; text = "Sync on Start"; ObjectID = "KpL-LB-iJc"; */
-"KpL-LB-iJc.text" = "Sync on Start";
-
-/* Class = "UILabel"; text = "Not Logged In"; ObjectID = "KZg-EL-ffF"; */
-"KZg-EL-ffF.text" = "Not Logged In";
-
-/* Class = "UITableViewSection"; footerTitle = "     "; ObjectID = "kzL-XI-1Cq"; */
-"kzL-XI-1Cq.footerTitle" = "     ";
-
-/* Class = "UITableViewSection"; headerTitle = "SYNCING"; ObjectID = "kzL-XI-1Cq"; */
-"kzL-XI-1Cq.headerTitle" = "SYNCING";
-
-/* Class = "UIBarButtonItem"; title = "Close"; ObjectID = "Peh-Fd-TcO"; */
-"Peh-Fd-TcO.title" = "Close";
-
-/* Class = "UITextField"; placeholder = "https://example.com/cloud"; ObjectID = "POY-0l-xVn"; */
-"POY-0l-xVn.placeholder" = "https://example.com/cloud";
-
-/* Class = "UITextField"; placeholder = "Server Username"; ObjectID = "PXx-Ke-abd"; */
-"PXx-Ke-abd.placeholder" = "Server Username";
-
 /* Class = "UINavigationItem"; title = "Notes"; ObjectID = "qfr-a2-foZ"; */
 "qfr-a2-foZ.title" = "Notes";
-
-/* Class = "UITextField"; placeholder = "Server Password"; ObjectID = "TWC-3X-LgS"; */
-"TWC-3X-LgS.placeholder" = "Server Password";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "x61-QN-GPh"; */
 "x61-QN-GPh.text" = "Subtitle";

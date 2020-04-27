@@ -390,18 +390,18 @@ class NotesTableViewController: UITableViewController {
     public override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         contextMenuIndexPath = indexPath
         let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in
-            let categoryAction = UIAction(title: "Change Category...", image: nil) { [weak self] _ in
+            let categoryAction = UIAction(title: NSLocalizedString("Change Category...", comment: "Action to change category of a note"), image: nil) { [weak self] _ in
                 if let indexPath = self?.contextMenuIndexPath {
                     self?.showCategories(indexPath: indexPath)
                 }
             }
-            let deleteAction = UIAction(title: "Delete", image: (UIImage(systemName: "trash")), identifier: UIAction.Identifier("deleteAction"), discoverabilityTitle: nil, attributes: .destructive, state: .off, handler: { [weak self] _ in
+            let deleteAction = UIAction(title: NSLocalizedString("Delete", comment: "Action to delete a note"), image: (UIImage(systemName: "trash")), identifier: UIAction.Identifier("deleteAction"), discoverabilityTitle: nil, attributes: .destructive, state: .off, handler: { [weak self] _ in
                 if let indexPath = self?.contextMenuIndexPath {
                     self?.tableView(tableView, commit: .delete, forRowAt: indexPath)
                 }
             })
             
-            let categoryMenu = UIMenu(title: "Category", image: nil, identifier: UIMenu.Identifier("category"), options: .displayInline, children: [categoryAction])
+            let categoryMenu = UIMenu(title: NSLocalizedString("Category", comment: "Menu for category"), image: nil, identifier: UIMenu.Identifier("category"), options: .displayInline, children: [categoryAction])
             let actions = [categoryMenu, deleteAction]
             return UIMenu(title: "Actions", image: nil, identifier: nil, children: actions)
         }
