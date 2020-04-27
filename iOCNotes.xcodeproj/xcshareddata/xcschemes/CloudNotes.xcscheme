@@ -82,7 +82,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "EXPORT_PATH=&quot;$SRCROOT/MacDist&quot;&#10;APP_PATH=&quot;$EXPORT_PATH/$PRODUCT_NAME.app&quot;&#10;&#10;/usr/bin/xcodebuild -exportArchive -archivePath &quot;$ARCHIVE_PATH&quot; -exportOptionsPlist &quot;$SRCROOT/MacDist/ExportOptions.plist&quot; -exportPath &quot;$EXPORT_PATH&quot;&#10;&#10;/usr/local/bin/appdmg &quot;$SRCROOT/appdmg.json&quot; &quot;$SRCROOT/MacDist/CloudNotes.dmg&quot;&#10;">
+               scriptText = "EXPORT_PATH=&quot;$SRCROOT/MacDist&quot;&#10;APP_PATH=&quot;$EXPORT_PATH/$PRODUCT_NAME.app&quot;&#10;PLIST=&quot;${PROJECT_DIR}/${INFOPLIST_FILE}&quot;&#10;PLB=/usr/libexec/PlistBuddy&#10;SHORT_VERSION=$($PLB -c &quot;Print CFBundleShortVersionString&quot; &quot;$PLIST&quot;)&#10;&#10;/usr/bin/xcodebuild -exportArchive -archivePath &quot;$ARCHIVE_PATH&quot; -exportOptionsPlist &quot;$EXPORT_PATH/ExportOptions.plist&quot; -exportPath &quot;$EXPORT_PATH&quot;&#10;&#10;/usr/local/bin/appdmg &quot;$SRCROOT/appdmg.json&quot; &quot;$SRCROOT/MacDist/CloudNotes-$MARKETING_VERSION.dmg&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
