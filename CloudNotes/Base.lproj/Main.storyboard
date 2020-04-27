@@ -330,11 +330,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Note" id="sDg-q8-d8x">
                                     <items>
-                                        <menuItem title="Preview..." keyEquivalent="s" identifier="previewMenuItem" id="xJx-tA-z3e">
-                                            <connections>
-                                                <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="Qjk-yx-kM7"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="Preview..." enabled="NO" keyEquivalent="s" identifier="previewMenuItem" id="xJx-tA-z3e"/>
                                         <menuItem isSeparatorItem="YES" id="Z1r-rF-9lu"/>
                                         <menuItem title="Favorite" keyEquivalent="d" identifier="favoriteMenuItem" id="lPS-K5-5ht">
                                             <connections>
