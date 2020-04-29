@@ -22,12 +22,7 @@
 		BDEFED6523DE326E00EA22A6 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEFED6423DE326E00EA22A6 /* EditorViewController.swift */; };
 		BDF94E812391E5EC005F2D5F /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = BDF94E802391E5EC005F2D5F /* Down */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
-		D004DB662391EBA80080A7D1 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D004DB652391EBA70080A7D1 /* SwiftMessages.framework */; platformFilter = ios; };
 		D004DB7723920E820080A7D1 /* DownView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D004DB7623920E820080A7D1 /* DownView.bundle */; };
-		D004DB7A239211E10080A7D1 /* KSCrash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D004DB7423920ADB0080A7D1 /* KSCrash.framework */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D004DB7B239211E10080A7D1 /* Notepad.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D004DB6F2391F0E80080A7D1 /* Notepad.framework */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D004DB7C239211E10080A7D1 /* PKHUD.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D004DB702391F0E80080A7D1 /* PKHUD.framework */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D004DB7D239211E10080A7D1 /* SwiftMessages.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D004DB6D2391F0CB0080A7D1 /* SwiftMessages.framework */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D004DB7F23948F3D0080A7D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004DB7E23948F3D0080A7D1 /* SceneDelegate.swift */; };
 		D004DB83239759020080A7D1 /* SettingsSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004DB82239759020080A7D1 /* SettingsSceneDelegate.swift */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
@@ -39,11 +34,8 @@
 		D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D017D4231D3B03BE00B21443 /* WebKit.framework */; };
 		D018034A23B037B2001CA4FC /* CategoriesSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018034923B037B1001CA4FC /* CategoriesSceneDelegate.swift */; };
 		D01803A523B2BAC6001CA4FC /* AppKitEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01803A423B2BAC6001CA4FC /* AppKitEntryPoint.swift */; };
-		D01803A623B2BE23001CA4FC /* AppKitGlue.bundle in Embed PlugIns */ = {isa = PBXBuildFile; fileRef = D018039E23B2BA23001CA4FC /* AppKitGlue.bundle */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D01803BE23B40D7F001CA4FC /* AppKitInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = D01803BC23B40D7F001CA4FC /* AppKitInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D01803C223B40D96001CA4FC /* AppKitInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01803AA23B2D289001CA4FC /* AppKitInterface.swift */; };
-		D01803C323B40DB6001CA4FC /* AppKitInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */; platformFilter = maccatalyst; };
-		D01803C423B40DB6001CA4FC /* AppKitInterface.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D01803CF23B843BD001CA4FC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D01803CE23B843BD001CA4FC /* Credits.rtf */; };
 		D02256C71891FD7C0038232A /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = D02256C61891FD7C0038232A /* defaults.plist */; };
 		D0225709189745C40038232A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0225708189745C40038232A /* Settings.bundle */; };
@@ -88,6 +80,7 @@
 		D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E882207B2CF00528E90 /* NotesData.swift */; };
 		D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
+		D093575B2457BA15006F4E01 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */; platformFilter = ios; };
 		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
 		D09DB859241F0CD2001E0E08 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D09DB858241F0CD1001E0E08 /* Credits.html */; };
 		D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */; };
@@ -108,20 +101,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D01803A723B2BE23001CA4FC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0CFE52B1888A7BD00165839 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D018039D23B2BA23001CA4FC;
-			remoteInfo = AppKitGlue;
-		};
-		D01803C523B40DB6001CA4FC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0CFE52B1888A7BD00165839 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D01803B923B40D7F001CA4FC;
-			remoteInfo = AppKitInterface;
-		};
 		D01803CC23B41A55001CA4FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0CFE52B1888A7BD00165839 /* Project object */;
@@ -149,31 +128,6 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D004DB79239211D30080A7D1 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D01803C423B40DB6001CA4FC /* AppKitInterface.framework in CopyFiles */,
-				D004DB7A239211E10080A7D1 /* KSCrash.framework in CopyFiles */,
-				D004DB7B239211E10080A7D1 /* Notepad.framework in CopyFiles */,
-				D004DB7C239211E10080A7D1 /* PKHUD.framework in CopyFiles */,
-				D004DB7D239211E10080A7D1 /* SwiftMessages.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D01803A923B2BE23001CA4FC /* Embed PlugIns */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				D01803A623B2BE23001CA4FC /* AppKitGlue.bundle in Embed PlugIns */,
-			);
-			name = "Embed PlugIns";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -194,10 +148,6 @@
 		D00293D619F48B5300B2DA8F /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D004DB652391EBA70080A7D1 /* SwiftMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMessages.framework; path = Carthage/Build/macCatalyst/SwiftMessages.framework; sourceTree = "<group>"; };
 		D004DB692391EC200080A7D1 /* iOCNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOCNotes.entitlements; sourceTree = "<group>"; };
-		D004DB6D2391F0CB0080A7D1 /* SwiftMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMessages.framework; path = Carthage/Build/macCatalyst/SwiftMessages.framework; sourceTree = "<group>"; };
-		D004DB6F2391F0E80080A7D1 /* Notepad.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Notepad.framework; path = Carthage/Build/macCatalyst/Notepad.framework; sourceTree = "<group>"; };
-		D004DB702391F0E80080A7D1 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/macCatalyst/PKHUD.framework; sourceTree = "<group>"; };
-		D004DB7423920ADB0080A7D1 /* KSCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSCrash.framework; path = Carthage/Build/macCatalyst/KSCrash.framework; sourceTree = "<group>"; };
 		D004DB7623920E820080A7D1 /* DownView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DownView.bundle; sourceTree = "<group>"; };
 		D004DB7E23948F3D0080A7D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D004DB82239759020080A7D1 /* SettingsSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSceneDelegate.swift; sourceTree = "<group>"; };
@@ -329,7 +279,6 @@
 				D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */,
 				BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */,
 				D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */,
-				D01803C323B40DB6001CA4FC /* AppKitInterface.framework in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
 				D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */,
 				BDF94E812391E5EC005F2D5F /* Down in Frameworks */,
@@ -337,7 +286,7 @@
 				D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */,
 				D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */,
 				D078A1C4239C8A2000E1A004 /* CoreServices.framework in Frameworks */,
-				D004DB662391EBA80080A7D1 /* SwiftMessages.framework in Frameworks */,
+				D093575B2457BA15006F4E01 /* SwiftMessages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,10 +379,6 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
-				D004DB7423920ADB0080A7D1 /* KSCrash.framework */,
-				D004DB6F2391F0E80080A7D1 /* Notepad.framework */,
-				D004DB702391F0E80080A7D1 /* PKHUD.framework */,
-				D004DB6D2391F0CB0080A7D1 /* SwiftMessages.framework */,
 				D0A00D462356A7EB0054E3A3 /* credits.py */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
@@ -638,14 +583,10 @@
 				D022570C189749920038232A /* ShellScript */,
 				D05110BD20C8CA2A00AFFDC7 /* ShellScript */,
 				D0A00D472356A7F80054E3A3 /* ShellScript */,
-				D004DB79239211D30080A7D1 /* CopyFiles */,
-				D01803A923B2BE23001CA4FC /* Embed PlugIns */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D01803A823B2BE23001CA4FC /* PBXTargetDependency */,
-				D01803C623B40DB6001CA4FC /* PBXTargetDependency */,
 			);
 			name = iOCNotes;
 			packageProductDependencies = (
@@ -830,12 +771,12 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"$(SRCROOT)/carthage_input_$(CARTHAGE_SUBFOLDER).xcfilelist",
+				"$(SRCROOT)/carthage_input_iOS.xcfilelist",
 			);
 			inputPaths = (
 			);
 			outputFileListPaths = (
-				"$(SRCROOT)/carthage_output_$(CARTHAGE_SUBFOLDER).xcfilelist",
+				"$(SRCROOT)/carthage_output_iOS.xcfilelist",
 			);
 			outputPaths = (
 			);
@@ -955,18 +896,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D01803A823B2BE23001CA4FC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = maccatalyst;
-			target = D018039D23B2BA23001CA4FC /* AppKitGlue */;
-			targetProxy = D01803A723B2BE23001CA4FC /* PBXContainerItemProxy */;
-		};
-		D01803C623B40DB6001CA4FC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = maccatalyst;
-			target = D01803B923B40D7F001CA4FC /* AppKitInterface */;
-			targetProxy = D01803C523B40DB6001CA4FC /* PBXContainerItemProxy */;
-		};
 		D01803CD23B41A55001CA4FC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D01803B923B40D7F001CA4FC /* AppKitInterface */;
@@ -1415,21 +1344,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CARTHAGE_SUBFOLDER = iOS;
-				"CARTHAGE_SUBFOLDER[sdk=macosx*]" = macCatalyst;
 				CODE_SIGN_ENTITLEMENTS = iOCNotes/iOCNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 2747;
 				DEFINES_MODULE = YES;
-				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBFOLDER)",
-					"$(PROJECT_DIR)/Carthage/Build/macCatalyst",
 					"${TARGET_BUILD_DIR}/AppKitInterface.framework",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
@@ -1443,9 +1369,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${TARGET_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = CloudNotes;
-				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/Carthage/Checkouts/down/Source/cmark";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1457,21 +1382,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CARTHAGE_SUBFOLDER = iOS;
-				"CARTHAGE_SUBFOLDER[sdk=macosx*]" = macCatalyst;
 				CODE_SIGN_ENTITLEMENTS = iOCNotes/iOCNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 2747;
 				DEFINES_MODULE = YES;
-				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage/Build/$(CARTHAGE_SUBFOLDER)",
-					"$(PROJECT_DIR)/Carthage/Build/macCatalyst",
 					"${TARGET_BUILD_DIR}/AppKitInterface.framework",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
@@ -1485,9 +1407,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${TARGET_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = CloudNotes;
-				PROVISIONING_PROFILE = "";
 				STRIP_STYLE = debugging;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/Carthage/Checkouts/down/Source/cmark";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;

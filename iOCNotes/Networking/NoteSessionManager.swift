@@ -8,9 +8,7 @@
 
 import Alamofire
 import Foundation
-#if !os(OSX)
 import SwiftMessages
-#endif
 
 typealias SyncCompletionBlock = () -> Void
 typealias SyncCompletionBlockWithNote = (_ note: CDNote?) -> Void
