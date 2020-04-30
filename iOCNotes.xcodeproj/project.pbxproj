@@ -334,6 +334,7 @@
 				D07F5E882207B2CF00528E90 /* NotesData.swift */,
 			);
 			name = CoreData;
+			path = iOCNotes;
 			sourceTree = "<group>";
 		};
 		D071BFDC23CD6244002BF63B /* CloudNotes */ = {
@@ -370,10 +371,24 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		D084FB6C245A5FDC003EB6FB /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
+				BD92271A22CD3743004E2408 /* UtilityExtensions.swift */,
+				BD653F87231C43FA00D59A88 /* Constants.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
 				D0A00D462356A7EB0054E3A3 /* credits.py */,
+				D084FB6C245A5FDC003EB6FB /* Shared */,
+				D01067DC220BCAD60047E090 /* Models */,
+				D07F5E8C2207B6D700528E90 /* Networking */,
+				D05110BE20CA1F9D00AFFDC7 /* CoreData */,
 				D0CFE53C1888A7BD00165839 /* iOCNotes */,
 				D0CFE55E1888A7BD00165839 /* iOCNotesTests */,
 				D018039F23B2BA23001CA4FC /* AppKitGlue */,
@@ -381,6 +396,7 @@
 				D071BFDC23CD6244002BF63B /* CloudNotes */,
 				D0CFE5351888A7BD00165839 /* Frameworks */,
 				D0CFE5341888A7BD00165839 /* Products */,
+				D0782BF020D60430009AF66B /* Cartfile */,
 				D03993E22428287600A78369 /* appdmg.json */,
 			);
 			sourceTree = "<group>";
@@ -427,9 +443,6 @@
 			isa = PBXGroup;
 			children = (
 				D004DB692391EC200080A7D1 /* iOCNotes.entitlements */,
-				D01067DC220BCAD60047E090 /* Models */,
-				D07F5E8C2207B6D700528E90 /* Networking */,
-				D05110BE20CA1F9D00AFFDC7 /* CoreData */,
 				D01067E32213BDF20047E090 /* AppDelegate.swift */,
 				D004DB7E23948F3D0080A7D1 /* SceneDelegate.swift */,
 				D004DB82239759020080A7D1 /* SettingsSceneDelegate.swift */,
@@ -447,9 +460,6 @@
 				D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */,
 				D0545F22230901D30001D165 /* PBHOpenInActivity.swift */,
 				BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */,
-				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
-				BD92271A22CD3743004E2408 /* UtilityExtensions.swift */,
-				BD653F87231C43FA00D59A88 /* Constants.swift */,
 				D0CFE5511888A7BD00165839 /* Images.xcassets */,
 				BDD015A0234CEF86000BA001 /* Colors.xcassets */,
 				D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */,
@@ -466,7 +476,6 @@
 			isa = PBXGroup;
 			children = (
 				D004DB7623920E820080A7D1 /* DownView.bundle */,
-				D0782BF020D60430009AF66B /* Cartfile */,
 				D00CDFC1194E65B4007505E9 /* Localizable.strings */,
 				D0CFE53E1888A7BD00165839 /* iOCNotes-Info.plist */,
 				D0CFE53F1888A7BD00165839 /* InfoPlist.strings */,
