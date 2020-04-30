@@ -56,10 +56,11 @@ enum Router: URLRequestConvertible {
             urlRequest.httpMethod = self.method.rawValue
             let username = KeychainHelper.username
             let password = KeychainHelper.password
-            if let authorizationHeader = Request.authorizationHeader(user: username, password: password) {
-                urlRequest.setValue(authorizationHeader.value, forHTTPHeaderField: authorizationHeader.key)
-            }
-            urlRequest.setValue(Router.applicationJson, forHTTPHeaderField: "Accept")
+            let headers: HTTPHeaders = [
+                .authorization(username: username, password: password),
+                .accept(Router.applicationJson)
+            ]
+            urlRequest.headers = headers
 
             switch self {
             case .allNotes(let exclude):

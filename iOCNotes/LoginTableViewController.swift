@@ -78,18 +78,16 @@ class LoginTableViewController: UITableViewController {
         let shouldRetry = !serverAddress.hasSuffix(".php")
         
         let router = Router.allNotes(exclude: "")
-        NoteSessionManager
-            .shared
+        AF
             .request(router)
-            .validate(statusCode: 200..<300)
             .validate(contentType: [Router.applicationJson])
-            .responseDecodable { [weak self] (response: DataResponse<[NoteStruct]>) in
+            .responseDecodable(of: [NoteStruct].self) { [weak self] response in
                 var message: String?
                 var title: String?
                 switch response.result {
-                case .success:
-                    if let notes = response.value, !notes.isEmpty {
-                        if let firstNote = notes.first, !firstNote.etag.isEmpty {
+                case let .success(result):
+                    if !result.isEmpty {
+                        if let firstNote = result.first, !firstNote.etag.isEmpty {
                             KeychainHelper.isNextCloud = true
                         } else {
                             KeychainHelper.isNextCloud = false
@@ -98,7 +96,7 @@ class LoginTableViewController: UITableViewController {
                     } else {
                         self?.pickServer()
                     }
-                case .failure(let error):
+                case let .failure(error):
                     if (shouldRetry) {
                         self?.serverTextField.text = "\(serverAddress)/index.php"
                         self?.tableView(tableView, didSelectRowAt: indexPath)

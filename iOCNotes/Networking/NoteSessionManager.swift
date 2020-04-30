@@ -19,25 +19,16 @@ struct ErrorMessage {
     var body: String
 }
 
-class NoteSessionManager: Alamofire.SessionManager {
-    
-    static let shared = NoteSessionManager()
-    
-    init() {
-        let configuration = URLSessionConfiguration.background(withIdentifier: "com.peterandlinda.CloudNotes.background")
-        super.init(configuration: configuration)
-        self.delegate.taskDidReceiveChallengeWithCompletion = challengeHandler(session:task:challenge:completionHandler:)
-    }
-    
-    func challengeHandler(session: URLSession, task: URLSessionTask, challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) -> Void {
+final class CustomServerTrustPolicyManager: ServerTrustManager {
+    override func serverTrustEvaluator(forHost host: String) -> ServerTrustEvaluating? {
         let server = KeychainHelper.server
         if KeychainHelper.allowUntrustedCertificate,
-            !server.isEmpty,
-            let host = URLComponents(string: server)?.host,
-            challenge.protectionSpace.host == host {
-            completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+            !host.isEmpty,
+            let serverHost = URLComponents(string: server)?.host,
+            host == serverHost {
+            return DisabledEvaluator()
         } else {
-            completionHandler(.performDefaultHandling, nil)
+            return DefaultTrustEvaluator()
         }
     }
 }
@@ -58,12 +49,27 @@ class NotesManager {
 
     static let shared = NotesManager()
 
+    private var session: Session
+
     class var isConnectedToInternet: Bool {
         return NetworkReachabilityManager(host: KeychainHelper.server)?.isReachable ?? false
     }
 
     class var isOnline: Bool {
         return NotesManager.isConnectedToInternet && !KeychainHelper.offlineMode
+    }
+    
+    init() {
+        session = Session(serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
+    }
+    
+    func updateSession() {
+        if KeychainHelper.allowUntrustedCertificate {
+        let manager = ServerTrustManager(evaluators: [KeychainHelper.server: DisabledEvaluator()])
+            session = Session(serverTrustManager: manager)
+        } else {
+            session = Session()
+        }
     }
 
     func sync(completion: SyncCompletionBlock? = nil) {
@@ -135,25 +141,22 @@ class NotesManager {
             addOnServer {
                 updateOnServer {
                     let router = Router.allNotes(exclude: "")
-                    NoteSessionManager
-                        .shared
+                    self.session
                         .request(router)
                         .validate(statusCode: 200..<300)
                         .validate(contentType: [Router.applicationJson])
-                        .responseDecodable { (response: DataResponse<[NoteStruct]>) in
+                        .responseDecodable(of: [NoteStruct].self) { response in
                             switch response.result {
-                            case .success:
-                                if let notes = response.value {
-                                    let serverIds = notes.map( { $0.id } )
-                                    if let knownIds = CDNote.all()?.map({ $0.id }).filter({ $0 > 0 }) {
-                                        let deletedOnServer = Set(knownIds).subtracting(Set(serverIds))
-                                        if !deletedOnServer.isEmpty {
-                                            _ = CDNote.delete(ids: Array(deletedOnServer))
-                                        }
+                            case let .success(notes):
+                                let serverIds = notes.map( { $0.id } )
+                                if let knownIds = CDNote.all()?.map({ $0.id }).filter({ $0 > 0 }) {
+                                    let deletedOnServer = Set(knownIds).subtracting(Set(serverIds))
+                                    if !deletedOnServer.isEmpty {
+                                        _ = CDNote.delete(ids: Array(deletedOnServer))
                                     }
-                                    CDNote.update(notes: notes)
                                 }
-                            case .failure(let error):
+                                CDNote.update(notes: notes)
+                            case let .failure(error):
                                 let message = ErrorMessage(title: NSLocalizedString("Error Syncing Notes", comment: "The title of an error message"),
                                                            body: error.localizedDescription)
                                 self.showErrorMessage(message: message)
@@ -212,26 +215,23 @@ class NotesManager {
                                       "favorite": note.favorite]
         let canRetry = !KeychainHelper.server.hasSuffix(".php")
         let router = Router.createNote(parameters: parameters)
-        NoteSessionManager
-            .shared
+        session
             .request(router)
             .validate(statusCode: 200..<300)
             .validate(contentType: [Router.applicationJson])
-            .responseDecodable { (response: DataResponse<NoteStruct>) in
+            .responseDecodable(of: NoteStruct.self) { response in
                 switch response.result {
-                case .success:
-                    if let note = response.value {
-                        newNote.id = note.id
-                        newNote.modified = note.modified
-                        newNote.title = note.title
-                        newNote.content = note.content
-                        newNote.category = note.category
-                        newNote.addNeeded = false
-                        newNote.updateNeeded = false
-                        result = CDNote.update(note: newNote)
-                    }
+                case let .success(note):
+                    newNote.id = note.id
+                    newNote.modified = note.modified
+                    newNote.title = note.title
+                    newNote.content = note.content
+                    newNote.category = note.category
+                    newNote.addNeeded = false
+                    newNote.updateNeeded = false
+                    result = CDNote.update(note: newNote)
                     handler(.success(result))
-                case .failure(let error):
+                case let .failure(error):
                     let message = ErrorMessage(title: NSLocalizedString("Error Adding Note", comment: "The title of an error message"),
                                                body: error.localizedDescription)
                     if let urlResponse = response.response {
@@ -254,18 +254,15 @@ class NotesManager {
             return
         }
         let router = Router.getNote(id: Int(note.id), exclude: "", etag: note.etag)
-        NoteSessionManager
-            .shared
+        session
             .request(router)
             .validate(statusCode: 200..<300)
             .validate(contentType: [Router.applicationJson])
-            .responseDecodable { (response: DataResponse<NoteStruct>) in
+            .responseDecodable(of: NoteStruct.self) { response in
                 switch response.result {
-                case .success:
-                    if let note = response.value {
-                        CDNote.update(notes: [note])
-                    }
-                case .failure(let error):
+                case let .success(note):
+                    CDNote.update(notes: [note])
+                case let .failure(error):
                     if let urlResponse = response.response {
                         switch urlResponse.statusCode {
                         case 304:
@@ -328,19 +325,16 @@ class NotesManager {
                                       "favorite": note.favorite]
         let canRetry = !KeychainHelper.server.hasSuffix(".php")
         let router = Router.updateNote(id: Int(note.id), paramters: parameters)
-        NoteSessionManager
-            .shared
+        session
             .request(router)
             .validate(statusCode: 200..<300)
             .validate(contentType: [Router.applicationJson])
-            .responseDecodable { (response: DataResponse<NoteStruct>) in
+            .responseDecodable(of: NoteStruct.self) { response in
                 switch response.result {
-                case .success:
-                    if let note = response.value {
-                        CDNote.update(notes: [note])
-                    }
+                case let .success(note):
+                    CDNote.update(notes: [note])
                     handler(.success(nil))
-                case .failure(let error):
+                case let .failure(error):
                     CDNote.update(notes: [note])
                     let message = ErrorMessage(title: NSLocalizedString("Error Updating Note", comment: "The title of an error message"),
                                                body: error.localizedDescription)
@@ -400,8 +394,7 @@ class NotesManager {
     fileprivate func deleteOnServer(_ note: NoteProtocol, handler: @escaping SyncHandler) {
         let canRetry = !KeychainHelper.server.hasSuffix(".php")
         let router = Router.deleteNote(id: Int(note.id))
-        NoteSessionManager
-            .shared
+        session
             .request(router)
             .validate(statusCode: 200..<300)
             .responseData { (response) in

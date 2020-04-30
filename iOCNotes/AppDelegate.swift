@@ -3,11 +3,12 @@
 //  iOCNotes
 //
 //  Created by Peter Hedlund on 2/12/19.
-//  Copyright © 2019 Peter Hedlund. All rights reserved.
+//  Copyright © 2020 Peter Hedlund. All rights reserved.
 //
 
-//import AlamofireNetworkActivityIndicator
+#if !targetEnvironment(simulator)
 import KSCrash
+#endif
 import UIKit
 #if targetEnvironment(macCatalyst)
 import AppKitInterface
