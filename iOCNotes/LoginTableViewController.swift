@@ -20,6 +20,8 @@ class LoginTableViewController: UITableViewController {
     @IBOutlet var connectLabel: UILabel!
     @IBOutlet weak var certificateSwitch: UISwitch!
 
+    private let session = Session(serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.serverTextField.delegate = self
@@ -75,11 +77,10 @@ class LoginTableViewController: UITableViewController {
         KeychainHelper.server = serverAddress
         KeychainHelper.username = username
         KeychainHelper.password = password
-        let shouldRetry = !serverAddress.hasSuffix(".php")
-        
+
         let router = Router.allNotes(exclude: "")
-        AF
-            .request(router)
+        session
+            .request(router, interceptor: LoginRequestInterceptor())
             .validate(contentType: [Router.applicationJson])
             .responseDecodable(of: [NoteStruct].self) { [weak self] response in
                 var message: String?
@@ -97,11 +98,6 @@ class LoginTableViewController: UITableViewController {
                         self?.pickServer()
                     }
                 case let .failure(error):
-                    if (shouldRetry) {
-                        self?.serverTextField.text = "\(serverAddress)/index.php"
-                        self?.tableView(tableView, didSelectRowAt: indexPath)
-                        return
-                    }
                     KeychainHelper.server = ""
                     KeychainHelper.username = ""
                     KeychainHelper.password = ""

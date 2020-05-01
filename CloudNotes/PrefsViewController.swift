@@ -19,6 +19,8 @@ class PrefsViewController: NSViewController {
     @IBOutlet var connectionActivityIndicator: NSProgressIndicator!
     @IBOutlet var statusLabel: NSTextField!
     
+    private let session = Session(serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
+
     override func viewDidLoad() {
         super.viewDidLoad()
               
@@ -47,35 +49,27 @@ class PrefsViewController: NSViewController {
         KeychainHelper.server = serverAddress
         KeychainHelper.username = username
         KeychainHelper.password = password
-        let shouldRetry = !serverAddress.hasSuffix(".php")
         
         let router = Router.allNotes(exclude: "")
-        NoteSessionManager
-            .shared
-            .request(router)
-            .validate(statusCode: 200..<300)
+        session
+            .request(router, interceptor: LoginRequestInterceptor())
             .validate(contentType: [Router.applicationJson])
-            .responseDecodable { [weak self] (response: DataResponse<[NoteStruct]>) in
+            .responseDecodable(of: [NoteStruct].self) { [weak self] response in
                 var message: String?
                 var title: String?
                 switch response.result {
-                case .success:
-                    if let notes = response.value, !notes.isEmpty {
-                        if let firstNote = notes.first, !firstNote.etag.isEmpty {
+                case let .success(result):
+                    if !result.isEmpty {
+                        if let firstNote = result.first, !firstNote.etag.isEmpty {
                             KeychainHelper.isNextCloud = true
                         } else {
                             KeychainHelper.isNextCloud = false
                         }
+                        self?.showSyncMessage()
                     } else {
                         self?.pickServer()
                     }
-                    self?.statusLabel.stringValue = NSLocalizedString("Connected to Notes on the server", comment: "Status information, connected")
-                case .failure(let error):
-                    if (shouldRetry) {
-                        self?.serverTextField.stringValue = "\(serverAddress)/index.php"
-                        self?.onConnect(self as Any)
-                        return
-                    }
+                case let .failure(error):
                     KeychainHelper.server = ""
                     KeychainHelper.username = ""
                     KeychainHelper.password = ""
@@ -129,6 +123,32 @@ class PrefsViewController: NSViewController {
                 KeychainHelper.isNextCloud = true
             }
         }
+    }
+
+    func showSyncMessage() {
+        #if os(iOS)
+        var config = SwiftMessages.defaultConfig
+        config.duration = .forever
+        config.preferredStatusBarStyle = .default
+        config.presentationContext = .viewController(self)
+        SwiftMessages.show(config: config, viewProvider: {
+            let view = MessageView.viewFromNib(layout: .cardView)
+            view.configureTheme(.success, iconStyle: .default)
+            view.configureDropShadow()
+            view.configureContent(title: NSLocalizedString("Success", comment: "A message title"),
+                                  body: NSLocalizedString("You are now connected to Notes on your server", comment: "A message"),
+                                  iconImage: Icon.success.image,
+                                  iconText: nil,
+                                  buttonImage: nil,
+                                  buttonTitle: NSLocalizedString("Close & Sync", comment: "Title of a button allowing the user to close the login screen and sync with the server"),
+                                  buttonTapHandler: { [weak self] _ in
+                                    SwiftMessages.hide()
+                                    self?.dismiss(animated: true, completion: nil)
+                                    NotificationCenter.default.post(name: .syncNotes, object: nil)
+            })
+            return view
+        })
+        #endif
     }
 
 }

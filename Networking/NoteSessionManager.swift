@@ -8,7 +8,9 @@
 
 import Alamofire
 import Foundation
+#if os(iOS)
 import SwiftMessages
+#endif
 
 typealias SyncCompletionBlock = () -> Void
 typealias SyncCompletionBlockWithNote = (_ note: CDNote?) -> Void
@@ -31,6 +33,34 @@ final class CustomServerTrustPolicyManager: ServerTrustManager {
             return DefaultTrustEvaluator()
         }
     }
+}
+
+final class LoginRequestInterceptor: RequestInterceptor {
+
+    func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+        let router = Router.allNotes(exclude: "")
+        do {
+            let request = try router.asURLRequest()
+            completion(.success(request))
+        } catch  {
+            completion(.success(urlRequest))
+        }
+    }
+    
+    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        guard let _ = request.request?.url else {
+            return completion(.doNotRetryWithError(error))
+        }
+        
+        let serverAddress = KeychainHelper.server
+        if !serverAddress.hasSuffix(".php") {
+            KeychainHelper.server = "\(serverAddress)/index.php"
+            completion(.retry)
+        } else {
+            completion(.doNotRetryWithError(error))
+        }
+    }
+
 }
 
 class NotesManager {
@@ -63,15 +93,6 @@ class NotesManager {
         session = Session(serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
     }
     
-    func updateSession() {
-        if KeychainHelper.allowUntrustedCertificate {
-        let manager = ServerTrustManager(evaluators: [KeychainHelper.server: DisabledEvaluator()])
-            session = Session(serverTrustManager: manager)
-        } else {
-            session = Session()
-        }
-    }
-
     func sync(completion: SyncCompletionBlock? = nil) {
 
         func deleteOnServer(completion: @escaping SyncCompletionBlock) {

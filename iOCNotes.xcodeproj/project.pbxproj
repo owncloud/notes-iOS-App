@@ -26,7 +26,6 @@
 		D004DB7F23948F3D0080A7D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004DB7E23948F3D0080A7D1 /* SceneDelegate.swift */; };
 		D004DB83239759020080A7D1 /* SettingsSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004DB82239759020080A7D1 /* SettingsSceneDelegate.swift */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
-		D01067DE220BCE3C0047E090 /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
 		D01067E22213BB5E0047E090 /* NoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E12213BB5E0047E090 /* NoteProtocol.swift */; };
 		D01067E42213BDF30047E090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E32213BDF20047E090 /* AppDelegate.swift */; };
 		D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E52213C17D0047E090 /* NotesTableViewController.swift */; };
@@ -79,6 +78,7 @@
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D093575B2457BA15006F4E01 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */; platformFilter = ios; };
 		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
+		D095AE45245BB25F00A7EF62 /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
 		D09DB859241F0CD2001E0E08 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D09DB858241F0CD1001E0E08 /* Credits.html */; };
 		D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */; };
 		D0B6D4AE22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */; };
@@ -856,10 +856,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */,
-				D01067DE220BCE3C0047E090 /* NoteSessionManager.swift in Sources */,
 				D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */,
 				D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */,
 				BDD015A32353F7D4000BA001 /* PBHSplitViewController.swift in Sources */,
+				D095AE45245BB25F00A7EF62 /* NoteSessionManager.swift in Sources */,
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
 				D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */,
 				BD653F88231C43FA00D59A88 /* Constants.swift in Sources */,
