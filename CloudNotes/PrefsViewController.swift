@@ -41,7 +41,7 @@ class PrefsViewController: NSViewController {
         let username = self.usernameTextField.stringValue
         let password = self.passwordTextField.stringValue
 
-        NotesManager.shared.login(server: serverAddress, username: username, password: password) { [weak self] in
+        NoteSessionManager.shared.login(server: serverAddress, username: username, password: password) { [weak self] in
             self?.connectionActivityIndicator.stopAnimation(nil)
         }
     }

@@ -24,7 +24,7 @@ class EditorViewController: NSViewController {
             if note != oldValue, let note = note {
                 noteView.string = ""
                 //                HUD.show(.progress)
-                NotesManager.shared.get(note: note, completion: { [weak self] in
+                NoteSessionManager.shared.get(note: note, completion: { [weak self] in
                     self?.updateTextView()
                     self?.noteView.string = note.content
                     self?.noteView.undoManager?.removeAllActions()
@@ -74,7 +74,7 @@ class EditorViewController: NSViewController {
             } else {
                 favoriteButton.image = NSImage(named: "unstarred_mac")
             }
-            NotesManager.shared.update(note: note) {
+            NoteSessionManager.shared.update(note: note) {
                 NotificationCenter.default.post(name: .editorUpdatedNote, object: note)
             }
         }
@@ -108,7 +108,7 @@ extension EditorViewController: NSTextViewDelegate {
     fileprivate func updateNoteContent() {
         if let note = self.note, self.noteView.string != note.content {
             note.content = self.noteView.string
-            NotesManager.shared.update(note: note) {
+            NoteSessionManager.shared.update(note: note) {
                 NotificationCenter.default.post(name: .editorUpdatedNote, object: note)
             }
         }

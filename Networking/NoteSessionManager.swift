@@ -3,7 +3,7 @@
 //  iOCNotes
 //
 //  Created by Peter Hedlund on 2/6/19.
-//  Copyright © 2019 Peter Hedlund. All rights reserved.
+//  Copyright © 2020 Peter Hedlund. All rights reserved.
 //
 
 import Alamofire
@@ -41,13 +41,8 @@ final class CustomServerTrustPolicyManager: ServerTrustManager {
 final class LoginRequestInterceptor: RequestInterceptor {
 
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        let router = Router.allNotes(exclude: "")
-        do {
-            let request = try router.asURLRequest()
-            completion(.success(request))
-        } catch  {
-            completion(.success(urlRequest))
-        }
+        print(urlRequest.url?.absoluteString ?? "")
+        completion(.success(urlRequest))
     }
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
@@ -66,10 +61,9 @@ final class LoginRequestInterceptor: RequestInterceptor {
 
 }
 
-class NotesManager {
+class NoteSessionManager {
     
     struct NoteError: Error {
-        var retry: Bool
         var message: ErrorMessage
     }
     
@@ -80,7 +74,7 @@ class NotesManager {
 
     typealias SyncHandler = (Result<CDNote, NoteError>) -> Void
 
-    static let shared = NotesManager()
+    static let shared = NoteSessionManager()
 
     private var session: Session
 
@@ -89,7 +83,7 @@ class NotesManager {
     }
 
     class var isOnline: Bool {
-        return NotesManager.isConnectedToInternet && !KeychainHelper.offlineMode
+        return NoteSessionManager.isConnectedToInternet && !KeychainHelper.offlineMode
     }
     
     init() {
@@ -149,7 +143,7 @@ class NotesManager {
                         message = error.localizedDescription
                     }
                     if let title = title, let body = message {
-                        NotesManager.shared.showErrorMessage(message: ErrorMessage(title: title, body: body))
+                        NoteSessionManager.shared.showErrorMessage(message: ErrorMessage(title: title, body: body))
                     }
                 }
                 completion?()
@@ -165,7 +159,7 @@ class NotesManager {
                 
                 for note in notesToDelete {
                     group.enter()
-                    NotesManager.shared.delete(note: note, completion: {
+                    NoteSessionManager.shared.delete(note: note, completion: {
                         group.leave()
                     })
                 }
@@ -207,7 +201,7 @@ class NotesManager {
 
                 for note in notesToUpdate {
                     group.enter()
-                    NotesManager.shared.update(note: note, completion: {
+                    NoteSessionManager.shared.update(note: note, completion: {
                         group.leave()
                     })
                 }
@@ -260,29 +254,14 @@ class NotesManager {
     }
 
     func add(note: CDNote, completion: SyncCompletionBlockWithNote? = nil) {
-        if NotesManager.isOnline {
+        if NoteSessionManager.isOnline {
             addToServer(note: note) { [weak self] result in
                 switch result {
                 case .success(let newNote):
                     completion?(newNote)
                 case .failure(let error):
-                    if error.retry {
-                        KeychainHelper.server += "/index.php"
-                        self?.addToServer(note: note) { result2 in
-                            // only one retry
-                            switch result2 {
-                            case .success(let newNote):
-                                completion?(newNote)
-                            case .failure(let error):
-                                self?.showErrorMessage(message: error.message)
-                                completion?(note)
-                            }
-                        }
-                    } else {
-                        self?.showErrorMessage(message: error.message)
-                        completion?(note)
-
-                    }
+                    self?.showErrorMessage(message: error.message)
+                    completion?(note)
                 }
             }
         } else {
@@ -297,10 +276,9 @@ class NotesManager {
                                       "category": note.category as Any,
                                       "modified": note.modified,
                                       "favorite": note.favorite]
-        let canRetry = !KeychainHelper.server.hasSuffix(".php")
         let router = Router.createNote(parameters: parameters)
         session
-            .request(router)
+            .request(router, interceptor: LoginRequestInterceptor())
             .validate(statusCode: 200..<300)
             .validate(contentType: [Router.applicationJson])
             .responseDecodable(of: NoteStruct.self) { response in
@@ -318,22 +296,13 @@ class NotesManager {
                 case let .failure(error):
                     let message = ErrorMessage(title: NSLocalizedString("Error Adding Note", comment: "The title of an error message"),
                                                body: error.localizedDescription)
-                    if let urlResponse = response.response {
-                        switch urlResponse.statusCode {
-                        case 405:
-                            handler(.failure(NoteError(retry: canRetry, message: message)))
-                        default:
-                            handler(.failure(NoteError(retry: false, message: message)))
-                        }
-                    } else {
-                        handler(.failure(NoteError(retry: false, message: message)))
-                    }
+                    handler(.failure(NoteError(message: message)))
                 }
         }
     }
 
     func get(note: NoteProtocol, completion: SyncCompletionBlock? = nil) {
-        guard NotesManager.isOnline else {
+        guard NoteSessionManager.isOnline else {
             completion?()
             return
         }
@@ -372,28 +341,14 @@ class NotesManager {
     func update(note: NoteProtocol, completion: SyncCompletionBlock? = nil) {
         var incoming = note
         incoming.updateNeeded = true
-        if NotesManager.isOnline {
+        if NoteSessionManager.isOnline {
             updateOnServer(incoming) { [weak self] result in
                 switch result {
                 case .success( _):
                     completion?()
                 case .failure(let error):
-                    if error.retry {
-                        KeychainHelper.server += "/index.php"
-                        self?.updateOnServer(note) { result2 in
-                            // only one retry
-                            switch result2 {
-                            case .success( _):
-                                completion?()
-                            case .failure(let error):
-                                self?.showErrorMessage(message: error.message)
-                                completion?()
-                            }
-                        }
-                    } else {
-                        self?.showErrorMessage(message: error.message)
-                        completion?()
-                    }
+                    self?.showErrorMessage(message: error.message)
+                    completion?()
                 }
             }
         } else {
@@ -407,10 +362,9 @@ class NotesManager {
                                       "category": note.category as Any,
                                       "modified": Date().timeIntervalSince1970 as Any,
                                       "favorite": note.favorite]
-        let canRetry = !KeychainHelper.server.hasSuffix(".php")
         let router = Router.updateNote(id: Int(note.id), paramters: parameters)
         session
-            .request(router)
+            .request(router, interceptor: LoginRequestInterceptor())
             .validate(statusCode: 200..<300)
             .validate(contentType: [Router.applicationJson])
             .responseDecodable(of: NoteStruct.self) { response in
@@ -430,13 +384,11 @@ class NotesManager {
                                 self.add(note: dbNote, completion: nil)
                             }
                             handler(.success(nil))
-                        case 405:
-                            handler(.failure(NoteError(retry: canRetry, message: message)))
                         default:
-                            handler(.failure(NoteError(retry: false, message: message)))
+                            handler(.failure(NoteError(message: message)))
                         }
                     } else {
-                        handler(.failure(NoteError(retry: false, message: message)))
+                        handler(.failure(NoteError(message: message)))
                     }
                 }
         }
@@ -445,28 +397,14 @@ class NotesManager {
     func delete(note: NoteProtocol, completion: SyncCompletionBlock? = nil) {
         var incoming = note
         incoming.deleteNeeded = true
-        if NotesManager.isOnline {
+        if NoteSessionManager.isOnline {
             deleteOnServer(incoming) { [weak self] result in
                 switch result {
                 case .success( _):
                     completion?()
                 case .failure(let error):
-                    if error.retry {
-                        KeychainHelper.server += "/index.php"
-                        self?.deleteOnServer(note) { result2 in
-                            // only one retry
-                            switch result2 {
-                            case .success( _):
-                                completion?()
-                            case .failure(let error):
-                                self?.showErrorMessage(message: error.message)
-                                completion?()
-                            }
-                        }
-                    } else {
-                        self?.showErrorMessage(message: error.message)
-                        completion?()
-                    }
+                    self?.showErrorMessage(message: error.message)
+                    completion?()
                 }
             }
         } else {
@@ -476,10 +414,9 @@ class NotesManager {
     }
 
     fileprivate func deleteOnServer(_ note: NoteProtocol, handler: @escaping SyncHandler) {
-        let canRetry = !KeychainHelper.server.hasSuffix(".php")
         let router = Router.deleteNote(id: Int(note.id))
         session
-            .request(router)
+            .request(router, interceptor: LoginRequestInterceptor())
             .validate(statusCode: 200..<300)
             .responseData { (response) in
                 switch response.result {
@@ -496,12 +433,9 @@ class NotesManager {
                             //trying to delete it, so let's do that.
                             CDNote.delete(note: note)
                             handler(.success(nil))
-                        case 405:
-                            CDNote.update(notes: [note])
-                            handler(.failure(NoteError(retry: canRetry, message: message)))
                         default:
                             CDNote.update(notes: [note])
-                            handler(.failure(NoteError(retry: false, message: message)))
+                            handler(.failure(NoteError(message: message)))
                         }
                     }
                     if !message.body.isEmpty {

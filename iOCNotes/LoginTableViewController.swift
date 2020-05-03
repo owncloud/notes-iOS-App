@@ -41,7 +41,7 @@ class LoginTableViewController: UITableViewController {
         self.usernameTextField.text = KeychainHelper.username
         self.passwordTextField.text = KeychainHelper.password
         certificateSwitch.isOn = KeychainHelper.allowUntrustedCertificate
-        if NotesManager.isConnectedToInternet {
+        if NoteSessionManager.isConnectedToInternet {
             self.connectLabel.text = NSLocalizedString("Reconnect", comment: "A button title")
         } else {
             self.connectLabel.text = NSLocalizedString("Connect", comment: "A button title")
@@ -69,7 +69,7 @@ class LoginTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         connectionActivityIndicator.startAnimating()
 
-        NotesManager.shared.login(server: serverAddress, username: username, password: password) { [weak self] in
+        NoteSessionManager.shared.login(server: serverAddress, username: username, password: password) { [weak self] in
             self?.connectionActivityIndicator.stopAnimating()
         }
     }

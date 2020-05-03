@@ -41,7 +41,7 @@ class WindowController: NSWindowController {
     }
 
     @IBAction func onAdd(sender: Any?) {
-        NotesManager.shared.add(content: "", category: "", completion: { [weak self] note in
+        NoteSessionManager.shared.add(content: "", category: "", completion: { [weak self] note in
             if note != nil {
                 self?.sourceListController?.notesOutlineView.selectRowIndexes([3], byExtendingSelection: false)
                 self?.notesViewController?.notesView.selectRowIndexes([0], byExtendingSelection: false)
@@ -60,7 +60,7 @@ class WindowController: NSWindowController {
 
     @IBAction func onDelete(sender: Any?) {
         if let currentNote = notesViewController?.selectedNote {
-            NotesManager.shared.delete(note: currentNote) { [weak self] in
+            NoteSessionManager.shared.delete(note: currentNote) { [weak self] in
                 self?.sourceListController?.notesOutlineView.reloadData()
                 self?.notesViewController?.notesView.reloadData()
                 self?.editorViewController?.note = nil

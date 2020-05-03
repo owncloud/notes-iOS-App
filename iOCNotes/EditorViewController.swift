@@ -30,7 +30,7 @@ class EditorViewController: UIViewController {
         didSet {
             if note != oldValue, let note = note {
                 HUD.show(.progress)
-                NotesManager.shared.get(note: note, completion: { [weak self] in
+                NoteSessionManager.shared.get(note: note, completion: { [weak self] in
                     self?.noteView.text = note.content
                     self?.noteView.undoManager?.removeAllActions()
                     self?.noteView.scrollRangeToVisible(NSRange(location: 0, length: 0))
@@ -259,7 +259,7 @@ class EditorViewController: UIViewController {
     
     @IBAction func onAdd(_ sender: Any?) {
         addingNote = true
-        NotesManager.shared.add(content: "", category: "", favorite: false) { [weak self] note in
+        NoteSessionManager.shared.add(content: "", category: "", favorite: false) { [weak self] note in
             self?.note = note
         }
     }
@@ -344,7 +344,7 @@ extension EditorViewController: UITextViewDelegate {
     fileprivate func updateNoteContent() {
         if let note = self.note, let text = self.noteView.text, text != note.content {
             note.content = text
-            NotesManager.shared.update(note: note, completion: { [weak self] in
+            NoteSessionManager.shared.update(note: note, completion: { [weak self] in
                 self?.updateHeaderLabel()
             })
         }

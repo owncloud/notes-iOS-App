@@ -82,16 +82,16 @@ class SourceListController: NSViewController {
     }
     
     @IBAction func onRefresh(sender: Any?) {
-        guard NotesManager.isOnline else {
+        guard NoteSessionManager.isOnline else {
             return
         }
 
         refreshProgressIndicator.startAnimation(nil)
         refreshBarButton.isEnabled = false
         isSyncing = true
-        NotesManager.shared.sync { [weak self] in
+        NoteSessionManager.shared.sync { [weak self] in
             self?.isSyncing = false
-            self?.refreshBarButton.isEnabled = NotesManager.isOnline
+            self?.refreshBarButton.isEnabled = NoteSessionManager.isOnline
             self?.rebuildCategoryList()
             self?.notesOutlineView.reloadData()
             self?.notesViewController?.notesView.reloadData()

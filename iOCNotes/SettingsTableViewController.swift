@@ -28,7 +28,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.syncOnStartSwitch.isOn = KeychainHelper.syncOnStart
         offlineModeSwitch.isOn = KeychainHelper.offlineMode
-        if NotesManager.isConnectedToInternet {
+        if NoteSessionManager.isConnectedToInternet {
             self.statusLabel.text = NSLocalizedString("Logged In", comment:"A status label indicating that the user is logged in")
         } else {
             self.statusLabel.text =  NSLocalizedString("Not Logged In", comment: "A status label indicating that the user is not logged in")

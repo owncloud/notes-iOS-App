@@ -97,7 +97,7 @@ class CategoryTableViewController: UITableViewController {
         if isDirty,
             let note = self.note {
             note.category = currentCategory
-            NotesManager.shared.update(note: note) {
+            NoteSessionManager.shared.update(note: note) {
                 NotificationCenter.default.post(name: .doneSelectingCategory, object: nil)
             }
         }
