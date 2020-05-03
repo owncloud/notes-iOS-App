@@ -9,7 +9,10 @@
 import Alamofire
 import Foundation
 #if os(iOS)
+import UIKit
 import SwiftMessages
+#else
+import AppKit
 #endif
 
 typealias SyncCompletionBlock = () -> Void
@@ -91,6 +94,66 @@ class NotesManager {
     
     init() {
         session = Session(serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
+    }
+    
+    func login(server: String, username: String, password: String, completion: SyncCompletionBlock? = nil) {
+        var serverAddress = server.trimmingCharacters(in: CharacterSet(charactersIn: "/ "))
+        if !serverAddress.contains("://"),
+            !serverAddress.hasPrefix("http") {
+            serverAddress = "https://\(serverAddress)"
+        }
+        KeychainHelper.server = serverAddress
+        KeychainHelper.username = username
+        KeychainHelper.password = password
+        
+        let router = Router.allNotes(exclude: "")
+        session
+            .request(router, interceptor: LoginRequestInterceptor())
+            .validate(contentType: [Router.applicationJson])
+            .responseDecodable(of: [NoteStruct].self) { [weak self] response in
+                var message: String?
+                var title: String?
+                switch response.result {
+                case let .success(result):
+                        if !result.isEmpty {
+                        if let firstNote = result.first, !firstNote.etag.isEmpty {
+                            KeychainHelper.isNextCloud = true
+                        } else {
+                            KeychainHelper.isNextCloud = false
+                        }
+                        self?.showSyncMessage()
+                    } else {
+                        self?.pickServer()
+                    }
+                case let .failure(error):
+                    KeychainHelper.server = ""
+                    KeychainHelper.username = ""
+                    KeychainHelper.password = ""
+                    if let urlResponse = response.response {
+                        switch urlResponse.statusCode {
+                        case 200:
+                            title = NSLocalizedString("Notes not found", comment: "An error message title")
+                            message = NSLocalizedString("Notes could not be found on your server. Make sure it is installed and enabled", comment: "An error message");
+                        case 401:
+                            title = NSLocalizedString("Unauthorized", comment: "An error message title")
+                            message = NSLocalizedString("Check username and password.", comment: "An error message")
+                        case 404:
+                            title = NSLocalizedString("Server not found", comment: "An error message title")
+                            message = NSLocalizedString("A server installation could not be found. Check the server address.", comment: "An error message")
+                        default:
+                            title = NSLocalizedString("Connection failure", comment: "An error message title")
+                            message = error.localizedDescription
+                        }
+                    } else {
+                        title = NSLocalizedString("Connection failure", comment: "An error message title")
+                        message = error.localizedDescription
+                    }
+                    if let title = title, let body = message {
+                        NotesManager.shared.showErrorMessage(message: ErrorMessage(title: title, body: body))
+                    }
+                }
+                completion?()
+        }
     }
     
     func sync(completion: SyncCompletionBlock? = nil) {
@@ -446,6 +509,70 @@ class NotesManager {
                     }
                 }
         }
+    }
+    
+    func pickServer() {
+        #if os(iOS)
+        let alert = UIAlertController(title: NSLocalizedString("Server", comment: "Alert title for selecting server brand"),
+                                      message: NSLocalizedString("Unable to automatically detect type of server.\nPlease select:", comment: "Alert message for selecting server brand"),
+                                      preferredStyle: .alert)
+        let nextCloudAction = UIAlertAction(title: "NextCloud", style: .default) { [weak self] (_) in
+            KeychainHelper.isNextCloud = true
+            self?.showSyncMessage()
+        }
+        let ownCloudAction = UIAlertAction(title: "ownCloud", style: .default) { [weak self] (_) in
+            KeychainHelper.isNextCloud = false
+            self?.showSyncMessage()
+        }
+        alert.addAction(nextCloudAction)
+        alert.addAction(ownCloudAction)
+        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+        #else
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = NSLocalizedString("Server", comment: "Alert title for selecting server brand")
+        alert.informativeText = NSLocalizedString("Unable to automatically detect type of server.\nPlease select:", comment: "Alert message for selecting server brand")
+        alert.addButton(withTitle: "Nextcloud")
+        alert.addButton(withTitle: "ownCloud")
+        alert.buttons[0].keyEquivalent = "n"
+        alert.buttons[1].keyEquivalent = "o"
+        alert.beginSheetModal(for: NSApp.keyWindow!) { response in
+            switch response {
+            case .alertFirstButtonReturn:
+                KeychainHelper.isNextCloud = true
+            case .alertSecondButtonReturn:
+                KeychainHelper.isNextCloud = false
+            default:
+                KeychainHelper.isNextCloud = true
+            }
+        }
+        #endif
+    }
+
+    func showSyncMessage() {
+        #if os(iOS)
+        var config = SwiftMessages.defaultConfig
+        config.duration = .forever
+        config.preferredStatusBarStyle = .default
+        config.presentationContext = .viewController(UIApplication.topViewController()!)
+        SwiftMessages.show(config: config, viewProvider: {
+            let view = MessageView.viewFromNib(layout: .cardView)
+            view.configureTheme(.success, iconStyle: .default)
+            view.configureDropShadow()
+            view.configureContent(title: NSLocalizedString("Success", comment: "A message title"),
+                                  body: NSLocalizedString("You are now connected to Notes on your server", comment: "A message"),
+                                  iconImage: Icon.success.image,
+                                  iconText: nil,
+                                  buttonImage: nil,
+                                  buttonTitle: NSLocalizedString("Close & Sync", comment: "Title of a button allowing the user to close the login screen and sync with the server"),
+                                  buttonTapHandler: { _ in
+                                    SwiftMessages.hide()
+                                    UIApplication.topViewController()?.dismiss(animated: true, completion: nil)
+                                    NotificationCenter.default.post(name: .syncNotes, object: nil)
+            })
+            return view
+        })
+        #endif
     }
     
     func showErrorMessage(message: ErrorMessage) {
