@@ -41,7 +41,6 @@ final class CustomServerTrustPolicyManager: ServerTrustManager {
 final class LoginRequestInterceptor: RequestInterceptor {
 
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        print(urlRequest.url?.absoluteString ?? "")
         completion(.success(urlRequest))
     }
     
@@ -54,6 +53,33 @@ final class LoginRequestInterceptor: RequestInterceptor {
         if !serverAddress.hasSuffix(".php") {
             KeychainHelper.server = "\(serverAddress)/index.php"
             completion(.retry)
+        } else {
+            completion(.doNotRetryWithError(error))
+        }
+    }
+
+}
+
+final class NoteRequestInterceptor: RequestInterceptor {
+
+    func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+        completion(.success(urlRequest))
+    }
+    
+    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        guard let _ = request.request?.url,
+            let afError = error as? AFError else {
+            return completion(.doNotRetryWithError(error))
+        }
+        
+        if afError.responseCode == 405 {
+            let serverAddress = KeychainHelper.server
+            if !serverAddress.hasSuffix(".php") {
+                KeychainHelper.server = "\(serverAddress)/index.php"
+                completion(.retry)
+            } else {
+                completion(.doNotRetryWithError(error))
+            }
         } else {
             completion(.doNotRetryWithError(error))
         }
@@ -286,7 +312,7 @@ class NoteSessionManager {
                                       "favorite": note.favorite]
         let router = Router.createNote(parameters: parameters)
         session
-            .request(router, interceptor: LoginRequestInterceptor())
+            .request(router, interceptor: NoteRequestInterceptor())
             .validate(statusCode: 200..<300)
             .validate(contentType: [Router.applicationJson])
             .responseDecodable(of: NoteStruct.self) { response in
@@ -372,7 +398,7 @@ class NoteSessionManager {
                                       "favorite": note.favorite]
         let router = Router.updateNote(id: Int(note.id), paramters: parameters)
         session
-            .request(router, interceptor: LoginRequestInterceptor())
+            .request(router, interceptor: NoteRequestInterceptor())
             .validate(statusCode: 200..<300)
             .validate(contentType: [Router.applicationJson])
             .responseDecodable(of: NoteStruct.self) { response in
@@ -424,7 +450,7 @@ class NoteSessionManager {
     fileprivate func deleteOnServer(_ note: NoteProtocol, handler: @escaping SyncHandler) {
         let router = Router.deleteNote(id: Int(note.id))
         session
-            .request(router, interceptor: LoginRequestInterceptor())
+            .request(router, interceptor: NoteRequestInterceptor())
             .validate(statusCode: 200..<300)
             .responseData { (response) in
                 switch response.result {
