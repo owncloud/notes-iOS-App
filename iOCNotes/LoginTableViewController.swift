@@ -41,7 +41,7 @@ class LoginTableViewController: UITableViewController {
         self.usernameTextField.text = KeychainHelper.username
         self.passwordTextField.text = KeychainHelper.password
         certificateSwitch.isOn = KeychainHelper.allowUntrustedCertificate
-        if NoteSessionManager.isConnectedToInternet {
+        if NoteSessionManager.isConnectedToServer {
             self.connectLabel.text = NSLocalizedString("Reconnect", comment: "A button title")
         } else {
             self.connectLabel.text = NSLocalizedString("Connect", comment: "A button title")

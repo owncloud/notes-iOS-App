@@ -79,11 +79,19 @@ class NoteSessionManager {
     private var session: Session
 
     class var isConnectedToInternet: Bool {
-        return NetworkReachabilityManager(host: KeychainHelper.server)?.isReachable ?? false
+        return NetworkReachabilityManager()?.isReachable ?? false
+    }
+
+    class var isConnectedToServer: Bool {
+        guard let url = URL(string: KeychainHelper.server),
+            let host = url.host else {
+            return false
+        }
+        return NetworkReachabilityManager(host: host)?.isReachable ?? false
     }
 
     class var isOnline: Bool {
-        return NoteSessionManager.isConnectedToInternet && !KeychainHelper.offlineMode
+        return NoteSessionManager.isConnectedToServer && !KeychainHelper.offlineMode
     }
     
     init() {
