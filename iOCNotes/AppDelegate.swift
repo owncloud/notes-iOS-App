@@ -10,6 +10,9 @@
 import KSCrash
 #endif
 import UIKit
+#if canImport(BackgroundTasks)
+import BackgroundTasks
+#endif
 #if targetEnvironment(macCatalyst)
 import AppKitInterface
 #endif
@@ -26,13 +29,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
 
+    private let operationQueue = OperationQueue()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         #if !targetEnvironment(simulator)
         let installation = self.makeEmailInstallation()
         installation?.install()
         #endif
         
-        //        NetworkActivityIndicatorManager.shared.isEnabled = true
+        if #available(iOS 13.0, *) {
+            let success = BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.peterandlinda.iOCNotes.Sync", using: nil) { task in
+                if let task = task as? BGAppRefreshTask {
+                    print(task.description)
+                    self.handleAppSync(task: task)
+                }
+            }
+        } else {
+            // Fallback on earlier versions
+            // Do nothing
+        }
+
         #if targetEnvironment(macCatalyst)
         if let bundleUrl = Bundle.main.builtInPlugInsURL {
             let pluginUrl = bundleUrl.appendingPathComponent("AppKitGlue").appendingPathExtension("bundle")
@@ -78,15 +94,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let splitViewController = self.window?.rootViewController as? UISplitViewController {
             if let firstNavigationController = splitViewController.viewControllers.first as? UINavigationController {
                 notesTableViewController = firstNavigationController.topViewController as? NotesTableViewController
-            
+                
             }
             if let secondNavigationController = splitViewController.viewControllers.last as? UINavigationController {
-            #if targetEnvironment(macCatalyst)
-            splitViewController.primaryBackgroundStyle = .sidebar
-            #else
-            secondNavigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-            #endif
-        }
+                #if targetEnvironment(macCatalyst)
+                splitViewController.primaryBackgroundStyle = .sidebar
+                #else
+                secondNavigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+                #endif
+            }
         }
 
         #if !targetEnvironment(simulator)
@@ -98,9 +114,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         #endif
+
         return true
     }
 
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        if #available(iOS 13.0, *) {
+            scheduleAppSync()
+        } else {
+            // Fallback on earlier versions
+            // Do nothing
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func scheduleAppSync() {
+       let request = BGAppRefreshTaskRequest(identifier: "com.peterandlinda.iOCNotes.Sync")
+       request.earliestBeginDate = Date(timeIntervalSinceNow: 600)
+       do {
+          try BGTaskScheduler.shared.submit(request)
+       } catch {
+          print("Could not schedule app refresh: \(error)")
+       }
+    }
+    
+    @available(iOS 13.0, *)
+    func handleAppSync(task: BGAppRefreshTask) {
+        // Schedule a new refresh task
+        scheduleAppSync()
+        
+        // Create an operation that performs the main part of the background task
+        let operation = SyncOperation()
+        
+        // Provide an expiration handler for the background task
+        // that cancels the operation
+        task.expirationHandler = {
+           operation.cancel()
+        }
+
+        // Inform the system that the background task is complete
+        // when the operation completes
+        operation.completionBlock = {
+           task.setTaskCompleted(success: !operation.isCancelled)
+        }
+
+        // Start the operation
+        operationQueue.addOperation(operation)
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if url.isFileURL {
             do {

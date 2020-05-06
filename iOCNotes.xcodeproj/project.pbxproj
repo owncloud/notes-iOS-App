@@ -23,14 +23,11 @@
 		BDF94E812391E5EC005F2D5F /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = BDF94E802391E5EC005F2D5F /* Down */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D004DB7723920E820080A7D1 /* DownView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D004DB7623920E820080A7D1 /* DownView.bundle */; };
-		D004DB7F23948F3D0080A7D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004DB7E23948F3D0080A7D1 /* SceneDelegate.swift */; };
-		D004DB83239759020080A7D1 /* SettingsSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004DB82239759020080A7D1 /* SettingsSceneDelegate.swift */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
 		D01067E22213BB5E0047E090 /* NoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E12213BB5E0047E090 /* NoteProtocol.swift */; };
 		D01067E42213BDF30047E090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E32213BDF20047E090 /* AppDelegate.swift */; };
 		D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067E52213C17D0047E090 /* NotesTableViewController.swift */; };
 		D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D017D4231D3B03BE00B21443 /* WebKit.framework */; };
-		D018034A23B037B2001CA4FC /* CategoriesSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018034923B037B1001CA4FC /* CategoriesSceneDelegate.swift */; };
 		D01803A523B2BAC6001CA4FC /* AppKitEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01803A423B2BAC6001CA4FC /* AppKitEntryPoint.swift */; };
 		D01803BE23B40D7F001CA4FC /* AppKitInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = D01803BC23B40D7F001CA4FC /* AppKitInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D01803C223B40D96001CA4FC /* AppKitInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01803AA23B2D289001CA4FC /* AppKitInterface.swift */; };
@@ -86,6 +83,7 @@
 		D0BCFE602454BD3F007C4CA3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
 		D0BCFE612454BF0B007C4CA3 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE632454BF0B007C4CA3 /* Settings.storyboard */; };
 		D0BCFE6A2454BF40007C4CA3 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE6C2454BF40007C4CA3 /* Categories.storyboard */; };
+		D0C1C39F2462448D00AAC4A8 /* SyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1C39E2462448D00AAC4A8 /* SyncOperation.swift */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
@@ -226,6 +224,7 @@
 		D0BCFE722454BF47007C4CA3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Categories.strings; sourceTree = "<group>"; };
 		D0BCFE7424550BB1007C4CA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		D0BCFE7624550BDD007C4CA3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		D0C1C39E2462448D00AAC4A8 /* SyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncOperation.swift; sourceTree = "<group>"; };
 		D0CCF2AA1F77395E00535D54 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		D0CFE5331888A7BD00165839 /* CloudNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CFE5361888A7BD00165839 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -367,6 +366,7 @@
 			children = (
 				D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */,
 				D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */,
+				D0C1C39E2462448D00AAC4A8 /* SyncOperation.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -867,17 +867,15 @@
 				D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */,
 				D0B6D4AE22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift in Sources */,
 				BD92271B22CD3743004E2408 /* UtilityExtensions.swift in Sources */,
+				D0C1C39F2462448D00AAC4A8 /* SyncOperation.swift in Sources */,
 				D0545F23230901D30001D165 /* PBHOpenInActivity.swift in Sources */,
 				D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */,
 				D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */,
 				D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */,
-				D004DB83239759020080A7D1 /* SettingsSceneDelegate.swift in Sources */,
 				D01067E22213BB5E0047E090 /* NoteProtocol.swift in Sources */,
 				D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */,
 				D07F5E872207B1DF00528E90 /* CDNote+CoreDataProperties.swift in Sources */,
-				D004DB7F23948F3D0080A7D1 /* SceneDelegate.swift in Sources */,
 				BD86DD8522B9CDD500115E5D /* KeychainHelper.swift in Sources */,
-				D018034A23B037B2001CA4FC /* CategoriesSceneDelegate.swift in Sources */,
 				D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */,
 				BD302B9022B8061A00067888 /* LoginTableViewController.swift in Sources */,
 				D03493B922F3CC5700E1A9B0 /* CategoryTableViewController.swift in Sources */,
