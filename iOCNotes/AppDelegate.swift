@@ -165,10 +165,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if url.isFileURL {
             do {
+                _ = url.startAccessingSecurityScopedResource()
                 let content = try String(contentsOf: url, encoding: .utf8)
                 NoteSessionManager.shared.add(content: content, category: "")
                 try FileManager.default.removeItem(at: url)
-            } catch { }
+                url.stopAccessingSecurityScopedResource()
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         return true
     }
