@@ -129,7 +129,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @available(iOS 13.0, *)
     func scheduleAppSync() {
-       let request = BGAppRefreshTaskRequest(identifier: "com.peterandlinda.iOCNotes.Sync")
+        BGTaskScheduler.shared.cancelAllTaskRequests()
+        let request = BGAppRefreshTaskRequest(identifier: "com.peterandlinda.iOCNotes.Sync")
        request.earliestBeginDate = Date(timeIntervalSinceNow: 600)
        do {
           try BGTaskScheduler.shared.submit(request)

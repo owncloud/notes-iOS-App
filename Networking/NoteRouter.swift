@@ -68,7 +68,9 @@ enum Router: URLRequestConvertible {
                 urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
             case .getNote(_, let exclude, let etag):
                 let parameters = ["exclude": exclude] as [String : Any]
-                urlRequest.setValue(etag, forHTTPHeaderField: "If-None-Match")
+                if !etag.isEmpty {
+                    urlRequest.setValue(etag, forHTTPHeaderField: "If-None-Match")
+                }
                 urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
 
             case .createNote(let parameters):
