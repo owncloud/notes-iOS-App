@@ -155,8 +155,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Inform the system that the background task is complete
         // when the operation completes
-        operation.completionBlock = {
-           task.setTaskCompleted(success: !operation.isCancelled)
+        operation.completionBlock = { [weak self] in
+            DispatchQueue.main.async {
+                self?.notesTableViewController?.tableView.reloadData()
+            }
+            task.setTaskCompleted(success: !operation.isCancelled)
         }
 
         // Start the operation
