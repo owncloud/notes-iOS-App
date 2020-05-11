@@ -386,29 +386,29 @@ class NotesTableViewController: UITableViewController {
         #endif
     }
 
-    @available(iOS 13.0, *)
-    public override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        contextMenuIndexPath = indexPath
-        let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in
-            let categoryAction = UIAction(title: NSLocalizedString("Change Category...", comment: "Action to change category of a note"), image: nil) { [weak self] _ in
-                if let indexPath = self?.contextMenuIndexPath {
-                    self?.showCategories(indexPath: indexPath)
-                }
-            }
-            let deleteAction = UIAction(title: NSLocalizedString("Delete", comment: "Action to delete a note"), image: (UIImage(systemName: "trash")), identifier: UIAction.Identifier("deleteAction"), discoverabilityTitle: nil, attributes: .destructive, state: .off, handler: { [weak self] _ in
-                if let indexPath = self?.contextMenuIndexPath {
-                    self?.tableView(tableView, commit: .delete, forRowAt: indexPath)
-                }
-            })
-            
-            let categoryMenu = UIMenu(title: NSLocalizedString("Category", comment: "Menu for category"), image: nil, identifier: UIMenu.Identifier("category"), options: .displayInline, children: [categoryAction])
-            let actions = [categoryMenu, deleteAction]
-            return UIMenu(title: "Actions", image: nil, identifier: nil, children: actions)
-        }
-        return UIContextMenuConfiguration(identifier: nil,
-                                          previewProvider: nil,
-                                          actionProvider: actionProvider)
-    }
+//    @available(iOS 13.0, *)
+//    public override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+//        contextMenuIndexPath = indexPath
+//        let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in
+//            let categoryAction = UIAction(title: NSLocalizedString("Change Category...", comment: "Action to change category of a note"), image: nil) { [weak self] _ in
+//                if let indexPath = self?.contextMenuIndexPath {
+//                    self?.showCategories(indexPath: indexPath)
+//                }
+//            }
+//            let deleteAction = UIAction(title: NSLocalizedString("Delete", comment: "Action to delete a note"), image: (UIImage(systemName: "trash")), identifier: UIAction.Identifier("deleteAction"), discoverabilityTitle: nil, attributes: .destructive, state: .off, handler: { [weak self] _ in
+//                if let indexPath = self?.contextMenuIndexPath {
+//                    self?.tableView(tableView, commit: .delete, forRowAt: indexPath)
+//                }
+//            })
+//
+//            let categoryMenu = UIMenu(title: NSLocalizedString("Category", comment: "Menu for category"), image: nil, identifier: UIMenu.Identifier("category"), options: .displayInline, children: [categoryAction])
+//            let actions = [categoryMenu, deleteAction]
+//            return UIMenu(title: "Actions", image: nil, identifier: nil, children: actions)
+//        }
+//        return UIContextMenuConfiguration(identifier: nil,
+//                                          previewProvider: nil,
+//                                          actionProvider: actionProvider)
+//    }
     
     @IBAction func onRefresh(sender: Any?) {
         guard NoteSessionManager.isOnline else {
@@ -515,21 +515,21 @@ class NotesTableViewController: UITableViewController {
         let categories = notesFrc.fetchedObjects?.compactMap({ (note) -> String? in
             return note.category
         })
-//        AppDelegate.shared.changeCategory()
-//        if let storyboard = self.storyboard,
-//            let navController = storyboard.instantiateViewController(withIdentifier: "CategoryNavigationController") as? UINavigationController,
-//            let categoryController = navController.topViewController as? CategoryTableViewController,
-//            let categories = categories {
-//            let note = self.notesFrc.object(at: indexPath)
-//            categoryController.categories = categories.removingDuplicates()
-//            if let section = self.notesFrc.sections?.first(where: { $0.name == note.category }) {
-//                self.numberOfObjectsInCurrentSection = section.numberOfObjects
-//            }
-//            categoryController.note = note
-//            self.present(navController, animated: true, completion: nil)
-//        }
+        //        AppDelegate.shared.changeCategory()
+        let storyboard = UIStoryboard(name: "Categories", bundle: Bundle.main)
+        if let navController = storyboard.instantiateViewController(withIdentifier: "CategoryNavigationController") as? UINavigationController,
+            let categoryController = navController.topViewController as? CategoryTableViewController,
+            let categories = categories {
+            let note = self.notesFrc.object(at: indexPath)
+            categoryController.categories = categories.removingDuplicates()
+            if let section = self.notesFrc.sections?.first(where: { $0.name == note.category }) {
+                self.numberOfObjectsInCurrentSection = section.numberOfObjects
+            }
+            categoryController.note = note
+            self.present(navController, animated: true, completion: nil)
+        }
     }
-
+    
 }
 
 extension NotesTableViewController: NSFetchedResultsControllerDelegate {

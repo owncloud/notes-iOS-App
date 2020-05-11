@@ -49,8 +49,22 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cancelBarButton" destination="lr5-q3-Cct" id="DtZ-XP-og0"/>
+                        <outlet property="doneBarButton" destination="mim-ix-k6r" id="uCG-Fm-Pg0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPw-RI-sKZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <barButtonItem style="plain" systemItem="cancel" id="lr5-q3-Cct">
+                    <connections>
+                        <action selector="onCancel:" destination="0ma-ma-Hry" id="kWd-Vz-gJA"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="done" id="mim-ix-k6r">
+                    <connections>
+                        <action selector="onCancel:" destination="0ma-ma-Hry" id="aEP-9v-SHp"/>
+                    </connections>
+                </barButtonItem>
             </objects>
             <point key="canvasLocation" x="3164" y="-1235"/>
         </scene>
