@@ -242,7 +242,6 @@ public class CDNote: NSManagedObject {
                 }
             } catch let error as NSError {
                 print("Could not perform deletion \(error), \(error.userInfo)")
-                return
             }
         }
     }
@@ -260,7 +259,6 @@ public class CDNote: NSManagedObject {
                 try NotesData.mainThreadContext.save()
             } catch let error as NSError {
                 print("Could not perform deletion \(error), \(error.userInfo)")
-                return
             }
         }
     }
