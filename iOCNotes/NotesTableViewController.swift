@@ -430,7 +430,7 @@ class NotesTableViewController: UITableViewController {
     private func configureFRC() -> NSFetchedResultsController<CDNote> {
         let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
         request.fetchBatchSize = 288
-        request.predicate = NSPredicate(format: "cdDeleteNeeded == %@", NSNumber(value: false))
+        request.predicate = .allNotes
         request.sortDescriptors = [NSSortDescriptor(key: "cdCategory", ascending: true),
                                    NSSortDescriptor(key: "cdModified", ascending: false)]
         let frc = NSFetchedResultsController(fetchRequest: request,
@@ -576,7 +576,10 @@ extension NotesTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         var predicate: NSPredicate?
         if let text = searchController.searchBar.text, !text.isEmpty {
-            predicate = NSPredicate(format: "(cdTitle contains[c] %@) || (cdContent contains[cd] %@)", text, text)
+            let matchingText = NSPredicate(format: "(cdTitle contains[c] %@) || (cdContent contains[cd] %@)", text, text)
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [.allNotes, matchingText])
+        } else {
+            predicate = .allNotes
         }
         notesFrc.fetchRequest.predicate = predicate
         do {
@@ -664,6 +667,14 @@ extension NSFetchedResultsController {
             }
         }
         return true
+    }
+    
+}
+
+private extension NSPredicate {
+    
+    static var allNotes: NSPredicate {
+        return NSPredicate(format: "cdDeleteNeeded == %@", NSNumber(value: false))
     }
     
 }
