@@ -167,7 +167,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if url.isFileURL {
+        if let scheme = url.scheme, scheme == "cloudnotes" {
+            let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+            if let queryItems = urlComponents?.queryItems,
+                let item = queryItems.first(where: { $0.name == "note" }),
+                let content = item.value {
+                self.notesTableViewController?.addNote(content: content)
+            }
+        } else if url.isFileURL {
             do {
                 _ = url.startAccessingSecurityScopedResource()
                 let content = try String(contentsOf: url, encoding: .utf8)

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>ShareExtension</string>
+	<string>Copy to CloudNotes</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,22 +22,32 @@
 	<string>1</string>
 	<key>NSExtension</key>
 	<dict>
-        <key>NSExtensionAttributes</key>
-        <dict>
-            <key>NSExtensionActivationUsesStrictMatching</key>
-            <integer>2</integer>
-            <key>NSExtensionActivationRule</key>
-            <dict>
-                <key>NSExtensionActivationDictionaryVersion</key>
-                <integer>2</integer>
-                <key>NSExtensionActivationSupportsText</key>
-                <true/>
-            </dict>
-        </dict>
-        <key>NSExtensionMainStoryboard</key>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>NSExtensionActivationUsesStrictMatching</key>
+			<integer>2</integer>
+			<key>NSExtensionActivationRule</key>
+			<dict>
+				<key>NSExtensionActivationDictionaryVersion</key>
+				<integer>2</integer>
+				<key>NSExtensionActivationSupportsText</key>
+				<true/>
+			</dict>
+			<key>NSExtensionServiceAllowsFinderPreviewItem</key>
+			<true/>
+			<key>NSExtensionServiceAllowsTouchBarItem</key>
+			<true/>
+			<key>NSExtensionServiceFinderPreviewIconName</key>
+			<string>NSActionTemplate</string>
+			<key>NSExtensionServiceTouchBarBezelColorName</key>
+			<string>TouchBarBezel</string>
+			<key>NSExtensionServiceTouchBarIconName</key>
+			<string>NSActionTemplate</string>
+		</dict>
+		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>
 		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.share-services</string>
+		<string>com.apple.ui-services</string>
 	</dict>
 </dict>
 </plist>

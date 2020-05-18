@@ -74,13 +74,14 @@
 		D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
 		D093575B2457BA15006F4E01 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */; platformFilter = ios; };
-		D094DAC124661888007E562B /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D094DAC024661888007E562B /* ShareViewController.swift */; };
-		D094DAC424661888007E562B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D094DAC224661888007E562B /* MainInterface.storyboard */; };
-		D094DAC824661888007E562B /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D094DABE24661888007E562B /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
 		D095AE45245BB25F00A7EF62 /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
 		D09DB859241F0CD2001E0E08 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D09DB858241F0CD1001E0E08 /* Credits.html */; };
 		D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */; };
+		D0AB0E7B2470B74D00D3E6B6 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AB0E7A2470B74D00D3E6B6 /* Media.xcassets */; };
+		D0AB0E7D2470B74D00D3E6B6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AB0E7C2470B74D00D3E6B6 /* ActionViewController.swift */; };
+		D0AB0E802470B74D00D3E6B6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AB0E7E2470B74D00D3E6B6 /* MainInterface.storyboard */; };
+		D0AB0E842470B74D00D3E6B6 /* ActionExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D0AB0E782470B74D00D3E6B6 /* ActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D0B6D4AE22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */; };
 		D0B6D4AF22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */; };
 		D0BCFE602454BD3F007C4CA3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
@@ -106,12 +107,12 @@
 			remoteGlobalIDString = D01803B923B40D7F001CA4FC;
 			remoteInfo = AppKitInterface;
 		};
-		D094DAC624661888007E562B /* PBXContainerItemProxy */ = {
+		D0AB0E822470B74D00D3E6B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0CFE52B1888A7BD00165839 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D094DABD24661888007E562B;
-			remoteInfo = ShareExtension;
+			remoteGlobalIDString = D0AB0E772470B74D00D3E6B6;
+			remoteInfo = ActionExtension;
 		};
 		D0CFE55C1888A7BD00165839 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -139,7 +140,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				D094DAC824661888007E562B /* ShareExtension.appex in Embed App Extensions */,
+				D0AB0E842470B74D00D3E6B6 /* ActionExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,10 +227,6 @@
 		D07F5E8F2207B81F00528E90 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
 		D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHHeaderTextView.swift; sourceTree = "<group>"; };
 		D093575724551E42006F4E01 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
-		D094DABE24661888007E562B /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		D094DAC024661888007E562B /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		D094DAC324661888007E562B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		D094DAC524661888007E562B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D09538421D32A56A006BB78E /* PBHPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHPreviewController.swift; sourceTree = "<group>"; };
 		D09DB858241F0CD1001E0E08 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		D09E430D1E2C46930010E4B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
@@ -237,6 +234,11 @@
 		D09E43101E2C469F0010E4B3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E43111E2C46A20010E4B3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D0A00D462356A7EB0054E3A3 /* credits.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = credits.py; sourceTree = "<group>"; };
+		D0AB0E782470B74D00D3E6B6 /* ActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0AB0E7A2470B74D00D3E6B6 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		D0AB0E7C2470B74D00D3E6B6 /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
+		D0AB0E7F2470B74D00D3E6B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		D0AB0E812470B74D00D3E6B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTableViewHeaderView.swift; sourceTree = "<group>"; };
 		D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollapsibleTableViewHeaderView.xib; sourceTree = "<group>"; };
 		D0BCFE622454BF0B007C4CA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
@@ -290,7 +292,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D094DABB24661888007E562B /* Frameworks */ = {
+		D0AB0E752470B74D00D3E6B6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -413,14 +415,15 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		D094DABF24661888007E562B /* ShareExtension */ = {
+		D0AB0E792470B74D00D3E6B6 /* ActionExtension */ = {
 			isa = PBXGroup;
 			children = (
-				D094DAC024661888007E562B /* ShareViewController.swift */,
-				D094DAC224661888007E562B /* MainInterface.storyboard */,
-				D094DAC524661888007E562B /* Info.plist */,
+				D0AB0E7A2470B74D00D3E6B6 /* Media.xcassets */,
+				D0AB0E7C2470B74D00D3E6B6 /* ActionViewController.swift */,
+				D0AB0E7E2470B74D00D3E6B6 /* MainInterface.storyboard */,
+				D0AB0E812470B74D00D3E6B6 /* Info.plist */,
 			);
-			path = ShareExtension;
+			path = ActionExtension;
 			sourceTree = "<group>";
 		};
 		D0CFE52A1888A7BD00165839 = {
@@ -436,7 +439,7 @@
 				D018039F23B2BA23001CA4FC /* AppKitGlue */,
 				D01803BB23B40D7F001CA4FC /* AppKitInterface */,
 				D071BFDC23CD6244002BF63B /* CloudNotes */,
-				D094DABF24661888007E562B /* ShareExtension */,
+				D0AB0E792470B74D00D3E6B6 /* ActionExtension */,
 				D0CFE5351888A7BD00165839 /* Frameworks */,
 				D0CFE5341888A7BD00165839 /* Products */,
 				D0782BF020D60430009AF66B /* Cartfile */,
@@ -452,7 +455,7 @@
 				D018039E23B2BA23001CA4FC /* AppKitGlue.bundle */,
 				D01803BA23B40D7F001CA4FC /* AppKitInterface.framework */,
 				D071BFDB23CD6244002BF63B /* CloudNotes.app */,
-				D094DABE24661888007E562B /* ShareExtension.appex */,
+				D0AB0E782470B74D00D3E6B6 /* ActionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -619,21 +622,21 @@
 			productReference = D071BFDB23CD6244002BF63B /* CloudNotes.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D094DABD24661888007E562B /* ShareExtension */ = {
+		D0AB0E772470B74D00D3E6B6 /* ActionExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D094DAC924661889007E562B /* Build configuration list for PBXNativeTarget "ShareExtension" */;
+			buildConfigurationList = D0AB0E852470B74D00D3E6B6 /* Build configuration list for PBXNativeTarget "ActionExtension" */;
 			buildPhases = (
-				D094DABA24661888007E562B /* Sources */,
-				D094DABB24661888007E562B /* Frameworks */,
-				D094DABC24661888007E562B /* Resources */,
+				D0AB0E742470B74D00D3E6B6 /* Sources */,
+				D0AB0E752470B74D00D3E6B6 /* Frameworks */,
+				D0AB0E762470B74D00D3E6B6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ShareExtension;
-			productName = ShareExtension;
-			productReference = D094DABE24661888007E562B /* ShareExtension.appex */;
+			name = ActionExtension;
+			productName = ActionExtension;
+			productReference = D0AB0E782470B74D00D3E6B6 /* ActionExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		D0CFE5321888A7BD00165839 /* iOCNotes */ = {
@@ -651,7 +654,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				D094DAC724661888007E562B /* PBXTargetDependency */,
+				D0AB0E832470B74D00D3E6B6 /* PBXTargetDependency */,
 			);
 			name = iOCNotes;
 			packageProductDependencies = (
@@ -702,8 +705,8 @@
 					D071BFDA23CD6244002BF63B = {
 						CreatedOnToolsVersion = 11.3;
 					};
-					D094DABD24661888007E562B = {
-						CreatedOnToolsVersion = 11.4;
+					D0AB0E772470B74D00D3E6B6 = {
+						CreatedOnToolsVersion = 11.4.1;
 					};
 					D0CFE5321888A7BD00165839 = {
 						DevelopmentTeam = 73AQJ77PZ5;
@@ -740,7 +743,7 @@
 				D018039D23B2BA23001CA4FC /* AppKitGlue */,
 				D01803B923B40D7F001CA4FC /* AppKitInterface */,
 				D071BFDA23CD6244002BF63B /* CloudNotes */,
-				D094DABD24661888007E562B /* ShareExtension */,
+				D0AB0E772470B74D00D3E6B6 /* ActionExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -771,11 +774,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D094DABC24661888007E562B /* Resources */ = {
+		D0AB0E762470B74D00D3E6B6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D094DAC424661888007E562B /* MainInterface.storyboard in Resources */,
+				D0AB0E7B2470B74D00D3E6B6 /* Media.xcassets in Resources */,
+				D0AB0E802470B74D00D3E6B6 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,11 +930,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D094DABA24661888007E562B /* Sources */ = {
+		D0AB0E742470B74D00D3E6B6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D094DAC124661888007E562B /* ShareViewController.swift in Sources */,
+				D0AB0E7D2470B74D00D3E6B6 /* ActionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -981,10 +985,10 @@
 			target = D01803B923B40D7F001CA4FC /* AppKitInterface */;
 			targetProxy = D01803CC23B41A55001CA4FC /* PBXContainerItemProxy */;
 		};
-		D094DAC724661888007E562B /* PBXTargetDependency */ = {
+		D0AB0E832470B74D00D3E6B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D094DABD24661888007E562B /* ShareExtension */;
-			targetProxy = D094DAC624661888007E562B /* PBXContainerItemProxy */;
+			target = D0AB0E772470B74D00D3E6B6 /* ActionExtension */;
+			targetProxy = D0AB0E822470B74D00D3E6B6 /* PBXContainerItemProxy */;
 		};
 		D0CFE55D1888A7BD00165839 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1015,14 +1019,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		D094DAC224661888007E562B /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D094DAC324661888007E562B /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1032,6 +1028,14 @@
 				D09E43111E2C46A20010E4B3 /* de */,
 			);
 			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		D0AB0E7E2470B74D00D3E6B6 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D0AB0E7F2470B74D00D3E6B6 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 		D0BCFE632454BF0B007C4CA3 /* Settings.storyboard */ = {
@@ -1329,9 +1333,10 @@
 			};
 			name = Release;
 		};
-		D094DACA24661889007E562B /* Debug */ = {
+		D0AB0E862470B74D00D3E6B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1342,20 +1347,18 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				INFOPLIST_FILE = ActionExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.0.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.peterandlinda.iOCNotes.ShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.peterandlinda.iOCNotes.ActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1364,9 +1367,10 @@
 			};
 			name = Debug;
 		};
-		D094DACB24661889007E562B /* Release */ = {
+		D0AB0E872470B74D00D3E6B6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1378,20 +1382,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				INFOPLIST_FILE = ActionExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.0.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.peterandlinda.iOCNotes.ShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.peterandlinda.iOCNotes.ActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1663,11 +1665,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D094DAC924661889007E562B /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
+		D0AB0E852470B74D00D3E6B6 /* Build configuration list for PBXNativeTarget "ActionExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D094DACA24661889007E562B /* Debug */,
-				D094DACB24661889007E562B /* Release */,
+				D0AB0E862470B74D00D3E6B6 /* Debug */,
+				D0AB0E872470B74D00D3E6B6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

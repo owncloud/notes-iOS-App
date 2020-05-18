@@ -444,8 +444,12 @@ class NotesTableViewController: UITableViewController {
     }
 
     @IBAction func onAdd(sender: Any?) {
+        addNote(content: "")
+    }
+    
+    func addNote(content: String) {
         HUD.show(.progress)
-        NoteSessionManager.shared.add(content: "", category: "", completion: { [weak self] note in
+        NoteSessionManager.shared.add(content: content, category: "", completion: { [weak self] note in
             if note != nil {
                 let indexPath = IndexPath(row: 0, section: 0)
                 if self?.notesFrc.validate(indexPath: indexPath) ?? false,
