@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         if #available(iOS 13.0, *) {
-            let success = BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.peterandlinda.iOCNotes.Sync", using: nil) { task in
+            _ = BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.peterandlinda.iOCNotes.Sync", using: nil) { task in
                 if let task = task as? BGAppRefreshTask {
                     print(task.description)
                     self.handleAppSync(task: task)

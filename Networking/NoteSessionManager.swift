@@ -31,7 +31,7 @@ final class CustomServerTrustPolicyManager: ServerTrustManager {
             !host.isEmpty,
             let serverHost = URLComponents(string: server)?.host,
             host == serverHost {
-            return DisabledEvaluator()
+            return DisabledTrustEvaluator()
         } else {
             return DefaultTrustEvaluator()
         }
