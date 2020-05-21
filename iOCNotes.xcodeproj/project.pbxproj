@@ -238,9 +238,12 @@
 		D0AB0E7A2470B74D00D3E6B6 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		D0AB0E7C2470B74D00D3E6B6 /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
 		D0AB0E7F2470B74D00D3E6B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		D0AB0E812470B74D00D3E6B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTableViewHeaderView.swift; sourceTree = "<group>"; };
 		D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollapsibleTableViewHeaderView.xib; sourceTree = "<group>"; };
+		D0B83F2F24771F7700A394C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
+		D0B83F3124771F8100A394C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/Info.plist; sourceTree = "<group>"; };
+		D0B83F3224771F8500A394C1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fr; path = fr.lproj/Info.plist; sourceTree = "<group>"; };
+		D0B83F3324771F8600A394C1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = de; path = de.lproj/Info.plist; sourceTree = "<group>"; };
 		D0BCFE622454BF0B007C4CA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		D0BCFE652454BF15007C4CA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Settings.strings; sourceTree = "<group>"; };
 		D0BCFE672454BF17007C4CA3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Settings.strings; sourceTree = "<group>"; };
@@ -421,7 +424,7 @@
 				D0AB0E7A2470B74D00D3E6B6 /* Media.xcassets */,
 				D0AB0E7C2470B74D00D3E6B6 /* ActionViewController.swift */,
 				D0AB0E7E2470B74D00D3E6B6 /* MainInterface.storyboard */,
-				D0AB0E812470B74D00D3E6B6 /* Info.plist */,
+				D0B83F3024771F7700A394C1 /* Info.plist */,
 			);
 			path = ActionExtension;
 			sourceTree = "<group>";
@@ -646,10 +649,9 @@
 				D0CFE52F1888A7BD00165839 /* Sources */,
 				D0CFE5301888A7BD00165839 /* Frameworks */,
 				D0CFE5311888A7BD00165839 /* Resources */,
-				D022570C189749920038232A /* ShellScript */,
+				D094DACC24661889007E562B /* Embed App Extensions */,
 				D05110BD20C8CA2A00AFFDC7 /* ShellScript */,
 				D0A00D472356A7F80054E3A3 /* ShellScript */,
-				D094DACC24661889007E562B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -831,19 +833,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks \n";
-		};
-		D022570C189749920038232A /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\n\n#note: for simplicity, it's assumed that there's already a bundle version (which is an integer) and a version string. set them in the Summary pane!\n\n#get path to the BUILT .plist, NOT the packaged one! this fixes the off-by-one bug\nbuiltInfoPlistPath=${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\necho \"using plist at $builtInfoPlistPath\"\n\n\n#increment the build number\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"$builtInfoPlistPath\")\necho \"retrieved current build number: $buildNumber\"\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$builtInfoPlistPath\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n\n#compose the version number string\nversionString=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleShortVersionString\" \"$builtInfoPlistPath\")\nversionString+=\" (\"\nversionString+=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"$builtInfoPlistPath\")\nversionString+=\")\"\n\n#write the version number string to the settings bundle\n#IMPORTANT: this assumes the version number is the second property in the settings bundle!\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:1:DefaultValue $versionString\" \"$SRCROOT/iOCNotes/Settings.bundle/Root.plist\"\n";
 		};
 		D05110BD20C8CA2A00AFFDC7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1036,6 +1025,17 @@
 				D0AB0E7F2470B74D00D3E6B6 /* Base */,
 			);
 			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		D0B83F3024771F7700A394C1 /* Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D0B83F2F24771F7700A394C1 /* Base */,
+				D0B83F3124771F8100A394C1 /* en */,
+				D0B83F3224771F8500A394C1 /* fr */,
+				D0B83F3324771F8600A394C1 /* de */,
+			);
+			name = Info.plist;
 			sourceTree = "<group>";
 		};
 		D0BCFE632454BF0B007C4CA3 /* Settings.storyboard */ = {
@@ -1346,17 +1346,19 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2842;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = ActionExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				INFOPLIST_FILE = ActionExtension/Base.lproj/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 3.0.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.peterandlinda.iOCNotes.ActionExtension;
@@ -1382,17 +1384,19 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2842;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = ActionExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				INFOPLIST_FILE = ActionExtension/Base.lproj/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 3.0.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.peterandlinda.iOCNotes.ActionExtension;
@@ -1515,7 +1519,7 @@
 				CODE_SIGN_ENTITLEMENTS = iOCNotes/iOCNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2840;
+				CURRENT_PROJECT_VERSION = 2842;
 				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1530,7 +1534,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.6;
+				MARKETING_VERSION = 3.0.7;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${TARGET_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1552,7 +1556,7 @@
 				CODE_SIGN_ENTITLEMENTS = iOCNotes/iOCNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2840;
+				CURRENT_PROJECT_VERSION = 2842;
 				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1567,7 +1571,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.6;
+				MARKETING_VERSION = 3.0.7;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${TARGET_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
