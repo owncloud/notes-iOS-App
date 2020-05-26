@@ -22,7 +22,6 @@ class NotesTableViewController: UITableViewController {
     @IBOutlet var settingsBarButton: UIBarButtonItem!
 
     var notes: [CDNote]?
-    var addingNote = false
     var searchController: UISearchController?
     var editorViewController: EditorViewController?
     

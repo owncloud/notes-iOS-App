@@ -20,7 +20,6 @@ class EditorViewController: UIViewController {
     @IBOutlet var doneButton: UIBarButtonItem!
     @IBOutlet var fixedSpace: UIBarButtonItem!
     
-    var addingNote = false
     var updatedByEditing = false
     var noteExporter: PBHNoteExporter?
     var bottomLayoutConstraint: NSLayoutConstraint?
@@ -117,7 +116,6 @@ class EditorViewController: UIViewController {
         if let splitVC = splitViewController as? PBHSplitViewController {
             splitVC.editorViewController = self
         }
-        addingNote = false
         updatedByEditing = false
         self.observers.append(NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification,
                                                                      object: nil,
@@ -258,7 +256,6 @@ class EditorViewController: UIViewController {
     }
     
     @IBAction func onAdd(_ sender: Any?) {
-        addingNote = true
         NoteSessionManager.shared.add(content: "", category: "", favorite: false) { [weak self] note in
             self?.note = note
         }
