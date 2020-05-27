@@ -143,12 +143,10 @@ class NoteSessionManager {
                 var title: String?
                 switch response.result {
                 case let .success(result):
-                        if !result.isEmpty {
-                        if let firstNote = result.first, !firstNote.etag.isEmpty {
-                            KeychainHelper.isNextCloud = true
-                        } else {
-                            KeychainHelper.isNextCloud = false
-                        }
+                    if !result.isEmpty,
+                        let firstNote = result.first,
+                        !firstNote.etag.isEmpty {
+                        KeychainHelper.isNextCloud = true
                         self?.showSyncMessage()
                     } else {
                         self?.pickServer()
