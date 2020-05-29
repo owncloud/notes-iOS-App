@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private let operationQueue = OperationQueue()
     
+    private var didSyncInBackground = false
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         #if !targetEnvironment(simulator)
         let installation = self.makeEmailInstallation()
@@ -127,6 +129,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        if didSyncInBackground {
+            notesTableViewController?.tableView.reloadData()
+            didSyncInBackground = false
+        }
+    }
+        
     @available(iOS 13.0, *)
     func scheduleAppSync() {
         BGTaskScheduler.shared.cancelAllTaskRequests()
@@ -156,9 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Inform the system that the background task is complete
         // when the operation completes
         operation.completionBlock = { [weak self] in
-            DispatchQueue.main.async {
-                self?.notesTableViewController?.tableView.reloadData()
-            }
+            self?.didSyncInBackground = true
             task.setTaskCompleted(success: !operation.isCancelled)
         }
 
