@@ -11,8 +11,6 @@ import MobileCoreServices
 
 class ActionViewController: UIViewController {
 
-    @IBOutlet weak var imageView: UIImageView!
-    
     private var content: String?
 
     override func viewDidLoad() {
@@ -25,15 +23,22 @@ class ActionViewController: UIViewController {
             for inputItem in inputItems {
                 if let attachments = inputItem.attachments {
                     for provider in attachments {
-                        if (provider.hasItemConformingToTypeIdentifier("public.plain-text")) {
+                        if provider.hasItemConformingToTypeIdentifier("public.plain-text") {
                             provider.loadItem(forTypeIdentifier: "public.plain-text", options: nil, completionHandler: {
                                 [weak self] (item, error) in
                                 self?.content = item as? String
                                 textFound = true
                             })
+                        } else if provider.hasItemConformingToTypeIdentifier("public.url") {
+                            provider.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: {
+                                [weak self] (item, error) in
+                                self?.content = (item as? URL)?.absoluteString
+                                textFound = true
+                            })
+
                         }
                         if textFound {
-                            // We only handle one image, so stop looking for more.
+                            // We only handle one item, so stop looking for more.
                             break
                         }
                     }
