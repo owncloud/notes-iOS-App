@@ -431,7 +431,10 @@ class NoteSessionManager {
     func delete(note: NoteProtocol, completion: SyncCompletionBlock? = nil) {
         var incoming = note
         incoming.deleteNeeded = true
-        if NoteSessionManager.isOnline {
+        if incoming.addNeeded {
+            CDNote.delete(note: incoming)
+            completion?()
+        } else if NoteSessionManager.isOnline {
             deleteOnServer(incoming) { [weak self] result in
                 switch result {
                 case .success( _):
