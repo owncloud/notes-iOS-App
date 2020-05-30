@@ -121,6 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        notesTableViewController?.updateFrcDelegate(update: .disable)
         if #available(iOS 13.0, *) {
             scheduleAppSync()
         } else {
@@ -130,10 +131,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        if didSyncInBackground {
-            notesTableViewController?.tableView.reloadData()
-            didSyncInBackground = false
-        }
+        notesTableViewController?.updateFrcDelegate(update: .enable(withFetch: didSyncInBackground))
+        didSyncInBackground = false
     }
         
     @available(iOS 13.0, *)
