@@ -234,7 +234,13 @@ public class CDNote: NSManagedObject {
         NotesData.mainThreadContext.performAndWait {
             let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
             do {
-                request.predicate = NSPredicate(format: "cdId == %d", note.id)
+                let predicate: NSPredicate
+                if note.id >= 0 {
+                    predicate = NSPredicate(format: "cdId == %d", note.id)
+                } else {
+                    predicate = NSPredicate(format: "cdGuid == %@", note.guid ?? "")
+                }
+                request.predicate = predicate
                 let records = try NotesData.mainThreadContext.fetch(request)
                 if let existingRecord = records.first {
                     NotesData.mainThreadContext.delete(existingRecord)
