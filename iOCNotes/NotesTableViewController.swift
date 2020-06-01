@@ -194,6 +194,7 @@ class NotesTableViewController: UITableViewController {
             if withFetch {
                 do {
                     try notesFrc.performFetch()
+                    tableView.reloadData()
                 } catch { }
             }
         }

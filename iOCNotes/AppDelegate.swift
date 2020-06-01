@@ -31,8 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private let operationQueue = OperationQueue()
     
-    private var didSyncInBackground = false
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         #if !targetEnvironment(simulator)
         let installation = self.makeEmailInstallation()
@@ -131,8 +129,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        notesTableViewController?.updateFrcDelegate(update: .enable(withFetch: didSyncInBackground))
-        didSyncInBackground = false
+        notesTableViewController?.updateFrcDelegate(update: .enable(withFetch: KeychainHelper.didSyncInBackground))
+        KeychainHelper.didSyncInBackground = false
     }
         
     @available(iOS 13.0, *)
@@ -163,8 +161,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Inform the system that the background task is complete
         // when the operation completes
-        operation.completionBlock = { [weak self] in
-            self?.didSyncInBackground = true
+        operation.completionBlock = {
+            KeychainHelper.didSyncInBackground = true
             task.setTaskCompleted(success: !operation.isCancelled)
         }
 
