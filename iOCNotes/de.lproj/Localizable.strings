@@ -1,4 +1,3 @@
-
 /* Crash report email body placeholder */
 "<Please provide as much details as possible about what you were doing when the crash occurred.>" = "<Bitte beschreiben Sie in Detail was Sie getan haben als sich der Absturz erreignete.>";
 
@@ -7,6 +6,12 @@
 
 /* An error message */
 "A server installation could not be found. Check the server address." = "Es konnte keine Serverinstallation gefunden werden. Prüfen Sie die Serveradresse";
+
+/* Acknowledgements */
+"Acknowledgements" = "";
+
+/* Title of alert for adding a category */
+"Add Category" = "Kategorie hinzufügen";
 
 /* Item to show all notes */
 "All" = "Alle";
@@ -20,6 +25,9 @@
 
 /* 'Category' menu item */
 "Category" = "Kategorie";
+
+/* Action to change category of a note */
+"Change Category..." = "";
 
 /* An error message */
 "Check username and password." = "Benutzername und Passwort prüfen.";
@@ -48,8 +56,14 @@
 /* Alert view title */
 "Crash Detected" = "Absturz entdeckt";
 
+/* Action to delete a note */
+"Delete" = "Löschen";
+
 /* A menu action */
 "Delete Note" = "Notiz löschen";
+
+/* Prompt on alert for adding a category */
+"Enter a name for the new category" = "Einen Namen für die neue Kategorie eingeben";
 
 /* The title of an error message */
 "Error Adding Note" = "Fehler beim Notiz hinzufügen";
@@ -93,6 +107,9 @@
 /* No comment provided by engineer. */
 "No thanks" = "Nein, danke";
 
+/* Status information, not connected */
+"Not connected to Notes on a server" = "";
+
 /* A status label indicating that the user is not logged in */
 "Not Logged In" = "Nicht angemeldet";
 
@@ -101,6 +118,9 @@
 
 /* An error message title */
 "Notes not found" = "Notizen nicht gefunden";
+
+/* Button, OK */
+"OK" = "OK";
 
 /* Title for Open In activity */
 "Open In..." = "Öffnen in...";
@@ -161,23 +181,3 @@
 /* A message */
 "You are now connected to Notes on your server" = "Sie sind jetzt mit Notes auf Ihrem Server verbunden";
 
-/* Acknowledgements */
-"Acknowledgements" = "";
-
-/* Title of alert for adding a category */
-"Add Category" = "Kategorie hinzufügen";
-
-/* Action to change category of a note */
-"Change Category..." = "";
-
-/* Action to delete a note */
-"Delete" = "Löschen";
-
-/* Prompt on alert for adding a category */
-"Enter a name for the new category" = "Einen Namen für die neue Kategorie eingeben";
-
-/* Status information, not connected */
-"Not connected to Notes on a server" = "";
-
-/* Button, OK */
-"OK" = "OK";

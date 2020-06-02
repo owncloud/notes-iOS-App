@@ -43,6 +43,10 @@
 		D0545F23230901D30001D165 /* PBHOpenInActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0545F22230901D30001D165 /* PBHOpenInActivity.swift */; };
 		D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D0595C7B238632610004C4E8 /* KeychainAccess */; };
 		D059F7DB1D40596D00C252F2 /* PBHNoteExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */; };
+		D06557232486E26E001D61E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D06557212486E26E001D61E6 /* InfoPlist.strings */; };
+		D06557262486E26E001D61E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D06557242486E26E001D61E6 /* InfoPlist.strings */; };
+		D06557292486E4CE001D61E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D06557272486E4CE001D61E6 /* InfoPlist.strings */; };
+		D065572C2486E4CE001D61E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D065572A2486E4CE001D61E6 /* InfoPlist.strings */; };
 		D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */; };
 		D06882EE22BB146200CEBC1F /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06882ED22BB146200CEBC1F /* EditorViewController.swift */; };
 		D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D06CDA5F238F6EC300CF90B0 /* Alamofire */; };
@@ -203,6 +207,11 @@
 		D0545F22230901D30001D165 /* PBHOpenInActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBHOpenInActivity.swift; sourceTree = "<group>"; };
 		D059745A18CE9E5A00867B02 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		D059F7DA1D40596D00C252F2 /* PBHNoteExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBHNoteExporter.swift; sourceTree = "<group>"; };
+		D06557222486E26E001D61E6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D06557252486E26E001D61E6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D06557282486E4CE001D61E6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D065572B2486E4CE001D61E6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D065572D2486E4CE001D61E6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D06882ED22BB146200CEBC1F /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		D071BFDB23CD6244002BF63B /* CloudNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -346,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				D01803A023B2BA23001CA4FC /* Info.plist */,
+				D065572A2486E4CE001D61E6 /* InfoPlist.strings */,
 				D01803A423B2BAC6001CA4FC /* AppKitEntryPoint.swift */,
 			);
 			path = AppKitGlue;
@@ -357,6 +367,7 @@
 				D01803BC23B40D7F001CA4FC /* AppKitInterface.h */,
 				D01803AA23B2D289001CA4FC /* AppKitInterface.swift */,
 				D01803BD23B40D7F001CA4FC /* Info.plist */,
+				D06557272486E4CE001D61E6 /* InfoPlist.strings */,
 			);
 			path = AppKitInterface;
 			sourceTree = "<group>";
@@ -393,6 +404,7 @@
 				D071BFE423CD6245002BF63B /* Assets.xcassets */,
 				D071BFE623CD6245002BF63B /* Main.storyboard */,
 				D071BFE923CD6245002BF63B /* Info.plist */,
+				D06557242486E26E001D61E6 /* InfoPlist.strings */,
 				D071BFEA23CD6245002BF63B /* CloudNotes.entitlements */,
 			);
 			path = CloudNotes;
@@ -432,6 +444,7 @@
 		D0CFE52A1888A7BD00165839 = {
 			isa = PBXGroup;
 			children = (
+				D06557212486E26E001D61E6 /* InfoPlist.strings */,
 				D0A00D462356A7EB0054E3A3 /* credits.py */,
 				D084FB6C245A5FDC003EB6FB /* Shared */,
 				D01067DC220BCAD60047E090 /* Models */,
@@ -755,6 +768,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D065572C2486E4CE001D61E6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +776,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D06557292486E4CE001D61E6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -773,6 +788,7 @@
 				D0BCFE602454BD3F007C4CA3 /* Localizable.strings in Resources */,
 				D09DB859241F0CD2001E0E08 /* Credits.html in Resources */,
 				D071BFE823CD6245002BF63B /* Main.storyboard in Resources */,
+				D06557262486E26E001D61E6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,6 +797,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0AB0E7B2470B74D00D3E6B6 /* Media.xcassets in Resources */,
+				D06557232486E26E001D61E6 /* InfoPlist.strings in Resources */,
 				D0AB0E802470B74D00D3E6B6 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -997,6 +1014,39 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		D06557212486E26E001D61E6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D06557222486E26E001D61E6 /* de */,
+			);
+			name = InfoPlist.strings;
+			path = ActionExtension/de.lproj;
+			sourceTree = "<group>";
+		};
+		D06557242486E26E001D61E6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D06557252486E26E001D61E6 /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D06557272486E4CE001D61E6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D06557282486E4CE001D61E6 /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D065572A2486E4CE001D61E6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D065572B2486E4CE001D61E6 /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		D071BFE623CD6245002BF63B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1023,6 +1073,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D0AB0E7F2470B74D00D3E6B6 /* Base */,
+				D065572D2486E4CE001D61E6 /* de */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";

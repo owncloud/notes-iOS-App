@@ -1,0 +1,6 @@
+/* Bundle name */
+"CFBundleName" = "CloudNotes";
+
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "Copyright © 2020 Peter Hedlund. All rights reserved.";
+

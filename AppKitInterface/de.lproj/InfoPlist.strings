@@ -1,0 +1,6 @@
+/* Bundle name */
+"CFBundleName" = "AppKitInterface";
+
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "Copyright © 2019 Peter Hedlund. All rights reserved.";
+

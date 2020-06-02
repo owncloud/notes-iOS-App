@@ -1,21 +1,25 @@
-
-/* 
-  Root.strings
+/* Root.strings
   iOCNotes
 
   Created by Peter Hedlund on 6/22/14.
-  Copyright (c) 2014 Peter Hedlund. All rights reserved.
-*/
+  Copyright (c) 2014 Peter Hedlund. All rights reserved. */
 "About" = "Über";
 
+/* (No Comment) */
 "Acknowledgements" = "Danksagungen";
 
+/* (No Comment) */
 "Advanced Settings" = "Erweiterte Einstellungen";
 
+/* (No Comment) */
 "Caution: Turning the switch on will remove all notes locally. Unsynced changes will be lost. Use only if you are experiencing problems." = "Achtung: Nach Aktivieren dieser Option werden alle lokalen Notizen entfernt. Änderungen, welche nicht synchronisiert sind, gehen verloren. Nur aktivieren wenn Sie Probleme haben.";
 
+/* (No Comment) */
 "Reset local notes database" = "Lokale notes-Datenbank zurücksetzen";
 
+/* (No Comment) */
 "Third-party licenses" = "Lizenzen von Drittanbietern";
 
+/* (No Comment) */
 "Version" = "Version";
+
