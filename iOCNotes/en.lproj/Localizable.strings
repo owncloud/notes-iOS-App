@@ -147,40 +147,40 @@
 "You are now connected to Notes on your server" = "You are now connected to Notes on your server";
 
 /* Acknowledgements */
-"Acknowledgements" = "";
+"Acknowledgements" = "Acknowledgements";
 
 /* Title of alert for adding a category */
-"Add Category" = "";
+"Add Category" = "Add Category";
 
 /* Item to show all notes */
-"All" = "";
+"All" = "All";
 
 /* Header title, categories */
-"CATEGORIES" = "";
+"CATEGORIES" = "CATEGORIES";
 
 /* Action to change category of a note */
-"Change Category..." = "";
+"Change Category..." = "Change Category...";
 
 /* Status information, connected */
-"Connected to Notes on the server" = "";
+"Connected to Notes on the server" = "Connected to Notes on the server";
 
 /* Action to delete a note */
-"Delete" = "";
+"Delete" = "Delete";
 
 /* Prompt on alert for adding a category */
-"Enter a name for the new catefgory" = "";
+"Enter a name for the new category" = "Enter a name for the new category";
 
 /* Prompt on alert for adding a category */
-"Enter a name for the new category" = "";
+"Enter a name for the new category" = "Enter a name for the new category";
 
 /* Item to show favorite notes */
-"Favorites" = "";
+"Favorites" = "Favorites";
 
 /* Header title, main */
-"MAIN" = "";
+"MAIN" = "MAIN";
 
 /* Status information, not connected */
-"Not connected to Notes on a server" = "";
+"Not connected to Notes on a server" = "Not connected to Notes on a server";
 
 /* Button, OK */
-"OK" = "";
+"OK" = "OK";
