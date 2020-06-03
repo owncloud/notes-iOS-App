@@ -153,7 +153,9 @@ extension SourceListController: NSOutlineViewDelegate {
             if let categoryView = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CategoryCell"), owner: self) as? NSTableCellView {
                 categoryView.textField?.stringValue = noteNode.title
                 if let _ = item as? StarredNotesNode {
-                    categoryView.imageView?.image = NSImage(named: "Starred Articles")
+                    categoryView.imageView?.image = NSImage.favoriteImage
+                } else {
+                    categoryView.imageView?.image = NSImage.folderImage
                 }
                 return categoryView
             }
@@ -235,4 +237,9 @@ extension SourceListController: NSOutlineViewDataSource {
         }
     }
 
+}
+
+extension NSImage {
+    static var favoriteImage = NSImage(named: "Starred Articles")
+    static var folderImage = NSImage(named: "folder")
 }
