@@ -17,28 +17,28 @@ class EditorViewController: NSViewController {
     @IBOutlet var shareButton: NSButton!
     @IBOutlet var favoriteButton: NSButton!
     
-    let storage = Storage()
+    private let storage = Storage()
+    private let throttler = Throttler(minimumDelay: 0.5)
     
     var note: CDNote? {
         didSet {
             if note != oldValue, let note = note {
                 noteView.string = ""
-                //                HUD.show(.progress)
+                noteView.isEditable = false
+                noteView.isSelectable = false
+                favoriteButton.isEnabled = !noteView.string.isEmpty
+                shareButton.isEnabled = false //TODO !noteView.string.isEmpty
                 NoteSessionManager.shared.get(note: note, completion: { [weak self] in
                     self?.updateTextView()
                     self?.noteView.string = note.content
                     self?.noteView.undoManager?.removeAllActions()
                     self?.noteView.scrollRangeToVisible(NSRange(location: 0, length: 0))
-                    //                    self?.updateHeaderLabel()
-                    //                    HUD.hide()
                 })
             } else {
                 updateTextView()
             }
         }
     }
-
-    private var editingTimer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +85,7 @@ class EditorViewController: NSViewController {
             noteView.string = note.content;
             noteView.isEditable = true
             noteView.isSelectable = true
-            favoriteButton.isEnabled = true
+            favoriteButton.isEnabled = !noteView.string.isEmpty
             if note.favorite {
                 favoriteButton.image = NSImage(named: "starred_mac")
             } else {
@@ -106,8 +106,9 @@ class EditorViewController: NSViewController {
 extension EditorViewController: NSTextViewDelegate {
     
     fileprivate func updateNoteContent() {
-        if let note = self.note, self.noteView.string != note.content {
-            note.content = self.noteView.string
+        let currentContent = noteView.string
+        if let note = self.note, currentContent != note.content {
+            note.content = currentContent
             NoteSessionManager.shared.update(note: note) {
                 NotificationCenter.default.post(name: .editorUpdatedNote, object: note)
             }
@@ -115,17 +116,12 @@ extension EditorViewController: NSTextViewDelegate {
     }
 
     func textDidChange(_ notification: Notification) {
-//        self.activityButton.isEnabled = textView.text.count > 0
-//        self.addButton.isEnabled = textView.text.count > 0
-//        self.previewButton.isEnabled = textView.text.count > 0
-//        self.deleteButton.isEnabled = true
-        if editingTimer != nil {
-            editingTimer?.invalidate()
-            editingTimer = nil
-        }
-        editingTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [weak self] _ in
+        shareButton.isEnabled = false //TODO !self.noteView.string.isEmpty
+        favoriteButton.isEnabled = !noteView.string.isEmpty
+
+        throttler.throttle { [weak self] in
             self?.updateNoteContent()
-        })
+        }
     }
     
 }

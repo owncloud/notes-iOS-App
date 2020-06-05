@@ -82,6 +82,7 @@
 		D095AE45245BB25F00A7EF62 /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
 		D09DB859241F0CD2001E0E08 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D09DB858241F0CD1001E0E08 /* Credits.html */; };
 		D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */; };
+		D09E644F248ABAEB003FB4C9 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09E644E248ABAEB003FB4C9 /* Throttler.swift */; };
 		D0AB0E7B2470B74D00D3E6B6 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AB0E7A2470B74D00D3E6B6 /* Media.xcassets */; };
 		D0AB0E7D2470B74D00D3E6B6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AB0E7C2470B74D00D3E6B6 /* ActionViewController.swift */; };
 		D0AB0E802470B74D00D3E6B6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AB0E7E2470B74D00D3E6B6 /* MainInterface.storyboard */; };
@@ -242,6 +243,7 @@
 		D09E430F1E2C469C0010E4B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E43101E2C469F0010E4B3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E43111E2C46A20010E4B3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D09E644E248ABAEB003FB4C9 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		D0A00D462356A7EB0054E3A3 /* credits.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = credits.py; sourceTree = "<group>"; };
 		D0AB0E782470B74D00D3E6B6 /* ActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0AB0E7A2470B74D00D3E6B6 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 				BDC5FF9123F4E48F00E0EB17 /* NoteTableRowView.swift */,
 				D02BBB9923DA91170097F120 /* NoteCellView.swift */,
 				D02BBB9B23DBE3960097F120 /* ModifiedValueTransformer.swift */,
+				D09E644E248ABAEB003FB4C9 /* Throttler.swift */,
 				D071BFE423CD6245002BF63B /* Assets.xcassets */,
 				D071BFE623CD6245002BF63B /* Main.storyboard */,
 				D071BFE923CD6245002BF63B /* Info.plist */,
@@ -912,6 +915,7 @@
 			files = (
 				D071BFF623D14FFA002BF63B /* NoteRouter.swift in Sources */,
 				D071BFF723D15000002BF63B /* NoteSessionManager.swift in Sources */,
+				D09E644F248ABAEB003FB4C9 /* Throttler.swift in Sources */,
 				BDC5FF9323F4E5C200E0EB17 /* NoteTableRowView.swift in Sources */,
 				D071BFF223D14F34002BF63B /* CDNote+CoreDataProperties.swift in Sources */,
 				BDEFED6523DE326E00EA22A6 /* EditorViewController.swift in Sources */,
