@@ -227,7 +227,7 @@
 "tL4-pW-xTC.title" = "Schließen";
 
 /* Class = "NSWindow"; title = "Preferences"; ObjectID = "ToH-IM-D1S"; */
-"ToH-IM-D1S.title" = "Ersetzungen";
+"ToH-IM-D1S.title" = "Einstellungen";
 
 /* Class = "NSButtonCell"; title = "Allow Untrusted SSL Certificate"; ObjectID = "TqY-n3-3Xd"; */
 "TqY-n3-3Xd.title" = "Nichtvertrauenswürdige SSL-Zertifikate erlauben";
