@@ -83,6 +83,7 @@
 		D09DB859241F0CD2001E0E08 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D09DB858241F0CD1001E0E08 /* Credits.html */; };
 		D09E430C1E2C46930010E4B3 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09E430E1E2C46930010E4B3 /* Main_iPhone.storyboard */; };
 		D09E644F248ABAEB003FB4C9 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09E644E248ABAEB003FB4C9 /* Throttler.swift */; };
+		D09E6451248B3A7C003FB4C9 /* OCSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09E6450248B3A7C003FB4C9 /* OCSProtocol.swift */; };
 		D0AB0E7B2470B74D00D3E6B6 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AB0E7A2470B74D00D3E6B6 /* Media.xcassets */; };
 		D0AB0E7D2470B74D00D3E6B6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AB0E7C2470B74D00D3E6B6 /* ActionViewController.swift */; };
 		D0AB0E802470B74D00D3E6B6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AB0E7E2470B74D00D3E6B6 /* MainInterface.storyboard */; };
@@ -93,6 +94,7 @@
 		D0BCFE612454BF0B007C4CA3 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE632454BF0B007C4CA3 /* Settings.storyboard */; };
 		D0BCFE6A2454BF40007C4CA3 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE6C2454BF40007C4CA3 /* Categories.storyboard */; };
 		D0C1C39F2462448D00AAC4A8 /* SyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1C39E2462448D00AAC4A8 /* SyncOperation.swift */; };
+		D0C876DF248F18700052EA63 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = D0C876DE248F18700052EA63 /* Version */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
@@ -244,6 +246,7 @@
 		D09E43101E2C469F0010E4B3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E43111E2C46A20010E4B3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E644E248ABAEB003FB4C9 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
+		D09E6450248B3A7C003FB4C9 /* OCSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCSProtocol.swift; sourceTree = "<group>"; };
 		D0A00D462356A7EB0054E3A3 /* credits.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = credits.py; sourceTree = "<group>"; };
 		D0AB0E782470B74D00D3E6B6 /* ActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0AB0E7A2470B74D00D3E6B6 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -318,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */,
+				D0C876DF248F18700052EA63 /* Version in Frameworks */,
 				D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */,
 				BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */,
 				D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */,
@@ -349,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				D01067E12213BB5E0047E090 /* NoteProtocol.swift */,
+				D09E6450248B3A7C003FB4C9 /* OCSProtocol.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -679,6 +684,7 @@
 				D0595C7B238632610004C4E8 /* KeychainAccess */,
 				D06CDA5F238F6EC300CF90B0 /* Alamofire */,
 				BDF94E802391E5EC005F2D5F /* Down */,
+				D0C876DE248F18700052EA63 /* Version */,
 			);
 			productName = iOCNotes;
 			productReference = D0CFE5331888A7BD00165839 /* CloudNotes.app */;
@@ -751,6 +757,7 @@
 				D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				D06CDA5E238F6EC300CF90B0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				BDF94E7F2391E5EC005F2D5F /* XCRemoteSwiftPackageReference "Down" */,
+				D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */,
 			);
 			productRefGroup = D0CFE5341888A7BD00165839 /* Products */;
 			projectDirPath = "";
@@ -959,6 +966,7 @@
 				D095AE45245BB25F00A7EF62 /* NoteSessionManager.swift in Sources */,
 				D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */,
 				D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */,
+				D09E6451248B3A7C003FB4C9 /* OCSProtocol.swift in Sources */,
 				BD653F88231C43FA00D59A88 /* Constants.swift in Sources */,
 				D01067E42213BDF30047E090 /* AppDelegate.swift in Sources */,
 				D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */,
@@ -1789,6 +1797,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mrackwitz/Version";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1816,6 +1832,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		D0C876DE248F18700052EA63 /* Version */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */;
+			productName = Version;
 		};
 /* End XCSwiftPackageProductDependency section */
 

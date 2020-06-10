@@ -69,8 +69,14 @@ class LoginTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         connectionActivityIndicator.startAnimating()
 
-        NoteSessionManager.shared.login(server: serverAddress, username: username, password: password) { [weak self] in
-            self?.connectionActivityIndicator.stopAnimating()
+        NoteSessionManager.shared.capabilities(server: serverAddress, username: username, password: password) { [weak self] in
+            if KeychainHelper.notesApiVersion == Router.defaultApiVersion {
+                NoteSessionManager.shared.login(server: serverAddress, username: username, password: password) { [weak self] in
+                    self?.connectionActivityIndicator.stopAnimating()
+                }
+            } else {
+                self?.connectionActivityIndicator.stopAnimating()
+            }
         }
     }
     
@@ -109,7 +115,7 @@ extension LoginTableViewController: UITextFieldDelegate {
             newString = (newString as NSString).replacingCharacters(in: range, with: string)
 
             if textField == serverTextField {
-                textHasChanged = !(newString == UserDefaults.standard.string(forKey: "Server"))
+                textHasChanged = !(newString == KeychainHelper.server)
             } else if textField == usernameTextField {
                 textHasChanged = !(newString == KeychainHelper.username)
             } else if textField == passwordTextField {

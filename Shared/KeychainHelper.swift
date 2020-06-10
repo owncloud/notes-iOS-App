@@ -118,4 +118,22 @@ struct KeychainHelper {
         }
     }
     
+    static var notesApiVersion: String {
+        get {
+            return UserDefaults.standard.string(forKey: "notesApiVersion") ?? Router.defaultApiVersion
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "notesApiVersion")
+        }
+    }
+
+    static var nextcloudVersion: String {
+        get {
+            return UserDefaults.standard.string(forKey: "nextcloudVersion") ?? ""
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "nextcloudVersion")
+        }
+    }
+    
 }

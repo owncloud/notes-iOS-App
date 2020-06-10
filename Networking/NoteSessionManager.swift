@@ -123,7 +123,35 @@ class NoteSessionManager {
     init() {
         session = Session(serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
     }
-    
+
+    func capabilities(server: String, username: String, password: String, completion: SyncCompletionBlock? = nil) {
+        var serverAddress = server.trimmingCharacters(in: CharacterSet(charactersIn: "/ "))
+        if !serverAddress.contains("://"),
+            !serverAddress.hasPrefix("http") {
+            serverAddress = "https://\(serverAddress)"
+        }
+        KeychainHelper.server = serverAddress
+        KeychainHelper.username = username
+        KeychainHelper.password = password
+
+        let router = OCSRouter.capabilities
+        session
+            .request(router)
+            .validate(contentType: [Router.applicationJson])
+            .responseDecodable(of: OCS.self) { [weak self] response in
+                switch response.result {
+                case let .success(result):
+                    KeychainHelper.notesApiVersion = result.data.notes.api_version.last ?? Router.defaultApiVersion
+                    KeychainHelper.nextcloudVersion = result.data.version.string
+                    KeychainHelper.isNextCloud = true
+                    self?.showSyncMessage()
+                case let .failure(error):
+                    print(error.localizedDescription)
+                }
+                completion?()
+        }
+    }
+
     func login(server: String, username: String, password: String, completion: SyncCompletionBlock? = nil) {
         var serverAddress = server.trimmingCharacters(in: CharacterSet(charactersIn: "/ "))
         if !serverAddress.contains("://"),
