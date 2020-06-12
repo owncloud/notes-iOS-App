@@ -387,6 +387,7 @@ class NotesTableViewController: UITableViewController {
                 editorViewController = editorController
                 let note = notesFrc.object(at: selectedIndexPath)
                 editorController.note = note
+                editorController.isNewNote = false
                 #if !targetEnvironment(macCatalyst)
                 editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 editorController.navigationItem.leftItemsSupplementBackButton = true
@@ -407,6 +408,7 @@ class NotesTableViewController: UITableViewController {
         #if !targetEnvironment(macCatalyst)
         tableView.deselectRow(at: indexPath, animated: true)
         #endif
+        editorViewController?.isNewNote = false
     }
 
 //    @available(iOS 13.0, *)
@@ -480,6 +482,7 @@ class NotesTableViewController: UITableViewController {
                     !collapsedInfo.collapsed {
                     self?.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .top)
                 }
+                self?.editorViewController?.isNewNote = true
                 self?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
             }
             HUD.hide()

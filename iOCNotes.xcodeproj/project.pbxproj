@@ -106,6 +106,7 @@
 		D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5AC1890659600165839 /* QuartzCore.framework */; };
 		D0E38B01249079FD0075B7F0 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = D0E38B00249079FD0075B7F0 /* Version */; };
 		D0E38B0224907A180075B7F0 /* OCSProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09E6450248B3A7C003FB4C9 /* OCSProtocol.swift */; };
+		D0E38B0324930C410075B7F0 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09E644E248ABAEB003FB4C9 /* Throttler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -411,7 +412,6 @@
 				BDC5FF9123F4E48F00E0EB17 /* NoteTableRowView.swift */,
 				D02BBB9923DA91170097F120 /* NoteCellView.swift */,
 				D02BBB9B23DBE3960097F120 /* ModifiedValueTransformer.swift */,
-				D09E644E248ABAEB003FB4C9 /* Throttler.swift */,
 				D071BFE423CD6245002BF63B /* Assets.xcassets */,
 				D071BFE623CD6245002BF63B /* Main.storyboard */,
 				D071BFE923CD6245002BF63B /* Info.plist */,
@@ -437,6 +437,7 @@
 				BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */,
 				BD92271A22CD3743004E2408 /* UtilityExtensions.swift */,
 				BD653F87231C43FA00D59A88 /* Constants.swift */,
+				D09E644E248ABAEB003FB4C9 /* Throttler.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -974,6 +975,7 @@
 				D09E6451248B3A7C003FB4C9 /* OCSProtocol.swift in Sources */,
 				BD653F88231C43FA00D59A88 /* Constants.swift in Sources */,
 				D01067E42213BDF30047E090 /* AppDelegate.swift in Sources */,
+				D0E38B0324930C410075B7F0 /* Throttler.swift in Sources */,
 				D01067E62213C17D0047E090 /* NotesTableViewController.swift in Sources */,
 				D0B6D4AE22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift in Sources */,
 				BD92271B22CD3743004E2408 /* UtilityExtensions.swift in Sources */,
