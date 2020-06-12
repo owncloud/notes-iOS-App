@@ -28,6 +28,7 @@ class NotesViewController: NSViewController {
         }
     }
 
+    private var isNoteEdit = false
     private var observers = [NSObjectProtocol]()
 
     deinit {
@@ -50,9 +51,10 @@ class NotesViewController: NSViewController {
         
         observers.append(NotificationCenter.default.addObserver(forName: .editorUpdatedNote, object: nil, queue: .main, using: { [weak self] _ in
             DispatchQueue.main.async {
-                if let row = self?.notesView.selectedRow {
-                    self?.notesView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: IndexSet(integer: 0))
-                }
+                self?.notesView.reloadData()
+                self?.isNoteEdit = true
+                self?.notesView.selectRowIndexes([0], byExtendingSelection: false)
+                self?.isNoteEdit = false
             }
         }))
         updateState()
@@ -111,11 +113,15 @@ extension NotesViewController: NSTableViewDelegate {
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
+        if isNoteEdit {
+            return
+        }
         let selectedRow = notesView.selectedRow
         guard let noteNodes = node?.children, let noteNode = noteNodes[selectedRow] as? NoteNode else {
             return
         }
         selectedNote = noteNode.note
+        editorViewController?.isNewNote = false
         editorViewController?.note = noteNode.note
         updateState()
     }

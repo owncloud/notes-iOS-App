@@ -17,6 +17,8 @@ class EditorViewController: NSViewController {
     @IBOutlet var shareButton: NSButton!
     @IBOutlet var favoriteButton: NSButton!
     
+    var isNewNote = false
+    
     private let storage = Storage()
     private let throttler = Throttler(minimumDelay: 0.5)
     
@@ -109,6 +111,9 @@ extension EditorViewController: NSTextViewDelegate {
         let currentContent = noteView.string
         if let note = self.note, currentContent != note.content {
             note.content = currentContent
+            if isNewNote {
+                note.title = noteTitle(note)
+            }
             NoteSessionManager.shared.update(note: note) {
                 NotificationCenter.default.post(name: .editorUpdatedNote, object: note)
             }
@@ -124,4 +129,21 @@ extension EditorViewController: NSTextViewDelegate {
         }
     }
     
+    private func noteTitle(_ note: NoteProtocol) -> String {
+        var result = note.title
+        if note.content.isEmpty {
+            result = note.title
+        } else {
+            if note.title.count <= 50 || note.title.hasPrefix(Constants.newNote) {
+                let components = note.content.split(separator: "\n")
+                result = String(components.first ?? "")
+                let forbiddenCharacters: Set<Character> = ["*", "|", "/", "\\", ":", "\"", "<", ">", "?"]
+                result.removeAll(where: { forbiddenCharacters.contains($0) })
+                result = result.trimmingCharacters(in: .whitespaces)
+                result = result.truncate(length: 50)
+            }
+        }
+        return result
+    }
+
 }

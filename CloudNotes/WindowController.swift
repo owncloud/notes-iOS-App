@@ -45,6 +45,7 @@ class WindowController: NSWindowController {
             if note != nil {
                 self?.sourceListController?.notesOutlineView.selectRowIndexes([3], byExtendingSelection: false)
                 self?.notesViewController?.notesView.selectRowIndexes([0], byExtendingSelection: false)
+                self?.editorViewController?.isNewNote = true
                 self?.window?.makeFirstResponder(self?.editorViewController?.noteView)
             }
         })

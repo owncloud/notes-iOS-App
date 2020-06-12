@@ -103,6 +103,8 @@ enum Router: URLRequestConvertible {
             } catch { }
 
             let baseURLString = "\(server)/apps/notes/api/v\(apiVersion)"
+//            let baseURLString = "\(server)/apps/notes/api/v0.2"
+//            let baseURLString = "\(server)/apps/notes/api/v1"
             let url = try baseURLString.asURL()
             
             var urlRequest = URLRequest(url: url.appendingPathComponent(self.path))

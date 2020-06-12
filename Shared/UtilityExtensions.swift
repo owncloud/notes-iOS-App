@@ -98,3 +98,18 @@ extension NSToolbarItem.Identifier {
     static let segmented = NSToolbarItem.Identifier(rawValue: "segmented")
 }
 #endif
+
+extension String {
+    
+    func truncate(length: Int, trailing: String = "…") -> String {
+        if (self.count <= length) {
+            return self
+        }
+        var truncated = self.prefix(length)
+        while truncated.last != " " {
+            truncated = truncated.dropLast()
+        }
+        return truncated + trailing
+    }
+    
+}

@@ -89,7 +89,7 @@ extension CDNote: NoteProtocol {
 
     var title: String {
         get {
-            return self.cdTitle ?? NSLocalizedString("New note", comment: "The title of a new note")
+            return self.cdTitle ?? Constants.newNote
         }
         set {
             self.cdTitle = newValue

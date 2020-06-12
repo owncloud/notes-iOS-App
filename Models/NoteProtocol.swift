@@ -74,7 +74,7 @@ struct NoteStruct: Codable, NoteProtocol {
 
     init(content: String, category: String, favorite: Bool = false) {
         self.content = content
-        title = NSLocalizedString("New note", comment: "The title of a new note")
+        title = Constants.newNote
         self.category = category
         self.favorite = favorite
         guid = UUID().uuidString

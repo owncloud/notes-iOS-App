@@ -418,7 +418,8 @@ class NoteSessionManager {
     }
     
     fileprivate func updateOnServer(_ note: NoteProtocol, handler: @escaping SyncHandler) {
-        let parameters: Parameters = ["content": note.content as Any,
+        let parameters: Parameters = ["title": note.title as Any,
+                                      "content": note.content as Any,
                                       "category": note.category as Any,
                                       "modified": Date().timeIntervalSince1970 as Any,
                                       "favorite": note.favorite]
