@@ -305,19 +305,35 @@ class NotesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // Use context menu on iOS 13 and above
+        if #available(iOS 13.0, *) {
+            return nil
+        }
         // Currently only NextCloud supports categories
         if !KeychainHelper.isNextCloud {
             return nil
         }
+        var actions = [UIContextualAction]()
         let title = NSLocalizedString("Category", comment: "Name of cell category action")
-        let action = UIContextualAction(style: .normal,
-                                        title: title,
-                                        handler: { [weak self] (_, _, completionHandler) in
-                                            self?.showCategories(indexPath: indexPath)
-                                            completionHandler(true)
+        let categoryAction = UIContextualAction(style: .normal,
+                                                title: title,
+                                                handler: { [weak self] (_, _, completionHandler) in
+                                                    self?.showCategories(indexPath: indexPath)
+                                                    completionHandler(true)
         })
+        actions.append(categoryAction)
         
-        let configuration = UISwipeActionsConfiguration(actions: [action])
+        if KeychainHelper.notesApiVersion != Router.defaultApiVersion {
+            let renameAction = UIContextualAction(style: .normal,
+                                                  title: NSLocalizedString("Rename", comment: "Action to change title of a note"),
+                                                  handler: { [weak self] (_, _, completionHandler) in
+                                                    self?.showRenameAlert(for: indexPath)
+                                                    completionHandler(true)
+            })
+            actions.append(renameAction)
+        }
+        
+        let configuration = UISwipeActionsConfiguration(actions: actions)
         return configuration
     }
     
@@ -411,29 +427,74 @@ class NotesTableViewController: UITableViewController {
         editorViewController?.isNewNote = false
     }
 
-//    @available(iOS 13.0, *)
-//    public override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-//        contextMenuIndexPath = indexPath
-//        let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in
-//            let categoryAction = UIAction(title: NSLocalizedString("Change Category...", comment: "Action to change category of a note"), image: nil) { [weak self] _ in
-//                if let indexPath = self?.contextMenuIndexPath {
-//                    self?.showCategories(indexPath: indexPath)
-//                }
-//            }
-//            let deleteAction = UIAction(title: NSLocalizedString("Delete", comment: "Action to delete a note"), image: (UIImage(systemName: "trash")), identifier: UIAction.Identifier("deleteAction"), discoverabilityTitle: nil, attributes: .destructive, state: .off, handler: { [weak self] _ in
-//                if let indexPath = self?.contextMenuIndexPath {
-//                    self?.tableView(tableView, commit: .delete, forRowAt: indexPath)
-//                }
-//            })
-//
-//            let categoryMenu = UIMenu(title: NSLocalizedString("Category", comment: "Menu for category"), image: nil, identifier: UIMenu.Identifier("category"), options: .displayInline, children: [categoryAction])
-//            let actions = [categoryMenu, deleteAction]
-//            return UIMenu(title: "Actions", image: nil, identifier: nil, children: actions)
-//        }
-//        return UIContextMenuConfiguration(identifier: nil,
-//                                          previewProvider: nil,
-//                                          actionProvider: actionProvider)
-//    }
+    private func showRenameAlert(for indexPath: IndexPath) {
+        var nameTextField: UITextField?
+        let note = self.notesFrc.object(at: indexPath)
+        let alertController = UIAlertController(title: NSLocalizedString("Note Title", comment: "Title of alert to change title"),
+                                                message: NSLocalizedString("Rename the note", comment: "Message of alert to change title"),
+                                                preferredStyle: .alert)
+        alertController.addTextField { textField in
+            nameTextField = textField
+            textField.text = note.title
+            textField.keyboardType = .default
+        }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Caption of Cancel button"), style: .cancel, handler: nil)
+        let renameAction = UIAlertAction(title: NSLocalizedString("Rename", comment: "Caption of Rename button"), style: .default) { (action) in
+            guard let newName = nameTextField?.text,
+                !newName.isEmpty,
+                newName != note.title else {
+                    return
+            }
+            note.title = newName
+            NoteSessionManager.shared.update(note: note, completion: nil)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(renameAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @available(iOS 13.0, *)
+    public override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard notesFrc.validate(indexPath: indexPath) else {
+            return nil
+        }
+        contextMenuIndexPath = indexPath
+        let note = self.notesFrc.object(at: indexPath)
+        var actions = [UIAction]()
+
+        if KeychainHelper.isNextCloud,
+        KeychainHelper.notesApiVersion != Router.defaultApiVersion {
+            let renameAction = UIAction(title: NSLocalizedString("Rename...", comment: "Action to change title of a note"), image: UIImage(systemName: "square.and.pencil")) { [weak self] action in
+                self?.showRenameAlert(for: indexPath)
+            }
+            actions.append(renameAction)
+        }
+        if KeychainHelper.isNextCloud {
+            let categoryAction = UIAction(title: NSLocalizedString("Category...", comment: "Action to change category of a note"), image: UIImage(named: "categories")) { [weak self] _ in
+                self?.showCategories(indexPath: indexPath)
+            }
+            actions.append(categoryAction)
+        }
+        let shareAction = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { [weak self] action in
+            guard let self = self,
+                !note.content.isEmpty else {
+                    return
+            }
+            let noteExporter = PBHNoteExporter(viewController: self, barButtonItem: self.addBarButton, text: note.content, title: note.title)
+            noteExporter.showMenu()
+        }
+        actions.append(shareAction)
+
+        let deleteAction = UIAction(title: NSLocalizedString("Delete", comment: "Action to delete a note"), image: (UIImage(systemName: "trash")), identifier: UIAction.Identifier("deleteAction"), discoverabilityTitle: nil, attributes: .destructive, state: .off, handler: { [weak self] _ in
+            self?.tableView(tableView, commit: .delete, forRowAt: indexPath)
+        })
+        actions.append(deleteAction)
+
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
+            return UIMenu(title: "", children: actions)
+        }
+        
+    }
     
     @IBAction func onRefresh(sender: Any?) {
         guard NoteSessionManager.isOnline else {
