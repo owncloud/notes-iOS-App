@@ -10,6 +10,51 @@ import Alamofire
 import Foundation
 import Version
 
+enum StatusRouter: URLRequestConvertible {
+    case status
+    
+    func asURLRequest() throws -> URLRequest {
+        let server = KeychainHelper.server
+        if !server.isEmpty {
+            var ocsUrlComponents = URLComponents()
+            if let url = URL(string: server),
+                let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+                ocsUrlComponents.scheme = components.scheme
+                ocsUrlComponents.host = components.host
+                ocsUrlComponents.port = components.port
+                var pathComponents = url.pathComponents
+                
+                if pathComponents.last == "index.php" {
+                    pathComponents = pathComponents.dropLast()
+                }
+                var newPath = pathComponents.joined(separator: "/")
+                if newPath.last == "/" {
+                    newPath = String(newPath.dropLast())
+                }
+                if newPath.hasPrefix("//") {
+                    newPath = String(newPath.dropFirst())
+                }
+                ocsUrlComponents.path = "\(newPath)/status.php"
+            }
+            let url = try ocsUrlComponents.url ?? server.asURL()
+            
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = HTTPMethod.get.rawValue
+            let username = KeychainHelper.username
+            let password = KeychainHelper.password
+            let headers: HTTPHeaders = [
+                .authorization(username: username, password: password),
+                //                .accept(Router.applicationJson),
+                .ocsAPIRequest(true)
+            ]
+            urlRequest.headers = headers
+            return urlRequest
+        } else {
+            throw AFError.parameterEncodingFailed(reason: .missingURL)
+        }
+    }
+}
+
 // GET /ocs/v1.php/cloud/capabilities
 enum OCSRouter: URLRequestConvertible {
     case capabilities
@@ -33,10 +78,31 @@ enum OCSRouter: URLRequestConvertible {
     func asURLRequest() throws -> URLRequest {
         let server = KeychainHelper.server
         if !server.isEmpty {
-            let baseURLString = "\(server)/ocs/v1.php/cloud"
-            let url = try baseURLString.asURL()
+            var ocsUrlComponents = URLComponents()
+            if let url = URL(string: server),
+                let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+                ocsUrlComponents.scheme = components.scheme
+                ocsUrlComponents.host = components.host
+                ocsUrlComponents.port = components.port
+                var pathComponents = url.pathComponents
+                
+                if pathComponents.last == "index.php" {
+                    pathComponents = pathComponents.dropLast()
+                }
+                var newPath = pathComponents.joined(separator: "/")
+                if newPath.last == "/" {
+                    newPath = String(newPath.dropLast())
+                }
+                if newPath.hasPrefix("//") {
+                    newPath = String(newPath.dropFirst())
+                }
+                ocsUrlComponents.path = "\(newPath)/ocs/v1.php/cloud\(self.path)"
+                let queryItem = URLQueryItem(name: "format", value: "json") // required on ownCloud. Otherwise xml is returned
+                ocsUrlComponents.queryItems = [queryItem]
+            }
+            let url = try ocsUrlComponents.url ?? server.asURL()
 
-            var urlRequest = URLRequest(url: url.appendingPathComponent(self.path))
+            var urlRequest = URLRequest(url: url)
             urlRequest.httpMethod = self.method.rawValue
             let username = KeychainHelper.username
             let password = KeychainHelper.password

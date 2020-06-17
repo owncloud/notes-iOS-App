@@ -124,6 +124,35 @@ class NoteSessionManager {
         session = Session(serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
     }
 
+    func status(server: String, username: String, password: String, completion: SyncCompletionBlock? = nil) {
+        var serverAddress = server.trimmingCharacters(in: CharacterSet(charactersIn: "/ "))
+        if !serverAddress.contains("://"),
+            !serverAddress.hasPrefix("http") {
+            serverAddress = "https://\(serverAddress)"
+        }
+        KeychainHelper.server = serverAddress
+        KeychainHelper.username = username
+        KeychainHelper.password = password
+        
+        let router = StatusRouter.status
+        session
+            .request(router)
+            .validate(contentType: [Router.applicationJson])
+//                        .responseString(completionHandler: { (response) in
+//                            print(response)
+//                        })
+            .responseDecodable(of: CloudStatus.self) { response in
+                switch response.result {
+                case let .success(result):
+                    KeychainHelper.productVersion = result.versionstring
+                    KeychainHelper.productName = result.productname
+                case let .failure(error):
+                    print(error.localizedDescription)
+                }
+                completion?()
+        }
+    }
+
     func capabilities(server: String, username: String, password: String, completion: SyncCompletionBlock? = nil) {
         var serverAddress = server.trimmingCharacters(in: CharacterSet(charactersIn: "/ "))
         if !serverAddress.contains("://"),
@@ -138,14 +167,18 @@ class NoteSessionManager {
         session
             .request(router)
             .validate(contentType: [Router.applicationJson])
+//            .responseString(completionHandler: { (response) in
+//                print(response)
+//            })
             .responseDecodable(of: OCS.self) { [weak self] response in
                 switch response.result {
                 case let .success(result):
                     KeychainHelper.notesApiVersion = result.data.notes.api_version.last ?? Router.defaultApiVersion
-                    KeychainHelper.nextcloudVersion = result.data.version.string
-                    KeychainHelper.isNextCloud = true
+                    KeychainHelper.notesVersion = result.data.notes.version
+                    KeychainHelper.productVersion = result.data.version.string
                     self?.showSyncMessage()
                 case let .failure(error):
+                    KeychainHelper.notesApiVersion = Router.defaultApiVersion
                     print(error.localizedDescription)
                 }
                 completion?()
@@ -171,10 +204,7 @@ class NoteSessionManager {
                 var title: String?
                 switch response.result {
                 case let .success(result):
-                    if !result.isEmpty,
-                        let firstNote = result.first,
-                        !firstNote.etag.isEmpty {
-                        KeychainHelper.isNextCloud = true
+                    if !result.isEmpty {
                         self?.showSyncMessage()
                     } else {
                         self?.pickServer()
@@ -515,11 +545,11 @@ class NoteSessionManager {
                                       message: NSLocalizedString("Unable to automatically detect type of server.\nPlease select:", comment: "Alert message for selecting server brand"),
                                       preferredStyle: .alert)
         let nextCloudAction = UIAlertAction(title: "NextCloud", style: .default) { [weak self] (_) in
-            KeychainHelper.isNextCloud = true
+            KeychainHelper.productName = "Nextcloud"
             self?.showSyncMessage()
         }
         let ownCloudAction = UIAlertAction(title: "ownCloud", style: .default) { [weak self] (_) in
-            KeychainHelper.isNextCloud = false
+            KeychainHelper.productName = "ownCloud"
             self?.showSyncMessage()
         }
         alert.addAction(nextCloudAction)

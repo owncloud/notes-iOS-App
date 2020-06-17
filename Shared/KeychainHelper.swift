@@ -78,10 +78,7 @@ struct KeychainHelper {
 
     static var isNextCloud: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: "IsNextCloud")
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "IsNextCloud")
+            return KeychainHelper.productName == "Nextcloud"
         }
     }
 
@@ -127,13 +124,33 @@ struct KeychainHelper {
         }
     }
 
-    static var nextcloudVersion: String {
+    static var notesVersion: String {
         get {
-            return UserDefaults.standard.string(forKey: "nextcloudVersion") ?? ""
+            return UserDefaults.standard.string(forKey: "notesVersion") ?? ""
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "nextcloudVersion")
+            UserDefaults.standard.set(newValue, forKey: "notesVersion")
         }
     }
+
+    static var productVersion: String {
+        get {
+            return UserDefaults.standard.string(forKey: "productVersion") ?? ""
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "productVersion")
+        }
+    }
+    
+    static var productName: String {
+        get {
+            return UserDefaults.standard.string(forKey: "productName") ?? ""
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "productName")
+        }
+    }
+
+    
     
 }

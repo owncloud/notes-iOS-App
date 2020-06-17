@@ -135,23 +135,28 @@ struct OCSData: Decodable {
 
 /*
  "notes": {
-   "api_version": [ "0.2", "1.0" ]
+   "api_version": [ "0.2", "1.0" ],
+   "version": "3.6.0"
  }
  */
 struct OCSNotes: Decodable {
     var api_version: [String]
+    var version: String
     
     enum CodingKeys: String, CodingKey {
         case api_version
+        case version
     }
 
     init() {
         api_version = [ "0.2" ]
+        version = ""
     }
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         api_version = try values.decode([String].self, forKey: .api_version)
+        version = try values.decodeIfPresent(String.self, forKey: .version) ?? ""
     }
 }
 
@@ -169,12 +174,6 @@ struct OCS: Decodable {
         case ocs
     }
 
-    // The keys inside of the "user" object
-    enum UserKeys: String, CodingKey {
-        case id
-        case username
-    }
-    
     init(from decoder: Decoder) throws {
         // Extract the top-level values ("ocs")
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -185,6 +184,49 @@ struct OCS: Decodable {
         // Extract each property from the nested container
         meta = try ocs.decode(OCSMeta.self, forKey: .meta)
         data = try ocs.decode(OCSData.self, forKey: .data)
+    }
+
+}
+
+/*
+ {"installed":true,
+ "maintenance":false,
+ "needsDbUpgrade":false,
+ "version":"10.0.10.4",
+ "versionstring":"10.0.10",
+ "edition":"Community",
+ "productname":"ownCloud"
+ }
+ */
+
+struct CloudStatus: Decodable {
+    var installed: Bool
+    var maintenance: Bool
+    var needsDbUpgrade: Bool
+    var version: String
+    var versionstring: String
+    var edition: String
+    var productname: String
+    
+    enum CodingKeys: String, CodingKey {
+        case installed
+        case maintenance
+        case needsDbUpgrade
+        case version
+        case versionstring
+        case edition
+        case productname
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        installed = try values.decode(Bool.self, forKey: .installed)
+        maintenance = try values.decode(Bool.self, forKey: .maintenance)
+        needsDbUpgrade = try values.decode(Bool.self, forKey: .needsDbUpgrade)
+        version = try values.decode(String.self, forKey: .version)
+        versionstring = try values.decode(String.self, forKey: .versionstring)
+        edition = try values.decode(String.self, forKey: .edition)
+        productname = try values.decode(String.self, forKey: .productname)
     }
 
 }

@@ -58,6 +58,21 @@ class LoginTableViewController: UITableViewController {
     }
     #endif
     
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return nil
+        default:
+            guard !KeychainHelper.productName.isEmpty,
+                !KeychainHelper.productVersion.isEmpty
+                else {
+                return NSLocalizedString("Not logged in", comment: "Message about not being logged in")
+            }
+            let notesVersion = KeychainHelper.notesVersion.isEmpty ? "" : "\(KeychainHelper.notesVersion) "
+            return NSLocalizedString("Using Notes \(notesVersion)on \(KeychainHelper.productName) \(KeychainHelper.productVersion).", comment: "Message with Notes version, product name and version")
+        }
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard indexPath.section == 1,
             connectLabel.isEnabled,
@@ -68,14 +83,18 @@ class LoginTableViewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
         connectionActivityIndicator.startAnimating()
-
-        NoteSessionManager.shared.capabilities(server: serverAddress, username: username, password: password) { [weak self] in
-            if KeychainHelper.notesApiVersion == Router.defaultApiVersion {
-                NoteSessionManager.shared.login(server: serverAddress, username: username, password: password) { [weak self] in
+        
+        NoteSessionManager.shared.status(server: serverAddress, username: username, password: password) { [weak self] in
+            NoteSessionManager.shared.capabilities(server: serverAddress, username: username, password: password) { [weak self] in
+                if KeychainHelper.notesApiVersion == Router.defaultApiVersion {
+                    NoteSessionManager.shared.login(server: serverAddress, username: username, password: password) { [weak self] in
+                        self?.connectionActivityIndicator.stopAnimating()
+                        self?.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+                    }
+                } else {
                     self?.connectionActivityIndicator.stopAnimating()
+                    self?.tableView.reloadSections(IndexSet(integer: 1), with: .none)
                 }
-            } else {
-                self?.connectionActivityIndicator.stopAnimating()
             }
         }
     }
