@@ -44,7 +44,7 @@ enum StatusRouter: URLRequestConvertible {
             let password = KeychainHelper.password
             let headers: HTTPHeaders = [
                 .authorization(username: username, password: password),
-                //                .accept(Router.applicationJson),
+                .accept(Router.applicationJson),
                 .ocsAPIRequest(true)
             ]
             urlRequest.headers = headers
@@ -58,9 +58,7 @@ enum StatusRouter: URLRequestConvertible {
 // GET /ocs/v1.php/cloud/capabilities
 enum OCSRouter: URLRequestConvertible {
     case capabilities
-    
-    static let applicationJson = "application/json"
-    
+        
     var method: HTTPMethod {
         switch self {
         case .capabilities:
@@ -185,7 +183,16 @@ enum Router: URLRequestConvertible {
 
             switch self {
             case .allNotes(let exclude):
-                let parameters = ["exclude": exclude] as [String : Any]
+                if !KeychainHelper.eTag.isEmpty {
+                    urlRequest.addValue(KeychainHelper.eTag, forHTTPHeaderField: "If-None-Match")
+                }
+                var parameters = Parameters()
+                if !exclude.isEmpty {
+                    parameters["exclude"] = exclude
+                }
+                if KeychainHelper.lastModified > 0 {
+                    parameters["pruneBefore"] = KeychainHelper.lastModified
+                }
                 urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
             case .getNote(_, let exclude, let etag):
                 let parameters = ["exclude": exclude] as [String : Any]

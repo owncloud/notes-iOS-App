@@ -86,4 +86,19 @@ struct NoteStruct: Codable, NoteProtocol {
         deleteNeeded = false
         updateNeeded = false
     }
+    
+    init(dictionary: [String: Any]) {
+        self.content = dictionary["content"] as? String ?? ""
+        title = dictionary["title"] as? String ?? Constants.newNote
+        self.category = dictionary["category"] as? String ?? ""
+        self.favorite = dictionary["favorite"] as? Bool ?? false
+//        guid = UUID().uuidString
+        modified = dictionary["modified"] as? TimeInterval ?? Date().timeIntervalSince1970
+        id = dictionary["id"] as? Int64 ?? -1
+        etag = ""
+        error = dictionary["error"] as? Bool ?? false
+        addNeeded = false
+        deleteNeeded = false
+        updateNeeded = false
+    }
 }

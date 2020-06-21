@@ -199,15 +199,17 @@ class NoteSessionManager {
         session
             .request(router, interceptor: LoginRequestInterceptor())
             .validate(contentType: [Router.applicationJson])
-            .responseDecodable(of: [NoteStruct].self) { [weak self] response in
+            .responseJSON(completionHandler: { [weak self] response in
                 var message: String?
                 var title: String?
                 switch response.result {
                 case let .success(result):
-                    if !result.isEmpty {
-                        self?.showSyncMessage()
-                    } else {
-                        self?.pickServer()
+                    if let jsonArray = result as? Array<[String: Any]> {
+                        if !jsonArray.isEmpty {
+                            self?.showSyncMessage()
+                        } else {
+                            self?.pickServer()
+                        }
                     }
                 case let .failure(error):
                     KeychainHelper.server = ""
@@ -237,7 +239,7 @@ class NoteSessionManager {
                     }
                 }
                 completion?()
-        }
+        })
     }
     
     func sync(completion: SyncCompletionBlock? = nil) {
@@ -313,24 +315,64 @@ class NoteSessionManager {
                         .request(router)
                         .validate(statusCode: 200..<300)
                         .validate(contentType: [Router.applicationJson])
-                        .responseDecodable(of: [NoteStruct].self) { response in
+                        .responseJSON(completionHandler: { response in
                             switch response.result {
-                            case let .success(notes):
-                                let serverIds = notes.map( { $0.id } )
-                                if let knownIds = CDNote.all()?.map({ $0.id }).filter({ $0 > 0 }) {
-                                    let deletedOnServer = Set(knownIds).subtracting(Set(serverIds))
-                                    if !deletedOnServer.isEmpty {
-                                        _ = CDNote.delete(ids: Array(deletedOnServer))
+                            case let .success(json):
+                                if let allHeaders = response.response?.allHeaderFields {
+                                    if let lmIndex = allHeaders.index(forKey: "Last-Modified"),
+                                        let lastModifiedString = allHeaders[lmIndex].value as? String {
+                                        let dateFormatter = DateFormatter()
+                                        dateFormatter.dateFormat = "EEEE, dd LLL yyyy HH:mm:ss zzz"
+                                        let lastModifiedDate = dateFormatter.date(from: lastModifiedString) ?? Date.distantPast
+                                        KeychainHelper.lastModified = Int(lastModifiedDate.timeIntervalSince1970)
+                                        
+                                    }
+                                    if let etagIndex = allHeaders.index(forKey: "Etag"),
+                                        let etag = allHeaders[etagIndex].value as? String {
+                                        KeychainHelper.eTag = etag
                                     }
                                 }
-                                CDNote.update(notes: notes)
+                                if let jsonArray = json as? Array<[String: Any]> {
+                                    print(jsonArray)
+                                    if let serverIds = jsonArray.map( { $0["id"] }) as? [Int64],
+                                        let knownIds = CDNote.all()?.map({ $0.id }).filter({ $0 > 0 }) {
+                                        let deletedOnServer = Set(knownIds).subtracting(Set(serverIds))
+                                        if !deletedOnServer.isEmpty {
+                                            _ = CDNote.delete(ids: Array(deletedOnServer))
+                                        }
+                                    }
+                                    let filteredDicts = jsonArray.filter({ $0.keys.count > 1 })
+                                    if !filteredDicts.isEmpty {
+                                        var notes = [NoteStruct]()
+                                        for noteDict in filteredDicts {
+                                            notes.append(NoteStruct(dictionary: noteDict))
+                                        }
+                                        CDNote.update(notes: notes)
+                                    }
+                                        
+                                    
+                                    
+                                }
+                                
                             case let .failure(error):
-                                let message = ErrorMessage(title: NSLocalizedString("Error Syncing Notes", comment: "The title of an error message"),
-                                                           body: error.localizedDescription)
-                                self.showErrorMessage(message: message)
+                                if error.isResponseValidationError {
+                                    switch error.responseCode {
+                                    case 304:
+                                        // Not modified, do nothing
+                                        break
+                                    default:
+                                        let message = ErrorMessage(title: NSLocalizedString("Error Syncing Notes", comment: "The title of an error message"),
+                                                                   body: error.localizedDescription)
+                                        self.showErrorMessage(message: message)
+                                    }
+                                } else {
+                                    let message = ErrorMessage(title: NSLocalizedString("Error Syncing Notes", comment: "The title of an error message"),
+                                                               body: error.localizedDescription)
+                                    self.showErrorMessage(message: message)
+                                }
                             }
                             completion?()
-                    }
+                        })
                 }
             }
         }
@@ -397,9 +439,10 @@ class NoteSessionManager {
             return
         }
         let router = Router.getNote(id: Int(note.id), exclude: "", etag: note.etag)
+        let validStatusCode = KeychainHelper.notesApiVersion == Router.defaultApiVersion ? 200..<300 : 200..<201
         session
             .request(router)
-            .validate(statusCode: 200..<300)
+            .validate(statusCode: validStatusCode)
             .validate(contentType: [Router.applicationJson])
             .responseDecodable(of: NoteStruct.self) { response in
                 switch response.result {
@@ -411,6 +454,8 @@ class NoteSessionManager {
                         case 304:
                             // Not modified. Do nothing.
                             break
+//                        case 400:
+                            // Bad request (invalid ID)
                         case 404:
                             if let guid = note.guid,
                                 let dbNote = CDNote.note(guid: guid) {
