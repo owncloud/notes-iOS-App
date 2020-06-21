@@ -349,11 +349,7 @@ class NoteSessionManager {
                                         }
                                         CDNote.update(notes: notes)
                                     }
-                                        
-                                    
-                                    
                                 }
-                                
                             case let .failure(error):
                                 if error.isResponseValidationError {
                                     switch error.responseCode {

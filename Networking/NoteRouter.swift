@@ -184,7 +184,7 @@ enum Router: URLRequestConvertible {
             switch self {
             case .allNotes(let exclude):
                 if !KeychainHelper.eTag.isEmpty {
-                    urlRequest.addValue(KeychainHelper.eTag, forHTTPHeaderField: "If-None-Match")
+                    urlRequest.headers.add(.ifNoneMatch(KeychainHelper.eTag))
                 }
                 var parameters = Parameters()
                 if !exclude.isEmpty {
@@ -197,7 +197,7 @@ enum Router: URLRequestConvertible {
             case .getNote(_, let exclude, let etag):
                 let parameters = ["exclude": exclude] as [String : Any]
                 if !etag.isEmpty {
-                    urlRequest.setValue(etag, forHTTPHeaderField: "If-None-Match")
+                    urlRequest.headers.add(.ifNoneMatch(etag))
                 }
                 urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
 
@@ -221,5 +221,9 @@ enum Router: URLRequestConvertible {
 extension HTTPHeader {
     public static func ocsAPIRequest(_ value: Bool) -> HTTPHeader {
         HTTPHeader(name: "OCS-APIRequest", value: value ? "true" : "false")
-   }
+    }
+    
+    public static func ifNoneMatch(_ value: String) -> HTTPHeader {
+        HTTPHeader(name: "If-None-Match", value: value)
+    }
 }
