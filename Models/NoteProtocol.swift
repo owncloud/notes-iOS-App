@@ -43,16 +43,16 @@ struct NoteStruct: Codable, NoteProtocol {
     var updateNeeded: Bool
 
     enum CodingKeys: String, CodingKey {
-        case category = "category"
-        case content = "content"
-        case favorite = "favorite"
-        case guid = "guid"
-        case modified = "modified"
-        case id = "id"
-        case title = "title"
-        case errorMessage = "errorMessage"
-        case error = "error"
-        case etag = "etag"
+        case category
+        case content
+        case favorite
+        case guid
+        case modified
+        case id
+        case title
+        case errorMessage
+        case error
+        case etag
     }
     
     init(from decoder: Decoder) throws {
@@ -88,15 +88,15 @@ struct NoteStruct: Codable, NoteProtocol {
     }
     
     init(dictionary: [String: Any]) {
-        self.content = dictionary["content"] as? String ?? ""
-        title = dictionary["title"] as? String ?? Constants.newNote
-        self.category = dictionary["category"] as? String ?? ""
-        self.favorite = dictionary["favorite"] as? Bool ?? false
+        self.content = dictionary[CodingKeys.content.rawValue] as? String ?? ""
+        title = dictionary[CodingKeys.title.rawValue] as? String ?? Constants.newNote
+        self.category = dictionary[CodingKeys.category.rawValue] as? String ?? ""
+        self.favorite = dictionary[CodingKeys.favorite.rawValue] as? Bool ?? false
 //        guid = UUID().uuidString
-        modified = dictionary["modified"] as? TimeInterval ?? Date().timeIntervalSince1970
-        id = dictionary["id"] as? Int64 ?? -1
+        modified = dictionary[CodingKeys.modified.rawValue] as? TimeInterval ?? Date().timeIntervalSince1970
+        id = dictionary[CodingKeys.id.rawValue] as? Int64 ?? -1
         etag = ""
-        error = dictionary["error"] as? Bool ?? false
+        error = dictionary[CodingKeys.error.rawValue] as? Bool ?? false
         addNeeded = false
         deleteNeeded = false
         updateNeeded = false
