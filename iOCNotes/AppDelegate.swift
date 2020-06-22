@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private let operationQueue = OperationQueue()
+    private var updateFrcDelegateNeeded = true
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         #if !targetEnvironment(simulator)
@@ -120,6 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         notesTableViewController?.updateFrcDelegate(update: .disable)
+        updateFrcDelegateNeeded = true
         if #available(iOS 13.0, *) {
             scheduleAppSync()
         } else {
@@ -129,6 +131,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
+        updateFrcDelegateIfNeeded()
+    }
+    
+    private func updateFrcDelegateIfNeeded() {
+        guard updateFrcDelegateNeeded else {
+            return
+        }
+        
+        updateFrcDelegateNeeded = false
         notesTableViewController?.updateFrcDelegate(update: .enable(withFetch: KeychainHelper.didSyncInBackground))
         KeychainHelper.didSyncInBackground = false
     }
@@ -176,6 +187,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let queryItems = urlComponents?.queryItems,
                 let item = queryItems.first(where: { $0.name == "note" }),
                 let content = item.value {
+                // Make sure we connect the delegate up, as this is called before the app is active
+                updateFrcDelegateIfNeeded()
                 self.notesTableViewController?.addNote(content: content)
             }
         } else if url.isFileURL {
