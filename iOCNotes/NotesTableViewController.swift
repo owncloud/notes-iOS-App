@@ -39,6 +39,7 @@ class NotesTableViewController: UITableViewController {
     private var observers = [NSObjectProtocol]()
     private var sectionCollapsedInfo = ExpandableSectionType()
     private var isSyncing = false
+    private var noteToAddOnViewDidLoad: String?
 
     private var contextMenuIndexPath: IndexPath?
     
@@ -165,6 +166,10 @@ class NotesTableViewController: UITableViewController {
         tableView.backgroundView = UIView()
         tableView.dropDelegate = self
         updateSectionExpandedInfo()
+        if let noteToAddOnViewDidLoad = noteToAddOnViewDidLoad {
+            addNote(content: noteToAddOnViewDidLoad)
+            self.noteToAddOnViewDidLoad = nil
+        }
         tableView.reloadData()
         definesPresentationContext = true
         refreshBarButton.isEnabled = NoteSessionManager.isOnline
@@ -534,6 +539,10 @@ class NotesTableViewController: UITableViewController {
     }
     
     func addNote(content: String) {
+        guard isViewLoaded else {
+            noteToAddOnViewDidLoad = content
+            return
+        }
         HUD.show(.progress)
         NoteSessionManager.shared.add(content: content, category: "", completion: { [weak self] note in
             if note != nil {
