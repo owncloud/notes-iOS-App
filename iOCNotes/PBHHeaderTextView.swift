@@ -9,7 +9,6 @@
 import UIKit
 import Notepad
 
-@objc(PBHHeaderTextView)
 class PBHHeaderTextView: UITextView {
 
     let smallPadding: CGFloat = 20.0
