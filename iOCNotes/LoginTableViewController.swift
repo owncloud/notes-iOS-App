@@ -69,7 +69,8 @@ class LoginTableViewController: UITableViewController {
                 return NSLocalizedString("Not logged in", comment: "Message about not being logged in")
             }
             let notesVersion = KeychainHelper.notesVersion.isEmpty ? "" : "\(KeychainHelper.notesVersion) "
-            return NSLocalizedString("Using Notes \(notesVersion)on \(KeychainHelper.productName) \(KeychainHelper.productVersion).", comment: "Message with Notes version, product name and version")
+            let format = NSLocalizedString("Using Notes %@on %@ %@.", comment:"Message with Notes version, product name and version")
+            return String.localizedStringWithFormat(format, notesVersion, KeychainHelper.productName, KeychainHelper.productVersion)
         }
     }
 

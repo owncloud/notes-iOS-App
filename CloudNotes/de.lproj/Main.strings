@@ -1,3 +1,4 @@
+
 /* Class = "NSButtonCell"; title = "Connect"; ObjectID = "0Cp-qM-haI"; */
 "0Cp-qM-haI.title" = "Verbinden";
 
@@ -7,8 +8,14 @@
 /* Class = "NSMenuItem"; title = "CloudNotes"; ObjectID = "1Xt-HY-uBw"; */
 "1Xt-HY-uBw.title" = "CloudNotes";
 
+/* Class = "NSMenuItem"; title = "Work Offline"; ObjectID = "241-61-1xx"; */
+"241-61-1xx.title" = "Offline arbeiten";
+
 /* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "2oI-Rn-ZJC"; */
 "2oI-Rn-ZJC.title" = "Transformationen";
+
+/* Class = "NSViewController"; title = "Preferences"; ObjectID = "30Q-1q-hS1"; */
+"30Q-1q-hS1.title" = "Einstellungen";
 
 /* Class = "NSMenu"; title = "Spelling"; ObjectID = "3IN-sU-3Bg"; */
 "3IN-sU-3Bg.title" = "Rechtschreibung";
@@ -34,6 +41,9 @@
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
 "6dh-zS-Vam.title" = "Wiederholen";
 
+/* Class = "NSMenuItem"; title = "Correct Spelling Automatically"; ObjectID = "78Y-hA-62v"; */
+"78Y-hA-62v.title" = "Rechtschreibung automatisch korrigieren";
+
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "7Qg-EB-oTE"; */
 "7Qg-EB-oTE.title" = "Text Cell";
 
@@ -42,15 +52,6 @@
 
 /* Class = "NSMenuItem"; title = "Smart Copy/Paste"; ObjectID = "9yt-4B-nSM"; */
 "9yt-4B-nSM.title" = "Intelligentes Kopieren/Einsetzen";
-
-/* Class = "NSViewController"; title = "Preferences"; ObjectID = "30Q-1q-hS1"; */
-"30Q-1q-hS1.title" = "Einstellungen";
-
-/* Class = "NSMenuItem"; title = "Correct Spelling Automatically"; ObjectID = "78Y-hA-62v"; */
-"78Y-hA-62v.title" = "Rechtschreibung automatisch korrigieren";
-
-/* Class = "NSMenuItem"; title = "Work Offline"; ObjectID = "241-61-1xx"; */
-"241-61-1xx.title" = "Offline arbeiten";
 
 /* Class = "NSMenuItem"; title = "Export…"; ObjectID = "aTl-1u-JFS"; */
 "aTl-1u-JFS.title" = "Exportieren…";
@@ -300,4 +301,3 @@
 
 /* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "z6F-FW-3nz"; */
 "z6F-FW-3nz.title" = "Ersetzungen einblenden";
-

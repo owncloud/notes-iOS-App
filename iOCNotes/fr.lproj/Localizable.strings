@@ -159,6 +159,9 @@
 "Category" = "";
 
 /* Action to change category of a note */
+"Category..." = "";
+
+/* Action to change category of a note */
 "Change Category..." = "";
 
 /* Status information, connected */
@@ -166,9 +169,6 @@
 
 /* Action to delete a note */
 "Delete" = "";
-
-/* Prompt on alert for adding a category */
-"Enter a name for the new category" = "";
 
 /* Prompt on alert for adding a category */
 "Enter a name for the new category" = "";
@@ -182,5 +182,24 @@
 /* Status information, not connected */
 "Not connected to Notes on a server" = "";
 
+/* Message about not being logged in */
+"Not logged in" = "";
+
+/* Title of alert to change title */
+"Note Title" = "";
+
 /* Button, OK */
 "OK" = "";
+
+/* Action to change title of a note
+   Caption of Rename button */
+"Rename" = "";
+
+/* Message of alert to change title */
+"Rename the note" = "";
+
+/* Action to change title of a note */
+"Rename..." = "";
+
+/* Message with Notes version, product name and version */
+"Using Notes %@on %@ %@." = "";

@@ -1,3 +1,4 @@
+
 /* Class = "UITextField"; placeholder = "Server Password"; ObjectID = "69R-CL-ITG"; */
 "69R-CL-ITG.placeholder" = "Passwort";
 
@@ -63,4 +64,3 @@
 
 /* Class = "UINavigationItem"; title = "Login Information"; ObjectID = "ZPa-hv-oSb"; */
 "ZPa-hv-oSb.title" = "Anmeldedaten";
-

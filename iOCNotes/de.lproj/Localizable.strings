@@ -1,3 +1,4 @@
+
 /* Crash report email body placeholder */
 "<Please provide as much details as possible about what you were doing when the crash occurred.>" = "<Bitte beschreiben Sie in Detail was Sie getan haben als sich der Absturz erreignete.>";
 
@@ -8,7 +9,7 @@
 "A server installation could not be found. Check the server address." = "Es konnte keine Serverinstallation gefunden werden. Prüfen Sie die Serveradresse";
 
 /* Acknowledgements */
-"Acknowledgements" = "";
+"Acknowledgements" = "Danksagung";
 
 /* Title of alert for adding a category */
 "Add Category" = "Kategorie hinzufügen";
@@ -27,7 +28,10 @@
 "Category" = "Kategorie";
 
 /* Action to change category of a note */
-"Change Category..." = "";
+"Category..." = "Kategorie";
+
+/* Action to change category of a note */
+"Change Category..." = "Kategorie ändern...";
 
 /* An error message */
 "Check username and password." = "Benutzername und Passwort prüfen.";
@@ -108,10 +112,16 @@
 "No thanks" = "Nein, danke";
 
 /* Status information, not connected */
-"Not connected to Notes on a server" = "";
+"Not connected to Notes on a server" = "Nicht mit Notes auf einem Server verbunden";
 
 /* A status label indicating that the user is not logged in */
 "Not Logged In" = "Nicht angemeldet";
+
+/* Message about not being logged in */
+"Not logged in" = "Nicht eingeloggt";
+
+/* Title of alert to change title */
+"Note Title" = "Notiz Titel";
 
 /* An error message */
 "Notes could not be found on your server. Make sure it is installed and enabled" = "Notes konnte auf Ihrem Server nicht gefunden werden. Stellen Sie sicher, dass Notes installiert und aktiviert ist.";
@@ -134,6 +144,16 @@
 
 /* A button title */
 "Reconnect" = "Erneut Verbinden";
+
+/* Action to change title of a note
+   Caption of Rename button */
+"Rename" = "Umbenennen";
+
+/* Message of alert to change title */
+"Rename the note" = "Benennen Sie die Notiz um";
+
+/* Action to change title of a note */
+"Rename..." = "Umbenennen...";
 
 /* A menu option for sharing in rich text format */
 "Rich Text" = "Rich-Text";
@@ -175,9 +195,11 @@
 /* Text displayed for notes not assigned to a category */
 "Uncategorized" = "Ohne Kategorie";
 
+/* Message with Notes version, product name and version */
+"Using Notes %@on %@ %@." = "Verwenden von Notes %@in %@ %@.";
+
 /* No comment provided by engineer. */
 "Yes, please!" = "Ja, bitte!";
 
 /* A message */
 "You are now connected to Notes on your server" = "Sie sind jetzt mit Notes auf Ihrem Server verbunden";
-
