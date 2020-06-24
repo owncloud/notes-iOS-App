@@ -15,25 +15,36 @@ class PBHNoteExporter: NSObject {
     var text: String
     var title: String
     var viewController: UIViewController
-    var barButtonItem: UIBarButtonItem
+    var barButtonItem: UIBarButtonItem?
+    var sourceRect: CGRect?
+    var sourceView: UIView?
     
     var alert: UIAlertController!
 
-    init(viewController: UIViewController, barButtonItem: UIBarButtonItem, text: String, title: String) {
+    init(title: String, text: String, viewController: UIViewController, from barButtonItem: UIBarButtonItem) {
         self.viewController = viewController
         self.barButtonItem = barButtonItem
         self.text = text
         self.title = title
         super.init()
     }
-    
+
+    init(title: String, text: String, viewController: UIViewController, from rect: CGRect, in view: UIView) {
+        self.viewController = viewController
+        self.sourceRect = rect
+        self.sourceView = view
+        self.text = text
+        self.title = title
+        super.init()
+    }
+
     func showMenu() -> Void {
-        alert = UIAlertController.init(title: NSLocalizedString("Share Note As", comment: "Title of a menu with sharing options"), message: nil, preferredStyle: .actionSheet)
-        let plainTextAction = UIAlertAction.init(title: NSLocalizedString("Plain Text", comment: "A menu option for sharing in plain text format"), style: .default, handler: beginExport(type: "txt"))
-        let markdownAction = UIAlertAction.init(title: NSLocalizedString("Markdown", comment: "A menu option for sharing in markdown format"), style: .default, handler: beginExport(type: "md"))
-        let htmlAction = UIAlertAction.init(title: NSLocalizedString("HTML", comment: "A menu option for plain sharing in html format"), style: .default, handler: beginExport(type: "html"))
-        let richTextAction = UIAlertAction.init(title: NSLocalizedString("Rich Text", comment: "A menu option for sharing in rich text format"), style: .default, handler: beginExport(type: "rtf"))
-        let cancelAction = UIAlertAction.init(title: NSLocalizedString("Cancel", comment: "A menu option for cancelling"), style: .cancel, handler: beginExport(type: ""))
+        alert = UIAlertController(title: NSLocalizedString("Share Note As", comment: "Title of a menu with sharing options"), message: nil, preferredStyle: .actionSheet)
+        let plainTextAction = UIAlertAction(title: NSLocalizedString("Plain Text", comment: "A menu option for sharing in plain text format"), style: .default, handler: beginExport(type: "txt"))
+        let markdownAction = UIAlertAction(title: NSLocalizedString("Markdown", comment: "A menu option for sharing in markdown format"), style: .default, handler: beginExport(type: "md"))
+        let htmlAction = UIAlertAction(title: NSLocalizedString("HTML", comment: "A menu option for plain sharing in html format"), style: .default, handler: beginExport(type: "html"))
+        let richTextAction = UIAlertAction(title: NSLocalizedString("Rich Text", comment: "A menu option for sharing in rich text format"), style: .default, handler: beginExport(type: "rtf"))
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "A menu option for cancelling"), style: .cancel, handler: beginExport(type: ""))
         
         alert.addAction(plainTextAction)
         alert.addAction(markdownAction)
@@ -45,6 +56,10 @@ class PBHNoteExporter: NSObject {
         if let popover = alert.popoverPresentationController {
             popover.delegate = self
             popover.barButtonItem = self.barButtonItem
+            if let sourceRect = sourceRect {
+                popover.sourceRect = sourceRect
+                popover.sourceView = sourceView
+            }
             popover.permittedArrowDirections = .any
         }
         viewController.present(alert, animated: true, completion: nil)
@@ -124,15 +139,25 @@ class PBHNoteExporter: NSObject {
                     self.viewController.dismiss(animated: true, completion: nil)
                 }
                 if let activityItems = activityItems {
-                    let openInAppActivity = PBHOpenInActivity(barButton: self.barButtonItem)
-                    let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: [openInAppActivity])
-                    if let popover = activityViewController.popoverPresentationController {
-                        let barbuttonItem = self.viewController.navigationItem.rightBarButtonItems?.first
-                        popover.delegate = self
-                        popover.barButtonItem = barbuttonItem
-                        popover.permittedArrowDirections = .any
+                    var openInAppActivity: PBHOpenInActivity?
+                    if let barButton = self.barButtonItem {
+                        openInAppActivity = PBHOpenInActivity(from: barButton)
                     }
-                    self.viewController.present(activityViewController, animated: true, completion: nil)
+                    if let sourceRect = self.sourceRect,
+                        let sourceView = self.sourceView {
+                        openInAppActivity = PBHOpenInActivity(from: sourceRect, in: sourceView)
+                    }
+                    if let openInAppActivity = openInAppActivity{
+                        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: [openInAppActivity])
+                        if let popover = activityViewController.popoverPresentationController {
+                            popover.delegate = self
+                            popover.barButtonItem = self.barButtonItem
+                            popover.sourceView = self.sourceView
+                            popover.sourceRect = self.sourceRect ?? .zero
+                            popover.permittedArrowDirections = .any
+                        }
+                        self.viewController.present(activityViewController, animated: true, completion: nil)
+                    }
                 }
             }
         }

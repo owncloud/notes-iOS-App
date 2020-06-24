@@ -13,10 +13,17 @@ let openInActivityType = "OpenIn"
 class PBHOpenInActivity: UIActivity {
 
     var documentController: UIDocumentInteractionController!
-    weak var barButton: UIBarButtonItem!
+    weak var barButton: UIBarButtonItem?
+    var sourceRect: CGRect?
+    var sourceView: UIView?
     
-    init(barButton: UIBarButtonItem) {
+    init(from barButton: UIBarButtonItem) {
         self.barButton = barButton
+    }
+
+    init(from rect: CGRect, in view: UIView) {
+        self.sourceRect = rect
+        self.sourceView = view
     }
 
     override var activityType: ActivityType {
@@ -53,6 +60,12 @@ class PBHOpenInActivity: UIActivity {
     }
 
     override func perform() {
-        documentController.presentOpenInMenu(from: barButton, animated: true)
+        if let barButton = barButton {
+            documentController.presentOpenInMenu(from: barButton, animated: true)
+        }
+        if let sourceRect = sourceRect,
+            let sourceView = sourceView {
+            documentController.presentOpenInMenu(from: sourceRect, in: sourceView, animated: true)
+        }
     }
 }

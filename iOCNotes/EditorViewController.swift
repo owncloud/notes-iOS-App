@@ -208,7 +208,7 @@ class EditorViewController: UIViewController {
             textToExport = noteView.text
         }
         if let text = textToExport {
-            noteExporter = PBHNoteExporter(viewController: self, barButtonItem: activityButton, text: text, title: note?.title ?? "Untitled")
+            noteExporter = PBHNoteExporter(title: note?.title ?? "Untitled", text: text, viewController: self, from: activityButton)
             noteExporter?.showMenu()
         }
     }

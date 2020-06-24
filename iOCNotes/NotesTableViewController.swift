@@ -485,7 +485,7 @@ class NotesTableViewController: UITableViewController {
                 !note.content.isEmpty else {
                     return
             }
-            let noteExporter = PBHNoteExporter(viewController: self, barButtonItem: self.addBarButton, text: note.content, title: note.title)
+            let noteExporter = PBHNoteExporter(title: note.title, text: note.content, viewController: self, from: CGRect(origin: point, size: CGSize(width: 3, height: 3)), in: tableView)
             noteExporter.showMenu()
         }
         actions.append(shareAction)
