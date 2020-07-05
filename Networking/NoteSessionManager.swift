@@ -102,6 +102,8 @@ class NoteSessionManager {
 
     static let shared = NoteSessionManager()
 
+    private var notesBeingAdded = Set<String>()
+    
     private var session: Session
 
     class var isConnectedToInternet: Bool {
@@ -271,6 +273,11 @@ class NoteSessionManager {
                 let group = DispatchGroup()
                 
                 for note in notesToAdd {
+                    if let guid = note.guid,
+                        notesBeingAdded.contains(guid) {
+                        continue
+                    }
+                    
                     group.enter()
                     self.addToServer(note: note) { _ in
                         group.leave()
@@ -405,11 +412,17 @@ class NoteSessionManager {
                                       "modified": note.modified,
                                       "favorite": note.favorite]
         let router = Router.createNote(parameters: parameters)
+        if let guid = newNote.guid {
+            notesBeingAdded.insert(guid)
+        }
         session
             .request(router, interceptor: NoteRequestInterceptor())
             .validate(statusCode: 200..<300)
             .validate(contentType: [Router.applicationJson])
             .responseDecodable(of: NoteStruct.self) { response in
+                if let guid = newNote.guid {
+                    self.notesBeingAdded.remove(guid)
+                }
                 switch response.result {
                 case let .success(note):
                     newNote.id = note.id
