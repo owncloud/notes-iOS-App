@@ -10,9 +10,7 @@
 		BD302B9022B8061A00067888 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD302B8F22B8061A00067888 /* LoginTableViewController.swift */; };
 		BD653F88231C43FA00D59A88 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD653F87231C43FA00D59A88 /* Constants.swift */; };
 		BD86DD8522B9CDD500115E5D /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86DD8422B9CDD500115E5D /* KeychainHelper.swift */; };
-		BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271622C92EBB004E2408 /* PKHUD.framework */; platformFilter = ios; };
 		BD92271B22CD3743004E2408 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92271A22CD3743004E2408 /* UtilityExtensions.swift */; };
-		BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92272622D7874E004E2408 /* Notepad.framework */; platformFilter = ios; };
 		BDC5FF8B23EB996200E0EB17 /* Notepad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDC5FF8A23EB996200E0EB17 /* Notepad.framework */; };
 		BDC5FF9023F3BBD200E0EB17 /* SourceTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC5FF8F23F3BBD200E0EB17 /* SourceTableRowView.swift */; };
 		BDC5FF9323F4E5C200E0EB17 /* NoteTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC5FF9123F4E48F00E0EB17 /* NoteTableRowView.swift */; };
@@ -38,7 +36,6 @@
 		D02BBB9C23DBE3960097F120 /* ModifiedValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9B23DBE3960097F120 /* ModifiedValueTransformer.swift */; };
 		D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */; };
 		D03493B922F3CC5700E1A9B0 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B822F3CC5700E1A9B0 /* CategoryTableViewController.swift */; };
-		D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D05110B920C8C9FE00AFFDC7 /* KSCrash.framework */; platformFilter = ios; };
 		D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */; };
 		D0545F23230901D30001D165 /* PBHOpenInActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0545F22230901D30001D165 /* PBHOpenInActivity.swift */; };
 		D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D0595C7B238632610004C4E8 /* KeychainAccess */; };
@@ -77,7 +74,6 @@
 		D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E882207B2CF00528E90 /* NotesData.swift */; };
 		D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
-		D093575B2457BA15006F4E01 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD92271E22CF4EBD004E2408 /* SwiftMessages.framework */; platformFilter = ios; };
 		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
 		D095AE45245BB25F00A7EF62 /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
 		D09DB859241F0CD2001E0E08 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D09DB858241F0CD1001E0E08 /* Credits.html */; };
@@ -96,6 +92,10 @@
 		D0BCFE6A2454BF40007C4CA3 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE6C2454BF40007C4CA3 /* Categories.storyboard */; };
 		D0C1C39F2462448D00AAC4A8 /* SyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1C39E2462448D00AAC4A8 /* SyncOperation.swift */; };
 		D0C876DF248F18700052EA63 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = D0C876DE248F18700052EA63 /* Version */; };
+		D0CAFEF92533E74800C47FA0 /* Notepad in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFEF82533E74800C47FA0 /* Notepad */; };
+		D0CAFF012533E76100C47FA0 /* KSCrash in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFF002533E76100C47FA0 /* KSCrash */; };
+		D0CAFF092533E7FB00C47FA0 /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFF082533E7FB00C47FA0 /* SwiftMessages */; };
+		D0CAFF162533E89900C47FA0 /* PKHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFF152533E89900C47FA0 /* PKHUD */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
 		D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE53A1888A7BD00165839 /* UIKit.framework */; };
 		D0CFE5411888A7BD00165839 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0CFE53F1888A7BD00165839 /* InfoPlist.strings */; };
@@ -233,7 +233,6 @@
 		D076032523EF8E0C00A11C56 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		D076032723F0F91A00A11C56 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		D076032923FA497A00A11C56 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
-		D0782BF020D60430009AF66B /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
 		D078A1C3239C8A2000E1A004 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		D07F5E842207B1DE00528E90 /* CDNote+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataClass.swift"; path = "CoreData/CDNote+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D07F5E852207B1DE00528E90 /* CDNote+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CDNote+CoreDataProperties.swift"; path = "CoreData/CDNote+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -325,19 +324,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD92272722D7874E004E2408 /* Notepad.framework in Frameworks */,
+				D0CAFEF92533E74800C47FA0 /* Notepad in Frameworks */,
 				D0C876DF248F18700052EA63 /* Version in Frameworks */,
+				D0CAFF012533E76100C47FA0 /* KSCrash in Frameworks */,
 				D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */,
-				BD92271722C92EBB004E2408 /* PKHUD.framework in Frameworks */,
 				D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
 				D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */,
+				D0CAFF162533E89900C47FA0 /* PKHUD in Frameworks */,
 				BDF94E812391E5EC005F2D5F /* Down in Frameworks */,
-				D05110BB20C8C9FF00AFFDC7 /* KSCrash.framework in Frameworks */,
 				D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */,
 				D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */,
+				D0CAFF092533E7FB00C47FA0 /* SwiftMessages in Frameworks */,
 				D078A1C4239C8A2000E1A004 /* CoreServices.framework in Frameworks */,
-				D093575B2457BA15006F4E01 /* SwiftMessages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,7 +470,6 @@
 				D0AB0E792470B74D00D3E6B6 /* ActionExtension */,
 				D0CFE5351888A7BD00165839 /* Frameworks */,
 				D0CFE5341888A7BD00165839 /* Products */,
-				D0782BF020D60430009AF66B /* Cartfile */,
 				D03993E22428287600A78369 /* appdmg.json */,
 			);
 			sourceTree = "<group>";
@@ -677,8 +675,6 @@
 				D0CFE5301888A7BD00165839 /* Frameworks */,
 				D0CFE5311888A7BD00165839 /* Resources */,
 				D094DACC24661889007E562B /* Embed App Extensions */,
-				D05110BD20C8CA2A00AFFDC7 /* ShellScript */,
-				D0A00D472356A7F80054E3A3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -691,6 +687,10 @@
 				D06CDA5F238F6EC300CF90B0 /* Alamofire */,
 				BDF94E802391E5EC005F2D5F /* Down */,
 				D0C876DE248F18700052EA63 /* Version */,
+				D0CAFEF82533E74800C47FA0 /* Notepad */,
+				D0CAFF002533E76100C47FA0 /* KSCrash */,
+				D0CAFF082533E7FB00C47FA0 /* SwiftMessages */,
+				D0CAFF152533E89900C47FA0 /* PKHUD */,
 			);
 			productName = iOCNotes;
 			productReference = D0CFE5331888A7BD00165839 /* CloudNotes.app */;
@@ -764,6 +764,10 @@
 				D06CDA5E238F6EC300CF90B0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				BDF94E7F2391E5EC005F2D5F /* XCRemoteSwiftPackageReference "Down" */,
 				D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */,
+				D0CAFEF72533E74800C47FA0 /* XCRemoteSwiftPackageReference "Notepad" */,
+				D0CAFEFF2533E76100C47FA0 /* XCRemoteSwiftPackageReference "KSCrash" */,
+				D0CAFF072533E7FB00C47FA0 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
+				D0CAFF142533E89900C47FA0 /* XCRemoteSwiftPackageReference "PKHUD" */,
 			);
 			productRefGroup = D0CFE5341888A7BD00165839 /* Products */;
 			projectDirPath = "";
@@ -867,42 +871,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks \n";
-		};
-		D05110BD20C8CA2A00AFFDC7 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"$(SRCROOT)/carthage_input_iOS.xcfilelist",
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-				"$(SRCROOT)/carthage_output_iOS.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-		D0A00D472356A7F80054E3A3 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n./LicenseGenerator/credits.py -s \"$SRCROOT/Carthage/Checkouts\" -o \"$SRCROOT/iOCNotes/Settings.bundle/licenses.plist\" -e \"AlamofireNetworkActivityIndicator/Carthage,CrashProbe,KSCrash/Source/KSCrash/llvm,swift\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1814,6 +1782,38 @@
 				minimumVersion = 0.8.0;
 			};
 		};
+		D0CAFEF72533E74800C47FA0 /* XCRemoteSwiftPackageReference "Notepad" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/phedlund/Notepad/";
+			requirement = {
+				branch = spm;
+				kind = branch;
+			};
+		};
+		D0CAFEFF2533E76100C47FA0 /* XCRemoteSwiftPackageReference "KSCrash" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kstenerud/KSCrash";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		D0CAFF072533E7FB00C47FA0 /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.2;
+			};
+		};
+		D0CAFF142533E89900C47FA0 /* XCRemoteSwiftPackageReference "PKHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pkluz/PKHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1846,6 +1846,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */;
 			productName = Version;
+		};
+		D0CAFEF82533E74800C47FA0 /* Notepad */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0CAFEF72533E74800C47FA0 /* XCRemoteSwiftPackageReference "Notepad" */;
+			productName = Notepad;
+		};
+		D0CAFF002533E76100C47FA0 /* KSCrash */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0CAFEFF2533E76100C47FA0 /* XCRemoteSwiftPackageReference "KSCrash" */;
+			productName = KSCrash;
+		};
+		D0CAFF082533E7FB00C47FA0 /* SwiftMessages */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0CAFF072533E7FB00C47FA0 /* XCRemoteSwiftPackageReference "SwiftMessages" */;
+			productName = SwiftMessages;
+		};
+		D0CAFF152533E89900C47FA0 /* PKHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0CAFF142533E89900C47FA0 /* XCRemoteSwiftPackageReference "PKHUD" */;
+			productName = PKHUD;
 		};
 		D0E38B00249079FD0075B7F0 /* Version */ = {
 			isa = XCSwiftPackageProductDependency;
