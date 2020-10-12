@@ -84,6 +84,7 @@
 		D0AB0E7D2470B74D00D3E6B6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AB0E7C2470B74D00D3E6B6 /* ActionViewController.swift */; };
 		D0AB0E802470B74D00D3E6B6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AB0E7E2470B74D00D3E6B6 /* MainInterface.storyboard */; };
 		D0AB0E842470B74D00D3E6B6 /* ActionExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D0AB0E782470B74D00D3E6B6 /* ActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D0B684B12533F3C700312D27 /* Notepad in Frameworks */ = {isa = PBXBuildFile; productRef = D0B684B02533F3C700312D27 /* Notepad */; };
 		D0B6D4AE22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */; };
 		D0B6D4AF22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */; };
 		D0BA4DDD2494814300136A61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D071BFE423CD6245002BF63B /* Assets.xcassets */; };
@@ -92,7 +93,6 @@
 		D0BCFE6A2454BF40007C4CA3 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE6C2454BF40007C4CA3 /* Categories.storyboard */; };
 		D0C1C39F2462448D00AAC4A8 /* SyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1C39E2462448D00AAC4A8 /* SyncOperation.swift */; };
 		D0C876DF248F18700052EA63 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = D0C876DE248F18700052EA63 /* Version */; };
-		D0CAFEF92533E74800C47FA0 /* Notepad in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFEF82533E74800C47FA0 /* Notepad */; };
 		D0CAFF012533E76100C47FA0 /* KSCrash in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFF002533E76100C47FA0 /* KSCrash */; };
 		D0CAFF092533E7FB00C47FA0 /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFF082533E7FB00C47FA0 /* SwiftMessages */; };
 		D0CAFF162533E89900C47FA0 /* PKHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFF152533E89900C47FA0 /* PKHUD */; };
@@ -324,7 +324,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0CAFEF92533E74800C47FA0 /* Notepad in Frameworks */,
 				D0C876DF248F18700052EA63 /* Version in Frameworks */,
 				D0CAFF012533E76100C47FA0 /* KSCrash in Frameworks */,
 				D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */,
@@ -335,6 +334,7 @@
 				BDF94E812391E5EC005F2D5F /* Down in Frameworks */,
 				D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */,
 				D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */,
+				D0B684B12533F3C700312D27 /* Notepad in Frameworks */,
 				D0CAFF092533E7FB00C47FA0 /* SwiftMessages in Frameworks */,
 				D078A1C4239C8A2000E1A004 /* CoreServices.framework in Frameworks */,
 			);
@@ -687,10 +687,10 @@
 				D06CDA5F238F6EC300CF90B0 /* Alamofire */,
 				BDF94E802391E5EC005F2D5F /* Down */,
 				D0C876DE248F18700052EA63 /* Version */,
-				D0CAFEF82533E74800C47FA0 /* Notepad */,
 				D0CAFF002533E76100C47FA0 /* KSCrash */,
 				D0CAFF082533E7FB00C47FA0 /* SwiftMessages */,
 				D0CAFF152533E89900C47FA0 /* PKHUD */,
+				D0B684B02533F3C700312D27 /* Notepad */,
 			);
 			productName = iOCNotes;
 			productReference = D0CFE5331888A7BD00165839 /* CloudNotes.app */;
@@ -764,10 +764,10 @@
 				D06CDA5E238F6EC300CF90B0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				BDF94E7F2391E5EC005F2D5F /* XCRemoteSwiftPackageReference "Down" */,
 				D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */,
-				D0CAFEF72533E74800C47FA0 /* XCRemoteSwiftPackageReference "Notepad" */,
 				D0CAFEFF2533E76100C47FA0 /* XCRemoteSwiftPackageReference "KSCrash" */,
 				D0CAFF072533E7FB00C47FA0 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 				D0CAFF142533E89900C47FA0 /* XCRemoteSwiftPackageReference "PKHUD" */,
+				D0B684AF2533F3C700312D27 /* XCRemoteSwiftPackageReference "Notepad" */,
 			);
 			productRefGroup = D0CFE5341888A7BD00165839 /* Products */;
 			projectDirPath = "";
@@ -1567,7 +1567,6 @@
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
@@ -1583,7 +1582,7 @@
 				PRODUCT_NAME = CloudNotes;
 				STRIP_STYLE = debugging;
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/Carthage/Checkouts/down/Source/cmark";
+				SWIFT_INCLUDE_PATHS = "$(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
@@ -1604,7 +1603,6 @@
 					"$(inherited)",
 					/Users/peter/Projects/iOCNotes,
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "iOCNotes/iOCNotes-Info.plist";
@@ -1620,7 +1618,7 @@
 				PRODUCT_NAME = CloudNotes;
 				STRIP_STYLE = debugging;
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/Carthage/Checkouts/down/Source/cmark";
+				SWIFT_INCLUDE_PATHS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1776,20 +1774,20 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		D0B684AF2533F3C700312D27 /* XCRemoteSwiftPackageReference "Notepad" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/phedlund/Notepad/";
+			requirement = {
+				branch = spm;
+				kind = branch;
+			};
+		};
 		D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mrackwitz/Version";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.8.0;
-			};
-		};
-		D0CAFEF72533E74800C47FA0 /* XCRemoteSwiftPackageReference "Notepad" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/phedlund/Notepad/";
-			requirement = {
-				branch = spm;
-				kind = branch;
 			};
 		};
 		D0CAFEFF2533E76100C47FA0 /* XCRemoteSwiftPackageReference "KSCrash" */ = {
@@ -1804,8 +1802,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.2;
+				branch = work/xcode12;
+				kind = branch;
 			};
 		};
 		D0CAFF142533E89900C47FA0 /* XCRemoteSwiftPackageReference "PKHUD" */ = {
@@ -1844,15 +1842,15 @@
 			package = D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
 		};
+		D0B684B02533F3C700312D27 /* Notepad */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0B684AF2533F3C700312D27 /* XCRemoteSwiftPackageReference "Notepad" */;
+			productName = Notepad;
+		};
 		D0C876DE248F18700052EA63 /* Version */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */;
 			productName = Version;
-		};
-		D0CAFEF82533E74800C47FA0 /* Notepad */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D0CAFEF72533E74800C47FA0 /* XCRemoteSwiftPackageReference "Notepad" */;
-			productName = Notepad;
 		};
 		D0CAFF002533E76100C47FA0 /* KSCrash */ = {
 			isa = XCSwiftPackageProductDependency;
