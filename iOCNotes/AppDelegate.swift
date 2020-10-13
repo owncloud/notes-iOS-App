@@ -7,7 +7,10 @@
 //
 
 #if !targetEnvironment(simulator)
-import KSCrash
+import KSCrash_Installations
+import KSCrash_Reporting_Sinks
+import KSCrash_Reporting_Tools
+import KSCrash_Reporting_Filters_Tools
 #endif
 import UIKit
 #if canImport(BackgroundTasks)
