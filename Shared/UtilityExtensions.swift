@@ -11,6 +11,7 @@ import Foundation
 #else
 import UIKit
 #endif
+import Version
 
 extension NSNotification.Name {
     static let deletingNote = NSNotification.Name("DeletingNote")
@@ -129,4 +130,15 @@ func noteTitle(_ note: NoteProtocol) -> String {
         }
     }
     return result
+}
+
+func isNextcloud() -> Bool {
+    var isNextcloud = false
+    do {
+        let version = try Version(KeychainHelper.productVersion)
+        if version.major > 13 {
+            isNextcloud = true
+        }
+    } catch { }
+    return isNextcloud
 }

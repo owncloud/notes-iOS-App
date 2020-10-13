@@ -76,12 +76,6 @@ struct KeychainHelper {
         }
     }
 
-    static var isNextCloud: Bool {
-        get {
-            return KeychainHelper.productName == "Nextcloud"
-        }
-    }
-
     static var dbReset: Bool {
         get {
             return UserDefaults.standard.bool(forKey: "dbReset")
