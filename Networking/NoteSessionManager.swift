@@ -345,7 +345,7 @@ class NoteSessionManager {
                                         let knownIds = CDNote.all()?.map({ $0.id }).filter({ $0 > 0 }) {
                                         let deletedOnServer = Set(knownIds).subtracting(Set(serverIds))
                                         if !deletedOnServer.isEmpty {
-                                            _ = CDNote.delete(ids: Array(deletedOnServer))
+                                            CDNote.delete(ids: Array(deletedOnServer))
                                         }
                                     }
                                     let filteredDicts = jsonArray.filter({ $0.keys.count > 1 })
