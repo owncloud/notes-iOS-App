@@ -250,7 +250,6 @@
 		D09E43111E2C46A20010E4B3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D09E644E248ABAEB003FB4C9 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		D09E6450248B3A7C003FB4C9 /* OCSProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCSProtocol.swift; sourceTree = "<group>"; };
-		D0A00D462356A7EB0054E3A3 /* credits.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = credits.py; sourceTree = "<group>"; };
 		D0AB0E782470B74D00D3E6B6 /* ActionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ActionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0AB0E7A2470B74D00D3E6B6 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		D0AB0E7C2470B74D00D3E6B6 /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
@@ -457,7 +456,6 @@
 			isa = PBXGroup;
 			children = (
 				D06557212486E26E001D61E6 /* InfoPlist.strings */,
-				D0A00D462356A7EB0054E3A3 /* credits.py */,
 				D084FB6C245A5FDC003EB6FB /* Shared */,
 				D01067DC220BCAD60047E090 /* Models */,
 				D07F5E8C2207B6D700528E90 /* Networking */,
