@@ -463,8 +463,8 @@ class NoteSessionManager {
                         case 304:
                             // Not modified. Do nothing.
                             break
-//                        case 400:
-                            // Bad request (invalid ID)
+                        case 400:
+                            print(error)
                         case 404:
                             if let guid = note.guid,
                                 let dbNote = CDNote.note(guid: guid) {
@@ -523,7 +523,7 @@ class NoteSessionManager {
                                                body: error.localizedDescription)
                     if let urlResponse = response.response {
                         switch urlResponse.statusCode {
-                        case 404:
+                        case 404, 405:
                             if let guid = note.guid,
                                 let dbNote = CDNote.note(guid: guid) {
                                 self.add(note: dbNote, completion: nil)
@@ -572,7 +572,7 @@ class NoteSessionManager {
                     CDNote.delete(note: note)
                     handler(.success(nil))
                 case .failure(let error):
-                    let message = ErrorMessage(title: NSLocalizedString("Error Deleting Note", comment: "The title of an error message"),
+                    var message = ErrorMessage(title: NSLocalizedString("Error Deleting Note", comment: "The title of an error message"),
                                                body: error.localizedDescription)
                     if let urlResponse = response.response {
                         switch urlResponse.statusCode {
@@ -581,6 +581,10 @@ class NoteSessionManager {
                             //trying to delete it, so let's do that.
                             CDNote.delete(note: note)
                             handler(.success(nil))
+                        case 423:
+                            message.body = NSLocalizedString("Unable to delete locked file on server", comment: "")
+                            CDNote.delete(note: note)
+                            handler(.failure(NoteError(message: message)))
                         default:
                             CDNote.update(notes: [note])
                             handler(.failure(NoteError(message: message)))
