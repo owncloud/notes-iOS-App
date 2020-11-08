@@ -254,15 +254,12 @@ public class CDNote: NSManagedObject {
 
     static func delete(ids: [Int64]) {
         NotesData.mainThreadContext.performAndWait {
-            let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
             let predicate = NSPredicate(format: "cdId IN %@", ids)
             request.predicate = predicate
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: request )
             do {
-                let result = try NotesData.mainThreadContext.fetch(request)
-                for note in result {
-                    NotesData.mainThreadContext.delete(note)
-                }
-                try NotesData.mainThreadContext.save()
+                try NotesData.mainThreadContext.executeAndMergeChanges(using: deleteRequest)
             } catch let error as NSError {
                 print("Could not perform deletion \(error), \(error.userInfo)")
             }
@@ -273,10 +270,8 @@ public class CDNote: NSManagedObject {
         NotesData.mainThreadContext.performAndWait {
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: request )
-            deleteRequest.resultType = .resultTypeCount
             do {
-                let deleteResult = try NotesData.mainThreadContext.execute(deleteRequest) as! NSBatchDeleteResult
-                print("The batch delete request has deleted \(deleteResult.result ?? 0) records.")
+                try NotesData.mainThreadContext.executeAndMergeChanges(using: deleteRequest)
             } catch {
                 let updateError = error as NSError
                 print("\(updateError), \(updateError.userInfo)")
