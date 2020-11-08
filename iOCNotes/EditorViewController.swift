@@ -29,13 +29,21 @@ class EditorViewController: UIViewController {
         didSet {
             if note != oldValue, let note = note {
                 HUD.show(.progress)
-                NoteSessionManager.shared.get(note: note, completion: { [weak self] in
-                    self?.noteView.text = note.content
-                    self?.noteView.undoManager?.removeAllActions()
-                    self?.noteView.scrollRangeToVisible(NSRange(location: 0, length: 0))
-                    self?.updateHeaderLabel()
+                if note.addNeeded {
+                    noteView.text = note.content
+                    noteView.undoManager?.removeAllActions()
+                    noteView.scrollRangeToVisible(NSRange(location: 0, length: 0))
+                    updateHeaderLabel()
                     HUD.hide()
-                })
+                } else {
+                    NoteSessionManager.shared.get(note: note, completion: { [weak self] in
+                        self?.noteView.text = note.content
+                        self?.noteView.undoManager?.removeAllActions()
+                        self?.noteView.scrollRangeToVisible(NSRange(location: 0, length: 0))
+                        self?.updateHeaderLabel()
+                        HUD.hide()
+                    })
+                }
             }
         }
     }
