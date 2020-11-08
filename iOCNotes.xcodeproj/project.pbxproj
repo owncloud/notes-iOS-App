@@ -1800,8 +1800,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages";
 			requirement = {
-				branch = work/xcode12;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.3;
 			};
 		};
 		D0CAFF142533E89900C47FA0 /* XCRemoteSwiftPackageReference "PKHUD" */ = {
