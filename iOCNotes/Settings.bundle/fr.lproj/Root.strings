@@ -6,16 +6,16 @@
   Created by Peter Hedlund on 6/22/14.
   Copyright (c) 2014 Peter Hedlund. All rights reserved.
 */
-"About" = "About";
+"About" = "À propos de";
 
-"Acknowledgements" = "Acknowledgements";
+"Acknowledgements" = "Remerciements";
 
-"Advanced Settings" = "Advanced Settings";
+"Advanced Settings" = "Réglages avancés";
 
-"Caution: Turning the switch on will remove all notes locally. Unsynced changes will be lost. Use only if you are experiencing problems." = "Caution: Turning the switch on will remove all notes locally. Unsynced changes will be lost. Use only if you are experiencing problems.";
+"Caution: Turning the switch on will remove all notes locally. Unsynced changes will be lost. Use only if you are experiencing problems." = "Attention: l'activation de l'interrupteur supprimera toutes les notes localement. Les modifications non synchronisées seront perdues. Utilisez uniquement si vous rencontrez des problèmes.";
 
-"Reset local notes database" = "Reset local notes database";
+"Reset local notes database" = "Réinitialiser la base de données des notes locales";
 
-"Third-party licenses" = "Third-party licenses";
+"Third-party licenses" = "Licences tierces";
 
 "Version" = "Version";

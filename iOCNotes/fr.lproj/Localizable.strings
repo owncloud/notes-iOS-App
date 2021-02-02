@@ -1,147 +1,147 @@
 
 /* Crash report email body placeholder */
-"<Please provide as much details as possible about what you were doing when the crash occurred.>" = "<Please provide as much details as possible about what you were doing when the crash occurred.>";
+"<Please provide as much details as possible about what you were doing when the crash occurred.>" = "<Veuillez fournir autant de détails que possible sur ce que vous faisiez lorsque le crash s'est produit.>";
 
 /* Support email body placeholder */
-"<Please state your question or problem here>" = "<Please state your question or problem here>";
+"<Please state your question or problem here>" = "<Veuillez indiquer votre question ou problème ici>";
 
 /* An error message */
-"A server installation could not be found. Check the server address." = "A server installation could not be found. Check the server address.";
+"A server installation could not be found. Check the server address." = "Une installation de serveur est introuvable. Vérifiez l'adresse du serveur.";
 
 /* A menu action
    A menu option for cancelling */
-"Cancel" = "Cancel";
+"Cancel" = "Annuler";
 
 /* An error message */
-"Check username and password." = "Check username and password.";
+"Check username and password." = "Vérifiez le nom d'utilisateur et le mot de passe.";
 
 /* Title of a button allowing the user to close the login screen and sync with the server */
-"Close & Sync" = "Close & Sync";
+"Close & Sync" = "Fermer et synchroniser";
 
 /* Crash report email subject */
-"CloudNotes Crash Report" = "CloudNotes Crash Report";
+"CloudNotes Crash Report" = "Rapport de plantage CloudNotes";
 
 /* No comment provided by engineer. */
-"CloudNotes crashed last time it was launched. Do you want to send a report to the developer?" = "CloudNotes crashed last time it was launched. Do you want to send a report to the developer?";
+"CloudNotes crashed last time it was launched. Do you want to send a report to the developer?" = "CloudNotes s'est écrasé la dernière fois qu'il a été lancé. Voulez-vous envoyer un rapport au développeur?";
 
 /* Support email subject */
-"CloudNotes Support Request" = "CloudNotes Support Request";
+"CloudNotes Support Request" = "Demande d'assistance CloudNotes";
 
 /* A button title */
-"Connect" = "Connect";
+"Connect" = "Connexion";
 
 /* An error message title */
-"Connection failure" = "Connection failure";
+"Connection failure" = "Échec de connexion";
 
 /* Alert view title */
-"Crash Detected" = "Crash Detected";
+"Crash Detected" = "Crash détecté";
 
 /* A menu action */
-"Delete Note" = "Delete Note";
+"Delete Note" = "Supprimer la note";
 
 /* The title of an error message */
-"Error Adding Note" = "Error Adding Note";
+"Error Adding Note" = "Erreur lors de l'ajout de la note";
 
 /* The title of an error message */
-"Error Deleting Note" = "Error Deleting Note";
+"Error Deleting Note" = "Erreur lors de la suppression de la note";
 
 /* The title of an error message */
-"Error Getting Note" = "Error Getting Note";
+"Error Getting Note" = "Erreur lors de l'obtention de la note";
 
 /* The title of an error message */
-"Error Syncing Notes" = "Error Syncing Notes";
+"Error Syncing Notes" = "Erreur de synchronisation des notes";
 
 /* The title of an error message */
-"Error Updating Note" = "Error Updating Note";
+"Error Updating Note" = "Erreur lors de la mise à jour de la note";
 
 /* The title of an error message */
-"Error Updating Notes" = "Error Updating Notes";
+"Error Updating Notes" = "Erreur lors de la mise à jour des notes";
 
 /* An error message */
-"Failed to connect to a server. Check your settings." = "Failed to connect to a server. Check your settings.";
+"Failed to connect to a server. Check your settings." = "Échec de la connexion à un serveur. Vérifiez vos paramètres.";
 
 /* A menu option for plain sharing in html format */
 "HTML" = "HTML";
 
 /* A status label indicating that the user is logged in */
-"Logged In" = "Logged In";
+"Logged In" = "Connecté";
 
 /* A menu option for sharing in markdown format */
 "Markdown" = "Markdown";
 
 /* The title of a new note */
-"New note" = "New note";
+"New note" = "Nouvelle note";
 
 /* No comment provided by engineer. */
-"No thanks" = "No thanks";
+"No thanks" = "Non merci";
 
 /* A status label indicating that the user is not logged in */
-"Not Logged In" = "Not Logged In";
+"Not Logged In" = "Pas connecté";
 
 /* An error message */
-"Notes could not be found on your server. Make sure it is installed and enabled" = "Notes could not be found on your server. Make sure it is installed and enabled";
+"Notes could not be found on your server. Make sure it is installed and enabled" = "Notes sont introuvables sur votre serveur. Assurez-vous qu'il est installé et activé";
 
 /* An error message title */
-"Notes not found" = "Notes not found";
+"Notes not found" = "Notes non trouvées";
 
 /* Title for Open In activity */
-"Open In..." = "Open In...";
+"Open In..." = "Ouvrir dans...";
 
 /* A menu option for sharing in plain text format */
-"Plain Text" = "Plain Text";
+"Plain Text" = "Texte brut";
 
 /* A message
    A message to check network connection */
-"Please check network connection and login." = "Please check network connection and login.";
+"Please check network connection and login." = "Veuillez vérifier la connexion réseau et la connexion.";
 
 /* A button title */
-"Reconnect" = "Reconnect";
+"Reconnect" = "Reconnecter";
 
 /* A menu option for sharing in rich text format */
-"Rich Text" = "Rich Text";
+"Rich Text" = "Texte riche";
 
 /* Placeholder text when no note is selected */
-"Select or create a note." = "Select or create a note.";
+"Select or create a note." = "Sélectionnez ou créez une note.";
 
 /* Alert title for selecting server brand */
-"Server" = "Server";
+"Server" = "Serveur";
 
 /* An error message title */
-"Server not found" = "Server not found";
+"Server not found" = "Serveur introuvable";
 
 /* A message title */
-"Server Reachable" = "Server Reachable";
+"Server Reachable" = "Serveur accessible";
 
 /* Title of a menu with sharing options */
-"Share Note As" = "Share Note As";
+"Share Note As" = "Partager la note en tant que";
 
 /* A message title */
-"Success" = "Success";
+"Success" = "Succès";
 
 /* A message */
-"The network connection is working properly." = "The network connection is working properly.";
+"The network connection is working properly." = "La connexion réseau fonctionne correctement.";
 
 /* An error message */
 "The note does not exist" = "The note does not exist";
 
 /* Alert message for selecting server brand */
-"Unable to automatically detect type of server.\nPlease select:" = "Unable to automatically detect type of server.\nPlease select:";
+"Unable to automatically detect type of server.\nPlease select:" = "Impossible de détecter automatiquement le type de serveur.\nVeuillez sélectionner:";
 
 /* A message title
    The title of an error message */
-"Unable to Reach Server" = "Unable to Reach Server";
+"Unable to Reach Server" = "Impossible d'accéder au serveur";
 
 /* An error message title */
-"Unauthorized" = "Unauthorized";
+"Unauthorized" = "Non autorisé";
 
 /* Text displayed for notes not assigned to a category */
-"Uncategorized" = "Uncategorized";
+"Uncategorized" = "Non catégorisé";
 
 /* No comment provided by engineer. */
-"Yes, please!" = "Yes, please!";
+"Yes, please!" = "Oui s'il vous plaît!";
 
 /* A message */
-"You are now connected to Notes on your server" = "You are now connected to Notes on your server";
+"You are now connected to Notes on your server" = "Vous êtes maintenant connecté à Notes sur votre serveur";
 
 /* Acknowledgements */
 "Acknowledgements" = "Remerciements";
