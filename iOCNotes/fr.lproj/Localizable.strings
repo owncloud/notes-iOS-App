@@ -144,62 +144,62 @@
 "You are now connected to Notes on your server" = "You are now connected to Notes on your server";
 
 /* Acknowledgements */
-"Acknowledgements" = "";
+"Acknowledgements" = "Remerciements";
 
 /* Title of alert for adding a category */
-"Add Category" = "";
+"Add Category" = "Ajouter une catégorie";
 
 /* Item to show all notes */
-"All" = "";
+"All" = "Toutes";
 
 /* Header title, categories */
-"CATEGORIES" = "";
+"CATEGORIES" = "CATEGORIES";
 
 /* 'Category' menu item */
-"Category" = "";
+"Category" = "Catégorie";
 
 /* Action to change category of a note */
-"Category..." = "";
+"Category..." = "Catégorie...";
 
 /* Action to change category of a note */
-"Change Category..." = "";
+"Change Category..." = "Changer de Catégorie";
 
 /* Status information, connected */
-"Connected to Notes on the server" = "";
+"Connected to Notes on the server" = "Connecté au serveur";
 
 /* Action to delete a note */
-"Delete" = "";
+"Delete" = "Supprimer";
 
 /* Prompt on alert for adding a category */
-"Enter a name for the new category" = "";
+"Enter a name for the new category" = "Saisissez un nom pour la nouvelle catégorie";
 
 /* Item to show favorite notes */
-"Favorites" = "";
+"Favorites" = "Favoris";
 
 /* Header title, main */
-"MAIN" = "";
+"MAIN" = "PRINCIPAL";
 
 /* Status information, not connected */
-"Not connected to Notes on a server" = "";
+"Not connected to Notes on a server" = "Déconnecté du serveur";
 
 /* Message about not being logged in */
-"Not logged in" = "";
+"Not logged in" = "Utilisateur non connecté";
 
 /* Title of alert to change title */
-"Note Title" = "";
+"Note Title" = "Titre de la note";
 
 /* Button, OK */
-"OK" = "";
+"OK" = "OK";
 
 /* Action to change title of a note
    Caption of Rename button */
-"Rename" = "";
+"Rename" = "Renommer";
 
 /* Message of alert to change title */
-"Rename the note" = "";
+"Rename the note" = "Renommer la note";
 
 /* Action to change title of a note */
-"Rename..." = "";
+"Rename..." = "Renommer...";
 
 /* Message with Notes version, product name and version */
-"Using Notes %@on %@ %@." = "";
+"Using Notes %@on %@ %@." = "Utilise Notes %@ sur %@ %@.";
