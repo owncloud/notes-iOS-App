@@ -1,27 +1,27 @@
 
 /* Class = "UITextField"; placeholder = "Server Password"; ObjectID = "69R-CL-ITG"; */
-"69R-CL-ITG.placeholder" = "Server Password";
+"69R-CL-ITG.placeholder" = "Mot de passe du serveur";
 
 /* Class = "UILabel"; text = "Username"; ObjectID = "A4w-6q-Hcy"; */
-"A4w-6q-Hcy.text" = "Username";
+"A4w-6q-Hcy.text" = "Nom d’utilisateur";
 
 /* Class = "UILabel"; text = "Allow Untrusted SSL Certificate"; ObjectID = "AKl-Ep-y3W"; */
-"AKl-Ep-y3W.text" = "Allow Untrusted SSL Certificate";
+"AKl-Ep-y3W.text" = "Autoriser le certificat SSL non approuvé";
 
 /* Class = "UILabel"; text = "Offline Mode"; ObjectID = "B8W-f5-T18"; */
-"B8W-f5-T18.text" = "Offline Mode";
+"B8W-f5-T18.text" = "Mode hors-ligne";
 
 /* Class = "UILabel"; text = "Password"; ObjectID = "CrO-Ue-LFh"; */
-"CrO-Ue-LFh.text" = "Password";
+"CrO-Ue-LFh.text" = "Mot de passe";
 
 /* Class = "UILabel"; text = "Server"; ObjectID = "dpH-sc-uH1"; */
-"dpH-sc-uH1.text" = "Server";
+"dpH-sc-uH1.text" = "Serveur";
 
 /* Class = "UITableViewSection"; headerTitle = "SUPPORT"; ObjectID = "ENv-ON-tbr"; */
-"ENv-ON-tbr.headerTitle" = "SUPPORT";
+"ENv-ON-tbr.headerTitle" = "ASSISTANCE";
 
 /* Class = "UIBarButtonItem"; title = "Close"; ObjectID = "fbP-uw-RUF"; */
-"fbP-uw-RUF.title" = "Close";
+"fbP-uw-RUF.title" = "Fermer";
 
 /* Class = "UITextField"; placeholder = "https://example.com/cloud"; ObjectID = "fKh-As-T79"; */
 "fKh-As-T79.placeholder" = "https://example.com/cloud";
@@ -36,31 +36,31 @@
 "gZE-6O-8CL.footerTitle" = "     ";
 
 /* Class = "UITableViewSection"; headerTitle = "SYNCING"; ObjectID = "gZE-6O-8CL"; */
-"gZE-6O-8CL.headerTitle" = "SYNCING";
+"gZE-6O-8CL.headerTitle" = "SYNCHRONISATION";
 
 /* Class = "UILabel"; text = "URL"; ObjectID = "GZX-DC-7iv"; */
 "GZX-DC-7iv.text" = "URL";
 
 /* Class = "UILabel"; text = "Sync on Start"; ObjectID = "hVU-Ed-KYm"; */
-"hVU-Ed-KYm.text" = "Sync on Start";
+"hVU-Ed-KYm.text" = "Synchroniser au démarrage";
 
 /* Class = "UITextField"; placeholder = "Server Username"; ObjectID = "KPV-Zj-4Ps"; */
-"KPV-Zj-4Ps.placeholder" = "Server Username";
+"KPV-Zj-4Ps.placeholder" = "Nom d'utilisateur sur le serveur";
 
 /* Class = "UILabel"; text = "Not Logged In"; ObjectID = "l87-9e-cjN"; */
-"l87-9e-cjN.text" = "Not Logged In";
+"l87-9e-cjN.text" = "Pas connecté";
 
 /* Class = "UILabel"; text = "Connect"; ObjectID = "qxi-YY-hPn"; */
-"qxi-YY-hPn.text" = "Connect";
+"qxi-YY-hPn.text" = "Connexion";
 
 /* Class = "UITableViewSection"; footerTitle = " "; ObjectID = "Uwy-jB-bpa"; */
 "Uwy-jB-bpa.footerTitle" = " ";
 
 /* Class = "UITableViewSection"; headerTitle = "Server"; ObjectID = "Uwy-jB-bpa"; */
-"Uwy-jB-bpa.headerTitle" = "Server";
+"Uwy-jB-bpa.headerTitle" = "Serveur";
 
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "waZ-N6-59b"; */
-"waZ-N6-59b.title" = "Settings";
+"waZ-N6-59b.title" = "Réglages";
 
 /* Class = "UINavigationItem"; title = "Login Information"; ObjectID = "ZPa-hv-oSb"; */
-"ZPa-hv-oSb.title" = "Login Information";
+"ZPa-hv-oSb.title" = "Informations de connexion";
