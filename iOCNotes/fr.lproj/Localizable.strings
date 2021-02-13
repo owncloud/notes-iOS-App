@@ -19,10 +19,10 @@
 "Close & Sync" = "Fermer et synchroniser";
 
 /* Crash report email subject */
-"CloudNotes Crash Report" = "Rapport de plantage CloudNotes";
+"CloudNotes Crash Report" = "Rapport de crash CloudNotes";
 
 /* No comment provided by engineer. */
-"CloudNotes crashed last time it was launched. Do you want to send a report to the developer?" = "CloudNotes s'est écrasé la dernière fois qu'il a été lancé. Voulez-vous envoyer un rapport au développeur?";
+"CloudNotes crashed last time it was launched. Do you want to send a report to the developer?" = "CloudNotes s'est crashé la dernière fois qu'il a été lancé. Voulez-vous envoyer un rapport au développeur?";
 
 /* Support email subject */
 "CloudNotes Support Request" = "Demande d'assistance CloudNotes";
@@ -79,10 +79,10 @@
 "Not Logged In" = "Pas connecté";
 
 /* An error message */
-"Notes could not be found on your server. Make sure it is installed and enabled" = "Notes sont introuvables sur votre serveur. Assurez-vous qu'il est installé et activé";
+"Notes could not be found on your server. Make sure it is installed and enabled" = "L'application Notes est introuvable sur votre serveur. Assurez-vous qu'elle est installée et activée";
 
 /* An error message title */
-"Notes not found" = "Notes non trouvées";
+"Notes not found" = "Notes non trouvée";
 
 /* Title for Open In activity */
 "Open In..." = "Ouvrir dans...";
@@ -92,10 +92,10 @@
 
 /* A message
    A message to check network connection */
-"Please check network connection and login." = "Veuillez vérifier la connexion réseau et la connexion.";
+"Please check network connection and login." = "Veuillez vérifier la connexion réseau et re-connectez vous.";
 
 /* A button title */
-"Reconnect" = "Reconnecter";
+"Reconnect" = "Se Reconnecter";
 
 /* A menu option for sharing in rich text format */
 "Rich Text" = "Texte riche";
