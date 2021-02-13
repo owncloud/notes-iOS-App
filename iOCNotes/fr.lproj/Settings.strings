@@ -45,7 +45,7 @@
 "hVU-Ed-KYm.text" = "Synchroniser au démarrage";
 
 /* Class = "UITextField"; placeholder = "Server Username"; ObjectID = "KPV-Zj-4Ps"; */
-"KPV-Zj-4Ps.placeholder" = "Nom d'utilisateur du serveur";
+"KPV-Zj-4Ps.placeholder" = "Nom d'utilisateur sur le serveur";
 
 /* Class = "UILabel"; text = "Not Logged In"; ObjectID = "l87-9e-cjN"; */
 "l87-9e-cjN.text" = "Pas connecté";
