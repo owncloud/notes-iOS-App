@@ -33,6 +33,7 @@ class NotesTableViewController: UITableViewController {
     private var networkHasBeenUnreachable = false
     private var searchResult: [CDNote]?
     private var numberOfObjectsInCurrentSection = 0
+    private var launching = true
 
     private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
 
@@ -187,6 +188,13 @@ class NotesTableViewController: UITableViewController {
         addBarButton.isEnabled = true
         settingsBarButton.isEnabled = true
         refreshBarButton.isEnabled = NoteSessionManager.isOnline
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if launching {
+            didBecomeActive()
+        }
+        launching = false
     }
     
     // MARK: - Public functions
