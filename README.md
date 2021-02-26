@@ -10,4 +10,6 @@ For more information visit https://pbh.dev/cloudnotes
 
 App Store download
 ==================
-https://apps.apple.com/app/cloudnotes-owncloud-notes/id813973264
+<img align="right" src="./qrcode-app-store.png">
+
+You can download CloudNotes directly from [App Store](https://apps.apple.com/app/cloudnotes-owncloud-notes/id813973264). If you are seeing this page on a computer, use the camera in your iPhone to scan the QR code to the right.
