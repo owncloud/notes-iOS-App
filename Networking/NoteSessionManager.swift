@@ -119,10 +119,6 @@ class NoteSessionManager {
     
     private var session: Session
 
-    class var isConnectedToInternet: Bool {
-        return NetworkReachabilityManager()?.isReachable ?? false
-    }
-
     class var isConnectedToServer: Bool {
         guard let url = URL(string: KeychainHelper.server),
             let host = url.host else {
