@@ -81,6 +81,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>CloudNotes needs local network access if your server is hosted locally</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

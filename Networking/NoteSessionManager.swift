@@ -123,7 +123,10 @@ class NoteSessionManager {
     }
     
     init() {
-        session = Session(serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
+        let configuration = URLSessionConfiguration.af.default
+        configuration.waitsForConnectivity = true
+        configuration.timeoutIntervalForRequest = 30
+        session = Session(configuration: configuration, serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
     }
 
     func status(server: String, username: String, password: String, completion: SyncCompletionBlock? = nil) {
