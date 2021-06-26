@@ -68,11 +68,24 @@ final class NoteRequestInterceptor: RequestInterceptor {
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
         guard let _ = request.request?.url,
-            let afError = error as? AFError else {
+              let afError = error as? AFError else {
             return completion(.doNotRetryWithError(error))
         }
-        
-        if afError.responseCode == 405 {
+
+        switch afError.responseCode {
+        case 404:
+            if KeychainHelper.lastModified > 0 {
+                completion(.doNotRetryWithError(error))
+            } else {
+                let serverAddress = KeychainHelper.server
+                if !serverAddress.hasSuffix(".php") {
+                    KeychainHelper.server = "\(serverAddress)/index.php"
+                    completion(.retry)
+                } else {
+                    completion(.doNotRetryWithError(error))
+                }
+            }
+        case 405:
             let serverAddress = KeychainHelper.server
             if !serverAddress.hasSuffix(".php") {
                 KeychainHelper.server = "\(serverAddress)/index.php"
@@ -80,7 +93,7 @@ final class NoteRequestInterceptor: RequestInterceptor {
             } else {
                 completion(.doNotRetryWithError(error))
             }
-        } else {
+        default:
             completion(.doNotRetryWithError(error))
         }
     }
@@ -322,7 +335,7 @@ class NoteSessionManager {
                 updateOnServer {
                     let router = Router.allNotes(exclude: "")
                     self.session
-                        .request(router)
+                        .request(router, interceptor: NoteRequestInterceptor())
                         .validate(statusCode: 200..<300)
                         .validate(contentType: [Router.applicationJson])
                         .responseJSON(completionHandler: { response in
@@ -335,7 +348,6 @@ class NoteSessionManager {
                                         dateFormatter.dateFormat = "EEEE, dd LLL yyyy HH:mm:ss zzz"
                                         let lastModifiedDate = dateFormatter.date(from: lastModifiedString) ?? Date.distantPast
                                         KeychainHelper.lastModified = Int(lastModifiedDate.timeIntervalSince1970)
-                                        
                                     }
                                     if let etagIndex = allHeaders.index(forKey: "Etag"),
                                         let etag = allHeaders[etagIndex].value as? String {
