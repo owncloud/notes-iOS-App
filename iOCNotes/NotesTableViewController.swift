@@ -421,6 +421,7 @@ class NotesTableViewController: UITableViewController {
                 #if !targetEnvironment(macCatalyst)
                 editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 editorController.navigationItem.leftItemsSupplementBackButton = true
+                editorController.navigationItem.title = note.title
                 if splitViewController?.displayMode == .allVisible || splitViewController?.displayMode == .primaryOverlay {
                     UIView.animate(withDuration: 0.3, animations: {
                         self.splitViewController?.preferredDisplayMode = .primaryHidden

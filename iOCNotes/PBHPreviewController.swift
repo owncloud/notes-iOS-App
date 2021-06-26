@@ -11,14 +11,23 @@ import UIKit
 
 class PBHPreviewController: UIViewController {
 
-    var textAsMarkdown: String?
+    var content: String?
     var noteTitle: String?
+    var noteDate: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let content = textAsMarkdown {
+        var previewContent = ""
+        if let noteTitle = noteTitle {
+            previewContent.append("# \(noteTitle)\n")
+        }
+        if let noteDate = noteDate {
+            previewContent.append("*\(noteDate)*\n\n")
+        }
+        if let content = content {
             do {
-                let downView = try DownView(frame: view.frame, markdownString: content, openLinksInBrowser: true, templateBundle: Bundle(path: "DownView.bundle"), configuration: nil, options: [], didLoadSuccessfully: {
+                previewContent.append(content)
+                let downView = try DownView(frame: view.frame, markdownString: previewContent, openLinksInBrowser: true, templateBundle: Bundle(path: "DownView.bundle"), configuration: nil, options: [], didLoadSuccessfully: {
                     print("Markdown was rendered.")
                 })
                 downView.translatesAutoresizingMaskIntoConstraints = false

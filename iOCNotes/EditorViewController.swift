@@ -200,8 +200,9 @@ class EditorViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPreview" {
             if let preview = segue.destination as? PBHPreviewController, let note = note {
-                preview.textAsMarkdown = noteView.text
+                preview.content = noteView.text
                 preview.noteTitle = note.title
+                preview.noteDate = noteView.headerLabel.text
             }
         }
     }
