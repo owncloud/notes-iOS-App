@@ -104,7 +104,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 #if targetEnvironment(macCatalyst)
                 splitViewController.primaryBackgroundStyle = .sidebar
                 #else
-                secondNavigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+                if #available(iOS 14.0, *) {
+                    //
+                } else {
+                    secondNavigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+                }
                 #endif
             }
         }

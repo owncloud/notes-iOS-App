@@ -86,7 +86,11 @@ class EditorViewController: UIViewController {
         ])
         navigationItem.rightBarButtonItems = [addButton, fixedSpace, activityButton, fixedSpace, deleteButton, fixedSpace, previewButton]
         #if !targetEnvironment(macCatalyst)
-        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        if #available(iOS 14.0, *) {
+            //
+        } else {
+            navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        }
         navigationItem.leftItemsSupplementBackButton = true
         #endif
         if let note = note {

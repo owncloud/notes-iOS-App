@@ -419,7 +419,11 @@ class NotesTableViewController: UITableViewController {
                 editorController.note = note
                 editorController.isNewNote = false
                 #if !targetEnvironment(macCatalyst)
-                editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                if #available(iOS 14.0, *) {
+                    //
+                } else {
+                    editorController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                }
                 editorController.navigationItem.leftItemsSupplementBackButton = true
                 editorController.navigationItem.title = note.title
                 if splitViewController?.displayMode == .allVisible || splitViewController?.displayMode == .primaryOverlay {
