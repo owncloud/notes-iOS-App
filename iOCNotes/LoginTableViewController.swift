@@ -20,7 +20,13 @@ class LoginTableViewController: UITableViewController {
     @IBOutlet var connectLabel: UILabel!
     @IBOutlet weak var certificateSwitch: UISwitch!
 
-    private let session = Session(serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
+    private var session: Session {
+        let configuration = URLSessionConfiguration.af.default
+        configuration.timeoutIntervalForResource = 30
+        configuration.timeoutIntervalForRequest = 30
+        configuration.waitsForConnectivity = true
+        return Session(configuration: configuration, serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

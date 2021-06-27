@@ -133,8 +133,9 @@ class NoteSessionManager {
     
     init() {
         let configuration = URLSessionConfiguration.af.default
-        configuration.waitsForConnectivity = true
+        configuration.timeoutIntervalForResource = 30
         configuration.timeoutIntervalForRequest = 30
+        configuration.waitsForConnectivity = true
         session = Session(configuration: configuration, serverTrustManager: CustomServerTrustPolicyManager(allHostsMustBeEvaluated: true, evaluators: [:]))
     }
 
@@ -152,9 +153,6 @@ class NoteSessionManager {
         session
             .request(router)
             .validate(contentType: [Router.applicationJson])
-//                        .responseString(completionHandler: { (response) in
-//                            print(response)
-//                        })
             .responseDecodable(of: CloudStatus.self) { response in
                 switch response.result {
                 case let .success(result):
@@ -181,9 +179,6 @@ class NoteSessionManager {
         session
             .request(router)
             .validate(contentType: [Router.applicationJson])
-//            .responseString(completionHandler: { (response) in
-//                print(response)
-//            })
             .responseDecodable(of: OCS.self) { [weak self] response in
                 switch response.result {
                 case let .success(result):
@@ -379,6 +374,10 @@ class NoteSessionManager {
                                                                    body: error.localizedDescription)
                                         self.showErrorMessage(message: message)
                                     }
+                                } else if error.isRequestRetryError {
+                                    let message = ErrorMessage(title: NSLocalizedString("Error Syncing Notes", comment: "The title of an error message"),
+                                                               body: "The server request timed out")
+                                    self.showErrorMessage(message: message)
                                 } else {
                                     let message = ErrorMessage(title: NSLocalizedString("Error Syncing Notes", comment: "The title of an error message"),
                                                                body: error.localizedDescription)
