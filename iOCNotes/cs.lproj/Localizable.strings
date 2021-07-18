@@ -1,0 +1,205 @@
+
+/* Crash report email body placeholder */
+"<Please provide as much details as possible about what you were doing when the crash occurred.>" = "<Prosíme poskytněte co nejvíc informací o tom co jste v aplikaci dělali v okamžiku pádu.>";
+
+/* Support email body placeholder */
+"<Please state your question or problem here>" = "<Prosíme uveďte sem svůj dotaz nebo popis problému>";
+
+/* An error message */
+"A server installation could not be found. Check the server address." = "Nepodařilo se nalézt serverovou instalaci. Zkontrolujte adresu serveru.";
+
+/* Acknowledgements */
+"Acknowledgements" = "Poděkování";
+
+/* Title of alert for adding a category */
+"Add Category" = "Přidat kategorii";
+
+/* Item to show all notes */
+"All" = "Vše";
+
+/* A menu action
+   A menu option for cancelling */
+"Cancel" = "Storno";
+
+/* Header title, categories */
+"CATEGORIES" = "KATEGORIE";
+
+/* 'Category' menu item */
+"Category" = "Kategorie";
+
+/* Action to change category of a note */
+"Category..." = "Kategorie…";
+
+/* Action to change category of a note */
+"Change Category..." = "Změnit kategorii…";
+
+/* An error message */
+"Check username and password." = "Zkontrolujte uživatelské jméno a heslo.";
+
+/* Title of a button allowing the user to close the login screen and sync with the server */
+"Close & Sync" = "Zavřít a synchronizovat";
+
+/* Crash report email subject */
+"CloudNotes Crash Report" = "Hlášení o pádu CloudNotes";
+
+/* No comment provided by engineer. */
+"CloudNotes crashed last time it was launched. Do you want to send a report to the developer?" = "CloudNotes při minulém spuštění zhavarovalo. Chcete odeslat hlášení vývojáři?";
+
+/* Support email subject */
+"CloudNotes Support Request" = "Požadavek na technickou podporu ke CloudNotes";
+
+/* A button title */
+"Connect" = "Připojit";
+
+/* Status information, connected */
+"Connected to Notes on the server" = "Připojeni k Poznámkám na serveru";
+
+/* An error message title */
+"Connection failure" = "Připojení se nezdařilo";
+
+/* Alert view title */
+"Crash Detected" = "Zjištěn pád";
+
+/* Action to delete a note */
+"Delete" = "Smazat";
+
+/* A menu action */
+"Delete Note" = "Smazat poznámku";
+
+/* Prompt on alert for adding a category */
+"Enter a name for the new category" = "Zadejte název pro novou kategorii";
+
+/* The title of an error message */
+"Error Adding Note" = "Chyba při přidávání poznámky";
+
+/* The title of an error message */
+"Error Deleting Note" = "Chyba při mazání poznámky";
+
+/* The title of an error message */
+"Error Getting Note" = "Chyba při získávání poznámky";
+
+/* The title of an error message */
+"Error Syncing Notes" = "Chyba při synchronizaci poznámek";
+
+/* The title of an error message */
+"Error Updating Note" = "Chyba při aktualizaci poznámky";
+
+/* The title of an error message */
+"Error Updating Notes" = "Chyba při aktualizaci poznámek";
+
+/* An error message */
+"Failed to connect to a server. Check your settings." = "Nepodařilo se připojit k serveru. Zkontrolujte nastavení.";
+
+/* Item to show favorite notes */
+"Favorites" = "Oblíbené";
+
+/* A menu option for plain sharing in html format */
+"HTML" = "HTML";
+
+/* A status label indicating that the user is logged in */
+"Logged In" = "Přihlášeni";
+
+/* Header title, main */
+"MAIN" = "HLAVNÍ";
+
+/* A menu option for sharing in markdown format */
+"Markdown" = "Markdown";
+
+/* The title of a new note */
+"New note" = "Nová poznámka";
+
+/* No comment provided by engineer. */
+"No thanks" = "No děkuji";
+
+/* Status information, not connected */
+"Not connected to Notes on a server" = "Nepřipojeni k Poznámkám na serveru";
+
+/* A status label indicating that the user is not logged in */
+"Not Logged In" = "Nepřihlášeni";
+
+/* Message about not being logged in */
+"Not logged in" = "Nepřihlášeni";
+
+/* Title of alert to change title */
+"Note Title" = "Nadpis poznámky";
+
+/* An error message */
+"Notes could not be found on your server. Make sure it is installed and enabled" = "Na vámi využívaném serveru se nepodařilo najít aplikaci Poznámky. Zajistěte, aby byla nainstalovaná a zapnutá";
+
+/* An error message title */
+"Notes not found" = "Poznámky nenalezeny";
+
+/* Button, OK */
+"OK" = "OK";
+
+/* Title for Open In activity */
+"Open In..." = "Otevřít v…";
+
+/* A menu option for sharing in plain text format */
+"Plain Text" = "Neformátovaný text";
+
+/* A message
+   A message to check network connection */
+"Please check network connection and login." = "Zkontrolujte připojení k síti a přihlašovací údaje.";
+
+/* A button title */
+"Reconnect" = "Znovu připojit";
+
+/* Action to change title of a note
+   Caption of Rename button */
+"Rename" = "Přejmenovat";
+
+/* Message of alert to change title */
+"Rename the note" = "Přejmenovat poznámku";
+
+/* Action to change title of a note */
+"Rename..." = "Přejmenovat…";
+
+/* A menu option for sharing in rich text format */
+"Rich Text" = "Formátovaný text";
+
+/* Placeholder text when no note is selected */
+"Select or create a note." = "Vybrat nebo vytvořit poznámku.";
+
+/* Alert title for selecting server brand */
+"Server" = "Server";
+
+/* An error message title */
+"Server not found" = "Server nenalezen";
+
+/* A message title */
+"Server Reachable" = "Server dosažitelný";
+
+/* Title of a menu with sharing options */
+"Share Note As" = "Sdílet poznámku jako";
+
+/* A message title */
+"Success" = "Úspěch";
+
+/* A message */
+"The network connection is working properly." = "Připojení k síti funguje správně.";
+
+/* An error message */
+"The note does not exist" = "Poznámka neexistuje";
+
+/* Alert message for selecting server brand */
+"Unable to automatically detect type of server.\nPlease select:" = "Nedaří se automaticky zjistit typ serveru.\nVyberte:";
+
+/* A message title
+   The title of an error message */
+"Unable to Reach Server" = "Server není dosažitelný";
+
+/* An error message title */
+"Unauthorized" = "Chybí oprávnění";
+
+/* Text displayed for notes not assigned to a category */
+"Uncategorized" = "Nezařazeno";
+
+/* Message with Notes version, product name and version */
+"Using Notes %@on %@ %@." = "S použitím Poznámek verze %@ na %@ %@.";
+
+/* No comment provided by engineer. */
+"Yes, please!" = "Ano prosím!";
+
+/* A message */
+"You are now connected to Notes on your server" = "Nyní jste připojení k Poznámkám na vámi využívaném serveru";
