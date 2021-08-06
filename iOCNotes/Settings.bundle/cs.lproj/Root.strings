@@ -1,0 +1,20 @@
+
+/* 
+  Root.strings
+  iOCNotes
+
+  Created by Peter Hedlund on 6/22/14.
+  Copyright (c) 2014 Peter Hedlund. All rights reserved.
+*/"About" = "O aplikaci";
+
+"Acknowledgements" = "Poděkování";
+
+"Advanced Settings" = "Pokročilá nastavení";
+
+"Caution: Turning the switch on will remove all notes locally. Unsynced changes will be lost. Use only if you are experiencing problems." = "Výstraha: Zapnutí tohoto přepínače odebere veškeré lokálně uložené poznámky. Změny, doposud nesesynchronizované na server, budou ztraceny. Použijte pouze pokud se setkáváte s problémy s aplikací.";
+
+"Reset local notes database" = "Resetovat místní databázi poznámek";
+
+"Third-party licenses" = "Licence třetích stran";
+
+"Version" = "Verze";
