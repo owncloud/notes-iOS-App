@@ -73,6 +73,8 @@ final class NoteRequestInterceptor: RequestInterceptor {
         }
 
         switch afError.responseCode {
+        case 304:
+            completion(.doNotRetry)
         case 404:
             if KeychainHelper.lastModified > 0 {
                 completion(.doNotRetryWithError(error))
