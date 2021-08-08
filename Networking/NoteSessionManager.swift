@@ -182,10 +182,14 @@ class NoteSessionManager {
             .responseDecodable(of: OCS.self) { [weak self] response in
                 switch response.result {
                 case let .success(result):
-                    KeychainHelper.notesApiVersion = result.data.notes.api_version.last ?? Router.defaultApiVersion
-                    KeychainHelper.notesVersion = result.data.notes.version
-                    KeychainHelper.productVersion = result.data.version.string
-                    self?.showSyncMessage()
+                    if let notesData = result.data.notes {
+                        KeychainHelper.notesApiVersion = notesData.api_version.last ?? Router.defaultApiVersion
+                        KeychainHelper.notesVersion = notesData.version
+                        KeychainHelper.productVersion = result.data.version.string
+//                        self?.showSyncMessage()
+                    } else {
+                        KeychainHelper.notesApiVersion = Router.defaultApiVersion
+                    }
                 case let .failure(error):
                     KeychainHelper.notesApiVersion = Router.defaultApiVersion
                     print(error.localizedDescription)
@@ -207,6 +211,7 @@ class NoteSessionManager {
         let router = Router.allNotes(exclude: "")
         session
             .request(router, interceptor: LoginRequestInterceptor())
+            .validate(statusCode: 200..<300)
             .validate(contentType: [Router.applicationJson])
             .responseJSON(completionHandler: { [weak self] response in
                 var message: String?
@@ -221,14 +226,26 @@ class NoteSessionManager {
                         }
                     }
                 case let .failure(error):
-                    KeychainHelper.server = ""
-                    KeychainHelper.username = ""
-                    KeychainHelper.password = ""
                     if let urlResponse = response.response {
+                        switch urlResponse.statusCode {
+                        case 304:
+                            // Not really a failure, the login worked, but either
+                            // no notes or no changed notes were found on the server
+                            break
+                        default:
+                            KeychainHelper.server = ""
+                            KeychainHelper.username = ""
+                            KeychainHelper.password = ""
+                        }
+
                         switch urlResponse.statusCode {
                         case 200:
                             title = NSLocalizedString("Notes not found", comment: "An error message title")
                             message = NSLocalizedString("Notes could not be found on your server. Make sure it is installed and enabled", comment: "An error message");
+                        case 304:
+                            // Not really a failure, the login worked, but either
+                            // no notes or no changed notes were found on the server
+                            break
                         case 401:
                             title = NSLocalizedString("Unauthorized", comment: "An error message title")
                             message = NSLocalizedString("Check username and password.", comment: "An error message")
@@ -248,7 +265,7 @@ class NoteSessionManager {
                     }
                 }
                 completion?()
-        })
+            })
     }
     
     func sync(completion: SyncCompletionBlock? = nil) {
@@ -612,7 +629,7 @@ class NoteSessionManager {
         let alert = UIAlertController(title: NSLocalizedString("Server", comment: "Alert title for selecting server brand"),
                                       message: NSLocalizedString("Unable to automatically detect type of server.\nPlease select:", comment: "Alert message for selecting server brand"),
                                       preferredStyle: .alert)
-        let nextCloudAction = UIAlertAction(title: "NextCloud", style: .default) { [weak self] (_) in
+        let nextCloudAction = UIAlertAction(title: "Nextcloud", style: .default) { [weak self] (_) in
             KeychainHelper.productName = "Nextcloud"
             self?.showSyncMessage()
         }

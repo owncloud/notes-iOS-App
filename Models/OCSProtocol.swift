@@ -114,7 +114,7 @@ struct OCSVersion: Codable {
 
 struct OCSData: Decodable {
     var version: OCSVersion
-    var notes: OCSNotes
+    var notes: OCSNotes?
     
     enum CodingKeys: String, CodingKey {
         case version
@@ -129,7 +129,7 @@ struct OCSData: Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         version = try values.decode(OCSVersion.self, forKey: .version)
         let capabilityValues = try values.nestedContainer(keyedBy: ExtraKeys.self, forKey: .capabilities)
-        notes = try capabilityValues.decodeIfPresent(OCSNotes.self, forKey: .notes) ?? OCSNotes()
+        notes = try capabilityValues.decodeIfPresent(OCSNotes.self, forKey: .notes)
     }
 }
 

@@ -70,7 +70,8 @@ class LoginTableViewController: UITableViewController {
             return nil
         default:
             guard !KeychainHelper.productName.isEmpty,
-                !KeychainHelper.productVersion.isEmpty
+                !KeychainHelper.productVersion.isEmpty,
+                !KeychainHelper.server.isEmpty
                 else {
                 return NSLocalizedString("Not logged in", comment: "Message about not being logged in")
             }
@@ -91,15 +92,13 @@ class LoginTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         connectionActivityIndicator.startAnimating()
         
-        NoteSessionManager.shared.status(server: serverAddress, username: username, password: password) { [weak self] in
-            NoteSessionManager.shared.capabilities(server: serverAddress, username: username, password: password) { [weak self] in
-                if KeychainHelper.notesApiVersion == Router.defaultApiVersion {
-                    NoteSessionManager.shared.login(server: serverAddress, username: username, password: password) { [weak self] in
-                        self?.connectionActivityIndicator.stopAnimating()
-                        self?.tableView.reloadSections(IndexSet(integer: 1), with: .none)
-                    }
-                } else {
+        NoteSessionManager.shared.status(server: serverAddress, username: username, password: password) {
+            NoteSessionManager.shared.capabilities(server: serverAddress, username: username, password: password) {
+                NoteSessionManager.shared.login(server: serverAddress, username: username, password: password) { [weak self] in
                     self?.connectionActivityIndicator.stopAnimating()
+                    self?.serverTextField.text = KeychainHelper.server
+                    self?.usernameTextField.text = KeychainHelper.username
+                    self?.passwordTextField.text = KeychainHelper.password
                     self?.tableView.reloadSections(IndexSet(integer: 1), with: .none)
                 }
             }
