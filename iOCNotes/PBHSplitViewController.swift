@@ -85,7 +85,12 @@ extension PBHSplitViewController: UISplitViewControllerDelegate {
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return true
     }
-    
+
+    @available(iOS 14.0, *)
+    func splitViewController(_ splitViewController: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
+        return .primary
+    }
+
     @objc func onAddButtonAction(sender: UIBarButtonItem) {
         editorViewController?.onAdd(sender)
     }
