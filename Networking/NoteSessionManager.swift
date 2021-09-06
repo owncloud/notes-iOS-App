@@ -49,6 +49,10 @@ final class LoginRequestInterceptor: RequestInterceptor {
             return completion(.doNotRetryWithError(error))
         }
         
+        guard request.retryCount <= 1 else {
+            return completion(.doNotRetryWithError(error))
+        }
+
         let serverAddress = KeychainHelper.server
         if !serverAddress.hasSuffix(".php") {
             KeychainHelper.server = "\(serverAddress)/index.php"
@@ -69,6 +73,10 @@ final class NoteRequestInterceptor: RequestInterceptor {
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
         guard let _ = request.request?.url,
               let afError = error as? AFError else {
+            return completion(.doNotRetryWithError(error))
+        }
+
+        guard request.retryCount <= 1 else {
             return completion(.doNotRetryWithError(error))
         }
 
@@ -95,6 +103,9 @@ final class NoteRequestInterceptor: RequestInterceptor {
             } else {
                 completion(.doNotRetryWithError(error))
             }
+        case 423:
+            // File lock on server, retry once
+            completion(.retryWithDelay(2))
         default:
             completion(.doNotRetryWithError(error))
         }
