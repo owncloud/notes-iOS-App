@@ -145,8 +145,15 @@ class EditorViewController: UIViewController {
         self.observers.append(NotificationCenter.default.addObserver(forName: UIContentSizeCategory.didChangeNotification,
                                                                      object: nil,
                                                                      queue: OperationQueue.main,
-                                                                     using: { [weak self] notification in
+                                                                     using: { [weak self] _ in
                                                                         self?.preferredContentSizeChanged()
+        }))
+        self.observers.append(NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification,
+                                                                     object: nil,
+                                                                     queue: OperationQueue.main,
+                                                                     using: { [weak self] _ in
+                                                                        self?.noteView.isScrollEnabled = false
+                                                                        self?.noteView.isScrollEnabled = true
         }))
 
         if let transitionCoordinator = transitionCoordinator {
