@@ -44,12 +44,16 @@ class PBHNoteExporter: NSObject {
         let markdownAction = UIAlertAction(title: NSLocalizedString("Markdown", comment: "A menu option for sharing in markdown format"), style: .default, handler: beginExport(type: "md"))
         let htmlAction = UIAlertAction(title: NSLocalizedString("HTML", comment: "A menu option for plain sharing in html format"), style: .default, handler: beginExport(type: "html"))
         let richTextAction = UIAlertAction(title: NSLocalizedString("Rich Text", comment: "A menu option for sharing in rich text format"), style: .default, handler: beginExport(type: "rtf"))
+        let printUnformattedAction = UIAlertAction(title: NSLocalizedString("Print Unformatted...", comment: "A menu option for printing unformatted text"), style: .default, handler: sendToPrinter())
+        let printFormattedAction = UIAlertAction(title: NSLocalizedString("Print Formatted...", comment: "A menu option for printing formatted text"), style: .default, handler: sendToPrinter(true))
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "A menu option for cancelling"), style: .cancel, handler: beginExport(type: ""))
         
         alert.addAction(plainTextAction)
         alert.addAction(markdownAction)
         alert.addAction(htmlAction)
         alert.addAction(richTextAction)
+        alert.addAction(printUnformattedAction)
+        alert.addAction(printFormattedAction)
         alert.addAction(cancelAction)
         alert.modalPresentationStyle = .popover
         
@@ -65,9 +69,11 @@ class PBHNoteExporter: NSObject {
         viewController.present(alert, animated: true, completion: nil)
     }
     
-    func beginExport(type: String) -> (_ action: UIAlertAction) -> Void {
-        return { alertAction in
-            print("Export type: \(type)")
+    private func beginExport(type: String) -> (_ action: UIAlertAction) -> Void {
+        return { [weak self] alertAction in
+            guard let self = self else {
+                return
+            }
             guard !self.text.isEmpty else {
                 return
             }
@@ -101,30 +107,11 @@ class PBHNoteExporter: NSObject {
                         }
                     } catch {}
                 case "html":
-                        do {
-                            let down = Down(markdownString: self.text)
-                            if let outputHtml = try? down.toHTML() {
-                                let htmlTemplate = """
-                                <?xml version="1.0" encoding="utf-8"?>
-                                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-                                <html xmlns="http://www.w3.org/1999/xhtml">
-                                    <head>
-                                        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
-                                        <title>
-                                            \(self.title)
-                                        </title>
-                                    </head>
-                                    <body>
-                                        <article>
-                                            \(outputHtml)
-                                        </article>
-                                    </body>
-                                </html>
-                                """
-                                try htmlTemplate.write(to: fileURL, atomically: true, encoding: .utf8)
-                                activityItems = [htmlTemplate as AnyObject, fileURL as AnyObject]
-                            }
-                        } catch { }
+                    do {
+                        let htmlTemplate = self.asHtml()
+                        try htmlTemplate.write(to: fileURL, atomically: true, encoding: .utf8)
+                        activityItems = [htmlTemplate as AnyObject, fileURL as AnyObject]
+                    } catch { }
 
                 case "rtf":
                     do {
@@ -161,6 +148,61 @@ class PBHNoteExporter: NSObject {
                 }
             }
         }
+    }
+
+    private func sendToPrinter(_ formatted: Bool = false) -> (_ action: UIAlertAction) -> Void {
+        return { [weak self] alertAction in
+            guard let self = self else {
+                return
+            }
+            let printInfo = UIPrintInfo(dictionary: nil)
+            printInfo.outputType = .general
+            printInfo.jobName = "CloudNotes Print Job"
+            printInfo.orientation = .portrait
+
+            let printController = UIPrintInteractionController.shared
+            printController.printInfo = printInfo
+            printController.showsNumberOfCopies = false
+
+            if formatted {
+                let formatter = UIMarkupTextPrintFormatter(markupText: self.asHtml())
+                formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+                printController.printFormatter = formatter
+                printController.present(animated: true, completionHandler: nil)
+            } else if let formatter = (self.viewController as? EditorViewController)?.noteView.viewPrintFormatter() {
+                formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+                printController.printFormatter = formatter
+                printController.present(animated: true, completionHandler: nil)
+            }
+        }
+    }
+
+    private func asHtml() -> String {
+        var result = ""
+        do {
+            let down = Down(markdownString: self.text)
+            let outputHtml = try down.toHTML()
+            let htmlTemplate = """
+                <?xml version="1.0" encoding="utf-8"?>
+                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+                    <head>
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+                        <title>
+                            \(self.title)
+                        </title>
+                    </head>
+                    <body>
+                        <article>
+                            \(outputHtml)
+                        </article>
+                    </body>
+                </html>
+                """
+            result = htmlTemplate
+        } catch { }
+
+        return result
     }
 
 }
