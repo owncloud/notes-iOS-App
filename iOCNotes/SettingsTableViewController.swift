@@ -57,14 +57,30 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
+            let email = "support@pbh.dev"
+            let subject = NSLocalizedString("CloudNotes Support Request", comment: "Support email subject")
+            let body = NSLocalizedString("<Please state your question or problem here>", comment: "Support email body placeholder")
             if MFMailComposeViewController.canSendMail() {
                 let mailViewController = MFMailComposeViewController()
                 mailViewController.mailComposeDelegate = self
-                mailViewController.setToRecipients(["support@pbh.dev"])
-                mailViewController.setSubject(NSLocalizedString("CloudNotes Support Request", comment: "Support email subject"))
-                mailViewController.setMessageBody(NSLocalizedString("<Please state your question or problem here>", comment: "Support email body placeholder"), isHTML: false)
+                mailViewController.setToRecipients([email])
+                mailViewController.setSubject(subject)
+                mailViewController.setMessageBody(body, isHTML: false)
                 mailViewController.modalPresentationStyle = .formSheet;
                 present(mailViewController, animated: true, completion: nil)
+            } else {
+                var components = URLComponents()
+                components.scheme = "mailto"
+                components.path = email
+                components.queryItems = [URLQueryItem(name: "subject", value: subject),
+                                         URLQueryItem(name: "body", value: body)]
+                if let mailURL = components.url {
+                    if UIApplication.shared.canOpenURL(mailURL) {
+                        UIApplication.shared.open(mailURL, options: [:], completionHandler: nil)
+                    } else {
+                        // No email client configured
+                    }
+                }
             }
         }
     }
