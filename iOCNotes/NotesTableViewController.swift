@@ -41,6 +41,7 @@ class NotesTableViewController: UITableViewController {
     private var sectionCollapsedInfo = ExpandableSectionType()
     private var isSyncing = false
     private var noteToAddOnViewDidLoad: String?
+    private var isAddingFromButton = false
 
     private var contextMenuIndexPath: IndexPath?
     
@@ -404,7 +405,6 @@ class NotesTableViewController: UITableViewController {
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case detailSegueIdentifier:
@@ -417,7 +417,8 @@ class NotesTableViewController: UITableViewController {
                 editorViewController = editorController
                 let note = notesFrc.object(at: selectedIndexPath)
                 editorController.note = note
-                editorController.isNewNote = false
+                editorController.isNewNote = isAddingFromButton
+                isAddingFromButton = false
                 #if !targetEnvironment(macCatalyst)
                 if #available(iOS 14.0, *) {
                     //
@@ -549,6 +550,7 @@ class NotesTableViewController: UITableViewController {
     }
 
     @IBAction func onAdd(sender: Any?) {
+        isAddingFromButton = true
         addNote(content: "")
     }
     

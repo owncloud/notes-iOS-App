@@ -169,6 +169,7 @@ class EditorViewController: UIViewController {
             formatter.doesRelativeDateFormatting = false
             noteView.headerLabel.text = formatter.string(from: date)
             noteView.headerLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+            navigationItem.title = note.title
         }
     }
 
@@ -207,7 +208,6 @@ class EditorViewController: UIViewController {
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPreview" {
             if let preview = segue.destination as? PBHPreviewController, let note = note {
