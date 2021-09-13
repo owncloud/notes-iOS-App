@@ -44,6 +44,7 @@ class PBHNoteExporter: NSObject {
         let markdownAction = UIAlertAction(title: NSLocalizedString("Markdown", comment: "A menu option for sharing in markdown format"), style: .default, handler: beginExport(type: "md"))
         let htmlAction = UIAlertAction(title: NSLocalizedString("HTML", comment: "A menu option for plain sharing in html format"), style: .default, handler: beginExport(type: "html"))
         let richTextAction = UIAlertAction(title: NSLocalizedString("Rich Text", comment: "A menu option for sharing in rich text format"), style: .default, handler: beginExport(type: "rtf"))
+        let pdfAction = UIAlertAction(title: NSLocalizedString("PDF", comment: "A menu option for sharing in pdf format"), style: .default, handler: beginExport(type: "pdf"))
         let printUnformattedAction = UIAlertAction(title: NSLocalizedString("Print Unformatted...", comment: "A menu option for printing unformatted text"), style: .default, handler: sendToPrinter())
         let printFormattedAction = UIAlertAction(title: NSLocalizedString("Print Formatted...", comment: "A menu option for printing formatted text"), style: .default, handler: sendToPrinter(true))
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "A menu option for cancelling"), style: .cancel, handler: beginExport(type: ""))
@@ -52,6 +53,7 @@ class PBHNoteExporter: NSObject {
         alert.addAction(markdownAction)
         alert.addAction(htmlAction)
         alert.addAction(richTextAction)
+        alert.addAction(pdfAction)
         alert.addAction(printUnformattedAction)
         alert.addAction(printFormattedAction)
         alert.addAction(cancelAction)
@@ -122,6 +124,32 @@ class PBHNoteExporter: NSObject {
                                 activityItems = [rtfData as AnyObject, fileURL as AnyObject]
                             }
                         } catch { }
+                case "pdf":
+                    let formatter = UIMarkupTextPrintFormatter(markupText: self.asHtml())
+                    let renderer = UIPrintPageRenderer()
+                    renderer.addPrintFormatter(formatter, startingAtPageAt: 0)
+
+                    let bestPaper = UIPrintPaper.bestPaper(forPageSize: .zero, withPapersFrom: [])
+                    let page = CGRect(origin: .zero, size: bestPaper.paperSize)
+                    let printable = page.insetBy(dx: 72, dy: 72)
+
+                    renderer.setValue(NSValue(cgRect: page), forKey: "paperRect")
+                    renderer.setValue(NSValue(cgRect: printable), forKey: "printableRect")
+
+                    let pdfData = NSMutableData()
+                    UIGraphicsBeginPDFContextToData(pdfData, .zero, nil)
+
+                    for i in 1...renderer.numberOfPages {
+                        UIGraphicsBeginPDFPage();
+                        let bounds = UIGraphicsGetPDFContextBounds()
+                        renderer.drawPage(at: i - 1, in: bounds)
+                    }
+
+                    UIGraphicsEndPDFContext();
+
+                    pdfData.write(to: fileURL, atomically: true)
+                    activityItems = [pdfData as AnyObject, fileURL as AnyObject]
+
                 default:
                     self.viewController.dismiss(animated: true, completion: nil)
                 }
