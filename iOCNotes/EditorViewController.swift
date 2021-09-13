@@ -152,8 +152,13 @@ class EditorViewController: UIViewController {
                                                                      object: nil,
                                                                      queue: OperationQueue.main,
                                                                      using: { [weak self] _ in
-                                                                        self?.noteView.isScrollEnabled = false
-                                                                        self?.noteView.isScrollEnabled = true
+                                                                        guard let self = self else { return }
+                                                                        self.noteView.isScrollEnabled = false
+                                                                        self.noteView.isScrollEnabled = true
+                                                                        if self.noteView.selectedRange.location != 0 {
+                                                                            self.noteView.scrollRangeToVisible(self.noteView.selectedRange)
+                                                                        }
+
         }))
 
         if let transitionCoordinator = transitionCoordinator {
@@ -177,7 +182,7 @@ class EditorViewController: UIViewController {
         super.viewWillAppear(animated)
         updateHeaderLabel()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        //TODO: This works around a Swift/Objective-C interaction issue. Verify that it is still needed.
