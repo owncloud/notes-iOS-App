@@ -45,8 +45,6 @@ class PBHNoteExporter: NSObject {
         let htmlAction = UIAlertAction(title: NSLocalizedString("HTML", comment: "A menu option for plain sharing in html format"), style: .default, handler: beginExport(type: "html"))
         let richTextAction = UIAlertAction(title: NSLocalizedString("Rich Text", comment: "A menu option for sharing in rich text format"), style: .default, handler: beginExport(type: "rtf"))
         let pdfAction = UIAlertAction(title: NSLocalizedString("PDF", comment: "A menu option for sharing in pdf format"), style: .default, handler: beginExport(type: "pdf"))
-        let printUnformattedAction = UIAlertAction(title: NSLocalizedString("Print Unformatted...", comment: "A menu option for printing unformatted text"), style: .default, handler: sendToPrinter())
-        let printFormattedAction = UIAlertAction(title: NSLocalizedString("Print Formatted...", comment: "A menu option for printing formatted text"), style: .default, handler: sendToPrinter(true))
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "A menu option for cancelling"), style: .cancel, handler: beginExport(type: ""))
         
         alert.addAction(plainTextAction)
@@ -54,8 +52,6 @@ class PBHNoteExporter: NSObject {
         alert.addAction(htmlAction)
         alert.addAction(richTextAction)
         alert.addAction(pdfAction)
-        alert.addAction(printUnformattedAction)
-        alert.addAction(printFormattedAction)
         alert.addAction(cancelAction)
         alert.modalPresentationStyle = .popover
         
@@ -92,27 +88,38 @@ class PBHNoteExporter: NSObject {
                     try fileManager.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
                 } catch { }
                 let fileURL = outputDirectory.appendingPathComponent(self.title, isDirectory: false).appendingPathExtension(type)
-                var activityItems: [AnyObject]?
+                var activityItems: [Any]?
+                var formatter: UIPrintFormatter
 
                 switch type {
                 case "txt":
                     do {
                         try self.text.write(to: fileURL, atomically: true, encoding: .utf8)
-                        activityItems = [self.text as AnyObject, fileURL as AnyObject]
+                        formatter = UISimpleTextPrintFormatter(text: self.text)
+                        formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+                        activityItems = [formatter, fileURL]
                     } catch {}
                 case "md":
                     do {
                         let down = Down(markdownString: self.text)
                         if let commonMark = try? down.toCommonMark() {
                             try commonMark.write(to: fileURL, atomically: true, encoding: .utf8)
-                            activityItems = [self.text as AnyObject, fileURL as AnyObject]
+                            if let viewFormatter = (self.viewController as? EditorViewController)?.noteView.viewPrintFormatter() {
+                                formatter = viewFormatter
+                                formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+                                activityItems = [formatter, self.text, fileURL]
+                            } else {
+                                activityItems = [self.text, fileURL]
+                            }
                         }
                     } catch {}
                 case "html":
                     do {
                         let htmlTemplate = self.asHtml()
                         try htmlTemplate.write(to: fileURL, atomically: true, encoding: .utf8)
-                        activityItems = [htmlTemplate as AnyObject, fileURL as AnyObject]
+                        formatter = UIMarkupTextPrintFormatter(markupText: self.asHtml())
+                        formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+                        activityItems = [formatter, htmlTemplate, fileURL]
                     } catch { }
 
                 case "rtf":
@@ -121,7 +128,9 @@ class PBHNoteExporter: NSObject {
                         if let output = try? down.toAttributedString() {
                             let rtfData = try output.data(from: NSMakeRange(0, output.length), documentAttributes: [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.rtf])
                                 try rtfData.write(to: fileURL, options: .atomicWrite)
-                                activityItems = [rtfData as AnyObject, fileURL as AnyObject]
+                                formatter = UISimpleTextPrintFormatter(attributedText: output)
+                                formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+                                activityItems = [formatter, rtfData, fileURL]
                             }
                         } catch { }
                 case "pdf":
@@ -148,7 +157,7 @@ class PBHNoteExporter: NSObject {
                     UIGraphicsEndPDFContext();
 
                     pdfData.write(to: fileURL, atomically: true)
-                    activityItems = [pdfData as AnyObject, fileURL as AnyObject]
+                    activityItems = [pdfData]
 
                 default:
                     self.viewController.dismiss(animated: true, completion: nil)
@@ -174,33 +183,6 @@ class PBHNoteExporter: NSObject {
                         self.viewController.present(activityViewController, animated: true, completion: nil)
                     }
                 }
-            }
-        }
-    }
-
-    private func sendToPrinter(_ formatted: Bool = false) -> (_ action: UIAlertAction) -> Void {
-        return { [weak self] alertAction in
-            guard let self = self else {
-                return
-            }
-            let printInfo = UIPrintInfo(dictionary: nil)
-            printInfo.outputType = .general
-            printInfo.jobName = "CloudNotes Print Job"
-            printInfo.orientation = .portrait
-
-            let printController = UIPrintInteractionController.shared
-            printController.printInfo = printInfo
-            printController.showsNumberOfCopies = false
-
-            if formatted {
-                let formatter = UIMarkupTextPrintFormatter(markupText: self.asHtml())
-                formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
-                printController.printFormatter = formatter
-                printController.present(animated: true, completionHandler: nil)
-            } else if let formatter = (self.viewController as? EditorViewController)?.noteView.viewPrintFormatter() {
-                formatter.perPageContentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
-                printController.printFormatter = formatter
-                printController.present(animated: true, completionHandler: nil)
             }
         }
     }
