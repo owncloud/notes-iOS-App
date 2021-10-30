@@ -18,7 +18,6 @@
 		BDD015A32353F7D4000BA001 /* PBHSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD015A22353F7D4000BA001 /* PBHSplitViewController.swift */; };
 		BDDD77A9235CDF130053DAEC /* NotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDD77A8235CDF130053DAEC /* NotesTests.swift */; };
 		BDEFED6523DE326E00EA22A6 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEFED6423DE326E00EA22A6 /* EditorViewController.swift */; };
-		BDF94E812391E5EC005F2D5F /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = BDF94E802391E5EC005F2D5F /* Down */; };
 		D00293D719F48B5300B2DA8F /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00293D619F48B5300B2DA8F /* Launch Screen.xib */; };
 		D004DB7723920E820080A7D1 /* DownView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D004DB7623920E820080A7D1 /* DownView.bundle */; };
 		D00CDFBF194E65B3007505E9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D00CDFC1194E65B4007505E9 /* Localizable.strings */; };
@@ -36,6 +35,7 @@
 		D02BBB9C23DBE3960097F120 /* ModifiedValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BBB9B23DBE3960097F120 /* ModifiedValueTransformer.swift */; };
 		D03493B722F2837500E1A9B0 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */; };
 		D03493B922F3CC5700E1A9B0 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03493B822F3CC5700E1A9B0 /* CategoryTableViewController.swift */; };
+		D03E93DB272DF83A0066BC8F /* Down in Frameworks */ = {isa = PBXBuildFile; productRef = D03E93DA272DF83A0066BC8F /* Down */; };
 		D05110C120CA1FE000AFFDC7 /* Notes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05110BF20CA1FE000AFFDC7 /* Notes.xcdatamodeld */; };
 		D0545F23230901D30001D165 /* PBHOpenInActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0545F22230901D30001D165 /* PBHOpenInActivity.swift */; };
 		D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D0595C7B238632610004C4E8 /* KeychainAccess */; };
@@ -333,13 +333,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0C876DF248F18700052EA63 /* Version in Frameworks */,
+				D03E93DB272DF83A0066BC8F /* Down in Frameworks */,
 				D0CAFF012533E76100C47FA0 /* KSCrash in Frameworks */,
 				D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */,
 				D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
 				D0CFE5AD1890659600165839 /* QuartzCore.framework in Frameworks */,
 				D0CAFF162533E89900C47FA0 /* PKHUD in Frameworks */,
-				BDF94E812391E5EC005F2D5F /* Down in Frameworks */,
 				D0CFE53B1888A7BD00165839 /* UIKit.framework in Frameworks */,
 				D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */,
 				D0B684B12533F3C700312D27 /* Notepad in Frameworks */,
@@ -691,12 +691,12 @@
 			packageProductDependencies = (
 				D0595C7B238632610004C4E8 /* KeychainAccess */,
 				D06CDA5F238F6EC300CF90B0 /* Alamofire */,
-				BDF94E802391E5EC005F2D5F /* Down */,
 				D0C876DE248F18700052EA63 /* Version */,
 				D0CAFF002533E76100C47FA0 /* KSCrash */,
 				D0CAFF082533E7FB00C47FA0 /* SwiftMessages */,
 				D0CAFF152533E89900C47FA0 /* PKHUD */,
 				D0B684B02533F3C700312D27 /* Notepad */,
+				D03E93DA272DF83A0066BC8F /* Down */,
 			);
 			productName = iOCNotes;
 			productReference = D0CFE5331888A7BD00165839 /* CloudNotes.app */;
@@ -768,12 +768,12 @@
 			packageReferences = (
 				D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				D06CDA5E238F6EC300CF90B0 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				BDF94E7F2391E5EC005F2D5F /* XCRemoteSwiftPackageReference "Down" */,
 				D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */,
 				D0CAFEFF2533E76100C47FA0 /* XCRemoteSwiftPackageReference "KSCrash" */,
 				D0CAFF072533E7FB00C47FA0 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 				D0CAFF142533E89900C47FA0 /* XCRemoteSwiftPackageReference "PKHUD" */,
 				D0B684AF2533F3C700312D27 /* XCRemoteSwiftPackageReference "Notepad" */,
+				D03E93D9272DF83A0066BC8F /* XCRemoteSwiftPackageReference "Down" */,
 			);
 			productRefGroup = D0CFE5341888A7BD00165839 /* Products */;
 			projectDirPath = "";
@@ -1757,12 +1757,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		BDF94E7F2391E5EC005F2D5F /* XCRemoteSwiftPackageReference "Down" */ = {
+		D03E93D9272DF83A0066BC8F /* XCRemoteSwiftPackageReference "Down" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/iwasrobbed/Down";
+			repositoryURL = "https://github.com/johnxnguyen/Down";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.2;
+				minimumVersion = 0.9.5;
 			};
 		};
 		D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
@@ -1810,7 +1810,7 @@
 			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.3;
+				minimumVersion = 9.0.0;
 			};
 		};
 		D0CAFF142533E89900C47FA0 /* XCRemoteSwiftPackageReference "PKHUD" */ = {
@@ -1824,9 +1824,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		BDF94E802391E5EC005F2D5F /* Down */ = {
+		D03E93DA272DF83A0066BC8F /* Down */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BDF94E7F2391E5EC005F2D5F /* XCRemoteSwiftPackageReference "Down" */;
+			package = D03E93D9272DF83A0066BC8F /* XCRemoteSwiftPackageReference "Down" */;
 			productName = Down;
 		};
 		D0595C7B238632610004C4E8 /* KeychainAccess */ = {
