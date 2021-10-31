@@ -1,0 +1,205 @@
+
+/* Crash report email body placeholder */
+"<Please provide as much details as possible about what you were doing when the crash occurred.>" = "<Please provide as much details as possible about what you were doing when the crash occurred.>";
+
+/* Support email body placeholder */
+"<Please state your question or problem here>" = "<Please state your question or problem here>";
+
+/* An error message */
+"A server installation could not be found. Check the server address." = "A server installation could not be found. Check the server address.";
+
+/* Acknowledgements */
+"Acknowledgements" = "Acknowledgements";
+
+/* Title of alert for adding a category */
+"Add Category" = "카테고리 추가";
+
+/* Item to show all notes */
+"All" = "모두";
+
+/* A menu action
+   A menu option for cancelling */
+"Cancel" = "취소";
+
+/* Header title, categories */
+"CATEGORIES" = "CATEGORIES";
+
+/* 'Category' menu item */
+"Category" = "카테고리";
+
+/* Action to change category of a note */
+"Category..." = "카테고리...";
+
+/* Action to change category of a note */
+"Change Category..." = "카테고리 변경...";
+
+/* An error message */
+"Check username and password." = "유저 이름과 비밀번호를 확인하세요.";
+
+/* Title of a button allowing the user to close the login screen and sync with the server */
+"Close & Sync" = "Close & Sync";
+
+/* Crash report email subject */
+"CloudNotes Crash Report" = "CloudNotes Crash Report";
+
+/* No comment provided by engineer. */
+"CloudNotes crashed last time it was launched. Do you want to send a report to the developer?" = "CloudNotes crashed last time it was launched. Do you want to send a report to the developer?";
+
+/* Support email subject */
+"CloudNotes Support Request" = "CloudNotes Support Request";
+
+/* A button title */
+"Connect" = "연결";
+
+/* Status information, connected */
+"Connected to Notes on the server" = "서버의 노트에 연결됨";
+
+/* An error message title */
+"Connection failure" = "연결 실패";
+
+/* Alert view title */
+"Crash Detected" = "충돌 확인됨";
+
+/* Action to delete a note */
+"Delete" = "삭제";
+
+/* A menu action */
+"Delete Note" = "노트 삭제";
+
+/* Prompt on alert for adding a category */
+"Enter a name for the new category" = "새 카테고리의 이름을 입력하세요";
+
+/* The title of an error message */
+"Error Adding Note" = "노트 추가 오류";
+
+/* The title of an error message */
+"Error Deleting Note" = "노트 삭제 오류";
+
+/* The title of an error message */
+"Error Getting Note" = "Error Getting Note";
+
+/* The title of an error message */
+"Error Syncing Notes" = "노트 동기화 오류";
+
+/* The title of an error message */
+"Error Updating Note" = "노트 업데이트 오류";
+
+/* The title of an error message */
+"Error Updating Notes" = "노트 업데이트 오류";
+
+/* An error message */
+"Failed to connect to a server. Check your settings." = "서버 연결에 실패했습니다. 설정을 확인하세요.";
+
+/* Item to show favorite notes */
+"Favorites" = "즐겨찾기";
+
+/* A menu option for plain sharing in html format */
+"HTML" = "HTML";
+
+/* A status label indicating that the user is logged in */
+"Logged In" = "로그인됨";
+
+/* Header title, main */
+"MAIN" = "MAIN";
+
+/* A menu option for sharing in markdown format */
+"Markdown" = "마크다운";
+
+/* The title of a new note */
+"New note" = "새 노트";
+
+/* No comment provided by engineer. */
+"No thanks" = "No thanks";
+
+/* Status information, not connected */
+"Not connected to Notes on a server" = "서버의 노트에 연결되지 않음";
+
+/* A status label indicating that the user is not logged in */
+"Not Logged In" = "로그인되지 않음";
+
+/* Message about not being logged in */
+"Not logged in" = "로그인되지 않음";
+
+/* Title of alert to change title */
+"Note Title" = "노트 제목";
+
+/* An error message */
+"Notes could not be found on your server. Make sure it is installed and enabled" = "Notes could not be found on your server. Make sure it is installed and enabled";
+
+/* An error message title */
+"Notes not found" = "노트 발견되지 않음";
+
+/* Button, OK */
+"OK" = "OK";
+
+/* Title for Open In activity */
+"Open In..." = "Open In...";
+
+/* A menu option for sharing in plain text format */
+"Plain Text" = "평문";
+
+/* A message
+   A message to check network connection */
+"Please check network connection and login." = "네트워크 연결을 확인하고 로그인해주세요.";
+
+/* A button title */
+"Reconnect" = "다시 연결";
+
+/* Action to change title of a note
+   Caption of Rename button */
+"Rename" = "이름 변경";
+
+/* Message of alert to change title */
+"Rename the note" = "노트 이름 바꾸기";
+
+/* Action to change title of a note */
+"Rename..." = "이름 변경...";
+
+/* A menu option for sharing in rich text format */
+"Rich Text" = "Rich Text";
+
+/* Placeholder text when no note is selected */
+"Select or create a note." = "Select or create a note.";
+
+/* Alert title for selecting server brand */
+"Server" = "Server";
+
+/* An error message title */
+"Server not found" = "서버 발견되지 않음";
+
+/* A message title */
+"Server Reachable" = "서버 연결 가능";
+
+/* Title of a menu with sharing options */
+"Share Note As" = "노트 공유하기";
+
+/* A message title */
+"Success" = "성공";
+
+/* A message */
+"The network connection is working properly." = "네트워크 연결이 정상적으로 작동하고 있습니다.";
+
+/* An error message */
+"The note does not exist" = "노트가 존재하지 않음";
+
+/* Alert message for selecting server brand */
+"Unable to automatically detect type of server.\nPlease select:" = "Unable to automatically detect type of server.\nPlease select:";
+
+/* A message title
+   The title of an error message */
+"Unable to Reach Server" = "서버에 연결할 수 없음";
+
+/* An error message title */
+"Unauthorized" = "Unauthorized";
+
+/* Text displayed for notes not assigned to a category */
+"Uncategorized" = "카테고리 없음";
+
+/* Message with Notes version, product name and version */
+"Using Notes %@on %@ %@." = "Using Notes %@on %@ %@.";
+
+/* No comment provided by engineer. */
+"Yes, please!" = "Yes, please!";
+
+/* A message */
+"You are now connected to Notes on your server" = "당신의 서버의 노트에 연결되었습니다";
