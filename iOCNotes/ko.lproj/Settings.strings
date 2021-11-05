@@ -1,0 +1,66 @@
+
+/* Class = "UITextField"; placeholder = "Server Password"; ObjectID = "69R-CL-ITG"; */
+"69R-CL-ITG.placeholder" = "Server Password";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "A4w-6q-Hcy"; */
+"A4w-6q-Hcy.text" = "유저 이름";
+
+/* Class = "UILabel"; text = "Allow Untrusted SSL Certificate"; ObjectID = "AKl-Ep-y3W"; */
+"AKl-Ep-y3W.text" = "신뢰되지 않은 SSL 인증서 허용";
+
+/* Class = "UILabel"; text = "Offline Mode"; ObjectID = "B8W-f5-T18"; */
+"B8W-f5-T18.text" = "오프라인 모드";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "CrO-Ue-LFh"; */
+"CrO-Ue-LFh.text" = "비밀번호";
+
+/* Class = "UILabel"; text = "Server"; ObjectID = "dpH-sc-uH1"; */
+"dpH-sc-uH1.text" = "서버";
+
+/* Class = "UITableViewSection"; headerTitle = "SUPPORT"; ObjectID = "ENv-ON-tbr"; */
+"ENv-ON-tbr.headerTitle" = "지원";
+
+/* Class = "UIBarButtonItem"; title = "Close"; ObjectID = "fbP-uw-RUF"; */
+"fbP-uw-RUF.title" = "닫기";
+
+/* Class = "UITextField"; placeholder = "https://example.com/cloud"; ObjectID = "fKh-As-T79"; */
+"fKh-As-T79.placeholder" = "https://example.com/cloud";
+
+/* Class = "UITableViewSection"; footerTitle = " "; ObjectID = "FVp-Pj-Gyn"; */
+"FVp-Pj-Gyn.footerTitle" = " ";
+
+/* Class = "UILabel"; text = "Contact"; ObjectID = "fwh-Xy-h5M"; */
+"fwh-Xy-h5M.text" = "연락";
+
+/* Class = "UITableViewSection"; footerTitle = "     "; ObjectID = "gZE-6O-8CL"; */
+"gZE-6O-8CL.footerTitle" = "     ";
+
+/* Class = "UITableViewSection"; headerTitle = "SYNCING"; ObjectID = "gZE-6O-8CL"; */
+"gZE-6O-8CL.headerTitle" = "동기화 중";
+
+/* Class = "UILabel"; text = "URL"; ObjectID = "GZX-DC-7iv"; */
+"GZX-DC-7iv.text" = "URL";
+
+/* Class = "UILabel"; text = "Sync on Start"; ObjectID = "hVU-Ed-KYm"; */
+"hVU-Ed-KYm.text" = "시작할 때 동기화";
+
+/* Class = "UITextField"; placeholder = "Server Username"; ObjectID = "KPV-Zj-4Ps"; */
+"KPV-Zj-4Ps.placeholder" = "서버 유저 이름";
+
+/* Class = "UILabel"; text = "Not Logged In"; ObjectID = "l87-9e-cjN"; */
+"l87-9e-cjN.text" = "로그인되지 않음";
+
+/* Class = "UILabel"; text = "Connect"; ObjectID = "qxi-YY-hPn"; */
+"qxi-YY-hPn.text" = "연결";
+
+/* Class = "UITableViewSection"; footerTitle = " "; ObjectID = "Uwy-jB-bpa"; */
+"Uwy-jB-bpa.footerTitle" = " ";
+
+/* Class = "UITableViewSection"; headerTitle = "Server"; ObjectID = "Uwy-jB-bpa"; */
+"Uwy-jB-bpa.headerTitle" = "서버";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "waZ-N6-59b"; */
+"waZ-N6-59b.title" = "설정";
+
+/* Class = "UINavigationItem"; title = "Login Information"; ObjectID = "ZPa-hv-oSb"; */
+"ZPa-hv-oSb.title" = "로그인 정보";
