@@ -83,6 +83,7 @@
 		D0AB0E7D2470B74D00D3E6B6 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AB0E7C2470B74D00D3E6B6 /* ActionViewController.swift */; };
 		D0AB0E802470B74D00D3E6B6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0AB0E7E2470B74D00D3E6B6 /* MainInterface.storyboard */; };
 		D0AB0E842470B74D00D3E6B6 /* ActionExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D0AB0E782470B74D00D3E6B6 /* ActionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D0B0F3A427360BD000E51C3F /* NotesFRCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0F3A327360BD000E51C3F /* NotesFRCManager.swift */; };
 		D0B684B12533F3C700312D27 /* Notepad in Frameworks */ = {isa = PBXBuildFile; productRef = D0B684B02533F3C700312D27 /* Notepad */; };
 		D0B6D4AE22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */; };
 		D0B6D4AF22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */; };
@@ -273,6 +274,7 @@
 		D0B0F3A02734C11700E51C3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D0B0F3A12734C11F00E51C3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D0B0F3A22734C1D500E51C3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ko; path = ko.lproj/Info.plist; sourceTree = "<group>"; };
+		D0B0F3A327360BD000E51C3F /* NotesFRCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesFRCManager.swift; sourceTree = "<group>"; };
 		D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTableViewHeaderView.swift; sourceTree = "<group>"; };
 		D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollapsibleTableViewHeaderView.xib; sourceTree = "<group>"; };
 		D0B83F2F24771F7700A394C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
@@ -540,6 +542,7 @@
 				BD302B8F22B8061A00067888 /* LoginTableViewController.swift */,
 				D06882EB22BACDA300CEBC1F /* SettingsTableViewController.swift */,
 				D01067E52213C17D0047E090 /* NotesTableViewController.swift */,
+				D0B0F3A327360BD000E51C3F /* NotesFRCManager.swift */,
 				D03493B622F2837500E1A9B0 /* NoteTableViewCell.swift */,
 				D0B6D4AC22F91DDA0037E073 /* CollapsibleTableViewHeaderView.swift */,
 				D0B6D4AD22F91DDA0037E073 /* CollapsibleTableViewHeaderView.xib */,
@@ -953,6 +956,7 @@
 			files = (
 				D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */,
 				D07F5E862207B1DF00528E90 /* CDNote+CoreDataClass.swift in Sources */,
+				D0B0F3A427360BD000E51C3F /* NotesFRCManager.swift in Sources */,
 				D06882EC22BACDA300CEBC1F /* SettingsTableViewController.swift in Sources */,
 				BDD015A32353F7D4000BA001 /* PBHSplitViewController.swift in Sources */,
 				D095AE45245BB25F00A7EF62 /* NoteSessionManager.swift in Sources */,
