@@ -107,7 +107,7 @@ extension String {
             return self
         }
         var truncated = self.prefix(length)
-        while truncated.last != " " {
+        while truncated.last != " ", !truncated.isEmpty {
             truncated = truncated.dropLast()
         }
         return truncated + trailing
