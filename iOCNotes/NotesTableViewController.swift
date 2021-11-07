@@ -562,19 +562,6 @@ class NotesTableViewController: UITableViewController {
         })
     }
     
-//    private func configureFRC() -> NSFetchedResultsController<CDNote> {
-//        let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
-//        request.fetchBatchSize = 288
-//        request.predicate = .allNotes
-//        request.sortDescriptors = [NSSortDescriptor(key: "cdCategory", ascending: true),
-//                                   NSSortDescriptor(key: "cdModified", ascending: false)]
-//        let frc = NSFetchedResultsController(fetchRequest: request,
-//                                             managedObjectContext: NotesData.mainThreadContext,
-//                                             sectionNameKeyPath: "sectionName",
-//                                             cacheName: nil)
-//        return frc
-//    }
-
     private func configureFRCManager() -> FRCManager<CDNote> {
         let request: NSFetchRequest<CDNote> = CDNote.fetchRequest()
         request.fetchBatchSize = 288
@@ -592,7 +579,9 @@ class NotesTableViewController: UITableViewController {
     func updateSectionExpandedInfo() {
         let knownSectionTitles = Set(manager.disclosureSections.map({ $0.title }))
         if let sections = manager.fetchedResultsController.sections {
-            if sections.count > 0 {
+            if sections.isEmpty {
+                manager.disclosureSections = []
+            } else {
                 let newSectionTitles = Set(sections.map({ $0.name }))
                 let deleted = knownSectionTitles.subtracting(newSectionTitles)
                 let added = newSectionTitles.subtracting(knownSectionTitles)
@@ -601,8 +590,6 @@ class NotesTableViewController: UITableViewController {
                     sectionCollapsedInfo.append(DisclosureSection(title: newSection, collapsed: false))
                 }
                 manager.disclosureSections = sectionCollapsedInfo
-            } else {
-                manager.disclosureSections = []
             }
         }
     }
@@ -654,91 +641,6 @@ extension NotesTableViewController: FRCManagerDelegate {
     }
 
 }
-
-//extension NotesTableViewController: NSFetchedResultsControllerDelegate {
-//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        print("Starting update")
-//        tableView.beginUpdates()
-//    }
-//
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-//        guard let note = anObject as? CDNote else {
-//            return
-//        }
-//        let sectionName = note.category == "" ? Constants.noCategory : note.category
-//        switch (type) {
-//        case .insert:
-//            if let newIndexPath = newIndexPath {
-//                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
-//                    if !collapsedInfo.collapsed {
-//                        tableView.insertRows(at: [newIndexPath], with: .fade)
-//                    }
-//                }
-//            }
-//        case .delete:
-//            if let indexPath = indexPath {
-//                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
-//                    if !collapsedInfo.collapsed {
-//                        if isSyncing {
-//                            tableView.deleteRows(at: [indexPath], with: .fade)
-//                        } else if numberOfObjectsInCurrentSection > 1 {
-//                            print("Deleting row")
-//                            tableView.deleteRows(at: [indexPath], with: .fade)
-//                        }
-//                    }
-//                }
-//            }
-//        case .update:
-//            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
-//                configureCell(cell, at: indexPath)
-//            }
-//        case .move:
-//            print("IndexPath \(String(describing: indexPath)) newIndexPath \(String(describing: newIndexPath))")
-//            if let indexPath = indexPath, let sectionCount = controller.sections?.count {
-//                if indexPath.section < sectionCount, let oldSection = controller.sections?[indexPath.section] {
-//                    let oldSectionName = oldSection.name
-//                    if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == oldSectionName }) {
-//                        if !collapsedInfo.collapsed {
-//                            tableView.deleteRows(at: [indexPath], with: .fade)
-//                        }
-//                    }
-//                }
-//            }
-//            if let newIndexPath = newIndexPath {
-//                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
-//                    if !collapsedInfo.collapsed {
-//                        tableView.insertRows(at: [newIndexPath], with: .fade)
-//                    }
-//                }
-//            }
-//        @unknown default:
-//            fatalError()
-//        }
-//    }
-//
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-//        switch type {
-//        case .insert:
-//            print("Inserting section at index \(sectionIndex)")
-//            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-//            sectionCollapsedInfo.append(ExpandableSection(title: sectionInfo.name, collapsed: false))
-//        case .delete:
-//            print("Deleting section at index \(sectionIndex)")
-//            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-//            sectionCollapsedInfo = sectionCollapsedInfo.filter({ $0.title != sectionInfo.name })
-//            numberOfObjectsInCurrentSection = 0
-//        default:
-//            return
-//        }
-//    }
-//
-//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        tableView.endUpdates()
-//        updateSectionExpandedInfo()
-//        print("Ending update")
-//    }
-//
-//}
 
 extension NotesTableViewController: UIActionSheetDelegate {
     
