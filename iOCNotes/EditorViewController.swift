@@ -377,9 +377,9 @@ extension EditorViewController: UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        self.activityButton.isEnabled = textView.text.count > 0
-        self.addButton.isEnabled = textView.text.count > 0
-        self.previewButton.isEnabled = textView.text.count > 0
+        self.activityButton.isEnabled = !textView.text.isEmpty
+        self.addButton.isEnabled = !textView.text.isEmpty
+        self.previewButton.isEnabled = !textView.text.isEmpty
         self.deleteButton.isEnabled = true
         #if targetEnvironment(macCatalyst)
         (splitViewController as? PBHSplitViewController)?.buildMacToolbar()
