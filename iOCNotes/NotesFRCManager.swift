@@ -10,9 +10,7 @@ import CoreData
 import UIKit
 
 protocol NotesFRCManagerChange {
-    func applyChanges(tableView: UITableView)
-    func applyChanges(tableView: UITableView, with animation: UITableView.RowAnimation)
-    func shiftIndexSections(by: Int)
+    func applyChanges(tableView: UITableView, animation: UITableView.RowAnimation?)
 
     var insertedRows: [IndexPath] { get }
     var deletedRows: [IndexPath] { get }
@@ -33,7 +31,18 @@ class FRCSection {
     }
 }
 
+enum FrcDelegateUpdate {
+    case disable
+    case enable(withFetch: Bool)
+}
+
+struct IndexNote {
+    var index: IndexPath
+    var note: CDNote
+}
+
 class FRCChange: NotesFRCManagerChange {
+
     var insertedSections = IndexSet()
     var deletedSections = IndexSet()
 
@@ -49,45 +58,39 @@ class FRCChange: NotesFRCManagerChange {
         return updatedElements.map{ $0.index }
     }
 
-    var insertedElements = [(index: IndexPath, element: NSFetchRequestResult)]()
-    var deletedElements = [(index: IndexPath, element: NSFetchRequestResult)]()
-    var updatedElements = [(index: IndexPath, element: NSFetchRequestResult)]()
+    var insertedElements = [IndexNote]()
+    var deletedElements = [IndexNote]()
+    var updatedElements = [IndexNote]()
 
-    func applyChanges(tableView: UITableView) {
-        applyChanges(tableView: tableView, with: .none)
-    }
-
-    func applyChanges(tableView: UITableView, with animation: UITableView.RowAnimation) {
+    func applyChanges(tableView: UITableView, animation: UITableView.RowAnimation?) {
         tableView.beginUpdates()
-        tableView.deleteRows(at: deletedRows, with: animation)
-        tableView.deleteSections(deletedSections, with: animation)
-        tableView.insertSections(insertedSections, with: animation)
-        tableView.insertRows(at: insertedRows, with: animation)
+        tableView.deleteRows(at: deletedRows, with: animation ?? .fade)
+        tableView.deleteSections(deletedSections, with: animation ?? .fade)
+        tableView.insertSections(insertedSections, with: animation ?? .fade)
+        tableView.insertRows(at: insertedRows, with: animation ?? .fade)
         tableView.endUpdates()
 
-        tableView.reloadRows(at: updatedRows, with: animation)
+        tableView.reloadRows(at: updatedRows, with: animation ?? .fade)
     }
 
-    //        override var description: String {
-    //            return "insertedSections:\(insertedSections.toArray()), deletedSections:\(deletedSections.toArray()), insertedRows:\(insertedRows), deletedRows:\(deletedRows), updatedRows:\(updatedRows)"
-    //        }
-
-    func shiftIndexSections(by: Int) {
-        insertedSections = IndexSet(insertedSections.map { $0 + by })
-        deletedSections = IndexSet(deletedSections.map { $0 + by })
-        insertedElements = insertedElements.map { (IndexPath(row: $0.row, section: ($0.section + by)), $1 ) }
-        deletedElements = deletedElements.map { (IndexPath(row: $0.row, section: ($0.section + by)), $1 ) }
-        updatedElements = updatedElements.map { (IndexPath(row: $0.row, section: ($0.section + by)), $1 ) }
-    }
 }
 
 class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where ResultType: NSFetchRequestResult {
 
-    var fetchedResultsController: NSFetchedResultsController<ResultType>
-    private var currentFRCChange: FRCChange?
     weak var delegate: FRCManagerDelegate?
 
+    var fetchedResultsController: NSFetchedResultsController<ResultType>
+    var isSyncing = false
+    var currentSectionObjectCount = 0
     var sections = [FRCSection]()
+    var disclosureSections: DisclosureSections {
+        get {
+            return KeychainHelper.sectionExpandedInfo
+        }
+        set {
+            KeychainHelper.sectionExpandedInfo = newValue
+        }
+    }
 
     var fetchedObjectsCount: Int {
         return self.sections.reduce(0, {$0 + $1.items.count})
@@ -101,20 +104,10 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         return sections.flatMap { $0.items }
     }
 
+    private var currentFRCChange: FRCChange?
+
     func sectionCount() -> Int {
         return sections.count
-    }
-
-    // TODO: Remove after all uses removed. You should never need to look up an indexPath for an object.
-    func indexPath(forObject: ResultType) -> IndexPath? {
-        for (section, sectionInfo) in sections.enumerated() {
-            for (row, object) in sectionInfo.items.enumerated() {
-                if forObject.isEqual(object) {
-                    return IndexPath(row: row, section: section)
-                }
-            }
-        }
-        return nil
     }
 
     func itemCount(in section: Int) -> Int {
@@ -147,8 +140,15 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         switch type {
         case .insert:
             self.currentFRCChange?.insertedSections.insert(sectionIndex)
+            var tempDisclosureSections = disclosureSections
+            tempDisclosureSections.append(DisclosureSection(title: sectionInfo.name, collapsed: false))
+            disclosureSections = tempDisclosureSections
+
         case .delete:
             self.currentFRCChange?.deletedSections.insert(sectionIndex)
+            let tempDisclosureSections = disclosureSections
+            disclosureSections = tempDisclosureSections.filter({ $0.title != sectionInfo.name })
+
         default:
             //shouldn't happen
             print("FetchedResultsControllerManager didChange atSectionIndex:\(sectionIndex) unknown type:\(type.rawValue)")
@@ -157,27 +157,57 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
     }
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        if let anObject = anObject as? ResultType {
+        if let note = anObject as? CDNote {
+            let sectionName = note.category == "" ? Constants.noCategory : note.category
+
             switch type {
             case .insert:
                 if let i = newIndexPath {
-                    self.currentFRCChange?.insertedElements.append((i, anObject))
+                    if let collapsedInfo = disclosureSections.first(where: { $0.title == sectionName }) {
+                        if !collapsedInfo.collapsed {
+                            self.currentFRCChange?.insertedElements.append(IndexNote(index: i, note: note))
+                        }
+                    }
                 }
+                
             case .delete:
                 if let i = indexPath {
-                    self.currentFRCChange?.deletedElements.append((i, anObject))
+                    if let collapsedInfo = disclosureSections.first(where: { $0.title == sectionName }) {
+                        if !collapsedInfo.collapsed {
+                            if isSyncing {
+                                currentFRCChange?.deletedElements.append(IndexNote(index: i, note: note))
+                            } else if currentSectionObjectCount > 1 {
+                                print("Deleting row")
+                                currentFRCChange?.deletedElements.append(IndexNote(index: i, note: note))
+                            }
+                        }
+                    }
                 }
+
             case .update:
                 if let i = indexPath {
-                    self.currentFRCChange?.updatedElements.append((i, anObject))
+                    currentFRCChange?.updatedElements.append(IndexNote(index: i, note: note))
                 }
+
             case .move:
-                if let i = indexPath {
-                    self.currentFRCChange?.deletedElements.append((i, anObject))
+                if let i = indexPath, let sectionCount = controller.sections?.count {
+                    if i.section < sectionCount, let oldSection = controller.sections?[i.section] {
+                        let oldSectionName = oldSection.name
+                        if let collapsedInfo = disclosureSections.first(where: { $0.title == oldSectionName }) {
+                            if !collapsedInfo.collapsed {
+                                currentFRCChange?.deletedElements.append(IndexNote(index: i, note: note))
+                            }
+                        }
+                    }
                 }
                 if let i = newIndexPath {
-                    self.currentFRCChange?.insertedElements.append((i, anObject))
+                    if let collapsedInfo = disclosureSections.first(where: { $0.title == sectionName }) {
+                        if !collapsedInfo.collapsed {
+                            currentFRCChange?.insertedElements.append(IndexNote(index: i, note: note))
+                        }
+                    }
                 }
+
             @unknown default:
                 fatalError()
             }
@@ -191,8 +221,8 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         change.insertedElements.sort { $0.index < $1.index }
         change.deletedElements.sort { $0.index > $1.index }
 
-        change.updatedElements.forEach { (index, element) in
-            sections[index.section].items[index.row] = element
+        change.updatedElements.forEach { indexNote in
+            sections[indexNote.index.section].items[indexNote.index.row] = indexNote.note
         }
 
         let updateOnlyChange = FRCChange()
@@ -201,8 +231,8 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
             self.delegate?.managerDidChangeContent(self, change:updateOnlyChange)
         }
 
-        change.deletedElements.forEach { (indexPath, _) in
-            sections[indexPath.section].items.remove(at: indexPath.row)
+        change.deletedElements.forEach { indexNote in
+            sections[indexNote.index.section].items.remove(at: indexNote.index.row)
         }
         change.deletedSections.reversed().forEach { index in
             sections.remove(at: index)
@@ -210,8 +240,8 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         change.insertedSections.forEach { (index) in
             sections.insert(FRCSection([]), at: index)
         }
-        change.insertedElements.forEach { (index, element) in
-            sections[index.section].items.insert(element, at: index.row)
+        change.insertedElements.forEach { indexNote in
+            sections[indexNote.index.section].items.insert(indexNote.note, at: indexNote.index.row)
         }
         change.updatedElements = []
         if !change.deletedRows.isEmpty || !change.deletedSections.isEmpty || !change.insertedSections.isEmpty || !change.insertedElements.isEmpty {
@@ -220,4 +250,21 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
 
         self.currentFRCChange = nil
     }
+}
+
+extension NSFetchedResultsController {
+
+    @objc func validate(indexPath: IndexPath) -> Bool {
+        if let sections = self.sections {
+            if indexPath.section >= sections.count {
+                return false
+            }
+
+            if indexPath.row >= sections[indexPath.section].numberOfObjects {
+                return false
+            }
+        }
+        return true
+    }
+
 }

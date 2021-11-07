@@ -24,12 +24,12 @@ extension NSNotification.Name {
     static let categoryUpdated = NSNotification.Name("CategoryUpdated")
 }
 
-struct ExpandableSection: Codable {
+struct DisclosureSection: Codable {
     var title: String
     var collapsed: Bool
 }
 
-typealias ExpandableSectionType = [ExpandableSection]
+typealias DisclosureSections = [DisclosureSection]
 
 #if os(iOS)
 extension UIImage {

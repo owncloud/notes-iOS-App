@@ -12,11 +12,6 @@ import PKHUD
 import SwiftMessages
 import UIKit
 
-enum FrcDelegateUpdate {
-    case disable
-    case enable(withFetch: Bool)
-}
-
 let detailSegueIdentifier = "showDetail"
 let categorySegueIdentifier = "SelectCategorySegue"
 
@@ -32,15 +27,11 @@ class NotesTableViewController: UITableViewController {
     
     private var networkHasBeenUnreachable = false
     private var searchResult: [CDNote]?
-    private var numberOfObjectsInCurrentSection = 0
     private var launching = true
 
-//    private lazy var notesFrc: NSFetchedResultsController<CDNote> = configureFRC()
     private lazy var manager: FRCManager<CDNote> = configureFRCManager()
 
     private var observers = [NSObjectProtocol]()
-    private var sectionCollapsedInfo = ExpandableSectionType()
-    private var isSyncing = false
     private var noteToAddOnViewDidLoad: String?
     private var isAddingFromButton = false
 
@@ -164,8 +155,6 @@ class NotesTableViewController: UITableViewController {
         tableView.tableHeaderView = searchController?.searchBar
         #endif
 
-        sectionCollapsedInfo = KeychainHelper.sectionExpandedInfo
-        
         tableView.contentOffset = CGPoint(x: 0, y: searchController?.searchBar.frame.size.height ?? 0.0 + tableView.contentOffset.y)
         tableView.backgroundView = UIView()
         tableView.dropDelegate = self
@@ -206,7 +195,7 @@ class NotesTableViewController: UITableViewController {
         case .disable:
             manager.fetchedResultsController.delegate = nil
         case .enable(let withFetch):
-            manager.fetchedResultsController.delegate = self
+            manager.fetchedResultsController.delegate = manager
             if withFetch {
                 do {
                     try manager.fetchedResultsController.performFetch()
@@ -232,7 +221,7 @@ class NotesTableViewController: UITableViewController {
             if !currentSection.name.isEmpty {
                 title = currentSection.name
             }
-            let collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
+            let collapsed = manager.disclosureSections.first(where: { $0.title == title })?.collapsed ?? false
             if !collapsed { // expanded
                 return currentSection.numberOfObjects
             } else { // collapsed
@@ -243,9 +232,6 @@ class NotesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        #if targetEnvironment(macCatalyst)
-//        return nil
-//        #endif
         let sectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderView") as! CollapsibleTableViewHeaderView
         var displayTitle = ""
         var title = ""
@@ -260,7 +246,7 @@ class NotesTableViewController: UITableViewController {
         sectionHeaderView.sectionIndex = section
         sectionHeaderView.delegate = self
         sectionHeaderView.titleLabel.text = displayTitle
-        sectionHeaderView.collapsed = sectionCollapsedInfo.first(where: { $0.title == title })?.collapsed ?? false
+        sectionHeaderView.collapsed = manager.disclosureSections.first(where: { $0.title == title })?.collapsed ?? false
         return sectionHeaderView
     }
 
@@ -367,7 +353,7 @@ class NotesTableViewController: UITableViewController {
             }
             
             if let sections = manager.fetchedResultsController.sections {
-                numberOfObjectsInCurrentSection = sections[indexPath.section].numberOfObjects
+                manager.currentSectionObjectCount = sections[indexPath.section].numberOfObjects
             }
             
             NoteSessionManager.shared.delete(note: note, completion: { [weak self] in
@@ -525,9 +511,9 @@ class NotesTableViewController: UITableViewController {
         refreshBarButton.isEnabled = false
         addBarButton.isEnabled = false
         settingsBarButton.isEnabled = false
-        isSyncing = true
+        manager.isSyncing = true
         NoteSessionManager.shared.sync { [weak self] in
-            self?.isSyncing = false
+            self?.manager.isSyncing = false
             self?.addBarButton.isEnabled = true
             self?.settingsBarButton.isEnabled = true
             self?.refreshBarButton.isEnabled = NoteSessionManager.isOnline
@@ -565,7 +551,7 @@ class NotesTableViewController: UITableViewController {
             if note != nil {
                 let indexPath = IndexPath(row: 0, section: 0)
                 if self?.manager.fetchedResultsController.validate(indexPath: indexPath) ?? false,
-                    let collapsedInfo = self?.sectionCollapsedInfo.first(where: { $0.title == Constants.noCategory }),
+                    let collapsedInfo = self?.manager.disclosureSections.first(where: { $0.title == Constants.noCategory }),
                     !collapsedInfo.collapsed {
                     self?.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .top)
                 }
@@ -604,20 +590,20 @@ class NotesTableViewController: UITableViewController {
     }
     
     func updateSectionExpandedInfo() {
-        let knownSectionTitles = Set(sectionCollapsedInfo.map({ $0.title }))
+        let knownSectionTitles = Set(manager.disclosureSections.map({ $0.title }))
         if let sections = manager.fetchedResultsController.sections {
             if sections.count > 0 {
                 let newSectionTitles = Set(sections.map({ $0.name }))
                 let deleted = knownSectionTitles.subtracting(newSectionTitles)
                 let added = newSectionTitles.subtracting(knownSectionTitles)
-                sectionCollapsedInfo = sectionCollapsedInfo.filter({ !deleted.contains($0.title) })
+                var sectionCollapsedInfo = manager.disclosureSections.filter({ !deleted.contains($0.title) })
                 for newSection in added {
-                    sectionCollapsedInfo.append(ExpandableSection(title: newSection, collapsed: false))
+                    sectionCollapsedInfo.append(DisclosureSection(title: newSection, collapsed: false))
                 }
+                manager.disclosureSections = sectionCollapsedInfo
             } else {
-                sectionCollapsedInfo.removeAll()
+                manager.disclosureSections = []
             }
-            KeychainHelper.sectionExpandedInfo = sectionCollapsedInfo
         }
     }
     
@@ -652,7 +638,7 @@ class NotesTableViewController: UITableViewController {
             let note = self.manager.fetchedResultsController.object(at: indexPath)
             categoryController.categories = categories.removingDuplicates()
             if let section = self.manager.fetchedResultsController.sections?.first(where: { $0.name == note.category }) {
-                self.numberOfObjectsInCurrentSection = section.numberOfObjects
+                manager.currentSectionObjectCount = section.numberOfObjects
             }
             categoryController.note = note
             self.present(navController, animated: true, completion: nil)
@@ -664,95 +650,95 @@ class NotesTableViewController: UITableViewController {
 extension NotesTableViewController: FRCManagerDelegate {
 
     func managerDidChangeContent(_ controller: NSObject, change: NotesFRCManagerChange) {
-        change.applyChanges(tableView: tableView)
+        change.applyChanges(tableView: tableView, animation: .fade)
     }
 
 }
 
-extension NotesTableViewController: NSFetchedResultsControllerDelegate {
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("Starting update")
-        tableView.beginUpdates()
-    }
-
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        guard let note = anObject as? CDNote else {
-            return
-        }
-        let sectionName = note.category == "" ? Constants.noCategory : note.category
-        switch (type) {
-        case .insert:
-            if let newIndexPath = newIndexPath {
-                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
-                    if !collapsedInfo.collapsed {
-                        tableView.insertRows(at: [newIndexPath], with: .fade)
-                    }
-                }
-            }
-        case .delete:
-            if let indexPath = indexPath {
-                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
-                    if !collapsedInfo.collapsed {
-                        if isSyncing {
-                            tableView.deleteRows(at: [indexPath], with: .fade)
-                        } else if numberOfObjectsInCurrentSection > 1 {
-                            print("Deleting row")
-                            tableView.deleteRows(at: [indexPath], with: .fade)
-                        }
-                    }
-                }
-            }
-        case .update:
-            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
-                configureCell(cell, at: indexPath)
-            }
-        case .move:
-            print("IndexPath \(String(describing: indexPath)) newIndexPath \(String(describing: newIndexPath))")
-            if let indexPath = indexPath, let sectionCount = controller.sections?.count {
-                if indexPath.section < sectionCount, let oldSection = controller.sections?[indexPath.section] {
-                    let oldSectionName = oldSection.name
-                    if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == oldSectionName }) {
-                        if !collapsedInfo.collapsed {
-                            tableView.deleteRows(at: [indexPath], with: .fade)
-                        }
-                    }
-                }
-            }
-            if let newIndexPath = newIndexPath {
-                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
-                    if !collapsedInfo.collapsed {
-                        tableView.insertRows(at: [newIndexPath], with: .fade)
-                    }
-                }
-            }
-        @unknown default:
-            fatalError()
-        }
-    }
-
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        switch type {
-        case .insert:
-            print("Inserting section at index \(sectionIndex)")
-            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-            sectionCollapsedInfo.append(ExpandableSection(title: sectionInfo.name, collapsed: false))
-        case .delete:
-            print("Deleting section at index \(sectionIndex)")
-            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-            sectionCollapsedInfo = sectionCollapsedInfo.filter({ $0.title != sectionInfo.name })
-            numberOfObjectsInCurrentSection = 0
-        default:
-            return
-        }
-    }
-
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-        updateSectionExpandedInfo()
-        print("Ending update")
-    }
-
-}
+//extension NotesTableViewController: NSFetchedResultsControllerDelegate {
+//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        print("Starting update")
+//        tableView.beginUpdates()
+//    }
+//
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+//        guard let note = anObject as? CDNote else {
+//            return
+//        }
+//        let sectionName = note.category == "" ? Constants.noCategory : note.category
+//        switch (type) {
+//        case .insert:
+//            if let newIndexPath = newIndexPath {
+//                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
+//                    if !collapsedInfo.collapsed {
+//                        tableView.insertRows(at: [newIndexPath], with: .fade)
+//                    }
+//                }
+//            }
+//        case .delete:
+//            if let indexPath = indexPath {
+//                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
+//                    if !collapsedInfo.collapsed {
+//                        if isSyncing {
+//                            tableView.deleteRows(at: [indexPath], with: .fade)
+//                        } else if numberOfObjectsInCurrentSection > 1 {
+//                            print("Deleting row")
+//                            tableView.deleteRows(at: [indexPath], with: .fade)
+//                        }
+//                    }
+//                }
+//            }
+//        case .update:
+//            if let indexPath = indexPath, let cell = tableView.cellForRow(at: indexPath) as? NoteTableViewCell {
+//                configureCell(cell, at: indexPath)
+//            }
+//        case .move:
+//            print("IndexPath \(String(describing: indexPath)) newIndexPath \(String(describing: newIndexPath))")
+//            if let indexPath = indexPath, let sectionCount = controller.sections?.count {
+//                if indexPath.section < sectionCount, let oldSection = controller.sections?[indexPath.section] {
+//                    let oldSectionName = oldSection.name
+//                    if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == oldSectionName }) {
+//                        if !collapsedInfo.collapsed {
+//                            tableView.deleteRows(at: [indexPath], with: .fade)
+//                        }
+//                    }
+//                }
+//            }
+//            if let newIndexPath = newIndexPath {
+//                if let collapsedInfo = sectionCollapsedInfo.first(where: { $0.title == sectionName }) {
+//                    if !collapsedInfo.collapsed {
+//                        tableView.insertRows(at: [newIndexPath], with: .fade)
+//                    }
+//                }
+//            }
+//        @unknown default:
+//            fatalError()
+//        }
+//    }
+//
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+//        switch type {
+//        case .insert:
+//            print("Inserting section at index \(sectionIndex)")
+//            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+//            sectionCollapsedInfo.append(ExpandableSection(title: sectionInfo.name, collapsed: false))
+//        case .delete:
+//            print("Deleting section at index \(sectionIndex)")
+//            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+//            sectionCollapsedInfo = sectionCollapsedInfo.filter({ $0.title != sectionInfo.name })
+//            numberOfObjectsInCurrentSection = 0
+//        default:
+//            return
+//        }
+//    }
+//
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        tableView.endUpdates()
+//        updateSectionExpandedInfo()
+//        print("Ending update")
+//    }
+//
+//}
 
 extension NotesTableViewController: UIActionSheetDelegate {
     
@@ -820,12 +806,13 @@ extension NotesTableViewController: UITableViewDropDelegate {
 
 extension NotesTableViewController: CollapsibleTableViewHeaderViewDelegate {
     func toggleSection(_ header: CollapsibleTableViewHeaderView, sectionTitle: String, sectionIndex: Int) {
+        var sectionCollapsedInfo = manager.disclosureSections
         if  let info = sectionCollapsedInfo.first(where: { $0.title == sectionTitle }),
             let index = sectionCollapsedInfo.firstIndex(where: { $0.title == sectionTitle }) {
             let collapsed = info.collapsed
             sectionCollapsedInfo.remove(at: index)
-            sectionCollapsedInfo.insert(ExpandableSection(title: info.title, collapsed: !collapsed), at: index)
-            KeychainHelper.sectionExpandedInfo = sectionCollapsedInfo
+            sectionCollapsedInfo.insert(DisclosureSection(title: info.title, collapsed: !collapsed), at: index)
+            manager.disclosureSections = sectionCollapsedInfo
             header.collapsed = !collapsed
             self.tableView.reloadSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
         }
@@ -840,23 +827,6 @@ extension Array where Element: Equatable {
             }
         }
     }
-}
-
-extension NSFetchedResultsController {
-    
-    @objc func validate(indexPath: IndexPath) -> Bool {
-        if let sections = self.sections {
-            if indexPath.section >= sections.count {
-                return false
-            }
-            
-            if indexPath.row >= sections[indexPath.section].numberOfObjects {
-                return false
-            }
-        }
-        return true
-    }
-    
 }
 
 private extension NSPredicate {

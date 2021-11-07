@@ -94,13 +94,13 @@ struct KeychainHelper {
         }
     }
 
-    static var sectionExpandedInfo: ExpandableSectionType {
+    static var sectionExpandedInfo: DisclosureSections {
         get {
             if let data = UserDefaults.standard.value(forKey: "Sections") as? Data,
-                let result = try? JSONDecoder().decode(ExpandableSectionType.self, from: data) {
+                let result = try? JSONDecoder().decode(DisclosureSections.self, from: data) {
                 return result
             }
-            return ExpandableSectionType()
+            return DisclosureSections()
         }
         set {
             if let data = try? JSONEncoder().encode(newValue) {
