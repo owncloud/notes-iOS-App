@@ -93,11 +93,11 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
     }
 
     var fetchedObjectsCount: Int {
-        return self.sections.reduce(0, {$0 + $1.items.count})
+        return sections.reduce(0, {$0 + $1.items.count})
     }
     
     var first: NSFetchRequestResult? {
-        return self.sections.first?.items.first
+        return sections.first?.items.first
     }
 
     var fetchedObjects: [NSFetchRequestResult] {
@@ -111,11 +111,11 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
     }
 
     func itemCount(in section: Int) -> Int {
-        return self.sections[section].items.count
+        return sections[section].items.count
     }
 
     func object(at indexPath: IndexPath) -> NSFetchRequestResult {
-        return self.sections[indexPath.section].items[indexPath.row]
+        return sections[indexPath.section].items[indexPath.row]
     }
 
     public init(fetchRequest: NSFetchRequest<ResultType>, managedObjectContext context: NSManagedObjectContext, sectionNameKeyPath: String?, delegate: FRCManagerDelegate?) {
@@ -125,27 +125,27 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         fetchedResultsController.delegate = self
         self.delegate = delegate
         do {
-            try self.fetchedResultsController.performFetch()
+            try fetchedResultsController.performFetch()
         } catch {
             print("Failed to fetch in fetchedResultsControllerManager from core data:\(error)")
         }
-        self.sections = self.fetchedResultsController.sections?.compactMap({ $0.objects as? [NSFetchRequestResult]}).compactMap { FRCSection($0) } ?? []
+        sections = fetchedResultsController.sections?.compactMap({ $0.objects as? [NSFetchRequestResult]}).compactMap { FRCSection($0) } ?? []
     }
 
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.currentFRCChange = FRCChange()
+        currentFRCChange = FRCChange()
     }
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
-            self.currentFRCChange?.insertedSections.insert(sectionIndex)
+            currentFRCChange?.insertedSections.insert(sectionIndex)
             var tempDisclosureSections = disclosureSections
             tempDisclosureSections.append(DisclosureSection(title: sectionInfo.name, collapsed: false))
             disclosureSections = tempDisclosureSections
 
         case .delete:
-            self.currentFRCChange?.deletedSections.insert(sectionIndex)
+            currentFRCChange?.deletedSections.insert(sectionIndex)
             let tempDisclosureSections = disclosureSections
             disclosureSections = tempDisclosureSections.filter({ $0.title != sectionInfo.name })
 
@@ -165,7 +165,7 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
                 if let i = newIndexPath {
                     if let collapsedInfo = disclosureSections.first(where: { $0.title == sectionName }) {
                         if !collapsedInfo.collapsed {
-                            self.currentFRCChange?.insertedElements.append(IndexNote(index: i, note: note))
+                            currentFRCChange?.insertedElements.append(IndexNote(index: i, note: note))
                         }
                     }
                 }
@@ -185,7 +185,7 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
                 }
 
             case .update:
-                if let i = indexPath {
+                if let i = newIndexPath {
                     currentFRCChange?.updatedElements.append(IndexNote(index: i, note: note))
                 }
 
@@ -215,7 +215,7 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
     }
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        guard let change = self.currentFRCChange else {
+        guard let change = currentFRCChange else {
             return
         }
         change.insertedElements.sort { $0.index < $1.index }
@@ -228,7 +228,7 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         let updateOnlyChange = FRCChange()
         updateOnlyChange.updatedElements = change.updatedElements
         if !updateOnlyChange.updatedElements.isEmpty {
-            self.delegate?.managerDidChangeContent(self, change:updateOnlyChange)
+            delegate?.managerDidChangeContent(self, change:updateOnlyChange)
         }
 
         change.deletedElements.forEach { indexNote in
@@ -245,17 +245,17 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         }
         change.updatedElements = []
         if !change.deletedRows.isEmpty || !change.deletedSections.isEmpty || !change.insertedSections.isEmpty || !change.insertedElements.isEmpty {
-            self.delegate?.managerDidChangeContent(self, change: change)
+            delegate?.managerDidChangeContent(self, change: change)
         }
 
-        self.currentFRCChange = nil
+        currentFRCChange = nil
     }
 }
 
 extension NSFetchedResultsController {
 
     @objc func validate(indexPath: IndexPath) -> Bool {
-        if let sections = self.sections {
+        if let sections = sections {
             if indexPath.section >= sections.count {
                 return false
             }
