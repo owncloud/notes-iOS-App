@@ -1414,7 +1414,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2864;
+				CURRENT_PROJECT_VERSION = 2865;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1426,7 +1426,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.5.0;
+				MARKETING_VERSION = 3.6.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.peterandlinda.iOCNotes.ActExtension;
@@ -1452,7 +1452,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2864;
+				CURRENT_PROJECT_VERSION = 2865;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1464,7 +1464,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.5.0;
+				MARKETING_VERSION = 3.6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.peterandlinda.iOCNotes.ActExtension;
@@ -1589,7 +1589,7 @@
 				CODE_SIGN_ENTITLEMENTS = iOCNotes/iOCNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2864;
+				CURRENT_PROJECT_VERSION = 2865;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1603,7 +1603,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.5.0;
+				MARKETING_VERSION = 3.6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${TARGET_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1625,7 +1625,7 @@
 				CODE_SIGN_ENTITLEMENTS = iOCNotes/iOCNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2864;
+				CURRENT_PROJECT_VERSION = 2865;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1639,7 +1639,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.5.0;
+				MARKETING_VERSION = 3.6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${TARGET_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
