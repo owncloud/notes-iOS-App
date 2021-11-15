@@ -93,6 +93,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UILabel.appearance(whenContainedInInstancesOf: [UITextField.self]).themeColor = .ph_readTextColor
 
         UITextField.appearance().textColor = .ph_textColor
+
+        UITextView.appearance().tintColor = .ph_selectedTextColor
         #endif
         
         if let splitViewController = self.window?.rootViewController as? UISplitViewController {
