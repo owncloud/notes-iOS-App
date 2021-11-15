@@ -221,6 +221,10 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         change.insertedElements.sort { $0.index < $1.index }
         change.deletedElements.sort { $0.index > $1.index }
 
+        for element in change.updatedElements {
+            sections[element.index.section].items[element.index.row] = element.note
+        }
+
         change.updatedElements.forEach { indexNote in
             sections[indexNote.index.section].items[indexNote.index.row] = indexNote.note
         }
@@ -237,13 +241,13 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         change.deletedSections.reversed().forEach { index in
             sections.remove(at: index)
         }
-        change.insertedSections.forEach { (index) in
-            sections.insert(FRCSection([]), at: index)
+        change.insertedSections.forEach { index in
+            sections.insert(FRCSection([NSFetchRequestResult]()), at: index)
         }
         change.insertedElements.forEach { indexNote in
             sections[indexNote.index.section].items.insert(indexNote.note, at: indexNote.index.row)
         }
-        change.updatedElements = []
+        change.updatedElements = [IndexNote]()
         if !change.deletedRows.isEmpty || !change.deletedSections.isEmpty || !change.insertedSections.isEmpty || !change.insertedElements.isEmpty {
             delegate?.managerDidChangeContent(self, change: change)
         }
