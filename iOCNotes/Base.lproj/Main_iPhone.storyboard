@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Hnc-wc-q9I">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Hnc-wc-q9I">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -149,7 +149,7 @@
                         <action selector="onAdd:" destination="vXZ-lx-hvc" id="vjE-6L-EfD"/>
                     </connections>
                 </barButtonItem>
-                <barButtonItem image="preview" id="3f2-rn-lgQ" userLabel="Preview">
+                <barButtonItem image="doc.text.magnifyingglass" catalog="system" id="3f2-rn-lgQ" userLabel="Preview">
                     <color key="tintColor" name="PHWhiteIcon"/>
                     <connections>
                         <segue destination="7xC-ZL-ULJ" kind="show" identifier="showPreview" id="2yM-1x-su8"/>
@@ -246,8 +246,8 @@
         <segue reference="2gj-xK-JEy"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="doc.text.magnifyingglass" catalog="system" width="107" height="128"/>
         <image name="gear" width="24" height="44"/>
-        <image name="preview" width="24" height="44"/>
         <namedColor name="PHWhiteBackground">
             <color red="0.97000002861022949" green="0.97000002861022949" blue="0.97000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
