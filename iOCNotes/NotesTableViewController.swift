@@ -503,6 +503,10 @@ class NotesTableViewController: UITableViewController {
         
     }
     
+    @IBAction func onPullToRefresh(_ sender: Any) {
+        onRefresh(sender: sender)
+    }
+
     @IBAction func onRefresh(sender: Any?) {
         guard NoteSessionManager.isOnline else {
             return
@@ -518,6 +522,7 @@ class NotesTableViewController: UITableViewController {
             self?.settingsBarButton.isEnabled = true
             self?.refreshBarButton.isEnabled = NoteSessionManager.isOnline
             self?.tableView.reloadData()
+            self?.refreshControl?.endRefreshing()
         }
     }
 
