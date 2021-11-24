@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Hnc-wc-q9I">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Hnc-wc-q9I">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -80,6 +80,12 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="KYs-2X-3jY">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="onPullToRefresh:" destination="DXe-Iw-CcD" eventType="valueChanged" id="jv8-Ub-JzR"/>
+                        </connections>
+                    </refreshControl>
                     <connections>
                         <outlet property="addBarButton" destination="MOs-yv-oce" id="KfS-dy-ASJ"/>
                         <outlet property="refreshBarButton" destination="Vq9-nq-q23" id="MIf-rO-5SM"/>
@@ -243,7 +249,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="2gj-xK-JEy"/>
+        <segue reference="RCf-VZ-GG6"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gear" width="24" height="44"/>
