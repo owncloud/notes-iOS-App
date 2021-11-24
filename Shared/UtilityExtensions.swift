@@ -63,6 +63,7 @@ extension UIColor {
     static let ph_popoverBorderColor = UIColor(named: "PHWhitePopoverBorder")!
 //    static let ph_popoverIconColor = UIColor(named: "PHWhitePopoverIcon")!
     static let ph_switchTintColor = UIColor(named: "PHWhitePopoverBorder")!
+    static let ph_selectedTextColor = UIColor(named: "PHSelectedText")!
 
 }
 
