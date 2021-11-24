@@ -36,6 +36,7 @@ class NotesTableViewController: UITableViewController {
     private var isAddingFromButton = false
 
     private var contextMenuIndexPath: IndexPath?
+    private var noteExporter: PBHNoteExporter?
     
     private var dateFormat: DateFormatter {
         let df = DateFormatter()
@@ -487,8 +488,8 @@ class NotesTableViewController: UITableViewController {
                 !note.content.isEmpty else {
                     return
             }
-            let noteExporter = PBHNoteExporter(title: note.title, text: note.content, viewController: self, from: CGRect(origin: point, size: CGSize(width: 3, height: 3)), in: tableView)
-            noteExporter.showMenu()
+            self.noteExporter = PBHNoteExporter(title: note.title, text: note.content, viewController: self, from: CGRect(origin: point, size: CGSize(width: 3, height: 3)), in: tableView)
+            self.noteExporter?.showMenu()
         }
         actions.append(shareAction)
 
