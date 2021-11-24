@@ -65,6 +65,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         window?.tintColor = .ph_iconColor
 
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
         UINavigationBar.appearance().barTintColor = .ph_popoverButtonColor
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().tintColor = .ph_iconColor
