@@ -221,10 +221,6 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         change.insertedElements.sort { $0.index < $1.index }
         change.deletedElements.sort { $0.index > $1.index }
 
-        for element in change.updatedElements {
-            sections[element.index.section].items[element.index.row] = element.note
-        }
-
         change.updatedElements.forEach { indexNote in
             sections[indexNote.index.section].items[indexNote.index.row] = indexNote.note
         }
