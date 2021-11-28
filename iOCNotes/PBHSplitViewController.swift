@@ -55,6 +55,10 @@ extension PBHSplitViewController: UISplitViewControllerDelegate {
             traitCollection.userInterfaceIdiom == .pad {
             if displayMode == .allVisible {
                 editorViewController?.noteView.updateInsets(size: 50)
+                DispatchQueue.main.async { [weak self] in
+                    self?.editorViewController?.noteView.isScrollEnabled = false
+                    self?.editorViewController?.noteView.isScrollEnabled = true
+                }
             } else {
                 if (UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height) {
                     editorViewController?.noteView.updateInsets(size: 178)

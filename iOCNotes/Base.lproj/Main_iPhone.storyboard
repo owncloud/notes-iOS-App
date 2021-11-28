@@ -155,7 +155,7 @@
                         <action selector="onAdd:" destination="vXZ-lx-hvc" id="vjE-6L-EfD"/>
                     </connections>
                 </barButtonItem>
-                <barButtonItem image="preview" id="3f2-rn-lgQ" userLabel="Preview">
+                <barButtonItem image="doc.text.magnifyingglass" catalog="system" id="3f2-rn-lgQ" userLabel="Preview">
                     <color key="tintColor" name="PHWhiteIcon"/>
                     <connections>
                         <segue destination="7xC-ZL-ULJ" kind="show" identifier="showPreview" id="2yM-1x-su8"/>
@@ -252,8 +252,8 @@
         <segue reference="RCf-VZ-GG6"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="doc.text.magnifyingglass" catalog="system" width="107" height="128"/>
         <image name="gear" width="24" height="44"/>
-        <image name="preview" width="24" height="44"/>
         <namedColor name="PHWhiteBackground">
             <color red="0.97000002861022949" green="0.97000002861022949" blue="0.97000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
