@@ -225,12 +225,6 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
             sections[indexNote.index.section].items[indexNote.index.row] = indexNote.note
         }
 
-        let updateOnlyChange = FRCChange()
-        updateOnlyChange.updatedElements = change.updatedElements
-        if !updateOnlyChange.updatedElements.isEmpty {
-            delegate?.managerDidChangeContent(self, change:updateOnlyChange)
-        }
-
         change.deletedElements.forEach { indexNote in
             sections[indexNote.index.section].items.remove(at: indexNote.index.row)
         }
@@ -243,8 +237,8 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
         change.insertedElements.forEach { indexNote in
             sections[indexNote.index.section].items.insert(indexNote.note, at: indexNote.index.row)
         }
-        change.updatedElements = [IndexNote]()
-        if !change.deletedRows.isEmpty || !change.deletedSections.isEmpty || !change.insertedSections.isEmpty || !change.insertedElements.isEmpty {
+
+        if !change.updatedRows.isEmpty || !change.deletedRows.isEmpty || !change.deletedSections.isEmpty || !change.insertedSections.isEmpty || !change.insertedElements.isEmpty {
             delegate?.managerDidChangeContent(self, change: change)
         }
 
