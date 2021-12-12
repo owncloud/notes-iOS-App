@@ -73,6 +73,7 @@
 		D07F5E892207B2CF00528E90 /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E882207B2CF00528E90 /* NotesData.swift */; };
 		D07F5E8E2207B6FF00528E90 /* NoteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F5E8D2207B6FF00528E90 /* NoteRouter.swift */; };
 		D08713ED1D18DA40001EAF82 /* PBHHeaderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08713EC1D18DA40001EAF82 /* PBHHeaderTextView.swift */; };
+		D08BFBDD2765835A00550B73 /* KSCrash in Frameworks */ = {isa = PBXBuildFile; productRef = D08BFBDC2765835A00550B73 /* KSCrash */; };
 		D095384A1D3313F8006BB78E /* PBHPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09538421D32A56A006BB78E /* PBHPreviewController.swift */; };
 		D095AE45245BB25F00A7EF62 /* NoteSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01067DD220BCE3C0047E090 /* NoteSessionManager.swift */; };
 		D09DB859241F0CD2001E0E08 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D09DB858241F0CD1001E0E08 /* Credits.html */; };
@@ -93,7 +94,6 @@
 		D0BCFE6A2454BF40007C4CA3 /* Categories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0BCFE6C2454BF40007C4CA3 /* Categories.storyboard */; };
 		D0C1C39F2462448D00AAC4A8 /* SyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1C39E2462448D00AAC4A8 /* SyncOperation.swift */; };
 		D0C876DF248F18700052EA63 /* Version in Frameworks */ = {isa = PBXBuildFile; productRef = D0C876DE248F18700052EA63 /* Version */; };
-		D0CAFF012533E76100C47FA0 /* KSCrash in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFF002533E76100C47FA0 /* KSCrash */; };
 		D0CAFF092533E7FB00C47FA0 /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFF082533E7FB00C47FA0 /* SwiftMessages */; };
 		D0CAFF162533E89900C47FA0 /* PKHUD in Frameworks */ = {isa = PBXBuildFile; productRef = D0CAFF152533E89900C47FA0 /* PKHUD */; };
 		D0CFE5371888A7BD00165839 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFE5361888A7BD00165839 /* Foundation.framework */; };
@@ -346,7 +346,7 @@
 			files = (
 				D0C876DF248F18700052EA63 /* Version in Frameworks */,
 				D03E93DB272DF83A0066BC8F /* Down in Frameworks */,
-				D0CAFF012533E76100C47FA0 /* KSCrash in Frameworks */,
+				D08BFBDD2765835A00550B73 /* KSCrash in Frameworks */,
 				D0595C7C238632610004C4E8 /* KeychainAccess in Frameworks */,
 				D06CDA60238F6EC300CF90B0 /* Alamofire in Frameworks */,
 				D017D4241D3B03BE00B21443 /* WebKit.framework in Frameworks */,
@@ -705,11 +705,11 @@
 				D0595C7B238632610004C4E8 /* KeychainAccess */,
 				D06CDA5F238F6EC300CF90B0 /* Alamofire */,
 				D0C876DE248F18700052EA63 /* Version */,
-				D0CAFF002533E76100C47FA0 /* KSCrash */,
 				D0CAFF082533E7FB00C47FA0 /* SwiftMessages */,
 				D0CAFF152533E89900C47FA0 /* PKHUD */,
 				D0B684B02533F3C700312D27 /* Notepad */,
 				D03E93DA272DF83A0066BC8F /* Down */,
+				D08BFBDC2765835A00550B73 /* KSCrash */,
 			);
 			productName = iOCNotes;
 			productReference = D0CFE5331888A7BD00165839 /* CloudNotes.app */;
@@ -783,11 +783,11 @@
 				D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				D06CDA5E238F6EC300CF90B0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */,
-				D0CAFEFF2533E76100C47FA0 /* XCRemoteSwiftPackageReference "KSCrash" */,
 				D0CAFF072533E7FB00C47FA0 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 				D0CAFF142533E89900C47FA0 /* XCRemoteSwiftPackageReference "PKHUD" */,
 				D0B684AF2533F3C700312D27 /* XCRemoteSwiftPackageReference "Notepad" */,
 				D03E93D9272DF83A0066BC8F /* XCRemoteSwiftPackageReference "Down" */,
+				D08BFBDB2765835A00550B73 /* XCRemoteSwiftPackageReference "KSCrash" */,
 			);
 			productRefGroup = D0CFE5341888A7BD00165839 /* Products */;
 			projectDirPath = "";
@@ -1418,7 +1418,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2867;
+				CURRENT_PROJECT_VERSION = 2870;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1430,7 +1430,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.7.1;
+				MARKETING_VERSION = 3.7.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.peterandlinda.iOCNotes.ActExtension;
@@ -1456,7 +1456,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2867;
+				CURRENT_PROJECT_VERSION = 2870;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1468,7 +1468,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.7.1;
+				MARKETING_VERSION = 3.7.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.peterandlinda.iOCNotes.ActExtension;
@@ -1593,7 +1593,7 @@
 				CODE_SIGN_ENTITLEMENTS = iOCNotes/iOCNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2867;
+				CURRENT_PROJECT_VERSION = 2870;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1607,7 +1607,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.7.1;
+				MARKETING_VERSION = 3.7.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${TARGET_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1629,7 +1629,7 @@
 				CODE_SIGN_ENTITLEMENTS = iOCNotes/iOCNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2867;
+				CURRENT_PROJECT_VERSION = 2870;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 73AQJ77PZ5;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1643,7 +1643,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.7.1;
+				MARKETING_VERSION = 3.7.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.peterandlinda.${TARGET_NAME:rfc1034identifier}";
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1806,6 +1806,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		D08BFBDB2765835A00550B73 /* XCRemoteSwiftPackageReference "KSCrash" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/phedlund/KSCrash";
+			requirement = {
+				branch = arm64e_fix;
+				kind = branch;
+			};
+		};
 		D0B684AF2533F3C700312D27 /* XCRemoteSwiftPackageReference "Notepad" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/phedlund/Notepad/";
@@ -1820,14 +1828,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.8.0;
-			};
-		};
-		D0CAFEFF2533E76100C47FA0 /* XCRemoteSwiftPackageReference "KSCrash" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kstenerud/KSCrash";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.15.25;
 			};
 		};
 		D0CAFF072533E7FB00C47FA0 /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
@@ -1874,6 +1874,11 @@
 			package = D0595C7A238632610004C4E8 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
 		};
+		D08BFBDC2765835A00550B73 /* KSCrash */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D08BFBDB2765835A00550B73 /* XCRemoteSwiftPackageReference "KSCrash" */;
+			productName = KSCrash;
+		};
 		D0B684B02533F3C700312D27 /* Notepad */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D0B684AF2533F3C700312D27 /* XCRemoteSwiftPackageReference "Notepad" */;
@@ -1883,11 +1888,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D0C876DD248F18700052EA63 /* XCRemoteSwiftPackageReference "Version" */;
 			productName = Version;
-		};
-		D0CAFF002533E76100C47FA0 /* KSCrash */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D0CAFEFF2533E76100C47FA0 /* XCRemoteSwiftPackageReference "KSCrash" */;
-			productName = KSCrash;
 		};
 		D0CAFF082533E7FB00C47FA0 /* SwiftMessages */ = {
 			isa = XCSwiftPackageProductDependency;

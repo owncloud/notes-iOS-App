@@ -63,14 +63,13 @@ class FRCChange: NotesFRCManagerChange {
     var updatedElements = [IndexNote]()
 
     func applyChanges(tableView: UITableView, animation: UITableView.RowAnimation?) {
-        tableView.beginUpdates()
-        tableView.deleteRows(at: deletedRows, with: animation ?? .fade)
-        tableView.deleteSections(deletedSections, with: animation ?? .fade)
-        tableView.insertSections(insertedSections, with: animation ?? .fade)
-        tableView.insertRows(at: insertedRows, with: animation ?? .fade)
-        tableView.endUpdates()
-
-        tableView.reloadRows(at: updatedRows, with: animation ?? .fade)
+        tableView.performBatchUpdates {
+            tableView.deleteRows(at: deletedRows, with: animation ?? .fade)
+            tableView.deleteSections(deletedSections, with: animation ?? .fade)
+            tableView.insertSections(insertedSections, with: animation ?? .fade)
+            tableView.insertRows(at: insertedRows, with: animation ?? .fade)
+            tableView.reloadRows(at: updatedRows, with: animation ?? .fade)
+        } completion: { _ in }
     }
 
 }
@@ -185,7 +184,7 @@ class FRCManager<ResultType>: NSObject, NSFetchedResultsControllerDelegate where
                 }
 
             case .update:
-                if let i = newIndexPath {
+                if let i = indexPath {
                     currentFRCChange?.updatedElements.append(IndexNote(index: i, note: note))
                 }
 
